@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X } from 'lucide-react';
+import { Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X, Users, GraduationCap, LayoutDashboard, Building2 } from 'lucide-react';
 
 const ICON_BUTTON = 'h-10 w-10 grid place-items-center rounded-xl text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400';
 
 const NAV = [
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/students', label: 'Students', icon: Users },
+  { to: '/classes', label: 'Classes', icon: GraduationCap },
   { to: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { to: '/fees', label: 'Fees', icon: Wallet },
   { to: '/leads', label: 'Leads', icon: Inbox },
-  { to: '/', label: 'Test generator', icon: FileText, end: true },
+  { to: '/tests', label: 'Test generator', icon: FileText },
 ];
 
 const itemClass = (isActive) => `flex items-center gap-3 h-11 px-3 rounded-xl text-sm font-medium transition-colors ${
@@ -37,6 +40,10 @@ function SideNav({ onSignOut, onNavigate }) {
         ))}
       </nav>
       <div className="p-3 space-y-1 border-t border-slate-200">
+        <NavLink to="/profile" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
+          <Building2 className="w-[18px] h-[18px] shrink-0" />
+          Institute Profile
+        </NavLink>
         <NavLink to="/settings" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
           <Settings className="w-[18px] h-[18px] shrink-0" />
           Settings

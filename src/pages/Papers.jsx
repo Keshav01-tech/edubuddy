@@ -54,7 +54,7 @@ export default function Papers() {
         width="max-w-3xl"
         leading={(
           <Link
-            to="/"
+            to="/tests"
             className="h-10 w-10 -ml-2 grid place-items-center rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100"
             aria-label="Back to new test"
           >
@@ -74,7 +74,7 @@ export default function Papers() {
             </p>
           </div>
           <Link
-            to="/"
+            to="/tests"
             className="h-10 px-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold"
           >
             <Plus className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function Papers() {
             <FileText className="w-8 h-8 mx-auto text-slate-300" />
             <p className="mt-3 text-[15px] font-medium text-slate-900">No tests yet</p>
             <p className="mt-1 text-sm text-slate-500">Your first test will appear here.</p>
-            <Link to="/" className="mt-4 inline-flex h-10 px-4 items-center rounded-lg bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800">
+            <Link to="/tests" className="mt-4 inline-flex h-10 px-4 items-center rounded-lg bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800">
               Make a test
             </Link>
           </div>

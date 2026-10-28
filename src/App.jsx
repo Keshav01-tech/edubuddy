@@ -4,11 +4,15 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { StudyProvider } from './context/StudyContext';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import TestGenerator from './pages/TestGenerator';
 import TestPage from './pages/TestPage';
 import Papers from './pages/Papers';
 import Attendance from './pages/Attendance';
+import Students from './pages/Students';
+import Classes from './pages/Classes';
 import Fees from './pages/Fees';
 import SettingsPage from './pages/Settings';
+import Profile from './pages/Profile';
 import Leads from './pages/Leads';
 import { Spinner } from './components/Spinner';
 
@@ -31,10 +35,15 @@ export default function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/tests" element={<ProtectedRoute><TestGenerator /></ProtectedRoute>} />
             <Route path="/papers" element={<ProtectedRoute><Papers /></ProtectedRoute>} />
             <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
+            <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
+            <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
             <Route path="/fees" element={<ProtectedRoute><Fees /></ProtectedRoute>} />
             <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
             <Route path="/test" element={<ProtectedRoute><TestPage /></ProtectedRoute>} />
             {/* Legacy redirect */}

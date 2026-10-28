@@ -225,7 +225,7 @@ export default function TestPage() {
   const [form, setForm] = useState('questions');
 
   useEffect(() => {
-    if (!id) { navigate('/'); return; }
+    if (!id) { navigate('/tests'); return; }
     const sess = sessions.find((item) => item.id === id);
     if (sess) selectSession(sess);
   }, [id, sessions, navigate, selectSession]);
@@ -258,7 +258,7 @@ export default function TestPage() {
           leading={(
             <button
               type="button"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/tests')}
               className="p-2 -ml-2 rounded-lg text-stone-400 hover:text-stone-800 hover:bg-stone-100 transition-colors"
               aria-label="Back"
             >

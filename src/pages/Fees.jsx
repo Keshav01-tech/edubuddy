@@ -70,21 +70,33 @@ function PaymentForm({ student, due, onSave }) {
   );
 }
 
-function ReceiptView({ payment, student, school, paidTotal }) {
+function ReceiptView({ payment, student, institute, school, paidTotal }) {
+  const inst = institute || {};
+  const name = inst.name || school || 'Fee Receipt';
   const due = Math.max(0, (student?.fee || 0) - paidTotal);
+  const fullAddress = [inst.address, inst.city, inst.state && `${inst.state} ${inst.pincode}`]
+    .filter(Boolean)
+    .join(', ');
+
   return (
     <div className="px-5 pb-5">
-      <div className="receipt-print rounded-xl ring-1 ring-slate-200 p-5 text-slate-900">
+      <div className="receipt-print rounded-xl ring-1 ring-slate-200 p-5 text-slate-900 bg-white">
         <div className="text-center border-b border-dashed border-slate-300 pb-3">
-          <p className="text-lg font-bold">{school || 'Fee Receipt'}</p>
-          {school && <p className="text-xs uppercase tracking-widest text-slate-500 mt-0.5">Fee receipt</p>}
+          {inst.logo && (
+            <img src={inst.logo} alt="Logo" className="h-12 w-auto mx-auto object-contain mb-1.5" />
+          )}
+          <p className="text-lg font-bold tracking-tight">{name}</p>
+          {inst.tagline && <p className="text-xs text-slate-500 italic mt-0.5">{inst.tagline}</p>}
+          {fullAddress && <p className="text-[11px] text-slate-500 mt-0.5">{fullAddress}</p>}
+          {inst.phone && <p className="text-[11px] text-slate-500">Phone: {inst.phone}</p>}
+          <p className="text-[11px] uppercase tracking-widest text-slate-400 font-semibold mt-1">Fee Receipt</p>
         </div>
         <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
           <dt className="text-slate-500">Receipt no.</dt><dd className="text-right font-medium">{payment.receiptNo}</dd>
           <dt className="text-slate-500">Date</dt><dd className="text-right">{formatDate(payment.date)}</dd>
           <dt className="text-slate-500">Student</dt><dd className="text-right font-medium">{student?.name || 'Deleted student'}</dd>
-          {student?.roll && (<><dt className="text-slate-500">Roll no.</dt><dd className="text-right">{student.roll}</dd></>)}
           {student?.className && (<><dt className="text-slate-500">Class</dt><dd className="text-right">{student.className}</dd></>)}
+          {student?.section && (<><dt className="text-slate-500">Batch</dt><dd className="text-right">{student.section}</dd></>)}
           <dt className="text-slate-500">Paid by</dt><dd className="text-right">{payment.mode}</dd>
           {payment.note && (<><dt className="text-slate-500">For</dt><dd className="text-right">{payment.note}</dd></>)}
         </dl>
@@ -98,10 +110,12 @@ function ReceiptView({ payment, student, school, paidTotal }) {
           </p>
         )}
         <div className="mt-8 flex justify-end">
-          <p className="w-40 border-t border-slate-300 pt-1 text-center text-xs text-slate-500">Signature</p>
+          <p className="w-44 border-t border-slate-300 pt-1 text-center text-xs text-slate-500">
+            {inst.principalName ? `Authorized Signatory\n(${inst.principalName})` : 'Authorized Signatory'}
+          </p>
         </div>
       </div>
-      <button type="button" onClick={() => window.print()} className="no-print mt-4 w-full h-12 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold inline-flex items-center justify-center gap-2">
+      <button type="button" onClick={() => window.print()} className="no-print mt-4 w-full h-12 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold inline-flex items-center justify-center gap-2 shadow-sm">
         <Printer className="w-4 h-4" /> Print or save PDF
       </button>
     </div>
@@ -150,7 +164,7 @@ export default function Fees() {
             <Wallet className="w-8 h-8 mx-auto text-slate-300" />
             <p className="mt-3 font-medium text-slate-900">No students yet</p>
             <p className="mt-1 text-sm text-slate-500">Add students with their total fee first.</p>
-            <button type="button" onClick={() => navigate('/attendance', { state: { tab: 'students' } })} className="mt-4 h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700">
+            <button type="button" onClick={() => navigate('/students')} className="mt-4 h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700">
               Add students
             </button>
           </div>
@@ -278,6 +292,7 @@ export default function Fees() {
           <ReceiptView
             payment={receipt}
             student={studentOf(receipt.studentId)}
+            institute={room.institute}
             school={room.school}
             paidTotal={paidUpTo(receipt)}
           />

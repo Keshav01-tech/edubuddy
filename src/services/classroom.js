@@ -2,7 +2,31 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 // Students, attendance and fee payments are stored per teacher in this browser.
-const EMPTY = { students: [], attendance: {}, payments: [], school: '', nextReceipt: 1, classes: [], leads: [] };
+export const EMPTY_INSTITUTE = {
+  name: '',
+  tagline: '',
+  address: '',
+  city: '',
+  state: '',
+  pincode: '',
+  phone: '',
+  email: '',
+  website: '',
+  logo: '',
+  principalName: '',
+  receiptPrefix: 'REC',
+};
+
+const EMPTY = {
+  students: [],
+  attendance: {},
+  payments: [],
+  school: '',
+  institute: EMPTY_INSTITUTE,
+  nextReceipt: 1,
+  classes: [],
+  leads: [],
+};
 
 const keyFor = (userId) => `edu_classroom_${userId || 'guest'}`;
 
@@ -44,14 +68,21 @@ export function useClassroom() {
 
   const students = [...data.students].sort((a, b) =>
     (a.className || '').localeCompare(b.className || '', undefined, { numeric: true })
-    || (Number(a.roll) || 0) - (Number(b.roll) || 0)
+    || (a.section || '').localeCompare(b.section || '', undefined, { numeric: true })
     || a.name.localeCompare(b.name));
+
+  const institute = {
+    ...EMPTY_INSTITUTE,
+    ...(data.institute || {}),
+    name: data.institute?.name || data.school || '',
+  };
 
   return {
     students,
     attendance: data.attendance,
     payments: data.payments,
-    school: data.school,
+    school: institute.name || data.school || '',
+    institute,
     classes: [...(data.classes || [])].sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true })),
 
     addClass: (name) => {
@@ -61,6 +92,18 @@ export function useClassroom() {
         const classes = d.classes || [];
         if (classes.some((item) => item.name.toLowerCase() === clean.toLowerCase())) return {};
         return { classes: [...classes, { id: newId(), name: clean, sections: [] }] };
+      });
+    },
+    updateClass: (id, newName) => {
+      const clean = String(newName || '').trim();
+      if (!clean) return;
+      update((d) => {
+        const target = (d.classes || []).find((c) => c.id === id);
+        if (!target) return {};
+        const oldName = target.name;
+        const classes = (d.classes || []).map((c) => (c.id === id ? { ...c, name: clean } : c));
+        const students = (d.students || []).map((s) => (s.className === oldName ? { ...s, className: clean } : s));
+        return { classes, students };
       });
     },
     removeClass: (id) => update((d) => ({ classes: (d.classes || []).filter((item) => item.id !== id) })),
@@ -74,6 +117,28 @@ export function useClassroom() {
           return { ...item, sections: [...(item.sections || []), clean] };
         }),
       }));
+    },
+    renameSection: (classId, oldSection, newSection) => {
+      const clean = String(newSection || '').trim();
+      if (!clean || clean === oldSection) return;
+      update((d) => {
+        const target = (d.classes || []).find((c) => c.id === classId);
+        const className = target?.name;
+        const classes = (d.classes || []).map((item) => {
+          if (item.id !== classId) return item;
+          return {
+            ...item,
+            sections: (item.sections || []).map((s) => (s === oldSection ? clean : s)),
+          };
+        });
+        const students = (d.students || []).map((s) => {
+          if (s.className === className && s.section === oldSection) {
+            return { ...s, section: clean };
+          }
+          return s;
+        });
+        return { classes, students };
+      });
     },
     removeSection: (classId, section) => update((d) => ({
       classes: (d.classes || []).map((item) => (
@@ -98,15 +163,24 @@ export function useClassroom() {
       };
     }),
 
-    markAttendance: (date, studentId, status) => update((d) => ({
-      attendance: { ...d.attendance, [date]: { ...(d.attendance[date] || {}), [studentId]: status } },
-    })),
-    markAll: (date, ids, status) => update((d) => ({
-      attendance: {
-        ...d.attendance,
-        [date]: { ...(d.attendance[date] || {}), ...Object.fromEntries(ids.map((id) => [id, status])) },
-      },
-    })),
+    markAttendance: (date, studentId, status) => update((d) => {
+      const current = { ...(d.attendance[date] || {}) };
+      if (!status) {
+        delete current[studentId];
+      } else {
+        current[studentId] = status;
+      }
+      return { attendance: { ...d.attendance, [date]: current } };
+    }),
+    markAll: (date, ids, status) => update((d) => {
+      const current = { ...(d.attendance[date] || {}) };
+      if (!status) {
+        ids.forEach((id) => delete current[id]);
+      } else {
+        ids.forEach((id) => { current[id] = status; });
+      }
+      return { attendance: { ...d.attendance, [date]: current } };
+    }),
 
     addPayment: (payment) => {
       const saved = { ...payment, id: newId(), receiptNo: `R-${String(data.nextReceipt).padStart(4, '0')}` };
@@ -114,7 +188,17 @@ export function useClassroom() {
       return saved;
     },
     deletePayment: (id) => update((d) => ({ payments: d.payments.filter((p) => p.id !== id) })),
-    setSchool: (school) => update(() => ({ school })),
+    setSchool: (school) => update((d) => ({
+      school,
+      institute: { ...(d.institute || EMPTY_INSTITUTE), name: school },
+    })),
+    updateInstitute: (patch) => update((d) => {
+      const next = { ...(d.institute || EMPTY_INSTITUTE), ...patch };
+      return {
+        institute: next,
+        school: next.name || d.school,
+      };
+    }),
 
     leads: [...(data.leads || [])].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || '')),
     addLead: (lead) => update((d) => ({
