@@ -1,0 +1,7 @@
+node_modules
+.git
+dist
+.env
+.env.*
+src/data/NCERT Books
+demo-video

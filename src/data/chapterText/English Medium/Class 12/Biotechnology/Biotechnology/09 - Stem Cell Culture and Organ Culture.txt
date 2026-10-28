@@ -1,0 +1,878 @@
+Stem cell study forms an exciting and attractive area of 
+contemporary biomedical research that has enormous 
+potential for both basic and translational research. Stem 
+cells can be used for alleviating suffering from many 
+diseases that currently have no effective therapy. The field 
+has progressed to the clinic and it is very important that 
+the basics of stem cells be reinforced by excellent science 
+and rigorous standards of clinical research. Besides this, 
+organ culture is another modern approach that involves 
+developing a part or the whole organ using tissue culture 
+techniques. In this chapter, we are going to study in detail 
+about stem cell culture and organ culture along with their 
+applications. 
+9.1 S tem C ell C ulture 
+Life forms are characterised by the ability to reproduce 
+itself. One of the key features of sexual reproduction is 
+the formation of zygote through the process of fertilisation 
+resulting from the fusion of the male gamete (sperm) and 
+female gamete (oocyte). Formation of embryo from the zygote 
+involves cell division resulting into the formation of two 
+9.1 Stem Cell Culture 
+9.2 Organ Culture 
+Stem Cell Culture and 
+Organ Culture 9 Chapter Reprint 2025-26
+
+Biotechnology XII 210 
+celled, four celled, eight celled organism so on. Ultimately, 
+these daughter cells differentiate into a variety of cells, 
+such as muscle cells, skin cells, liver cells, cardiovascular 
+cells, epithelial cells, etc. However, during the process of 
+differentiation, cells vary in their potential to make final 
+cells such that some cells become ‘mature’ while some 
+remain ‘immature’. Such ‘immature’ cells which have the 
+potential to differentiate into a wide range of specialised 
+cell type, are called stem cells . These stem cells have the 
+potential for self-renewal via mitotic cell division and then 
+differentiate into a wide range of specialised cell types. 
+Historical perspective 
+Stem cells have been known to procreate more interest, 
+inspection and debate than any other area of scientific 
+study. The first stem cells were isolated from blood cells. 
+At present, scientists all around the world are working 
+on various types of stem cells to revolutionise the area of 
+regenerative medicine by using the potential of stem cells 
+to regenerate the tissue or organ. The story of this amazing 
+journey has been detailed in the form of a flow chart to 
+reveal its most salient moments through the voice of some 
+of the pioneers in this exciting field (Box 1). 
+Stem cells are non-specialised cells with an inherent 
+property of self-renewal and potency, i.e., they have the 
+potential for self-renewal via mitotic cell division and then 
+differentiate into a wide range of specialised cell types. Stem 
+cells are present in most of the multi-cellular organisms 
+and are able to endure adverse conditions for long-time 
+periods. In humans, stem cells are found in umbilical cord, 
+placenta, inner cell mass of the early embryo, few tissues 
+of foetus and in some adult organs. 
+Due to the virtue of differentiation, stem cells can be 
+useful for treating and understanding the diseases and 
+can be used to: 
+• develop new cells in vitro to replace the damaged 
+tissues or organs. 
+• study the cause of genetic defects in cells as well as to 
+study the cause of diseases and their treatments. 
+• test new lead molecules as drugs. Reprint 2025-26
+
+Stem cell culture and Organ Culture 211 
+9.1.1 Stem cell classification 
+Stem cells may be classified depending upon the source 
+and potency (Fig. 9.1). 
+Classification based on source 
+On the basis of the source, stem cells have been categorised 
+into three major groups— the embryonic stem cells, the 
+Box 1 
+Historical Timeline of human embryonic stem cells (hESCs). [human Induced pluripotent stem 
+cells (hiPSCs); Somatic Cell Nuclear Transfer (SCNT)] 
+1998
+2006
+2009
+2012
+2014
+2004
+2007
+2010
+2013
+2015
+2017
+Derivation of hESCs 
+Derivation of the 
+Xeno-free culture conditions for hESCs 
+First conditions developed to completely
+eliminate the use of animal products for
+hESC culture 
+Clinical trials with hESCs
+Clinical trials with hESCs 
+C trial linical continued with hESCs 
+Nobel Prize 
+Nobel Prize awarded to Dr. Shinya Yamanaka
+and Sir John Gurdon for the discovery that
+mature cells can be reprogrammed to
+become pluripotent 
+Clinical trials with hiPSCs 
+First clinical with hiPSCs trial
+was initiated 
+Germ cell potential 
+Human ESCs can not only differentiate
+into ecto- endo-and mesoderm, but also
+towards the germ cell lineage 
+Generation of hiPSCs 
+Generation of human iPSCs 
+Naive state hESCs 
+First report of naive state
+hESCs 
+Derivation of SCNT-hESCs 
+First derivation of hESCs by
+therapeutic cloning 
+CRISPR/cas9 gene editing in hESCs 
+CRISPR/cas9 technology applied
+to hESC gene editing 
+Organoids from hESCs 
+Generation of organoids
+from hESCs for modeling fetal organ
+morphogenesis
+H I S T O R I C A L T I M E L I N E O F E S C h s
+First clinical trial with hESCs was initiated Reprint 2025-26
+
+Biotechnology XII 212 
+fetel stem cell and adult stem cells. Th ere is one more group 
+called fetal stem cells. Embryonic stem cells are also known 
+as early stem cells and are present in the inner cell mass 
+of blastocyst after around five days of development. Adult 
+stem cells or mature stem cells are present in the umbilical 
+cord, placenta after birth and in mature body tissues. As 
+the embryonic stem cells have the property to differentiate 
+into any tissue of the body, they are more promising for 
+clinical applications than adult stem cells. However, the 
+use of embryonic stem cells in humans is limited because 
+of technical safety and some ethical dilemma. On the 
+Fig 9.1: Various type of stem cells 
+(b). Based on differentiation potency
+(a). Based on source
+(a) Embryonic stem cells (ESCs) (b) Fetal stem cells 
+Blastocyst
+Inner cell
+mass
+Expand and
+manipulated stem
+cell in vitro 
+Retina
+Cortex Umbilical
+cord
+Midbrain
+(c) Adult stem cell
+Skin
+Blood Bone
+marrow
+Brain subventricular
+zone of lateral ventricle
+hippocampus 
+Fetus
+Zygote
+4-Stage Cell Morula
+Adult
+Multipotent
+Totipotent
+Totipotent Pluripotent
+Multipotent
+and unipotent Reprint 2025-26
+
+Stem cell culture and Organ Culture 213 
+contrary, there are no controversies regarding the safety 
+and ethical issues associated with adult stem cells. Adult 
+stem cells were thought to be irreversible, dedicated to 
+a specific lineage. However, now they have been shown 
+to exhibit plasticity, i.e., stem cells from one tissue can 
+differentiate and produce cells of a completely different 
+tissue. 
+(a) Embryonic stem cells 
+Embryonic stem cells are classified as self-reproducing 
+pluripotent cells and are possibly immortal. The human 
+embryonic stem cells are derived from the embryo that is 
+blastocyst. The distinctive features of embryonic stem cells 
+are as follows: 
+1. These cells can be isolated from the inner cell mass 
+or epiblast of the blastocyst. 
+2. These cells are pluripotent in nature and have the 
+ability to give rise to all the three germ layers, i.e., 
+ectoderm, mesoderm and endoderm. 
+3. They have the capability of self-renewal and exhibit 
+stable diploid chromosome. 
+4. They retain the characteristics of embryo founder 
+cells even after extensive manipulation. 
+5. Depending on the conditions of the in vitro environ- 
+ment, they can self-renew or differentiate into 
+multiple ti ssue types. 
+(b) Fetal stem cells 
+Cells derived from a fetus that retains the ability to 
+divide, proliferate and provide progenitor cells and can 
+differentiate into specialized are called fetal stem cell. The 
+embryo is referred to as a fetus after the eighth week of 
+development. Once a fetal stem cell has been harvested, 
+it has the potential to live indefinitely in the laboratory. 
+Fetal stem cells can be isolated from fetal blood and bone 
+marrow as well as from other fetal tissues, including liver 
+and kidney. Fetal blood is a rich source of haemopoietic 
+stem cells (HSGs), which proliferate more rapidly than 
+those in cord blood or adult bone marrow. Reprint 2025-26
+
+Biotechnology XII 214 
+(c) Adult stem cells 
+Adult stem cells are precisely called somatic stem cells , 
+because they can come from children or umbilical cord and 
+not from adults only. They are undifferentiated multipotent 
+or totipotent stem cells. The adult stem cells are present 
+all over the body after embryonic development and replace 
+and regenerate the damaged tissues or dying cells by cell 
+division. These cells have two basic characteristics: ability 
+to self-renewal without compromising with stemness and 
+ability to differentiate into mature morphologically and 
+functionally dissimilar tissue specific cells. The main role 
+of adult stem cells in an organism is to preserve and repair 
+the tissue in which they reside. Therefore, these cells 
+maintain cellular homeostasis throughout the lifetime of 
+mammals. The highest frequency of adult stem cells is 
+present in the bone marrow. 
+The embryonic stem cells are defined by their origin 
+but the origin of adult stem cells in some tissues is still 
+under examination. The adult stem cells can either be 
+hematopoietic or mesodermal in origin. 
+(i) Hematopoietic stem cells (HSCs) 
+Hematopoiesis, the process of formation of the different 
+types of blood cells occur in bone marrow. Bone marrow 
+contains hematopoietic and non-hematopoietic stem cells. 
+Hematopoietic stem cells (HSCs) give rise to different types 
+of blood cells - RBCs, monocytes, neutrophils, acidophils, 
+basophils, lymphocytes and platelets. Non-hematopoietic 
+stem cells are originated from common mesodermal 
+precursor cells. 
+(ii) Mesenchymal stem cells 
+MSCs have the ability to self-renew, exhibit multi-lineage 
+differentiation and are extremely proliferative. These cells 
+can be isolated from a variety of tissues, such as bone 
+marrow, adipose tissue, umbilical cord etc. The major 
+advantages of MSCs include their genetic stability, avoid 
+allo-rejection, compatible in tissue engineering applications 
+and are capable of repairing many vital tissues. They are 
+thought to be responsible for wound healing, growth and 
+replacing cells that are lost through daily wear and tear and 
+pathological conditions. MSCs are important for making Reprint 2025-26
+
+Stem cell culture and Organ Culture 215 
+and repairing skeletal tissues, such as cartilage, bone and 
+fat found in the bone marrow. Because of these functions, 
+they have been shown to be effective in the treatment of 
+tissue injury and degenerative diseases. 
+Classification based on differentiation 
+potency of stem cells 
+On the basis of the ability of self-replication and 
+differentiation into various tissues, stem cells have been 
+categorised into totipotent, pluripotent, multipotent and 
+unipotent. Each of them has been described in the following 
+sections. 
+Totipotent stem cells 
+Totipotent (toti = whole, potent = able to) stem cells are 
+the most versatile form and have the utmost potential 
+for differentiation that permits the cells to produce both 
+embryo and extra-embryonic membranes, and all the 
+post-embryonic tissues and organs that form an entire 
+functional organism. For example, zygote has the potential 
+to develop into a complete organism. 
+All cells of the early embryo are totipotent until the 
+eight-cell stage, after that they begin to specialise and form 
+blastocyst. After nearly four days, the inner cell mass of 
+blastocyst becomes pluripotent. 
+Pluripotent stem cells 
+Pluripotent (pluri = several, potent = able to) stem cells have 
+the potential to differentiate into almost all cell types of 
+the embryo except the cells of the extra embryonic support 
+tissues, (placenta and yolk sac). These cells can give rise to 
+all the germ layers but are not able to form extra-embryonic 
+tissues, such as placenta, as a consequence, they cannot 
+give rise to a complete organism like totipotent stem cells. 
+The inner cell mass of blastocyst gives rise to tissues of the 
+adult organism while the outer layer trophectoderm forms 
+the placenta. The pluripotent stem cells go on dividing, 
+until they begin to specialise in the gastrulation stage. 
+Examples comprise embryonic stem cells and cells that 
+are derived from the ectoderm, mesoderm and endoderm 
+germ layers that are formed in the beginning stages of 
+embryonic stem cell differentiation. Reprint 2025-26
+
+Biotechnology XII 216 
+Multipotent stem cells 
+The multipotent cells (multi = many, potent = able to) have 
+th e ability to differentiate into a closely related family of 
+cells. These are the plastic and more differentiated stem 
+cells. These multipotent stem cells can specialise into 
+various types of cells within the specific cell lineage. For 
+example, multipotent hematopoietic (adult) stem cells can 
+develop into various types of blood cells, such as red blood 
+cells, white blood cells and platelets. Similarly, neural 
+stem cells can give rise to neurons, oligodendrocytes and 
+astrocytes. After differentiation, the abilities of these cells 
+are rest ricted to the cells of its specific lineage. 
+Unipotent stem cells 
+It is an undifferentiated cell present in the differentiated 
+tissu e with the property of d ividing repeatedly. Unipotent 
+stem cells have the ability to only produce cells of their own 
+type and also have the property of self-renewal needed to be 
+labelled as stem cell. They can self-renew and differentiate 
+into specialised cells of the tissue, such as epidermal stem 
+cells, muscles and endothe lial, etc. The repetitive division 
+in unipotent stem cells make them a promising candidate 
+for therapeutic use in regenerative medicine. 
+It should be remembered that totipotent and pluripotent 
+stem cells belong to the embryonic life of the organism, 
+whereas multipotent and unipotent stem cells are found in 
+the adult life. In general, multipotent and unipotent stem 
+cells are termed as adult stem cells or somatic stem cells. 
+9.1.2 Characteristics of stem cells 
+O ver the past several years, a great deal of attention 
+has been paid on the differentiating ability of the adult 
+stem cells. Plasticity of adult stem cells is the presumed 
+ability of tissue specific stem cells to attain the fate of cell 
+types distinct from the tissue of origin. Differentiation of 
+one cell type against its fate into other cell type requires 
+massive molecular rearrangement within the cells, 
+for which the competence of the responding cells 
+and micro-environmental cues are most important. 
+For example, all the types of bone marrow cells are not 
+competent for differentiating into neurons or hepatocytes. 
+Similarly, the co m petent bone marrow cells do not Reprint 2025-26
+
+Stem cell culture and Organ Culture 217 
+undertake differentiation program against fate, unless 
+they are exposed to inductive microenvironment. Some o f 
+the alternative fate changing pathways by somatic cells to 
+switch lineages are trans-determination, trans- 
+differentiation, dedifferentiation, heterogeneity, versus 
+gene level pleiotropy and fusion. The first is trans- 
+determination , in which a stem cell that is programmed 
+to produce certain lineages, switches to another stem 
+cell and gives rise to the cell types of that precursor, 
+i.e., its potential is redirected. The second pathway is 
+trans-differentiation , in this process a differentiated 
+cell can achieve the phenotype of another differentiated 
+cell. Dedifferentiation is common in lower vertebrates 
+but rare in mammals. By dedifferentiation process, 
+adult stem cells revert back to master cells from which 
+they originate and the master cells can differentiate into 
+other cell types. Heterogeneity is the most acceptable 
+explanation for the plastic nature of adult stem cells. One 
+of the gold standards for plasticity of adult stem cells is 
+its clonal level purity. Normally, the purity of stem cells 
+is determined by the presence and absence of the specific 
+surface markers. When plasticity between two cells 
+originated from the same germ layer can be explained by 
+clonal level impurity, it is k nown as pleiotropic . Fusion 
+is an alternative mechanism proposed for the plasticity in 
+adult stem ce lls. 
+9.1.3 Applications of stem cells 
+The goal of any stem cell therapy is to repair a damaged 
+tissue that cannot heal itself. Ongoing research on stem cell 
+treatments give hope and confidence to the patients who 
+would generally not get treatment to cure their diseases but 
+just to improve the symptoms of their chronic illness. Stem 
+cell therapies involve more than simply transplanting cells 
+into the body and directing them to grow new, healthy tissue. 
+It may also be possible to persuade the stem cells already 
+in the body to work overtime and produce new tissue. There 
+are a number of stem cell therapeutics developed, but most 
+of them are at experimental stages and costly, with the 
+notable exception of bone marrow transplantation. Many 
+medical researchers predict that soon the embryonic and 
+adult stem cells will be able to treat muscle damage, cancer, 
+Huntington’s disease, Type 1 diabetes mellitus, Parkinson’s Reprint 2025-26
+
+Biotechnology XII 218 
+disease, cardiac failure, celiac disease, neurological 
+disorders and many more. Before the application of stem 
+cell therapeutics in clinical medicine, further research 
+is required to understand the stem cell behaviour upon 
+transplantation and the mechanisms of stem cell interaction 
+with the injured or diseased micro-environment. Some 
+clinical applications of stem cell therapies are detailed as 
+follows. 
+Box 2 
+MEFs are transferred to
+the 10cm dishes and adjust to ed
+8 10 × 4 – × 1.1 10 5 cells/cm 2
+Incubated for
+2.0 3.0 hrs at 37 C – ° 
+Added MMC (10 g/m ) to m L
+medium and incubated
+for 0.5 3.5 hrs at 37 C – ° 
+Rapidly aspirated and discard
+the medium containg MMC
+and non-adherent cells
+Washed with PBS 5 times
+Adherent cells are digested
+by 0.25% trypsin/EDTA
+Transfered the cells into a tube
+and centrifuge
+Cryopreservated
+for later use
+Step 1
+Step 4
+Step 7 Step 8 Step 9
+Step 5 Step 6
+Step 2 Step 3
+MEFs
+are digested by 0.25%
+trypsin/EDTA to single cells 
+Maintenance of cell culture (Mouse Embryonic Fibroblasts: MEFs, Phosphate Buffer Saline: PBS, 
+Macromolecular Crowding: MMC, Ethylenediamine tetraacetic acid: EDTA) Reprint 2025-26
+
+Stem cell culture and Organ Culture 219 
+Neurological diseases 
+The stem cells may become a good alternative therapeutic 
+candidate for the treatment of neurological diseases. 
+For example, the Amyotrophic Lateral Sclerosis (ALS) 
+disease is a progressive neuromuscular disease, which is 
+characterised by the loss of motor neurons in the brain 
+and spinal cord. The investigation for the treatment of ALS 
+using bone marrow stem cells and induced pluripotent 
+stem cells (iPS cell or iPSCs) is under clinical trials. 
+During the spinal cord injury cases, the nerve fiber bundles 
+are damaged, which lead to paralysis. The investigation using 
+adult stem cells to regenerate new nerve cells and trigger the 
+growth of severed nerve fibers is being carried out. 
+Stem cells therapies are being used for the eye disease 
+treatments. In one of such cases an improved vision was 
+observed with the transplantation of retinal pigment 
+epithelial cells derived from the embryonic stem cells and 
+retinal stem cells. This observation brings a hope for new 
+therapeutics for eye diseases. 
+Wound healing or skin replacement 
+The skin (keratinocyte) stem cells are present in the hair 
+follicle and these stem cells are removed after plucking hair 
+and are cultured. After culture of these cells, they can be 
+used as equivalent to the patients, own skin which has less 
+problem of rejection. Thus, the stem cell become a possibility 
+to develop skin from a patient’s plucked hair. Stem cells are 
+a better alternative for faster healing of the skin injuries, 
+genetic disorders, and burnt wounds with lower inflammation 
+levels as compared to the conventional skin grafts that fail to 
+restore the complete composition of the dermis lost. 
+Cardiovascular Diseases 
+The cardiovascular diseases are basically characterised by 
+ischemia and heart muscle injury leading to hypertrophy 
+and congestive heart failures. The traditional and standard 
+treatments for this are surgical procedures that repair the 
+blocked arteries, medications that reduce fluid retention 
+and lifestyle changes. With the advent of stem cells, a better 
+therapy is under investigation that aim to re-establish the 
+lost function of heart tissue and blood vessels. Reprint 2025-26
+
+Biotechnology XII 220 
+Auto-immune Disorders 
+An auto-immune disorder occurs when the immune system 
+of the body becomes over reactive and considers its own 
+healthy tissues as foreign and attacks them. 
+Type 1 Diabetes 
+Type I diabetes is caused by the degradation of insulin- 
+producing pancreatic beta cells by body’s own immune 
+system. For treatment, insulin administration is an 
+effective strategy but optimisation of doses of insulin is 
+one of the major limitations, because the amount of insulin 
+depends on the glucose level. Thus, its treatment with 
+the cells derived from haematopoietic stem cells is being 
+explored. 
+Multiple Sclerosis 
+Multiple sclerosis is a chronic inflammatory disease that 
+occurs in brain or spinal cord. This disease is due to 
+over-activation of body’s own immune system, in which 
+the myelin sheath of the neurons get damaged. For the 
+treatment, the bone marrow stem cells and neural stem 
+cells are being investigated to regenerate the neurons with 
+a proper myelin sheath. 
+Arthritis 
+In rheumatoid arthritis, the symptoms are chronic pain, 
+inflammation of the joints, which are mainly due to the 
+destruction of cartilage by the immune system. The 
+currently used treatment strategies involve drugs that 
+reduce the pain and inflammation. But the stem cells 
+can be differentiated into cartilage making cells, mainly 
+chondrocytes, thus the use of stem cells could be a better 
+alternative. 
+In pharmaceutical industries, the stem cells have 
+evolved as a suitable model to investigate the potential or 
+mode of action of drugs and have become an improved 
+alternative against the limitation of the ethical challenges 
+of animal models. In the current scenario, pharmaceutical 
+industries emphasise the use of stem cells for drug 
+screening. Furthermore, the cardiomyocytes originated 
+from the human embryonic stem cells are used as a 
+model for cardiac diseases. The neuronal cells originated Reprint 2025-26
+
+Stem cell culture and Organ Culture 221 
+from stem cells are used as working model for neuronal 
+disorders. 
+Stem Cell Research Challenges 
+In the current research scenario, the stem cell research 
+is an emerging area with various applications, but it has 
+some challenges yet to be resolved. One of the major 
+challenges is immunological rejection, in which the stem cell 
+transplants are rejected by the recipient’s immune system. 
+Thus, to resolve it, immunosuppressive treatments are 
+given to recipients, that make them prone to microbial 
+infections. However, the use of inducing pluripotent stem 
+cells (derived directly from the recipient’s own cells) may be 
+one strategy to resolve the above limitation of rejection to 
+some extent. The second major challenge is the behaviour 
+of stem cells. The normal characteristics of a stem cell 
+may have limitations for certain applications. For example, 
+the embryonic stem cells, which divide indefinitely, might 
+induce tumour growth. The safety of stem cells during 
+application is also one of the challenges, as stem cells are 
+prone to microbial infection that leads to various infectious 
+disease s in the recipients. 
+9.2 O rgan C ulture 
+S o far, you have studied the different aspects of cell culture 
+which deals with the in vitro maintenance and proliferation 
+of isolated cells using appropriate nutrient media. In cell 
+culture, although cell-to-cell interaction is possible, but 
+the in vivo structural complexity is lacking which is the 
+main limitation of cell culture. Conventional human cell 
+cultures that are generally used to establish differences in 
+species, are also constrained in their depiction o f the in vivo 
+responses owing to the lack of a suitable microenvironmental 
+framework of the responding cell types. Preclinical trials on 
+animals had partial success in predicting human pathology, 
+physiology and therapeutics. Modern culture approaches, 
+such as three-dimensional (3D) cultures, organs-on-a- 
+chip or organoids have attempted to partially mimic the 
+tissue microenvironment. 
+Development of a part of an organ or the whole organ 
+itself from tissue culture techniques for research is termed Reprint 2025-26
+
+Biotechnology XII 222 
+as organ culture. In this, the parts of an organ are explanted 
+and grown in vitro such that the anatomical relationship 
+and physiological functions of several tissue components 
+are preserved in the culture on artificial medium, resulting 
+in simulating its parent tissue. 
+For success in any organ culture technique, it is crucial 
+that the tissues must be handled with extreme care and 
+should not be damaged or disrupted during handling. 
+Tissues should be transported to the laboratory as fast as 
+possible to minimise deterioration, ideally within minutes 
+of collection. Further, analysis of the organ cultures can be 
+done by immunochemistry, autoradiography and histology. 
+9.2.1 Characteristics of organ culture 
+Primarily, the structural design has to be preserved in 
+organ culture of the orga n or tissue and direct it towards 
+normal development. The important characteristics of organ 
+culture are as follo ws. 
+Structural integrity 
+A major limitat ion in organ culture is the lack of a vascular 
+system in tissues, restricting the size (by diffusion) and 
+possibly the polarity of the cells within the organ culture. 
+Overall, in the whole organ culture, some proliferation may 
+occur on the outer cell layers as in organs. These cells are 
+unified as a single unit, while the isolated cells are discrete. 
+Also, in organ culture, the cell-to-cell communication and 
+association are greatly preserved. Therefore, owing to the 
+retention of structural integrity of the native tissue, the 
+associated cells can interchang e signals via cell interaction 
+or adhesion. 
+Nutrient and gas exchange 
+Org an cultures are devoid of vascular system and this 
+condition results in restricted gas exchange and nutrient 
+supply to the cells. When the cells are cultured as a solid 
+mass of tissue, nutrient exchange and diffusion of gases 
+ensues from the periphery and this diffusion rate restricts 
+the size of the tissue. As a result, at the central part of the 
+tissue or organ, some amount of necrosis may happen. Reprint 2025-26
+
+Stem cell culture and Organ Culture 223 
+Most of the time, organ cultures are exposed to high O 2 
+concentration. However, the use of high O 2 concentration 
+is accompanied with the O 2 prompted toxicity risk in 
+organs. 
+To deal with this difficulty in organ cultures, tissues are 
+maintained at a gas–liquid phase to facilitate the exchange 
+of gases, while maintaining the access to adequate 
+nutrients. Anchorage of the tissue to a solid substrate can 
+lead to the development of an outgrowth of cells from the 
+tissue and resultant alterations in geometry, though this 
+effect can be minimised by using a hydrophobic surface. 
+The significance of maintaining organ cultures at the 
+interface of gaseous and liquid phase is that if the liquid 
+is retained at optimal level then the tissue maintains a 
+spherical geometry. However, if the level of liquid is too 
+superficial, then the tissue will outgrow and flatten as a 
+result of surface tension, whereas, if the level is too deep, 
+the exchange of gases is compromised. To enhance the 
+permeation of oxygen in organ cultures, hyperbaric oxygen 
+or enhanced pure oxygen content is used . 
+9.2.2 Growth and differentiation 
+Growth refers to increase in the number of cells is a culture 
+whereas, differentiation refers to change in the function 
+of the differentiated cell. Growth and differentiation are 
+related to each other such that the differentiated cells may 
+not be able to proliferate further. There is a possibility 
+that irrespective of cell density, termination of growth 
+may promote the induction of differentiation. Most of the 
+organ cultures do not grow, instead they proliferate only 
+on the outer layers of cells as a consequence of physical 
+limitations executed by the structure and shape. The organ 
+culture is tolerant to the suitable cellular communications 
+and differentiations and also to maintain the appropriate 
+environment. Soluble growth factors are supplied to 
+facilitate differentiation . 
+Whole embryo culture 
+Spratt (1950s) explained the effect of metabolic 
+inhibitors on the developing embryo in vitro . To culture 
+the embryo, a suitable medium has to be prepared and 
+poured onto a watchglass, which was then placed on 
+a small piece of moist absorbent cotton wool pad in a Reprint 2025-26
+
+Biotechnology XII 224 
+petridish. To observe the chick embryo in culture, the 
+eggs were incubated at 38°C for 40–42 hours so that 
+a dozen of embryos could be produced. The egg shell 
+was sterilised with 70 percent ethanol, then broken 
+into pieces and kept in 50 ml of balanced salt solution 
+(BSS). The vitelline membrane covering the blastoderm 
+was removed and kept in BSS. The adherent vitelline 
+membrane was removed with the help of a forcep. The 
+embryo was observed under a microscope to study the 
+developmental stage of blastoderm. The blastoderm was 
+then carefully placed on the sterile absorbent cotton 
+wool pad in the watchglass in the petridish and the 
+embryo culture of chick incubated at 37.5°C for further 
+development. 
+9.2.3 Types of organ culture 
+Histotypic culture 
+When any characterised cell line is proliferated or cultured 
+at a high density in the presence of suitable soluble factors 
+and extracellular matrix, then such a culture is termed 
+as histotypic. Vascular endothelial cells can form capillary 
+tubules in the presence of appropriate soluble factors 
+when grown in a collagen matrix. Cellulose sponges coated 
+with extracellular matrix components such as collagen is 
+another example. Alternatively, cells may infiltrate the 
+sponge and form glandular structures. 
+Organotypic culture 
+The limitation in a histotypic culture is the inability to 
+evaluate the heterologous cell interactions. When cells of 
+different lineages are co-cultured to create a tissue-like 
+structure, then it is termed as organotypic culture, which 
+is the easiest way to maintain a co-culture of two cell 
+types. For instance, co-culture of fibroblast and epithelial 
+cell clones derived from the mammary gland allows the 
+epithelial cells to differentiate functionally. This has been 
+demonstrated by their ability to produce milk proteins 
+in optimal hormonal environment. The formation of 
+characteristic structures is further validated by functional 
+differentiation, such as the three-dimensional cords in 
+which the fibroblast cells reorganise themselves into Reprint 2025-26
+
+Stem cell culture and Organ Culture 225 
+Histotypic and organotypic culture. Heterogeneity of a primary culture (A), how to purify defined 
+cell populations, that can be expanded and seeded into appropriate conditions can give high- 
+density cultures of one cell type in perfused multilayers (B), spheroids or organoids in stirred 
+suspension (C), sponge or scaffold (D), three-dimensional multilayers in perfused capillaries 
+(E), monolayers or multilayers in filter well inserts (F). Expansion of purified populations and 
+recombination can generate organotypic cultures, in filter well inserts (G) or on concentric 
+microcapillaries (H). 
+Box 3 : Histotypic and Organotypic Culture 
+Heterogen us o
+p c rimary ulture
+HISTOTYPIC CULTURE
+Isolate by cloning selective
+media, and/or by cell sorting
+Combine in lter
+well inserts, transmembrane
+with or without matrix
+ORGANOTYPIC CULTURE
+Combine in
+three-dimensional
+array in concentric
+capillaries
+Propagate and seed
+on desired substrate.
+Grow to high cell
+density with medium
+change, stirring or
+perfusion Spheroid or organoid
+Sponge or scaffold
+Filter well insert
+Perfused multilayer
+from monolayer
+Perfused capillary bed
+Expand each puri ed line separat  ely
+(A)
+(B)
+(C)
+(D)
+(E)
+(F)
+(G) (H) Reprint 2025-26
+
+Biotechnology XII 226 
+bundles that are further enveloped by the epithelial cells. 
+‘Organoids’ are self organised 3D tissue culture derived from 
+stem cells. Thus the organoid is made from a combination 
+of cells, growth factors, collagen etc. Example: artificial 
+liver surgically implanted into the peritoneal cavity of a rat. 
+These organoids have the potential to replace any diseased 
+or non-functional organ, or deliver genetically altered cells 
+into a patient’s body. 
+9.2.4 Applications of organ culture 
+Cultured organs can be used as a substitute for organs. 
+This may be beneficial as the accessibility of transplantable 
+organs is decreasing. One more significance of organ 
+culture is that the organs are produced by using patient’s 
+own stem cells, that would permit transplantation of organs 
+without the use of immunosuppressive drugs by patients. 
+The organ culture helps to study the actual behaviour 
+of a tissue in an in vitro system as well as to understand 
+the biochemical and functional characteristics of an organ 
+or tissue and their comparison with that of the similar 
+organs in vivo in an easier way. The organ culture is also 
+suitable for the study of hormones and their effects as 
+individual, or combinations with other hormones. For 
+example, mammary gland is one of the most commonly 
+cultured organ of the mouse. 
+9.2.5 Limitations of organ culture 
+There are some limitations of organ culture. Fundamentally, 
+the organ cultures depend on histological techniques and 
+not much on biochemical and molecular analyses. The 
+biochemical analyses is based on the reproducibility that 
+cannot be achieved in organ culture. Furthermore, the 
+organ cultures exhibited more difficulty in the preparation 
+of replicates than that of the cell culture. The organ culture 
+exhibited high variations and low reproducibility. Thus, in 
+organ culture, a fresh organ from a donor is needed for 
+each experiment. 
+Various limitations of organ culture are as follows: 
+(a) Since the organ cultures cannot proliferate, therefore 
+fresh organs are required for every experiment. 
+(b) In organ culture, reproducibility is less and disparities 
+are high. This can be because of a slight variation Reprint 2025-26
+
+Stem cell culture and Organ Culture 227 
+in geometry and handling, sampling difference in 
+organising an organ culture and differences in the 
+proportions of types of cell among cultures. 
+(c) Organ cultures are very challenging to prepare and 
+are also very expensive. 
+(d) By this technique, the behaviour of integrated tissue 
+only can b e examined and not of isolated cells. 
+9.2.6 Future Prospects 
+One of the future challenges is to adapt the cell-based 
+assay protocols developed for the analysis of 2D cell 
+culture to the altered conditions of cells growing in 
+3D structures. 3D cell cultures include multicellular 
+spheroids, scaffold hydrogels, organoids, organs-on- 
+chips, hanging drop, microfluidics, magnetic levitation, 
+microtissues and 3D bioprinting. 
+SUMMARY 
+• Stem cells are unspecialised cells and have the ability to 
+renew themselves and differentiate into a diverse range of 
+cell types. 
+• On the basis of the potency, the stem cells can be classified 
+into totipotent, pluripotent, multipotent or unipotent cells. 
+• Totipotent stem cells have the ability to differentiate into all 
+cell types of an organism. 
+• Pluripotent stem cells have the potential to differentiate into 
+almost all cell types of the embryo except the cells of the 
+extra embryonic support tissues. 
+• The multipotent cells have ability to differentiate into a 
+closely related family of cells. 
+• On the basis of the sources, the stem cells are divided 
+into early (or embryonic) stem cells and mature (or adult) 
+stem cells. 
+• The early stem cells (embryonic stem cells) are present in the 
+inner cell mass of a blastocyst. 
+• Adult stem cells are undifferentiated totipotent or multipotent 
+cells and are found in specific mature body tissues as well as 
+the umbilical cord and placenta after birth. 
+• Stem cells have the potential to treat a number of diseases 
+including cancer, Type 1 diabetes mellitus, Parkinson’s 
+disease, cardiac diseases, neurological disorders, etc. Reprint 2025-26
+
+Biotechnology XII 228 
+• Development of a part of an organ or the whole organ itself 
+from tissue culture techniques are termed as organ culture. 
+• The most important advantage of organ culture is that 
+the whole three-dimensional structure of the organ can be 
+recreated. 
+• The important characteristics of organ culture are — 
+structural integrity, nutrient and gas exchange, growth and 
+differentiation. 
+• The types of organ culture are — whole embryo culture, 
+histotypic culture and organotypic culture. 
+• The organ culture helps to study the actual behaviour of 
+a tissue in an in vitro system as well as to understand the 
+biochemical and functional characteristics of an organ or 
+tissue and their comparison with that of the similar organs, 
+in vivo, in an easier way. 
+• Organ culture helps in understanding the developmental 
+biology and interaction in tissues. 
+EXERCISES 
+1. Briefly describe the stem cells and their properties. 
+2. Differentiate totipotent, pluripotent and multipotent 
+stem cells. 
+3. What are embryonic stem cells and how do they differ 
+from adult stem cells? 
+4. Describe some applications of stem cells. 
+5. What parameters should be monitored during stem cell 
+culture? 
+6. What is organ culture? 
+7. Describe the main characteristics of organ culture. 
+8. Discuss the various types of organ culture. 
+9. What are the advantages of organ culture over cell 
+culture? 
+10. Describe the applications of organ culture. 
+11. Describe the various support systems used in organ 
+culture. 
+12. Stem cells are present in: 
+(a) unicellular organisms 
+(b) multicellular organisms 
+(c) non-living things 
+(d) viruses Reprint 2025-26
+
+Stem cell culture and Organ Culture 229 
+13. Differentiation potential of stem cells specifies: 
+(a) Stochastic differentiation 
+(b) Asymmetric replication 
+(c) Potency 
+(d) Self-renewal 
+14. Which of the following cells is a multipotent cell? 
+(a) T-cell 
+(b) B-cell 
+(c) HSC 
+(d) Monocytes 
+15. A stem cell is: 
+(a) a cell out of which the stem of the tree is made up of 
+(b) a part of the tissue that forms the outer layer of the 
+skin in human beings. 
+(c) it is a cell that can divide and give rise to specialised 
+cells. 
+(d) a type of specialised cell 
+16. __________ can be cured with stem cells. 
+(a) Spinal cord injuries 
+(b) Type 1 diabetes 
+(c) Both (a) and (b) 
+(d) None of these 
+17. The stem cells may be obtained from sources such as: 
+(a) Bone marrow 
+(b) Umbilical cord blood 
+(c) Adipose tissue 
+(d) All of these 
+18. Assertion: Embryonic stem cells can give rise to different 
+cell types. 
+Reason: Embryonic stem cells are pluripotent. 
+(a) Both assertion and reason are true and the reason is 
+the correct explanation of the assertion. 
+(b) Both assertion and reason are true but the reason is 
+not the correct explanation of the assertion. 
+(c) Assertion is true but reason is false. 
+(d) Both assertion and reason are false. 
+19. Assertion: Stem cells are undifferentiated and found in 
+multicellular organisms, and undergo numerous mitotic 
+cycles. Reprint 2025-26
+
+Biotechnology XII 230 
+Reason: Stem cells have ‘self-renewal’ feature and do not 
+exhibit ‘cellular potency’. 
+(a) Both assertion and reason are true and the reason is 
+the correct explanation of the assertion. 
+(b) Both assertion and reason are true but the reason is 
+not the correct explanation of the assertion. 
+(c) Assertion is true but reason is false. 
+(d) Both assertion and reason are false. Reprint 2025-26

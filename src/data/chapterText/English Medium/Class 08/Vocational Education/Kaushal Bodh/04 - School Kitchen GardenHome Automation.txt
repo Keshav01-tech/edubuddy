@@ -1,0 +1,705 @@
+Home Automation 83 
+School Kitchen Garden
+Project 1: 
+Home automation enables you to operate devices at home 
+automatically with the help of technology. In this project, you will 
+learn how to make electronic circuits and write simple programmes. 
+As a part of the project, you will be able to: 
+Learn about 
+electronic 
+components 
+and circuits 
+Make simple 
+programmes 
+and circuits 
+Select 
+appropriate 
+sensors 
+Make an 
+automation 
+system and test it 
+Project 4 
+Home Automation 
+Figure 4.1: Making things operate automatically using circuits and programmes Reprint 2026-27
+
+Kaushal Bodh — Grade 8 84 
+Automation means using technology to control everyday devices 
+automatically. Instead of switching things on and off by hand, 
+automation uses sensors, controllers and simple computer 
+programmes to run these tasks independently (Figure 4.1). 
+Imagine a classroom where all students and teachers leave 
+immediately after the final bell. The lights and fans often remain 
+on because no one remembers to switch them off. This wastes 
+electricity and increases electricity bills. 
+Automation can help in such situations. If the classroom has 
+an automated power system with a motion sensor, the lights will 
+automatically turn off when no motion is detected. This simple 
+change can save energy and reduce costs. 
+Another example of automation is an automatic garden 
+irrigation system, where a moisture sensor is installed in the soil. 
+When the soil becomes too dry, the sensor sends a signal to a 
+water pump. The pump then automatically turns on and waters 
+your plants. Once the soil has enough moisture, the system turns 
+the pump off. This saves you from having to check the garden 
+every day and helps conserve water by watering plants only 
+when needed. 
+Automation is not a new idea — it has always been a part of our 
+world. Nature had already perfected automation before humans 
+started creating machines to automate tasks. 
+Look at the human body. Without thinking about it, your heart 
+beats automatically to pump blood, your lungs breathe in oxygen 
+and release carbon dioxide, and your stomach digests food after 
+eating. All these functions happen without conscious effort, just 
+like an automated machine. The body uses signals, such as nerve 
+impulses and hormones, to decide when and how to act, ju st as an 
+intelligent system uses sensors and controllers. 
+If we look around, nature itself is in automation mode. 
+Like modern automation, nature follows systems that work 
+independently, using signals and patterns. 
+y Sunrise and Sunset: The sun rises and sets daily without 
+any action on our part. 
+y Water Cycle: Water evaporates from lakes and oceans, forms 
+clouds, and falls back as rain, following a natural cycle. Reprint 2026-27
+
+Home Automation 85 
+AI-Powered Smart Cities 
+AI manages city transport, health, and 
+energy for automation and enhanced 
+efficiency 
+Smart Homes & Robots 
+AI, sensors, Internet and Robots 
+automate homes and devices 
+Electronic Devices and Computers 
+Electricity and computers enable 
+automated elevators and calculators 
+Early Smart Machines 
+Automated machines like Jacquard 
+Loom and Steam Engine 
+Mechanical Clocks 
+Clocks made with gears and springs for 
+autonomous time display 
+Water Clocks & Sundials 
+Timekeeping by flow of water or 
+position of the sun 
+Figure 4.2: A journey of automation showing transformation 
+from manual tasks into automated systems 
+y Animal Instincts: Birds migrate without Global Positioning 
+System (GPS), generally used by humans. Flowers bloom at 
+the right time, and bees build perfect honeycombs without 
+being taught. 
+From our bodies to the natural world, automation has always 
+existed. Humans have been inspired by automation in nature 
+and made automated things to make life easier. For example, 
+y A thermostat is a device that automatically adjust the 
+heating or cooling system, adjusts the temperature in a 
+room, just like our body regulates heat by sweating when 
+we are hot. 
+y A motion sensor turns on lights when someone enters in 
+a room, just like the p upils of the eyes adjust to brightness 
+automatically. 
+Humans have always been fascinated by making things that 
+work automatically. Over the centuries, these have evolved from 
+simple devices to complex machines. A journey of automation is 
+shown in Figure 4.2. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 86 
+In this project, you will learn how to build similar systems 
+using simple electronics and a microcontroller. You will observe 
+how a tiny sensor can detect movement, how a computer chip can 
+think and send commands, and how a light or a fan acts on those 
+commands. 
+By exploring automation, you will learn about electronics and 
+programming, and how these ideas can be used in your homes 
+and classrooms to save energy and improve comfort. Enjoy the 
+journey into this exciting world of innovative technology! 
+Wh at will I be able to do? 
+By the end of this project, you will be able to: 
+1. Identify electronic components used in automation 
+systems. 
+2. Read and draw electronic circuits. 
+3. Design an automation system for a home or a school. 
+4. Select appropriate sensors and programme them. 
+5. Install automation systems and test them. 
+What will I need? 
+Figure 4.3: Electrical and electronic components 
+Electrical and Electronics Components 
+1. Breadboard: Metal strips inside the breadboard allow 
+electronic components to be connected without soldering. 
+This makes it possible to test circuits. 
+Breadboard 
+9V Battery PCB Adapters Jumper wires 
+Arduino cable 
+DMM 
+Microcontroller LCD Display Buzzer LED Reprint 2026-27
+
+Home Automation 87 
+2. Microcontroller: A microcontroller like Arduino Uno or
+Raspberry Pi can be programmed using a computer to
+control various devices, like Light Emitting Diodes (LEDs),
+buzzers, motors, and sensors. 
+3. Light Emitting Diode (LED): A small electronic component
+that emits light when electricity passes through it. It has
+two legs — the longer one is positive (anode) and the
+shorter one is negative (cathode). 
+4. Liquid Crystal Display (LCD) Display: It is a small screen
+that can display 16 characters per row and has 2 rows,
+connected to Arduino with multiple wires. It is used to show
+messages, sensor readings, and data from an Arduino project.
+It requires a small potentiometer to adjust its brightness. 
+5. Buzzer: A tiny electronic component that produces a sound 
+when electricity flows through it. It is commonly used in
+alarms, timers and notification systems. 
+6. Battery: A portable power source that stores electrical
+energy and provides Direct Current (DC) power to circuits. 
+7. Printed Circuit Boards: Hard boards made of insulating
+material with thin copper tracks. These tracks connect 
+different electronic components, like resistors, LEDs and 
+microcontrollers, making a permanent circuit. 
+8. Adapters: Device that converts high-voltage AC power
+(from a wall socket) into low-voltage DC power that
+electronic devices like Arduino can use. It ensures a
+steady power supply and prevents damage to sensitive
+components. A common adapter for Arduino provides 9V
+or 12V DC output. 
+9. Arduino Cables: They are used to connect an Arduino
+board to a PC. 
+10. Jumper Wires: Small insulated wires used to connect
+components on a breadboard or circuit without soldering.
+It helps transfer electricity from one point to another. 
+11. Digital Multimeter (DMM): An electronic measuring tool
+used to check voltage, current, and resistance in electrical
+circuits. It is commonly used by engineers, electricians,
+and hobbyists to test and troubleshoot circuits. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 88 
+Sensors 
+1. Motion Detection Sensor: It senses infrared radiation 
+(heat) from objects like humans and animals. When 
+someone moves in front of it, the sensor detects the heat 
+change and sends a signal to trigger an action. 
+2. Sound Sensor: It detects sound levels in the surrounding 
+environment. It converts sound vibrations into electrical 
+signals, which can be used to control devices like LED 
+lights or buzzers. 
+3. Temperature Sensor: It measures the temperature of 
+air, water, or any surface. One popular type is the DHT11, 
+which provides accurate temperature readings in degrees 
+Celsius. 
+Other Material and Tools: Soldering iron, soldering metal and 
+flux, multimeter, screwdriver, wire stripper, and laptop/computer. 
+How do I keep myself and others safe? 
+Some key precautions to be followed while working with 
+electronics are as follows: 
+1. Safety from electrical gadgets: Avoid short circuits and 
+check for loose connections. 
+2. Soldering precautions: Use safety goggles, avoid inhaling 
+fumes and keep your hands away from the hot soldering 
+iron. 
+3. Handling tools: Use wire cutters and strippers carefully to 
+prevent injuries. 
+4. Workplace safety: Keep the workspace organised and 
+free from unnecessary wires. 
+Motion Detection Sensor Temperature sensor Sound sensor 
+Figure 4.4: Sensors used in automation Reprint 2026-27
+
+Home Automation 89 
+Internet Safety: Ask your teachers for help while 
+using the Internet. Be careful not to upload or 
+download anything, and do not share personal 
+information anywhere online. 
+What do I need to know before I start? 
+Before beginning this project, it will help if you remember some 
+ideas from Science: 
+y Basic understanding of simple circuits. 
+y Simple circuit diagrams – draw and read simple circuit 
+diagrams and their components, as well as basic electronic 
+components and their functions. 
+y Basic symbols used in electrical and electronic circuits are 
+given below: 
+Battery 
+Provides electrical 
+energy 
+Resistance 
+Limits current flow 
+Earthing 
+Provides a safe path 
+for excess current 
+Switch 
+Controls the 
+circuit 
+Diode 
+Controls the circuit 
+and direction of the 
+current flow 
+LED 
+Light Emitting 
+Diode used in 
+lighting 
+Capacitor 
+Stores electrical 
+energy temporarily 
+Important Note: Most of the home appliances 
+use ‘230 V, AC supply’. Electronics circuits we 
+include in our activities work on ‘DC supply’ . It 
+would be dangerous to connect electronic circuits 
+directly to AC Mains. Only make circuits using DC 
+batteries when you are a beginner. 
+Figure 4.5: It is harmful to 
+connect Electronic circuits 
+directly to the AC Mains 
+Before you start working on automation systems, explore the 
+automation systems around you. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 90 
+Activity 1: Exploring Automation in Our Surroundings 
+Look around your classroom, home, car, train, nearby market place 
+and community, or even in films and television. Look carefully 
+for things that work automatically. Note your observations in 
+Table 4.1. 
+Table 4.1: Record observations for the automated systems 
+Place/ 
+Location 
+What is 
+Automated? 
+What is 
+Happening? 
+How Do You 
+Think It 
+Works? 
+Notes 
+Refrigerator Cut-off in case 
+of voltage 
+surge 
+If there is a 
+voltage surge, 
+the refrigerator 
+gets switched 
+off 
+A sensor 
+detects a 
+change in 
+voltage 
+Protects the 
+refrigerator 
+Reflect on your learnings 
+1. Why do you think automation is required? 
+..................................... ......................................................................... 
+.............................................................................................................. 
+............................................ ................................................................. 
+2. What excites you the most about the automated systems 
+you observed? 
+............ .................................................................................................. 
+.............................................................................................................. 
+.................... ......................................................................................... Reprint 2026-27
+
+Home Automation 91 
+3. Brainstorm ideas you may have to make life easier and 
+free of drudgery (for example, to help your parents or 
+complete any laborious activities). Let your imagination 
+run free. 
+.. ............................................................................................................ 
+.............................................................................................................. 
+........ ..................................................................................................... 
+What do I have to do? 
+Activity 2: Exploring circuits using a simulation platform 
+Have you ever played car racing games on a computer or mobile 
+phone? If you have done that, then you were not driving a real 
+car but a simulation. 
+Do you know how pilots learn to fly a plane? Besides learning 
+about aeroplanes and their functioning and flying with an 
+instructor, they also use ‘simulators’. Simulators allow pilots to 
+experience flying without actually being in a plane. Similarly, 
+there are simulation platforms where you can try different 
+electronic circuits without physically building them. You can 
+draw circuits on a computer screen and test them to check if they 
+work successfully. 
+Simulation platforms help you prepare for building physical 
+systems. In such case, you will not be making mistakes when you 
+make ‘real-life’ circuits. 
+In this activity, you will work on circuit simulation software 
+to build and try out simple circuits. 
+Tinkercad is a simulation platform. You can explore other 
+platforms using the following search words: 
+ Simulation for building circuits for beginners 
+ Platform for making circuits 
+You can search for tutorials for simulations. For example, you can use the 
+search keywords, ‘Tutorial for making electronic circuit + Tinkercad’. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 92 
+Step 3: Open workplace and place 
+the required components. 
+Step 1: Draw the circuit you want 
+to test. 
+Step 2: Open Tinkercad or any 
+other simulation platform. 
+Step 4: Make connections and test 
+the circuit. 
+Now, make a simulated circuit using the following components: 
+y LED, 220 ohms resistor, DC battery 9V, switch 
+y Buzzer, 220 ohms resistor, DC battery 9V, switch 
+Follow the steps in Figure 4.6 to make and test circuits. 
+Now, design a few circuits on your own and try them out. 
+Answer the following questions based on the circuits you 
+designed on the simulation platform. 
+1. Which software did you use? 
+.............................................................................................................. 
+.............................................................................................................. 
+............................................................................................................. 
+2. Did your circuits work? Try different components, such 
+as other batteries and resistance values. Write down your 
+observations of changes as a result of these trials. 
+.............................................................................................................. 
+.............................................................................................................. 
+Figure 4.6: Using simulation to build and test circuits Reprint 2026-27
+
+Home Automation 93 
+3. Draw the diagrams of the circuits you designed. 
+Activity 3: Building circuits using physical components 
+You have tried out different circuits on the simulation platform. 
+Now, build a circuit using physical components. Figure 4.6 has 
+some suggestions. 
+Buzzer with battery and switch 
+Electronic Rakhi 
+3-V DC motor with solar panel 
+Dancing doll using LED and DC motor 
+Figure 4.7: Creating electronic items with physical components Reprint 2026-27
+
+Kaushal Bodh — Grade 8 94 
+You can search for other circuits online using the following 
+keywords: 
+ DIY circuits for beginners 
+ Electronic projects for beginners 
+Reflect on your learnings 
+On the basis of the activity, answer the following questions: 
+1. Which circuit did you make? 
+.............................................................................................................. 
+.............................................................................................................. 
+.............................................................................................................. 
+2. Which components did you use? Write their specifications. 
+.............................................................................................................. 
+.............................................................................................................. 
+.............................................................................................................. 
+3. Draw circuit diagrams of the circuits you designed. 
+Activity 4: Making the circuit smart 
+In the activities so far, circuits are controlled by a switch. You 
+can turn a switch either ON or OFF. This allows you to control the 
+flow of electricity to operate the circuit. But you need to manage 
+the switch manually. Reprint 2026-27
+
+Home Automation 95
+Now, what if you want to make the circuit smart? You want
+your circuit to switch the circuit ‘ON’ when it is dark or switch the
+electric pump ‘OFF’ when the tank is full.
+When it becomes dark at night, our eyes sense the darkness,
+or when water starts overflowing from a tank, our ears hear that
+sound. Our sensing organs are the eyes, ears, tongue, nose, and
+skin. They inform our brains about things happening around
+us. Now, to inform an electronic circuit that it needs to become
+automatic, it needs to sense things. This is done by components
+called ‘sensors’. 
+How automation works? 
+When we touch something hot, our skin senses the temperature
+(input). It sends a signal to our brain (process). Our brain signals
+our hand to move away from the hot object. A representation of
+how one brain senses an input and processes it into output in
+given in Figure 4.8.
+Skin senses temperature
+and informs brain. 
+(Input) 
+Brain processes the information
+and instructs hands to retract. 
+(Processing) 
+Hand moves away from
+the hot object. 
+(Output) 
+Figure 4.8: Representation of how our brain senses an input and processes it into output 
+Similarly, automation follows a simple cycle that allows
+machines or systems to perform tasks without constant human
+control. This cycle consists of three key steps: 
+1. Input (Sensing) 
+y Sensors detect changes in the surroundings, such as
+motion, temperature or light. 
+Example: A motion sensor detects movement in a room. 
+2. Processing (Decision making) 
+y A microcontroller or processor analyses the input and
+decides what action to take. 
+Example: If movement is detected, the processor turns
+the lights on. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 96 
+3. Output (Action/Execution) 
+y The system carries out the action based on the decision. 
+Example: The lights turn on automatically whenever 
+motion is detected. 
+This cycle continues as long as the system is active, making 
+automation an efficient way to reduce manual work and improve 
+efficiency in daily life. 
+The microcontroller is the brain of the circuit (Figure 4.8). It 
+processes the sensor information and asks the output devices to 
+act. You need to give instructions to get the desired response from 
+the microcontrollers (Figure 4.9). This set of instructions given to 
+the microcontroller is called a ‘programme’. 
+These microcontrollers are like small computers. Depending 
+on their processing power and functions, different types of 
+microcontrollers are available in the market. You need to choose 
+the microcontroller depending on your application. 
+Figure 4.10 shows examples of microcontrollers that are 
+commonly used by beginners — Arduino Uno and Raspberry Pi 
+Pico (Figure 4.10). 
+Figure 4.9: Microcontroller handles both input and output to make decisions 
+(Input) 
+(Sensing) Sensors 
+(Processing) 
+(Decision Making) 
+Microcontrollers 
+(Output) 
+(Action Execution) 
+Output devices 
+Figure 4.10: Arduino Uno (a) and Raspberry Pi (b) microcontrollers 
+(a) (b) Reprint 2026-27
+
+Home Automation 97 
+Output Devices 
+An output device is any piece of hardware item that takes 
+commands from a microcontroller to perform specific tasks. 
+Typical examples of output devices are LEDs, buzzers, DC motors, 
+servo motors, stepper motors, relays, LCD, and speakers. Output 
+devices can exist with or without sensor-like input devices. A 
+person can operate the output device through a sensor or from 
+the signal received from a microcontroller. 
+Making simple circuits using microcontrollers 
+You learnt about input devices, microcontrollers and output 
+devices. Now, let us connect them to make a smart circuit. You 
+can use a breadboard to connect different components without 
+soldering them. This will help you to test the circuit quickly. If 
+something does not work, you can rearrange the parts. The 
+breadboard is only for prototyping, a model used to test the circuit 
+(Figure 4.11). Once your circuit is tested and working, you must 
+solder the components and make the circuit permanent. 
+Figure 4.11: A breadboard 
+Microcontrollers: You can create an automation system using 
+a microcontroller. Each microcontroller has a different number 
+of pins. Each pin is for a specific purpose, such as connecting the 
+power supply, ground, and input and output devices. 
+You can search online using keyword, ‘Understanding Pin 
+Configuration of – Name of the microcontroller’. 
+Vertical Group 
+(Rows are linked 
+vertically) 
+Horizontal Group 
+(Rows are linked 
+horizontally Reprint 2026-27
+
+Kaushal Bodh — Grade 8 98 
+Arduino Uno is shown in Figure 4.12. 
+Figure 4.12: Arduino Uno 
+y Analog pins (labelled A0 to A5): Connect input or output 
+devices, such as parts like LEDs, sensors, and motors. 
+y Digital pins (labelled 0 to 13): To give an ‘On–Off’ signal. 
+They control LEDs, buzzers, motors (On/Off signals), etc. 
+y Universal Serial Bus (USB) port: Connects to a computer 
+for programming. 
+y Power supply: A USB cable or a battery can power the 
+microcontroller. 
+y Reset button: Restarts the programme running on the board. 
+y GND: GND stands for ‘Ground’. It is a reference point of 
+voltage in circuits and protects the circuit and the person 
+working the circuit. 
+You can try the following activities using microcontrollers, 
+breadboard(s) and sensors. 
+Glowing LED bulb using a microcontroller (for example, 
+Arduino Uno) 
+1. Search for an online tutorial using the search keywords, 
+‘Tutorial + beginner + microcontroller’ (e.g., Arduino Uno). 
+2. Connect the LED, battery, and Arduino pins with the help of your 
+teacher. Download the Arduino IDE programme from the official 
+Arduino website. 
+3. Start the Arduino IDE programme on the computer; go to File ⇒ 
+Examples ⇒ Basics ⇒ Blink. This will open a new window with 
+the Blink programme. Reprint 2026-27
+
+Home Automation 99 
+(a) (b) 
+(c) 
+Activity 5: Exploring automation cycle 
+Now, you know how to connect a microcontroller and programmes 
+it using a computer; you also know how to give it power. Now, 
+connect input and output devices to try the automation cycle. 
+All automation processes have an input, a process and an 
+output (Figure 4.15). 
+4. Now, connect the Arduino board to the computer using its cable. 
+Then open the tools menu on the computer, go to the port and select 
+Arduino Uno Com (com number will be selected automatically by 
+computer). 
+5. When done, click on the arrow under the file menu. This will 
+upload the programme to the Uno board. This should blink the Uno 
+onboard LED every second. 
+6. Now, change the value in the delay command to set a different time 
+for the on and off state of the LED and upload the programme again. 
+You can also try the following: 
+1. On/Off LED 
+2. Reduce or increase the blinking time of LED 
+3. Add multiple LEDs and blink them 
+Figure 4.13: LED off Figure 4.14: LED on 
+Figure 4.15: Some sensor modules (a), microcontroller (b), and motor toy (c) Reprint 2026-27
+
+Kaushal Bodh — Grade 8 100 
+What can be the input, process and output for each digital device? 
+One example for automatic street light is given below. Complete 
+the details for water sprinkler and any device of your choice. 
+Automatic Street Light 
+Inpu t 
+LDR (light sensor) 
+senses light. Its 
+resistance changes. 
+It informs the 
+microcontroller 
+when light intensity 
+drops. 
+Proce ss 
+Microcontroller get 
+a signal from LDR. It 
+decides if it is getting 
+dark from value of 
+the input received. 
+It instructs put light 
+‘ON’. 
+Output 
+Light switches ‘ON’ 
+with the instructions 
+received from the 
+microcontroller. 
+Automatic Water Sprinkler System 
+Input Process Output 
+An Automation Device of Your Choice 
+Input Process Output Reprint 2026-27
+
+Home Automation 101 
+You can search online for tutorials or circuits. You can use search 
+keywords, ‘Tutorial + automated + streetlight (or your Mobile/ 
+Laptop) + (Your microcontroller, for example – Arduino)’. 
+Now, make a small automation system using microcontrollers. 
+Automation System: Smart light system using a microcontroller. 
+Function: If some movement happens in the room, then the light will 
+switch ‘ON’. 
+Microcontroller: Arduino Uno 
+Materials: The microcontroller (Arduino Uno), PIR motion sensor, 5 mm 
+LED, 220-ohm resistor, breadboard, jumper wires, USB cable, computer 
+with Arduino IDE installed. 
+Circuit Diagram: 
+Process: Open the Arduino IDE and write/modify the code. Test the circuit. 
+Automation Sy stem: .................................................................................................... 
+Function: .......................................................................................................................... 
+............................................................................................................................................. 
+Microcontroller: ... ........................................................................................................ 
+Circuit Diagram: 
+Proc ess: ........... .................. ................................................................................................. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 102 
+Did your circuit work the first time? If not, please write down 
+what you need to fix. 
+............ ............................................................................................................... 
+........................................................................................................................... 
+.................. ......................................................................................................... 
+Activity 6: Make your own automation system using a 
+microcontroller 
+You have learned about microcontrollers, their connections and 
+how they are connected with sensors and output devices. Use 
+this knowledge and skills to make an automation system of 
+your own. 
+Following are examples of few automation systems. You can 
+search for their tutorial online by putting them in the ‘search 
+words’. 
+ Ins tructions + automatic plant watering system + using Arduino (or 
+any microcontroller) 
+ DIY + automatic obstacle detecting system + using Arduino (or any 
+microcontroller) 
+ DIY + beginners + automatic fire alarm system + using Arduino (or 
+any microcontroller) 
+ DIY + automatic + gate opening system 
+ DIY + automatic + theft detection alarm system 
+ Instruction + smart fan + (or any microcontroller) 
+If not exactly, then you can get programme or instructions close to 
+your application. You can take it as a reference and build on it to make 
+programme for your applicatio n. Reprint 2026-27
+
+Home Automation 103 
+Reflect on your learnings 
+1. What automation system do you want to make? What is 
+the process? 
+............................. ................................................................................. 
+.............................................................................................................. 
+.................................. ............................................................................ 
+2. Write about the Input, Process and Output of your project. 
+Input Process Output 
+3. What are the materials required by the automation system? 
+. ............................................................................................................. 
+.............................................................................................................. 
+..................... ......................................................................................... 
+4. Did you modify the code received from other sources? 
+Mention the site, the information you got, and the 
+modification you made. 
+.............................................................................................................. 
+.............................................................................................................. 
+.................... .......................................................................................... Reprint 2026-27
+
+Kaushal Bodh — Grade 8 104 
+5. Draw the block diagram/sketch/circuit of your automation 
+system. 
+6. Did your automation system work as per the plan? If not, 
+what are the reasons? What will you change next time? 
+... ........................................................................................................... 
+.............................................................................................................. 
+.............................................................................................................. 
+.. ............................................................................................................ 
+What did I learn from others? 
+1. What are the precautions to be taken to protect the circuits 
+from electricity fluctuations? 
+.... .... ...................................................................................................... 
+.............................................................................................................. 
+.............................................................................................................. 
+................... ........................................................................................... Reprint 2026-27
+
+Home Automation 105 
+2. Did you take help from experts or peers? What are the 
+three most important things you learned about home 
+automation? 
+.... .......................................................................................................... 
+.... .......................................................................................................... 
+........ ...................................................................................................... 
+What did I do and how long did it take? 
+It is important to understand how much time is required for an 
+activity to be completed. 
+Calculate the approximate number of hours you spent on each 
+activity. Mark them on the timeline below. If you did more than 
+the activities suggested in the book, please add the number and 
+time taken. 
+Activity 1 2 3 4 5 6 
+Time taken --- --- --- --- --- --- 
+(Periods) 
+What else can I do? 
+So far, you have provided power supply through a computer USB 
+port to the Arduino board. But to make circuits independent of 
+the computer, you need to package them with batteries or power 
+adapters. Arduino boards take power from the laptop/computer. 
+To deploy your system in the field, you need to package it with 
+batteries. 
+The Arduino board needs Lithium–Ion batteries. It also needs 
+DC connector cables to connect the batteries to the Arduino 
+board. You can make a casing using a 3D-printer or use any other 
+available materials to make a suitable casing. Reprint 2026-27
+
+Kaushal Bodh — Grade 8 106 
+Think and Answer 
+1. Did you enjoy doing this project? 
+2. What did you like, and what would you do differently next 
+time? 
+3. Compare sensors and human sense organs. What can 
+humans do with their senses that sensors cannot? What 
+capabilities do humans have that automated systems do 
+not? For example, can systems be designed to respond to 
+human emotions. 
+4. Examples of jobs related to the work you did are automation 
+engineer, technical support specialist, programmer, etc. 
+What other jobs are related to the project? Look around, 
+speak to people, and write your answer. Reprint 2026-27

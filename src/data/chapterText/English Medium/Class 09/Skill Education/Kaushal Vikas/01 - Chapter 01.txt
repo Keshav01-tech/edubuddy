@@ -1,0 +1,715 @@
+Unit I
+Work with Life Forms 
+Work with Life Forms involves working with plants and animals.
+Humans have always depended on plants and animals, from early 
+hunting and gathering to the cultivation of different crops and 
+animal husbandry, not only to survive but also to create surplus for a
+better life. Work with Life Forms is, therefore, fundamental to human
+survival and growth.
+Work in this form is mostly related to the food production and the
+supply of raw materials. It involves the cultivation of crops (pulses,
+wheat, cotton, spices, etc.), rearing livestock, harvesting produce
+from forests and other natural habitats, seaweed cultivation, and so
+on. In addition, raw materials are supplied to various industries, for
+example, cotton, jute, leather, wood, rubber, oil, tea, coffee and so
+on. The agricultural sector is often referred to as the ‘mother of all
+production’, since it is not only the primary source for the sustenance
+of human civilisation but also the provider of raw materials for almost
+all human activities. 
+Food security means that all people, at all times, have reliable 
+access to a sufficient quantity of affordable and healthy food. 
+In modern times, the world of work is undergoing a lot of changes.
+However, agriculture remains far ahead of all other sectors as a
+provider of employment and will continue to remain so in the future.
+It will undergo transformation to ensure food security for all in the
+face of challenges, like depletion of natural resources, reduction of
+land for farming and climate change. Already, various technologies
+are being used in farming to address these challenges, for example,
+precision farming technologies to deliver exact amounts of water and
+fertiliser, sensors to alert farmers to any requirements, solar pumps
+for irrigation, mobile apps for weather forecasting, market prices
+and government schemes. At the same time, traditional practices
+like natural farming are also being used more frequently, combining
+traditional wisdom with modern technology.
+
+2
+
+3 | Introduction to Agricultural Practices
+
+4 
+The figure overleaf depicts the agricultural livelihood ecosystem. 
+A livelihood ecosystem is an interconnected network of resources,
+people, institutions, activities and environmental factors that enable
+individuals to earn a living, while contributing to society and the 
+nation. For instance, the livelihood ecosystem in different geographies 
+will vary depending on resources (for example, type of soil, and
+availability of water, materials and tools), support (for example,
+agricultural experts), access to markets (for example, transportation),
+and demand at local, national and global levels. Further, this implies 
+that no work is done in isolation — different kinds of work are deeply 
+connected. For example, if demand for a particular kind of produce 
+reduces, then the farmer will not be the only one affected. Slowly, 
+the requirement for transport, production of agricultural equipment 
+and experts will also decrease. As you can see in the figure, there 
+are many opportunities in agriculture. Besides crop cultivation and
+animal rearing, the area includes research, storage, transport, trade 
+and so on; the list is long. Each level in the figure provides details of 
+the kind of work that can be done in this area. The last level indicates
+the interlinkages between the work of the farmer or livestock owner,
+and various other allied work that enable agricultural practices and 
+ensure that society benefits from them. 
+This unit will give you the opportunity to do work related to
+agricultural practices. You can choose the work you will do either
+from options in the unit or you can identify some other kind of work
+related to agricultural practices. This unit offers illustrations of seven
+vocations, as explained in the paragraphs below.
+Chapter 1 introduces key concepts and processes that are common
+across a range of work related to agriculture. This chapter is mandatory
+for you.
+Chapters 2 to 4 use common concepts and processes to help you
+understand how to do specific work. At the same time, they also
+introduce additional concepts and processes that you can learn while
+doing. Chapters 2 and 3 detail work related to rooftop gardening and
+precision farming, respectively. Chapter 4 contains guidelines for
+mushroom cultivation, aquaponics, pisciculture, backyard poultry
+and non-timber forest produce.
+To reiterate, you can choose to do work related to any of these seven
+vocations or you can select something related to agricultural practices
+that is entirely different. Remember to consult your teacher and/or
+an expert for guidance at all points. Work is to be done in groups.
+Remember — a big part of work is doing it together.
+
+Introduction to
+Agricultural Practices 
+Figure 1.1 is an example of a crop calendar that provides a structured
+schedule for farming activities, so that farmers can make decisions
+related to planting, maintenance and harvesting based on local
+weather and soil conditions. You may have studied this calendar in 
+your Grade 9 Social Science textbook. These calendars are created by 
+agricultural organisations, researchers and sometimes by the farmers
+themselves. 
+Figure 1.1: Example of a crop calendar 
+Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+RABI sowing growing
+ZAID harvesting
+KHARIF growing
+wheat 
+barley 
+peas 
+mustard 
+gram 
+watermelon 
+cucumber 
+muskmelon 
+pumpkin 
+rice 
+maize 
+jowar 
+bajra 
+groundnut 
+sugarcane 
+cotton 
+Rabi season (winter crops)
+Kharif season (monsoon crops)
+Zaid season (summer crops)
+summer season
+sowing harvesting
+sowing
+hot, heavy rainfall
+cool, less water
+harvesting 
+CHAPTER 1
+
+6 Kaushal Vikas | Grade 9 
+1.1 Introduction 
+We are one of the oldest agricultural civilisations in the
+world and among the world leaders in overall farm outputs.
+India leads in production of vegetables, fruits, milk, eggs 
+and fish. Growing plants and caring for animals not only 
+help us with a better understanding of agriculture but also
+help in acquiring many life skills. The agriculture sector also 
+has opportunities for different jobs and entrepreneurship 
+opportunities with new technology applications, like drones, 
+robotics, biotechnology and Artificial Intelligence (AI). 
+Importance of
+work 
+In this chapter, you will 
+Set up a meteorological 
+observatory
+Understand the
+importance of
+agricultural practices
+Test and
+improve soil quality Test and treat seeds
+Explore vocations related to
+agricultural practices
+Identify key processes related to
+agricultural practices
+Identify quality criteria related
+to agricultural practices
+Understand
+agro-climate
+relationship
+Agriculture has shaped India’s socio-cultural life over
+centuries by influencing its traditions and rural lifestyles, and
+strengthened communities with practices like farming festivals.
+This sector has played an important role in strengthening the 
+nation. According to the Economic Survey of India 2024–25, 
+published by the Ministry of Finance, the agriculture sector
+contributed 16 per cent to India’s Gross Domestic Product
+(GDP) and employed 46.1 per cent of the workforce.
+The Kṛiṣhi-parāśhara provides a detailed account of traditional agricultural
+techniques, including soil preparation, crop selection, irrigation techniques, 
+seasonal planning and pest management. It blends scientific observations 
+and ecology to present natural methods that are relevant today to address
+issues, like soil degradation, climate unpredictability and the overuse of
+chemical fertilisers.
+
+7 | Introduction to Agricultural Practices 
+PORTFOLIO 
+Select any product that you can trace back to agricultural practices. Find out 
+(you can do an Internet search or ask different stakeholders, including vegetable
+sellers) the price of the raw product/produce sold by a farmer and the cost at
+which it is sold. What is the price difference? Find out why the value of the raw
+product/produce has increased. 
+Value chain 
+Have you ever thought why the price of vegetables changes depending on
+where you buy them from? Did you know that the cost of vegetables bought in a 
+supermarket can be 300–400 per cent higher than that of vegetables bought in a 
+mandi? The cost of any agricultural produce increases as it travels further or is 
+processed further, or even packaged differently. 
+Value increases at each step due to costs of additional processes, like storage
+(for example, refrigeration, rent or maintenance of warehouses) and processing
+(for example, grinding wheat, rice, etc., to make flour or extract oil), cleaning,
+pasteurisation, etc. Profits, cost of transport and so on must also be factored
+in (Figure 1.2). Additionally, in cases where hybrid seeds are used, the price
+increases further for the consumer.
+It is important to understand the value chain, since this knowledge helps us
+make informed choices, for example, comparing cost of travelling to farms or
+mandis instead of buying produce from supermarkets. 
+Figure 1.2: Value chain in agriculture 
+Figure 1.2 shows the percentage increase in the cost of produce from a farm 
+as it moves up the chain value. If the cost of producing harvest is ₹ 100, then
+value keeps getting added. Post-harvest handling adds 15–20 per cent to the 
+initial investment of ` 100. Next, processing adds 30–50 per cent to the additional 
+value and so on. In case hybrid seeds are used, the initial cost also increases. Cost
+of research also needs to be factored in.
+
+8 Kaushal Vikas | Grade 9 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE 
+India has one of the most extensive public weather information 
+systems. IMD provides district- and block-level weather forecasts through SMS 
+alerts, All India Radio, Doordarshan, community radio, mobile apps, Kisan 
+Portal and Krishi Vikas Kendra (KVK). Apps like Bharat-VISTAAR, developed
+by the Government of India, offer a range of services to farmers, including 
+agro-climatic data.
+Panchayat-level meteorological data, including temperature, rainfall, soil
+moisture and wind direction are available on digital platforms/apps like the 
+Gramin Krishi Mausam Sewa (GKMS). 
+CASELET 
+Weather keepers of Ladakh 
+Students of Government High School decided to do a project on 
+agriculture in Ladakh. Extracts from their report are given below.
+Ladakh is a cold desert and receives very little rainfall; most precipitation is in
+the form of snow. Irrigation is mostly dependent on glacial meltwater. Temperatures 
+range from 25 to 30°C in summer and –25 to –8°C in winter. There is a very small 
+period when farmers can sow barley and potatoes, and harvest apricots from trees. 
+However, weather here is unpredictable – icy winds, sudden frost or unexpected 
+rains can spoil a crop without warning, destroying weeks of hard labour. 
+1.2 Agro-climatic relationship 
+One critical factor related to agricultural practices is the 
+climate. As you have studied in Social Science, India is 
+a country with diverse agro-climatic regions. From the
+Himalayas to the coast of Kerala, the cropping patterns change
+from region to region. On the basis of climatic conditions,
+some parts of the country grow rice, some parts are known
+for wheat, cotton, soyabean, sugarcane, millets, etc., and yet
+others for fruits.
+The India Meteorological Department (IMD) plays a vital
+role in recording meteorological observations and providing 
+Agrotechnological Advisory Services (AAS). The weather 
+forecast and advisories help farmers in planning their crops
+in kharif , rabi and summer seasons. Besides warning about
+rainfall or snow, IMD meteorological data and forecasts also
+help other agencies predict outbreaks of livestock diseases,
+allowing for timely action for prevention or treatment. 
+Essential
+conditions for
+growth
+
+9 | Introduction to Agricultural Practices 
+Livestock rearing is also impacted by the climate of Ladakh — goats,
+double-humped camels, yaks and horses, though hardy, get affected by the weather. 
+Use of meteorological data 
+Searches on the Internet and a video call with a scientist at the Regional Research 
+Centre of the Indian Council of Agricultural Research at Leh led to the following
+conclusions (Table 1.1). 
+Table 1.1: Relevance of meteorological parameters in agricultural practices
+Meteorological
+parameter
+Relevance for farmers and livestock owners 
+Duration of
+summer/winter
+As Ladakh is a cold desert, a very short period is available for 
+farming (May to September). Thus, any change in weather
+negatively affects agricultural activities. 
+Precipitation
+(rainfall and
+snowfall) 
+Ladakh receives maximum rainfall from July to September. This 
+period is when most of the crops are grown. If it rains very heavily, 
+crops may be lost due to floods, while if it rains poorly there will 
+be water scarcity.
+Temperature From June to August, temperatures are highest during the day 
+(20 to 30°C) and above freezing (0 to 5° C) during the night. This
+temperature range is best for farming activities.
+Humidity The average humidity in Ladakh ranges from 70 to 74 per cent
+between May and September. Very low humidity leads to higher 
+evaporation losses from leaves and dryness of soil.
+Wind direction
+and speed 
+Strong winds, especially in open fields, can cause physical damage 
+to crops and lead to soil erosion. 
+CHECK YOUR UNDERSTANDING 
+Find out what kind of data farmers use in the region your school is located in.
+Why is this useful for them? 
+TASK 
+Make your own Meteorological Lab 
+Build a simple meteorology observatory in your school with a (i)
+simple rain gauge, (ii) dry-wet bulb thermometer and (iii) wind vane. Follow 
+the steps in Figures 1.3–1.5 using the materials suggested. You can always 
+substitute the materials if you wish; please consult your teacher/an expert
+before doing so.
+
+10 Kaushal Vikas | Grade 9 
+Use your observatory to track rainfall, temperature (including the average
+and range of temperature) and wind direction. You should collect and analyse
+the data over three months, that is, the duration of the time you are doing this
+work. You can also create a weather bulletin board for farmers in your region. 
+Making a rain gauge 
+1. Take an empty plastic bottle (transparent) 
+with a flat and stable bottom (so it does 
+not fall over in the wind). 
+2. With the help of a scissors, cut off 
+1/3rd part of the top of the bottle (this
+part can now be used as a funnel). 
+3. Put the funnel upside down
+inside the bottle. Remember,
+the funnel should cover the
+entire mouth of the bottle, so
+rain can only enter through
+the funnel.
+4. Then place a ruler
+outside the bottle
+using a tape. 
+5. Now place the entire 
+setup in an open area
+where rain can fall
+directly into it. It should
+be placed at a height. 
+6. After it rains, check the water level against
+the scale.
+7. Note the rainfall and compare it to
+the one measured by an app. 
+Figure 1.3: Rain gauge is used to measure rainfall by collecting rainwater in a container 
+and measuring its depth over a specific period using a measuring scale (in cm or mm).
+
+11 | Introduction to Agricultural Practices 
+Measuring temperature and humidity of air 
+1. Take two
+thermometers,
+a plastic bottle,
+scissors, thread,
+tape, cotton gauze
+and water.
+2. Wet the cotton gauze
+pad using water and
+cover the bulb of one
+of the thermometers
+with it (wet bulb
+thermometer).
+3. Then, attach the
+thermometers to the
+plastic bottle with the wet
+bulb thermometer on
+one side and the dry bulb
+thermometer on the other. 
+4. Tie a thread at the top of the
+bottle and spin it. 
+5. Record the temperature of both the dry 
+bulb and the wet bulb thermometer. 
+Figure 1.4: Dry-wet bulb thermometer measures temperature and humidity 
+The dry bulb thermometer shows the actual air temperature, while the wet
+bulb thermometer shows a lower temperature because water evaporates from
+the wet cotton and cause it to cool.
+The difference between the dry bulb and wet bulb readings helps us find
+the humidity in the air. If the difference is small, it means the air is humid, and
+if the difference is high then the air is dry. Please note that to get an accurate
+reading, a psychrometric chart for humidity is used. You can ask your teacher or
+an expert to help you use the chart. 
+Identifying the direction of the wind 
+1. Cut a circular disc
+from a cardboard or a
+paper plate.
+2. Mark the centre of
+the disc.
+3. From there, draw and write
+the four directions (North, 
+East, West and South) on 
+the disc.
+
+12 Kaushal Vikas | Grade 9 
+QUALITY 
+Two key processes in ensuring the quality of inputs while
+working with plants are detailed in the section below. The
+first is to ensure the quality of the soil, while the other is to
+ensure the quality of the seeds. 
+Quality 
+PORTFOLIO 
+Keep a record of data you have collected over a period of time with your DIY
+meteorological laboratory and share it with a farmer/gardener. Record their
+feedback. 
+4. Draw and cut a stick
+(tail) from another
+piece of cardboard. 
+5. Draw and cut an 
+arrow from the
+cardboard.
+6. Join the arrow with the tail. 
+7. Push the sharp end of
+the pencil through the
+centre of the disc.
+8. Place the arrow
+through the eraser
+using a pin; should
+move freely.
+9. Keep the wind vane in an
+open area and observe the
+direction in which the arrow
+points. 
+Figure 1.5: Wind vane identifies the direction of the wind
+
+13 | Introduction to Agricultural Practices 
+1.3 Processes related to agricultural
+practices 
+1.3.1 Soil testing and amendment 
+Testing of soil health is important for maintaining soil 
+fertility. Soil testing helps in understanding of soil health
+parameters – physical (soil texture, water holding capacity, 
+etc.), chemical (pH, nutrients, organic matter, etc.), and
+biological (presence of microbes). 
+Test and amend
+growing media 
+TASK
+Soil sample collection 
+To carry out these tests, soil can be collected from your own garden 
+or nearby fields. The process of sample collection is very important to get good
+results. Take soil from different spots, for example, from a sandy area, organic 
+pit and water channel, and mix the samples, as soil quality can vary even within
+a small area. Avoid shady areas (like under trees) and places, where fertilisers 
+are stored in the field. 
+Remove stones, leaves and other debris. Dry the soil in sunlight for a few
+hours. Crush clumps and sieve the mixture to get fine soil suitable for testing.
+Label each sample carefully, for example, date of collection, whether the
+previous crop was grown, and use it for both mason jar texture tests and pH
+testing. Figure 1.6 will help you collect the soil samples. 
+1. Divide the field in a 
+zig-zag manner. 
+2. Scrape away any 
+stones, pebbles,
+leaves or other litter
+from that area.
+3. Using a trowel, dig a ‘V’ 
+shaped hole, 15–20 cm 
+deep. 
+4. Cut a thick slice of the
+soil from both the faces
+of ‘V’, top to bottom. 
+5. Mix the soil sample 
+well and make a
+heap.
+6. Divide the sample into
+four quarters.
+
+14 Kaushal Vikas | Grade 9 
+DID YOU KNOW? 
+Soil composition is a dynamic mix of four main parts: about 45 per cent minerals
+(sand, silt and clay), 5 per cent organic matter (humus and living organisms),
+20–30 per cent water and 20–30 per cent air, filling the pore spaces. 
+TASK 
+Testing soil for its clay and sand percentage (mason jar test) 
+Understanding soil texture and pH is another crucial step in 
+evaluating soil health. Soil texture is determined by the amount
+of sand (largest particles), silt (medium–sized particles) and clay (smallest
+particles). Soil texture affects how well the soil holds water, nutrients and how 
+easily roots can grow in it. You can assess soil texture through a mason jar test.
+Figure 1.7 shows the process for the mason jar test. 
+1. Fill a transparent jar
+halfway with soil.
+2. Add water and a
+little dish soap. 
+3. Shake the container well. 
+7. Discard any two
+opposing quarters and
+mix the remaining two
+quarters.
+8. Again, divide the
+remaining sample
+into four quarters. 
+9. Repeat Steps 7 and 8 till 
+you get a small, clean
+soil sample ready for 
+testing – collect it in a 
+bag. 
+Figure 1.6: Process of collecting soil sample
+
+15 | Introduction to Agricultural Practices 
+4. Let soil settle for 24–48 hours. 5. Sand settles at the bottom, silt in the 
+middle and clay on the top. Measure
+each layer’s thickness and calculate
+soil composition. 
+Result Action to be taken 
+Clay percentage is more than 20 
+per cent — this will create water logging 
+conditions leading to suffocation of 
+roots.
+Add river sand or red-garden soil
+to correct it. It will improve water
+drainage. 
+Sand percentage is more than 80
+per cent – this will hold very little water 
+leading to wilting of plant.
+Add compost or garden soil. It will
+increase water-holding capacity of soil
+and add necessary nutrients for plants. 
+Figure 1.7: Process for mason jar test 
+pH test and amendment 
+Soil pH testing helps determine whether the soil is acidic, neutral or alkaline.
+Most plants grow in slightly acidic to neutral soils (pH 6–7). Acidic soil can 
+make it difficult for plants to absorb certain nutrients, while alkaline soils may
+prevent other nutrients from reaching the plant, leading to deficiencies. Figure
+1.8 shows the process of pH testing. 
+1. Add a little distilled
+water to the soil
+sample, making it a
+paste/slurry.
+2. Dip pH strip/pH metre
+into the slurry.
+3. Compare strip colour or
+metre reading with pH
+scale to identify soil as
+acidic, neutral or alkaline. 
+Result Action to be taken 
+Soil pH is acidic, i.e., 
+below 6
+• Adding compost (organic matter)
+• Adding wood ash
+• Adding lime or dolomite 
+Soil pH is basic, i.e.,
+above 8.5 
+• Adding extra water and draining it (soil wash)
+• Adding compost (organic matter)
+• Adding gypsum or sulphur containing fertiliser 
+Figure 1.8: Process for pH testing
+
+16 Kaushal Vikas | Grade 9 
+1.3.2 Seed selection 
+Once you have ensured that the soil selected is of good quality,
+you need to focus on the seeds you will be using. If the seed is
+weak or unhealthy, the plant that grows from it will also be
+weak, no matter how fertile the soil is. The germination test
+that you may have done in Grade 7 Kaushal Bodh book will
+help you estimate the percentage of seeds that will actually
+sprout, thereby giving you an idea of how many seeds to plant.
+Before sowing, seeds are treated to increase their
+germination rate, and to protect them from insects and
+diseases. Let us learn a simple seed treatment, using common
+salt (NaCl). This method of treatment is commonly used for
+cereal crops, like wheat and rice. The addition of salt in water
+increases the density of water (thereby making water heavier),
+so that damaged or hollow seeds float. Through this process, 
+we can easily identify non-germinating seeds. Salt water also 
+helps in removing any microbial infections on the seed coat.
+(Figure 1.9). 
+Seed selection 
+SAFETY 
+Follow the steps carefully while performing tests. Do not taste chemicals
+and handle glass containers carefully. 
+CHECK YOUR UNDERSTANDING 
+• Which test did you do?
+• What were the results of the test?
+• What steps did you take to improve the quality of the soil? 
+Seed dormancy 
+Seed dormancy is a natural condition where seeds remain alive but do not 
+germinate. This adaptation prevents seeds from sprouting in unsuitable
+conditions, increasing their chances of survival in adverse environments. 
+Sometimes we need to treat seeds to break their dormancy (for example, soaking 
+rice seeds in hot water for few hours), while in some seeds, dormancy is induced 
+through specific processes to prevent germination during storage.
+
+17 | Introduction to Agricultural Practices 
+1.3.3 Preparing organic fertilisers
+and pesticides 
+You may have prepared organic fertilisers and pesticides 
+in the Middle Stage. Refer to Kaushal Bodh of Grade 6 for
+preparation of vermicompost and Kaushal Bodh of Grade 7 for
+preparation of liquid compost. The Grade 6 book also contains
+directions for preparation of pesticide. The caselet shows how 
+students of Government High School did the work. 
+TASK 
+Floating method 
+1. Take 1 L water
+in bucket. 
+2. Add 100 g salt to water. 3. Add 250 g of wheat seeds. 
+4. Wait for 3–5 
+minutes. 
+5. Damaged, infected or
+hollow seeds float on 
+water. 
+6. Discard floating seeds, wash 
+remaining seeds in fresh
+water and dry in shade. 
+Figure 1.9: Floating method to identify germinating and non-germinating seeds 
+CASELET 
+Students making vermicompost 
+Students of Government High School collected 50 kg of agro waste
+and 50 kg of cow dung. They filled the agro waste and cow dung in the composting 
+bed, layer by layer, in a pit dug under a green shade-net. Worms were introduced
+and the pit was watered to keep it moist. They covered the pit with a gunny bag
+to maintain the moisture within it. After six days, the vermicompost was ready
+to harvest. After harvesting, the students sieved it and packed it into 1 kg bags 
+for use (Figure 1.10).
+
+18 Kaushal Vikas | Grade 9 
+Figure 1.10: Making vermicompost 
+Students also learnt to make an organic pesticide, Daśhaparṇī arka . As the
+name suggests it is an organic pesticide made with ten different materials – plant 
+leaves, cow-dung and cow-urine. They also used locally available plant leaves
+like neem, karanj , custard apple, papaya, castor, marigold, lantana, bael, tulsi and
+hibiscus. They first removed the leaves from their stem and carefully weighed 
+200 g of leaves. These were added to a bucket of 20 L capacity along with 220 g
+cow-dung and 500 ml cow-urine. After adding 15 L water to the bucket, they
+stirred it and kept it aside for fermentation (30–40 days). Once it was ready, they
+used it for spraying in a ratio of 15 mL per 1 L of water (Figure 1.11). 
+Figure 1.11: Making organic pesticide 
+1.4 Selection of vocation 
+This section will help you decide the vocation that you will
+take up related to working with life forms. The textbook
+provides details of rooftop gardening and precision farming,
+as well as guidelines for mushroom cultivation, aquaponics,
+pisciculture, backyard poultry and non-timber forest
+produce. But before that, you need to explore vocations
+around yourself. 
+Explore
+different sources
+of information 
+TASK
+Exploring vocations around us 
+Look around you and answer the following questions: 
+1. What kind of work related to agricultural practices do you 
+observe around yourself? You can use different sources 
+of information, for example, experts, site visits, libraries, 
+online resources, specific government sites or reports. 
+Mapping
+resources
+
+19 | Introduction to Agricultural Practices 
+PORTFOLIO 
+Which vocation have you chosen and why? 
+2. Briefly describe what the work involves – what are the
+inputs, what are the key pro cesses and what are the
+outcomes. 
+Mapping resources 
+Do you think it is possible for you to do the work in school?
+Discuss in a group why/why not. Table 1.2 will help you decide. 
+Table 1.2: Mapping resources to select vocation 
+Work
+related to
+agricultural
+practices
+around us
+Will
+you be
+able to
+complete
+the work
+in three
+months?
+Do you have
+adequate
+space
+to build
+necessary
+structures?
+Have you 
+identified 
+an expert
+to help?
+Will you
+be able to
+manage
+resources
+needed to
+complete
+the work?
+Will you
+be able to
+do ‘real’
+hands-on
+work? 
+Mapping
+resources 
+1.5 While doing work related to agriculture 
+1. Always handle tools and materials as per the instructions of the 
+teacher/expert, or as specified on packet labels or in manuals. 
+2. Using tools like a rain gauge, dry-wet bulb thermometer and wind vane
+to monitor local weather help take decisions related to the selection of
+plants, sowing, harvesting and irrigation.
+3. Testing soil health helps assess vital parameters, such as soil texture
+and pH, and take simple steps to improve soil quality.
+4. Healthy seeds can be identified using the ‘floating method’ in salt
+water. Damaged or hollow seeds float, while healthy seeds benefit 
+from coating with salt. 
+5. Agro waste and cow dung can be used for vermicompost, while organic
+pesticides such as Daśhaparṇī arka made from local leaves, like neem
+and papaya, can be used for pest management.
+
+20 Kaushal Vikas | Grade 9 
+1.6 Assess your learning 
+1. A farmer has sandy soil with high acidity. Suggest two amendments 
+and explain how they will improve soil quality.
+2. Non-timber Forest Produce (NTFP) refers to all useful products from
+forests (except timber), including resin, medicinal plants, fruits, nuts,
+etc. Lac is an important NTFP that is produced by a tiny insect, Kerria
+lacca, which secretes a resinous substance as a protective coating
+on the branches of host trees. Lac production is dependent on insect
+population. Insect growth in turn depends on suitable host plants and
+a warm and humid climate, among other factors like growth of plant, etc.
+If you were part of a team building a meteorological observatory to
+help monitor conditions for the growth of Kerria lacca, which two
+instruments would you prioritise and why?
+3. Table 1.3 shows the rainfall in a region and the rainfall requirements
+of some crops. On the basis of the rainfall data, suggest which among
+the following crops can be safely planted in the region and when.
+Justify your choice. 
+Table 1.3: Rainfall chart and rainfall requirement of crops 
+Rainfall chart — Annual rainfall per year Rainfall requirements of some crops 
+S.No. Year Rainfall (mm) SN Crop Rainfall (mm)
+1 2015 480 1 Rice 1500–3000 
+2 2016 333 2 Wheat 750–1000 
+3 2017 882 3 Jawar 500–1000 
+4 2018 350 4 Pulses 400–500
+5 2019 974 5 Groundnut 500–1250 
+6 2020 693 6 Soyabean 500–1000 
+7 2021 494 7 Maize 500–1000 
+8 2022 917 8 Sugarcane 750–1500 
+9 2023 549 9 Jute 1250–2000
+10 2024 596 10 Cotton 500–1000 
+4. Create a farm-to-plate journey map for any farming produce. Indicate
+the value chain as the produce travels from where it was grown to the
+table in the form of food. 
+5. Of the tasks that you did, which did you enjoy the most? Which did you
+enjoy the least? Give examples of what went well and what did not go 
+well. What would you do differently next time? 
+6. Give examples of how you can apply your learning in a real-life
+situation.

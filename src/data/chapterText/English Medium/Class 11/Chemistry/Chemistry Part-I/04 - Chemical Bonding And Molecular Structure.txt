@@ -1,0 +1,2448 @@
+Scientists are constantly discovering new compounds,
+orderly arranging the facts about them, trying to explain
+with the existing knowledge, organising to modify the
+earlier views or evolve theories for explaining the newly
+observed facts. 
+UNIT 4 
+After studying this Unit, you will be
+able to 
+ u n d e r s t a n d . | s s e l  / e w i s 
+approach to chemical bonding; 
+ e[Slain the oFtet rule and its
+limitations draw /ewis struFtures 
+of simple molecules; 
+ e[Slain the formation of different 
+types of bonds; 
+ desFribe the 96(35 theory and 
+predict the geometry of simple
+molecules; 
+ e [ S l a i n t h e Y a l e n F e b o n d 
+approach for the formation of 
+FoYalent bonds
+ SrediFt the direFtional SroSerties
+of FoYalent bonds
+ e[Slain the different tySes of
+hybridisation inYolYing s, p and 
+d orbitals and draw shapes of 
+simSle FoYalent moleFules
+ desFribe the moleFular orbital 
+theory of homonuclear diatomic
+molecules; 
+ e[Slain the FonFeSt of hydrogen 
+bond. 
+CHEMICAL BONDING AND
+MOLECULAR STRUCTURE 
+Matter is made up of one or different type of elements. 
+8nder normal Fonditions no other element e[ists as an
+indeSendent atom in nature e[FeSt noble gases +oweYer
+a grouS of atoms is found to e[ist together as one sSeFies
+haYing FharaFteristiF SroSerties 6uFh a grouS of atoms
+is Falled a moleFule 2bYiously there must be some forFe 
+which holds these constituent atoms together in the
+molecules. The attractive force which holds various
+constituents (atoms, ions, etc.) together in different
+chemical species is called a chemical bond. 6inFe the 
+formation of chemical compounds takes place as a result of 
+Fombination of atoms of Yarious elements in different ways 
+it raises many questions. Why do atoms combine? Why are
+only certain combinations possible? Why do some atoms
+combine while certain others do not? Why do molecules 
+Sossess definite shaSes" 7o answer suFh questions different
+theories and FonFeSts haYe been Sut forward from time
+to time 7hese are .|ssel/ewis aSSroaFh 9alenFe 6hell
+(leFtron 3air 5eSulsion 96(35 7heory 9alenFe %ond 9%
+7heory and 0oleFular 2rbital 02 7heory 7he eYolution
+of Yarious theories of YalenFe and the interSretation of
+the nature of FhemiFal bonds haYe Flosely been related to
+the deYeloSments in the understanding of the struFture
+of atom the eleFtroniF Fonfiguration of elements and the
+SeriodiF table (Yery system tends to be more stable and 
+bonding is nature’s way of lowering the energy of the system
+to attain stability. 
+Reprint 2026-27
+
+101 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+4.1 KÖSSEL-LEWIS APPROACH TO
+CHEMICAL BONDING 
+In order to e[Slain the formation of FhemiFal 
+bond in terms of electrons, a number of
+attempts were made, but it was only in 
+ when .|ssel and /ewis suFFeeded
+indeSendently in giYing a satisfaFtory
+e[Slanation 7hey were the first to SroYide
+some logiFal e[Slanation of YalenFe whiFh was 
+based on the inertness of noble gases. 
+/ewis SiFtured the atom in terms of a
+SositiYely Fharged ¶.ernel· the nuFleus Slus
+the inner eleFtrons and the outer shell that
+Fould aFFommodate a ma[imum of eight
+eleFtrons +e further assumed that these 
+eight electrons occupy the corners of a cube 
+whiFh surround the ¶.ernel· 7hus the single 
+outer shell electron of sodium would occupy
+one corner of the cube, while in the case of
+a noble gas all the eight corners would be 
+oFFuSied 7his oFtet of eleFtrons reSresents 
+a particularly stable electronic arrangement. 
+Lewis postulated that atoms achieve
+the stable octet when they are linked by
+chemical bonds. In the case of sodium and
+chlorine, this can happen by the transfer of
+an electron from sodium to chlorine thereby 
+giYing the 1a + and Cl – ions. In the case of
+other molecules like Cl 2  + 2 , F 2 , etc., the bond
+is formed by the sharing of a pair of electrons
+between the atoms. In the process each atom
+attains a stable outer octet of electrons . 
+Lewis Symbols: In the formation of a
+molecule, only the outer shell electrons take
+part in chemical combination and they are
+known as valence electrons  7he inner shell 
+electrons are well protected and are generally 
+not inYolYed in the Fombination SroFess
+*1 /ewis an $meriFan Fhemist introduFed
+simSle notations to reSresent YalenFe eleFtrons
+in an atom 7hese notations are Falled Lewis
+symbols  )or e[amSle the /ewis symbols for 
+the elements of second period are as under: 
+Significance of Lewis Symbols : 7he 
+number of dots around the symbol represents 
+the number of YalenFe eleFtrons 7his number
+of YalenFe eleFtrons helSs to FalFulate the 
+common or group valence of the element. 
+7he grouS YalenFe of the elements is generally
+either equal to the number of dots in /ewis 
+symbols or 8 minus the number of dots or 
+YalenFe eleFtrons 
+Kössel, in relation to chemical bonding,
+drew attention to the following facts: 
+• I n t h e p e r i o d i c t a b l e , t h e h i g h l y 
+eleFtronegatiYe halogens and the highly
+eleFtroSositiYe alNali metals are seSarated 
+by the noble gases; 
+• 7he formation of a negatiYe ion from a
+halogen atom and a SositiYe ion from 
+an alkali metal atom is associated with
+the gain and loss of an electron by the 
+resSeFtiYe atoms 
+• 7he negatiYe and SositiYe ions thus 
+formed attain stable noble gas electronic 
+Fonfigurations 7he noble gases with the
+e[FeStion of helium whiFh has a duSlet
+of eleFtrons haYe a SartiFularly stable
+outer shell Fonfiguration of eight oFtet 
+electrons, ns 2 np 6 . 
+• 7he negatiYe and SositiYe ions are stabili]ed 
+by electrostatic attraction. 
+)or e[amSle the formation of 1a&l from
+sodium and Fhlorine aFFording to the aboYe
+sFheme Fan be e[Slained as
+1a → 1a + + e – 
+>1e@ s 1 >1e@ 
+Cl + e – → Cl – 
+>1e@  s 2  p 5 >1e@  s 2  p 6 or >$r@
+1a + + Cl – → 1a&l or 1a + Cl – 
+6imilarly the formation of &a) 2 may be
+shown as:
+Ca → Ca 2+ + 2e – 
+>$r@ s 2 >$r@ 
+F + e – → F – 
+>+e@  s 2 2 p 5 >+e@  s 2 2 p 6 or >1e@ 
+Ca 2+ + 2F – → CaF 2 or Ca 2+ ) – 
+2 
+The bond formed, as a result of the
+electrostatic attraction between the
+positive and negative ions was termed as 
+Reprint 2026-27
+
+102 CHEMISTRY 
+the electrovalent bond. The electrovalence
+is thus equal to the number of unit charge(s)
+on the ion. 7hus FalFium is assigned a
+SositiYe eleFtroYalenFe of two while Fhlorine
+a negatiYe eleFtroYalenFe of one
+.|ssel·s Sostulations SroYide the basis for
+the modern FonFeSts regarding ionformation 
+by electron transfer and the formation of ionic 
+Frystalline FomSounds +is Yiews haYe SroYed
+to be of great Yalue in the understanding and 
+systematisation of the ionic compounds. At
+the same time he did recognise the fact that 
+a large number of FomSounds did not fit into 
+these concepts. 
+4.1.1 Octet Rule 
+.|ssel and /ewis in  deYeloSed an 
+important theory of chemical combination
+between atoms known as electronic theory 
+of chemical bonding . According to this,
+atoms can combine either by transfer of 
+YalenFe eleFtrons from one atom to another
+gaining or losing or by sharing of YalenFe
+eleFtrons in order to haYe an oFtet in their
+YalenFe shells 7his is Nnown as octet rule . 
+4.1.2 Covalent Bond
+L a n g m u i r     r e f i n e d t h e / e w i s 
+postulations by abandoning the idea of
+the stationary cubical arrangement of the
+octet, and by introducing the term covalent
+bond  7he /ewis/angmuir theory Fan be 
+understood by considering the formation of
+the chlorine molecule, Cl 2  7he &l atom with
+eleFtroniF Fonfiguration >1e@ s 2  p 5 , is one 
+eleFtron short of the argon Fonfiguration
+7he formation of the &l 2 molecule can be
+understood in terms of the sharing of a pair
+of electrons between the two chlorine atoms,
+each chlorine atom contributing one electron
+to the shared pair. In the process both
+chlorine atoms attain the outer shell octet of 
+the nearest noble gas ie argon  
+The dots represent electrons. Such
+structures are referred to as Lewis dot
+structures. 
+7he /ewis dot struFtures Fan be written for 
+other molecules also, in which the combining 
+atoms may be identiFal or different 7he 
+important conditions being that: 
+• (aFh bond is formed as a result of sharing 
+of an electron pair between the atoms. 
+• (aFh Fombining atom Fontributes at least 
+one electron to the shared pair. 
+• 7he Fombining atoms attain the outer
+shell noble gas Fonfigurations as a result 
+of the sharing of electrons. 
+• 7hus in water and Farbon tetraFhloride
+moleFules formation of FoYalent bonds 
+can be represented as: 
+or Cl – Cl 
+Covalent bond between two Cl atoms 
+Thus, when two atoms share one
+electron pair they are said to be joined by
+a single covalent bond. In many compounds 
+we haYe multiple bonds between atoms 7he
+formation of multiSle bonds enYisages sharing 
+of more than one electron pair between two
+atoms. If two atoms share two pairs of
+electrons, the covalent bond between them
+is called a double bond. )or e[amSle in the
+Farbon dio[ide moleFule we haYe two double
+bonds between the Farbon and o[ygen atoms
+6imilarly in ethene moleFule the two Farbon 
+atoms are joined by a double bond. 
+Double bonds in CO 2 molecule 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+When combining atoms share three
+electron pairs as in the case of two nitrogen
+atoms in the N 2 molecule and the two
+carbon atoms in the ethyne molecule, a
+triple bond is formed. 
+N 2 molecule
+C 2 H 2 molecule 
+4.1.3 Lewis Representation of Simple
+Molecules (the Lewis Structures)
+The Lewis dot structures provide a picture
+of bonding in molecules and ions in terms of
+the shared pairs of electrons and the octet
+rule. :hile suFh a SiFture may not e[Slain
+the bonding and behaYiour of a moleFule 
+completely, it does help in understanding the
+formation and properties of a molecule to a 
+large e[tent :riting of /ewis dot struFtures of
+moleFules is therefore Yery useful 7he /ewis 
+dot structures can be written by adopting the
+following steps: 
+• 7he total number of eleFtrons required 
+for writing the structures are obtained 
+by adding the YalenFe eleFtrons of the
+Fombining atoms )or e[amSle in the &+ 
+moleFule there are eight YalenFe eleFtrons
+aYailable for bonding  from Farbon and
+ from the four hydrogen atoms  
+• )or anions eaFh negatiYe Fharge would 
+mean addition of one electron. For cations, 
+eaFh SositiYe Fharge would result in 
+subtraction of one electron from the total 
+number of YalenFe eleFtrons )or e[amSle 
+for the CO  
+2– ion the two negatiYe Fharges 
+indicate that there are two additional 
+eleFtrons than those SroYided by the
+neutral atoms )or 1+  
++ ion one SositiYe 
+charge indicates the loss of one electron
+from the group of neutral atoms. 
+• .nowing the FhemiFal symbols of the
+Fombining atoms and haYing Nnowledge 
+of the skeletal structure of the compound 
+Nnown or guessed intelligently  it is easy 
+to distribute the total number of electrons
+as bonding shared pairs between the
+atoms in proportion to the total bonds. 
+• In general the least eleFtronegatiYe atom 
+occupies the central position in the 
+moleFuleion )or e[amSle in the 1)  and
+CO  
+2– , nitrogen and carbon are the central 
+atoms whereas fluorine and o[ygen 
+occupy the terminal positions. 
+• After accounting for the shared pairs of
+electrons for single bonds, the remaining 
+eleFtron Sairs are either utili]ed for 
+multiple bonding or remain as the lone 
+Sairs 7he basiF requirement being 
+that each bonded atom gets an octet of
+electrons. 
+/ewis reSresentations of a few moleFules
+ions are giYen in 7able  
+Table 4.1 The Lewis Representation of
+Some Molecules 
+* Each H atom attains the configuration of helium
+(a duplet of electrons) 
+C 2 H 4 molecule 
+Reprint 2026-27
+
+ CHEMISTRY 
+Problem 4.1 
+:rite the /ewis dot struFture of &2 
+molecule. 
+Solution
+Step 1. &ount the total number of YalenFe
+eleFtrons of Farbon and o[ygen atoms
+7he outer YalenFe shell Fonfigurations
+of Farbon and o[ygen atoms are  s 2 2 p 2
+and 2 s 2 2 p   resSeFtiYely 7he YalenFe
+eleFtrons aYailable are     
+Step 2. 7he sNeletal struFture of &2 is 
+written as: C O 
+Step 3. 'raw a single bond one shared
+eleFtron Sair between & and 2 and 
+complete the octet on O, the remaining
+two electrons are the lone pair on C. 
+7his does not FomSlete the oFtet on
+Farbon and henFe we haYe to resort to
+multiSle bonding in this Fase a triSle
+bond between & and 2 atoms 7his
+satisfies the oFtet rule Fondition for both 
+atoms. 
+Problem 4.2 
+:rite the /ewis struFture of the nitrite
+ion 12 2
+– . 
+Solution
+Step 1. Count the total number of 
+YalenFe eleFtrons of the nitrogen atom
+the o[ygen atoms and the additional one
+negatiYe Fharge equal to one eleFtron 
+1  s 2 2 p   2  s 2 2 p 
+   ð    eleFtrons 
+Step 2. 7he sNeletal struFture of 12 2
+– is 
+written as  2 1 2 
+Step 3. 'raw a single bond one shared
+eleFtron Sair between the nitrogen and
+eaFh of the o[ygen atoms FomSleting the
+oFtets on o[ygen atoms 7his howeYer 
+does not complete the octet on nitrogen
+if the remaining two electrons constitute
+lone pair on it. 
++enFe we haYe to resort to multiSle 
+bonding between nitrogen and one of 
+the o[ygen atoms in this Fase a double
+bond  7his leads to the following /ewis 
+dot structures. 
+4.1.4 Formal Charge 
+/ewis dot struFtures in general do not 
+represent the actual shapes of the molecules.
+In case of polyatomic ions, the net charge is
+possessed by the ion as a whole and not by 
+a SartiFular atom It is howeYer feasible to
+assign a formal Fharge on eaFh atom 7he 
+formal charge of an atom in a polyatomic
+molecule or ion may be defined as the 
+differenFe between the number of YalenFe 
+electrons of that atom in an isolated or free
+state and the number of electrons assigned 
+to that atom in the /ewis struFture It is
+e[Sressed as 
+)ormal Fharge )&
+on an atom in a /ewis 
+structure 
+total number of YalenFe 
+electrons in the free
+atom
+—
+total number of non 
+bonding lone Sair 
+electrons 
+³  
+total number of 
+bonding shared 
+electrons 
+Reprint 2026-27
+
+105 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+4.1.5 Limitations of the Octet Rule 
+7he oFtet rule though useful is not uniYersal 
+It is quite useful for understanding the
+structures of most of the organic compounds
+and it applies mainly to the second period 
+elements of the SeriodiF table 7here are three
+tySes of e[FeStions to the oFtet rule 
+The incomplete octet of the central atom 
+In some compounds, the number of electrons
+surrounding the central atom is less than 
+eight 7his is esSeFially the Fase with elements
+haYing less than four YalenFe eleFtrons
+([amSles are /i&l %e+ 2 and %&l  . 
+/i %e and % haYe   and  YalenFe eleFtrons
+only 6ome other suFh FomSounds are $l&l 
+and %)  . 
+Odd-electron molecules 
+In molecules with an odd number of electrons 
+liNe nitriF o[ide 12 and nitrogen dio[ide
+12 2  the oFtet rule is not satisfied for all the 
+atoms 
+The expanded octet 
+(lements in and beyond the third Seriod of
+the SeriodiF table haYe aSart from  s and  p 
+orbitals  d orbitals also aYailable for bonding 
+In a number of compounds of these elements 
+there are more than eight YalenFe eleFtrons
+around the Fentral atom 7his is termed as
+the e[Sanded oFtet 2bYiously the oFtet rule 
+does not apply in such cases. 
+6ome of the e[amSles of suFh FomSounds
+are 3) 5  6) 6  + 2 62  and a number of
+coordination compounds. 
+7he Fou nting is based on the assumption
+that the atom in the molecule owns one
+electron of each shared pair and both the
+electrons of a lone pair. 
+/et us Fonsider the o]one moleFule 2  
+7he /ewis struFture of 2  may be drawn as: 
+7he atoms haYe been numbered as  
+and  7he formal Fharge on 
+• 7he Fentral 2 atom marNed 
+ ²  ² 1
+2   
+• 7he end 2 atom marNed 
+ ²  ² 1
+2   
+• 7he end 2 atom marNed 
+ ²  ² 1
+2  ²
++enFe we reSresent 2  along with the
+formal charges as follows:
+We must understand that formal charges
+do not indicate real charge separation within
+the molecule. Indicating the charges on the 
+atoms in the /ewis struFture only helSs in
+NeeSing traFN of the YalenFe eleFtrons in 
+the molecule. Formal charges help in the
+selection of the lowest energy structure from 
+a number of Sossible /ewis struFtures for a
+giYen sSeFies Generally the lowest energy
+structure is the one with the smallest
+formal charges on the atoms. The formal
+charge is a factor based on a pure covalent
+view of bonding in which electron pairs
+are shared equally by neighbouring atoms. 
+Reprint 2026-27
+
+106 CHEMISTRY
+Interestingly, sulphur also forms many
+compounds in which the octet rule is obeyed. 
+In sulShur diFhloride the 6 atom has an oFtet 
+of electrons around it. 
+Other drawbacks of the octet theory 
+• It is clear that octet rule is based upon
+the chemical inertness of noble gases. 
++oweYer some noble gases for e[amSle
+[enon and NrySton also Fombine with
+o[ygen and Áuorine to form a number of 
+compounds like XeF 2  .r) 2 , XeOF 2 etc. 
+• 7his theory does not aFFount for the shaSe 
+of molecules. 
+• It does not e[Slain the relatiYe stability of 
+the molecules being totally silent about
+the energy of a molecule. 
+4.2 IONIC OR ELECTROVALENT BOND 
+)rom the .| ssel and /ewis treatment of the 
+formation of an ionic bond, it follows that the
+formation of ionic compounds would primarily
+depend upon: 
+• 7he ease of formation of the SositiYe and
+negatiYe ions from the resSeFtiYe neutral 
+atoms; 
+• 7he arrangement of the SositiYe and
+negatiYe ions in the solid that is the 
+lattice of the crystalline compound. 
+7he formation of a SositiYe ion inYolYes
+ioni]ation ie remoYal of eleFtron s from
+the neutral atom and that of the negatiYe
+ion inYolYes the addition of eleFtron s to the 
+neutral atom. 
+0 g → M + g  e – ; 
+Ioni]ation enthalSy
+; g  e – → X – g 
+(leFtron gain enthalSy 
+M + g  ; – g → 0; s
+7he electron gain enthalpy, ∆ eg H , is the 
+enthalSy Fhange 8nit   when a gas Shase 
+atom in its ground state gains an electron. 
+7he eleFtron gain SroFess may be e[othermiF
+or endothermiF 7he ioni]ation on the other
+hand is always endothermiF (leFtron
+affinity is the negatiYe of the energy Fhange 
+accompanying electron gain. 
+Obviously ionic bonds will be formed
+more easily between elements with
+comparatively low ionization enthalpies
+and elements with comparatively high
+negative value of electron gain enthalpy. 
+0ost ioniF FomSounds haYe Fations
+deriYed from metalliF elements and anions
+from nonmetalliF elements 7he ammonium
+ion 1+  
++ made uS of two nonmetalliF
+elements is an e[FeStion It forms the Fation 
+of a number of ionic compounds.
+Ionic compounds in the crystalline 
+state Fonsist of orderly threedimensional 
+arrangements of cations and anions held
+together by coulombic interaction energies. 
+7hese FomSounds Frystallise in different
+Frystal struFtures determined by the si]e of 
+the ions, their packing arrangements and 
+other faFtors 7he Frystal struFture of sodium
+Fhloride 1a&l roFN salt  for e[amSle is 
+shown below. 
+Rock salt structure 
+In ionic solids, the sum of the electron gain 
+enthalSy and the ioni]ation enthalSy may be
+SositiYe but still the Frystal struFture gets
+stabili]ed due to the energy released in the
+formation of the Frystal lattiFe )or e[amSle
+the ioni]ation enthalSy for 1a + g formation
+from 1a g is  N- mol –1 ; while the electron 
+gain enthalSy for the Fhange &l g  e – → 
+Cl – g is ²  N- mol –1 only 7he sum of the
+two  N- mol  is more than compensated
+for by the enthalpy of lattice formation of 
+1a&l s ² N- mol –1  7herefore the energy 
+released in the processes is more than the 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE
+energy absorbed. Thus a qualitative measure
+of the stability of an ionic compound
+is provided by its enthalpy of lattice
+formation and not simply by achieving
+octet of electrons around the ionic species
+in gaseous state. 
+6inFe lattiFe enthalSy Slays a Ney role 
+in the formation of ionic compounds, it is
+important that we learn more about it. 
+4.2.1 Lattice Enthalpy
+The Lattice Enthalpy of an ionic solid
+is defined as the energy required to
+completely separate one mole of a solid
+ionic compound into gaseous constituent
+ions. )or e[amSle the lattiFe enthalSy of
+1a&l is  N- mol –1  7his means that 
+N- of energy is required to seSarate one mole
+of solid 1a&l into one mole of 1a + g and one 
+mole of Cl – g to an infinite distanFe
+7his SroFess inYolYes both the attraFtiYe 
+forces between ions of opposite charges 
+and the reSulsiYe forFes between ions of
+liNe Fharge 7he solid Frystal being three 
+dimensional; it is not possible to calculate
+lattice enthalpy directly from the interaction
+of forces of attraction and repulsion only.
+Factors associated with the crystal geometry 
+haYe to be inFluded 
+4.3 BOND PARAMETERS
+4.3.1 Bond Length 
+Bond length is defined as the equilibrium 
+distance between the nuclei of two bonded
+atoms in a molecule. %ond lengths are
+measured by sSeFtrosFoSiF ;ray diffraFtion
+and eleFtrondiffraFtion teFhniques about
+whiFh you will learn in higher Flasses (aFh 
+atom of the bonded pair contributes to the 
+bond length )ig   In the Fase of a FoYalent 
+bond, the contribution from each atom is 
+Falled the FoYalent radius of that atom 
+The covalent radius is measured
+approximately as the radius of an atom’s
+core which is in contact with the core of an
+adjacent atom in a bonded situation. 7he
+FoYalent radius is half of the distanFe between
+two similar atoms Moined by a FoYalent bond 
+in the same molecule. The van der Waals
+radius represents the overall size of the
+atom which includes its valence shell in a
+nonbonded situation. )urther the Yan der 
+Waals radius is half of the distance between
+two similar atoms in separate molecules in 
+a solid &oYalent and Yan der :aals radii of
+Fhlorine are deSiFted in )ig  
+Fig. 4.2 Covalent and van der Waals radii in
+a chlorine molecule. The inner circles
+correspond to the size of the chlorine
+atom (r vdw and r c are van der Waals and
+covalent radii respectively). 
+r = 99 pm c
+198 pm
+r = 180 pm vdw
+360 pm 
+Fig. 4.1 The bond length in a covalent
+molecule AB.
+R = r A + r B (R is the bond length and r A and r B are
+the covalent radii of atoms A and B
+respectively) 
+Reprint 2026-27
+
+108 CHEMISTRY
+Some typical average bond lengths for
+single, double and triple bonds are shown in
+Table 4.2. Bond lengths for some common
+molecules are given in Table 4.3.
+The covalent radii of some common
+elements are listed in Table 4.4. 
+4.3.2 Bond Angle 
+It is defined as the angle between the orbitals 
+containing bonding electron pairs around the
+central atom in a molecule/complex ion. Bond
+angle is expressed in degree which can be
+experimentally determined by spectroscopic
+methods. It gives some idea regarding the
+distribution of orbitals around the central
+atom in a molecule/complex ion and hence it
+helps us in determining its shape. For
+example H–O–H bond angle in water can be
+represented as under : 
+4.3.3 Bond Enthalpy 
+It is defined as the amount of energy required 
+to break one mole of bonds of a particular
+type between two atoms in a gaseous state.
+The unit of bond enthalpy is kJ mol –1 . For
+example, the H – H bond enthalpy in hydrogen
+molecule is 435.8 kJ mol –1 .
+H 2 (g) → H(g) + H(g); ∆ a H  = 435.8 kJ mol –1
+Similarly the bond enthalpy for molecules
+containing multiple bonds, for example O 2 and
+N 2 will be as under :
+O 2 (O = O) (g) → O(g) + O(g); 
+∆ a H  = 498 kJ mol –1
+N 2 (N ≡ N) (g) → N(g) + N(g); 
+∆ a H  = 946.0 kJ mol –1
+It is important that larger the bond
+dissociation enthalpy, stronger will be the
+bond in the molecule. For a heteronuclear
+diatomic molecules like HCl, we have
+HCl (g) → H(g) + Cl (g); ∆ a H  = 431.0 kJ mol –1
+In case of polyatomic molecules, the
+measurement of bond strength is more
+complicated. For example in case of H 2 O
+molecule, the enthalpy needed to break the
+two O – H bonds is not the same. 
+Table 4.2 Average Bond Lengths for Some
+Single, Double and Triple Bonds
+Bond Type Covalent Bond
+Length (pm) 
+O–H
+C–H
+N–O
+C–O
+C–N
+C–C
+C=O
+N=O
+C=C
+C=N
+C ≡ N
+C ≡ C
+96
+107
+136
+143
+143
+154
+121
+122
+133
+128
+116
+120 
+Table 4.3 Bond Lengths in Some Common
+Molecules
+Molecule Bond Length (pm) 
+H 2 (H – H)
+F 2 (F – F)
+Cl 2 (Cl – Cl)
+Br 2 (Br – Br)
+I 2 (I – I)
+N 2 (N ≡ N)
+O 2 (O = O)
+HF (H – F)
+HCl (H – Cl)
+HBr (H – Br)
+HI (H – I)
+74
+144
+199
+228
+267
+109
+121
+92
+127
+141
+160 
+Table 4.4 Covalent Radii, *r cov /(pm) 
+* The values cited are for single bonds, except where
+otherwise indicated in parenthesis. (See also Unit 3 for
+periodic trends). 
+Reprint 2026-27
+
+109 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
++ 2 2 g → + g  2+ g  ∆ a H 1 
+  N- mol –1 
+2+ g → + g  2 g  ∆ a H 2 
+  N- mol –1 
+7he differenFe in the ∆ a H  Yalue shows
+that the seFond 2 ² + bond undergoes 
+some change because of changed chemical 
+enYironment 7his is the reason for some
+differenFe in energy of the same 2 ² + bond 
+in different molecules like C 2 + 5 2+ ethanol
+and water 7herefore in SolyatomiF moleFules 
+the term mean or average bond enthalpy 
+is used It is obtained by diYiding total bond 
+dissociation enthalpy by the number of bonds 
+broNen as e[Slained below in Fase of water 
+molecule, 
+$Yerage bond enthalSy 502 427
+2 
++ 
+ N- mol –1 
+4.3.4 Bond Order
+In the Lewis description of covalent bond,
+the Bond Order is given by the number
+of bonds between the two atoms in a
+molecule. 7he bond order for e[amSle in
++ 2 with a single shared eleFtron Sair  in 2 2 
+with two shared eleFtron Sairs and in 1 2 
+with three shared eleFtron Sairs is 
+resSeFtiYely 6imilarly in &2 three shared
+eleFtron Sairs between & and 2 the bond
+order is  )or 1 2 , b ond order is  and its 
+is  N- mol –1 ; being one of the highest
+for a diatomic molecule. 
+Isoelectronic molecules and ions have
+identical bond orders; for example, F 2 and
+O 2
+2– have bond order 1. N 2 , CO and NO + have
+bond order 3.
+A general correlation useful for
+understanding the stablities of molecules
+is that: with increase in bond order,
+bond enthalpy increases and bond length
+decreases.
+4.3.5 Resonance Structures 
+It is often obserYed that a single /ewis struFture 
+is inadequate for the representation of a 
+moleFule in Fonformity with its e[Serimentally
+determined Sarameters )or e[amSle the
+o]on e, O  molecule can be equally represented
+by the structures I and II shown below: 
+In both struFtures we haYe a 2²2 single
+bond and a 2 2 double bond 7he normal
+2²2 and 2 2 bond lengths are  Sm
+and  Sm resSeFtiYely ([Serimentally
+determined o[ygeno[ygen bond lengths in 
+the O  moleFule are same  Sm  7hus the
+o[ygeno[ygen bonds in the 2  molecule are
+intermediate between a double and a single 
+bond 2bYiously this Fannot be reSresented
+by either of the two /ewis struFtures shown
+aboYe
+7he FonFeSt of resonanFe was introduFed
+to deal with the tySe of diffiFulty e[SerienFed 
+in the depiction of accurate structures of
+molecules like O  . According to the concept
+of resonance, whenever a single Lewis
+structure cannot describe a molecule
+accurately, a number of structures with
+similar energy, positions of nuclei, bonding
+and non-bonding pairs of electrons are
+taken as the canonical structures of the
+hybrid which describes the molecule
+accurately. 7hus for 2  , the two structures 
+shown aboYe Fonstitute the FanoniFal 
+structures or resonance structures and
+their hybrid i.e., the III structure represents
+the structure of O  more aFFurately 7his is 
+also called resonance hybrid  5esonanFe is 
+represented by a double headed arrow. 
+Fig. 4.3 Resonance in the O 3 molecule 
+(structures I and II represent the two canonical
+forms while the structure III is the resonance hybrid) 
+Reprint 2026-27
+
+110 CHEMISTRY 
+6ome of the other e[amSles of resonanFe
+struFtures are SroYided by the carbonate ion
+and the carbon dioxide molecule.
+Problem 4.3 
+([Slain the struFture of &2  
+2– ion in
+terms of resonance. 
+Solution 
+7he single /ewis struFture based on 
+the presence of two single bonds and
+one double bond between carbon 
+and o[ygen atoms is inadequate to 
+represent the molecule accurately as it
+represents unequal bonds. According 
+to the e[Serimental findings all Farbon
+to o[ygen bonds in &2  
+2– are equiYalent
+7herefore the Farbonate ion is best 
+described as a resonance hybrid of the
+canonical forms I, II, and III shown below. 
+Problem 4.4 
+([Slain the struFture of &2 2 molecule. 
+Solution 
+7he e[Serimentally determined Farbon
+to o[ygen bond length in &2 2 is 
+ Sm 7he lengths of a normal
+Farbon to o[ygen double bond & 2
+and Farbon to o[ygen triSle bond & ≡ 2
+are  Sm and  Sm resSeFtiYely
+7he Farbono[ygen bond lengths in 
+CO 2  Sm lie between the Yalues 
+for C = O and C ≡ 2 2bYiously a single
+/ewis struFture Fannot deSiFt this 
+position and it becomes necessary to 
+write more than one /ewis struFtures 
+and to consider that the structure of
+CO 2 is best described as a hybrid of
+the canonical or resonance forms I, II
+and III. 
+In general, it may be stated that 
+• 5esonanFe stabili]es the moleFule as the 
+energy of the resonance hybrid is less
+than the energy of any single cannonical
+structure; and, 
+• 5 e s o n a n F e a Y e r a g e s t h e b o n d 
+characteristics as a whole. 
+7hus the energy of the 2  resonance
+hybrid is lower than either of the two 
+FannoniFal froms I and II )ig   
+Many misconceptions are associated
+with resonance and the same need to be
+dispelled. You should remember that : 
+• 7he FannoniFal forms haYe no real
+e[istenFe 
+• 7he moleFule does not e[ist for a Fertain 
+fraction of time in one cannonical form
+and for other fractions of time in other
+cannonical forms. 
+• 7here is no suFh equilibrium between
+the FannoniFal forms as we haYe
+between tautomeriF forms keto and 
+enol in tautomerism 
+• 7he moleFule as suFh has a single 
+structure which is the resonance
+hybrid of the cannonical forms and
+which cannot as such be depicted by 
+a single /ewis struFture 
+4.3.6 Polarity of Bonds 
+7he e[istenFe of a hundred SerFent ioniF or
+FoYalent bond reSresents an ideal situation 
+In reality no bond or a compound is either 
+FomSletely FoYalent or ioniF (Yen in Fase of
+FoYalent bond between two hydrogen atoms 
+there is some ionic character. 
+:hen FoYalent bond is formed between
+two similar atoms for e[amSle in + 2 , O 2 ,
+Cl 2  1 2 or F 2 , the shared pair of electrons is
+equally attracted by the two atoms. As a result 
+Fig. 4.4 Resonance in CO 3 
+2– , I, II and III
+represent the three canonical
+forms. 
+Fig. 4.5 Resonance in CO 2 molecule, I, II
+and III represent the three canonical
+forms. 
+Reprint 2026-27
+
+111 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+eleFtron Sair is situated e[aFtly between the
+two identiFal nuFlei 7he bond so formed is
+Falled nonSolar FoYalent bond &ontrary to 
+this in case of a heteronuclear molecule like 
++) the shared eleFtron Sair between the two
+atoms gets disSlaFed more towards Áuorine
+sinFe the eleFtronegatiYity of Áuorine 8nit 
+is far greater than that of hydrogen 7he
+resultant FoYalent bond is a Solar FoYalent 
+bond.
+As a result of polarisation, the molecule
+possesses the dipole moment deSiFted
+below whiFh Fan be defined as the SroduFt of 
+the magnitude of the charge and the distance 
+between the Fentres of SositiYe and negatiYe 
+charge. It is usually designated by a Greek 
+letter ¶ μ · 0athematiFally it is e[Sressed as 
+follows : 
+'iSole moment μ Fharge 4 ð distanFe of
+seSaration r
+'iSole moment is usually e[Sressed in
+'ebye units '  7he FonYersion faFtor is
+ '  ð  ² C m
+where C is coulomb and m is meter. 
+)urther diSole moment is a YeFtor quantity
+and by FonYention it is deSiFted by a small
+arrow with tail on the negatiYe Fentre and
+head Sointing towards the SositiYe Fentre
+%ut in Fhemistry SresenFe of diSole moment
+is reSresented by the Frossed arrow 
+Sut on /ewis struFture of the moleFule 7he
+Fross is on SositiYe end and arrow head is on
+negatiYe end )or e[amSle the diSole moment
+of +) may be reSresented as 
+7his arrow symbolises the direFtion of the
+shift of eleFtron density in the moleFule 1ote 
+that the direction of crossed arrow is opposite 
+to the FonYentional direFtion of diSole moment
+YeFtor
++ ) 
+In case of polyatomic molecules the dipole 
+moment not only deSend uSon the indiYidual 
+dipole moments of bonds known as bond
+dipoles but also on the spatial arrangement 
+of Yarious bonds in the moleFule In suFh 
+case, the dipole moment of a molecule is the 
+YeFtor sum of the diSole moments of Yarious
+bonds )or e[amSle in + 2 O molecule, which 
+has a bent struFture the two 2²+ bonds are
+oriented at an angle of  0  1et diSole
+moment of  ð  ² & m ' 
+ð  ² & m is the resultant of the diSole
+moments of two 2²+ bonds
+1et 'iSole moment μ  '
+ ð  ð  ² & m  ð ² C m 
+7he diSole moment in Fase of %e) 2 is ]ero
+7his is beFause the two equal bond diSoles 
+point in opposite directions and cancel the
+effect of each other. 
+In tetraatomiF moleFule for e[amSle in
+%)   the diSole moment is ]ero although the
+% ² ) bonds are oriented at an angle of  o 
+to one another the three bond moments giYe
+a net sum of ]ero as the resultant of any two 
+is equal and opposite to the third. 
+/et us study an interesting Fase of 1+ 
+and 1)  moleFule %oth the moleFules haYe 
+pyramidal shape with a lone pair of electrons 
+on nitrogen atom $lthough Áuorine is more
+eleFtronegatiYe than nitrogen the resultant 
+Peter Debye, the Dutch chemist
+received Nobel prize in 1936 for
+his work on X-ray diffraction and
+dipole moments. The magnitude
+of the dipole moment is given in
+Debye units in order to honour him. 
+Reprint 2026-27
+
+112 CHEMISTRY 
+diSole moment of 1+   ð  ² & m is
+greater than that of 1)   ð  ² & m  7his
+is beFause in Fase of 1+  the orbital dipole
+due to lone pair is in the same direction as 
+the resultant diSole moment of the 1 ² +
+bonds whereas in 1)  the orbital dipole is in
+the direction opposite to the resultant dipole 
+moment of the three 1²) bonds 7he orbital 
+dipole because of lone pair decreases the effect 
+of the resultant 1 ² ) bond moments whiFh
+results in the low diSole moment of 1)  as
+represented below : 
+• 7he smaller the si]e of the Fation and the
+larger the si]e of the anion the greater
+the FoYalent FharaFter of an ioniF bond 
+• 7he greater the Fharge on the Fation the
+greater the FoYalent FharaFter of the ioniF 
+bond. 
+• )or Fations of the same si]e and Fharge 
+the one, with electronic configuration 
+n  d n ns o , typical of transition metals, is
+more polarising than the one with a noble 
+gas Fonfiguration ns 2 np 6 , typical of alkali
+and alkaline earth metal cations. 
+7he Fation Solarises the anion Sulling 
+the electronic charge toward itself and
+thereby increasing the electronic charge 
+between the two 7his is SreFisely what
+haSSens in a FoYalent bond ie builduS 
+of electron charge density between the 
+nuFlei 7he Solarising Sower of the Fation 
+the polarisability of the anion and the 
+e[tent of distortion Solarisation of anion 
+are the factors, which determine the per 
+Fent FoYalent FharaFter of the ioniF bond. 
+4.4 THE VALENCE SHELL ELECTRON
+PAIR REPULSION (VSEPR) THEORY 
+As already e[Slained /ewis FonFeSt is unable
+to e[Slain the shaSes of moleFules 7his
+theory SroYides a simSle SroFedure to SrediFt
+the shaSes of FoYale nt moleFules 6idgwiFN 
+Dipole moments of some molecules are 
+shown in 7able  
+Just as all the covalent bonds have
+some partial ionic character, the ionic
+bonds also have partial covalent character.
+The partial covalent character of ionic
+bonds was discussed by Fajans in terms of
+the following rules:
+Table 4.5 Dipole Moments of Selected Molecules
+Type of Molecule Example Dipole
+Moment, μ (D) Geometry
+Molecule (AB) +)
++&l
++%r
++l
++ 2 
+
+
+
+ 
+0
+linear
+linear
+linear
+linear
+linear 
+Molecule (AB 2 ) + 2 O 
++ 2 6 
+CO 2
+1.85
+0.95
+0
+bent
+bent
+linear 
+Molecule (AB 3 ) 1+ 
+1) 
+%) 
+
+ 
+0 
+trigonalSyramidal
+trigonalSyramidal
+trigonalSlanar 
+Molecule (AB 4 ) &+ 
+&+&l  
+CCl  
+0 
+ 
+0
+tetrahedral
+tetrahedral
+tetrahedral 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+and 3owell in  SroSosed a simSle theory
+based on the reSulsiYe interaFtions of the
+eleFtron Sairs in the YalenFe shell of the
+atoms It was further deYeloSed and redefined
+by 1yholm and *illesSie   
+The main postulates of VSEPR theory are
+as follows: 
+• 7he shaSe of a moleFule deSends uSon
+the number of YalenFe shell eleFtron Sairs
+bonded or nonbonded around the Fentral 
+atom. 
+• 3airs of eleFtrons in the YalenFe shell reSel 
+one another since their electron clouds are 
+negatiYely Fharged 
+• 7hese Sairs of eleFtrons tend to oFFuSy 
+such positions in space that minimise 
+reSulsion and thus ma[imise distanFe 
+between them. 
+• 7he YalenFe shell is taNen as a sShere 
+with the electron pairs localising on the 
+sSheriFal surfaFe at ma[imum distanFe 
+from one another. 
+• A multiple bond is treated as if it is a single
+electron pair and the two or three electron
+pairs of a multiple bond are treated as a
+single super pair. 
+• Where two or more resonance structures 
+Fan reSresent a moleFule the 96(35 
+model is applicable to any such structure. 
+The repulsive interaction of electron pairs
+decrease in the order: 
+/one Sair lS ² /one Sair lS ! /one Sair
+lS ² %ond Sair bS ! %ond Sair bS ²
+%ond Sair bS
+1yholm and *illesSie  refined the
+96(35 model by e[Slaining the imSortant 
+difference between the lone pairs and bonding
+pairs of electrons. While the lone pairs are
+localised on the central atom, each bonded
+pair is shared between two atoms. As a result,
+the lone pair electrons in a molecule occupy
+more space as compared to the bonding pairs 
+of eleFtrons 7his results in greater reSulsion 
+between lone pairs of electrons as compared 
+to the lone Sair  bond Sair and bond Sair  
+bond pair repulsi ons 7hese reSulsion effeFts
+result in deYiations from idealised shaSes and 
+alterations in bond angles in molecules.
+For the prediction of geometrical shapes 
+of moleFules with the helS of 96(35 theory
+it is FonYenient to diYide moleFules into 
+two categories as (i) molecules in which
+the central atom has no lone pair and
+(ii) molecules in which the central atom
+has one or more lone pairs. 
+7 a b l e    S a g e    s h o w s t h e 
+arrangement of electron pairs about a 
+Fentral atom $ without any lone Sairs and 
+geometries of some molecules/ions of the type 
+$% 7able  Sage  shows shaSes of some 
+simple molecules and ions in which the central 
+atom has one or more lone Sairs 7able 
+Sage  e[Slains the reasons for the 
+distortions in the geometry of the molecule. 
+$ s d e S i F t e d i n 7 a b l e     i n t h e
+FomSounds of $% 2  $%   $%   $% 5 and $% 6 ,
+the arrangement of electron pairs and the 
+% atoms around the Fentral atom $ are  
+linear, trigonal planar, tetrahedral,
+trigonal-bipyramidal and octahedral, 
+resSeFtiYely 6uFh arrangement Fan be seen
+in the moleFules liNe %)  $%   &+  $%  and
+3&l 5 $% 5 as deSiFted below by their ball and 
+stick models. 
+7he 96(35 7heory is able to SrediFt 
+geometry of a large number of molecules,
+especially the compounds of p bloFN elements 
+accurately. It is also quite successful in 
+determining the geometry quiteaFFurately
+eYen when the energy differenFe between
+Sossible struFtures is Yery small 7he
+theoretiFal basis of the 96(35 theory regarding 
+the effects of electron pair repulsions on
+molecular shapes is not clear and continues
+to be a subject of doubt and discussion. 
+Fig. 4.6 The shapes of molecules in which
+central atom has no lone pair 
+Reprint 2026-27
+
+ CHEMISTRY 
+Table 4.6 Geometry of Molecules in which the Central Atom has No Lone Pair of Electrons 
+Reprint 2026-27
+
+115 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+Table 4.7 Shape (geometry) of Some Simple Molecules/Ions with Central Ions having
+One or More Lone Pairs of Electrons(E). 
+Reprint 2026-27
+
+116 CHEMISTRY 
+7heoretiFally the shaSe
+should haYe been triangular 
+planar but actually it is found 
+to be bent or YshaSed 7he
+reason being the lone Sair 
+bond pair repulsion is much
+more as compared to the bond 
+Sairbond Sair reSulsion 6o 
+the angle is reduced to 119.5°
+from 120°. 
++ad there been a bS in SlaFe
+of lS the shaSe would haYe 
+been tetrahedral but one
+lone pair is present and due
+to the repulsion between 
+lSbS whiFh is more than
+bSbS reSulsion the angle 
+b e t w e e n b o n d p a i r s i s 
+reduFed to  from 
+7he shaSe should haYe been 
+tetrahedral if there were all bp
+but two lp are present so the
+shape is distorted tetrahedral 
+or angular 7he reason is
+lSlS reSulsion is more than
+lSbS reSulsion whiFh is more
+than bSbS reSulsion 7hus
+the angle is reduFed to  
+from 109.5°. 
+%ent
+7rigonal 
+pyramidal 
+%ent
+$% 2 (  1 
+$%  (  1 
+$% 2 ( 2 2 2 
+In a the lS is Sresent at a[ial 
+position so there are three
+lp—bp repulsions at 90°. 
+In b the lS is in an equatorial 
+position, and there are two 
+lS³bS reSulsions +enFe
+arrangement b is more
+stable 7he shaSe shown in
+b is desFribed as a distorted 
+tetrahedron, a folded square 
+or a seesaw
+6ee 
+saw 
+$%  (  1 
+0ore stable 
+Table 4.8 Shapes of Molecules containing Bond Pair and Lone Pair
+Shape Reason for the
+shape acquired
+Arrangement
+of electrons
+No. of
+lone
+pairs
+No. of
+bonding
+pairs
+Molecule
+type 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+In a the lS are at 
+equatorial position 
+so there are less lS 
+b p r e p u l s i o n s a s
+compared to others
+in which the lp are 
+at a[ial Sositions 6o
+struFture a is most
+stable 7shaSed 
+7shaSe $%  ( 2  2 
+Shape Reason for the
+shape acquired
+Arrangement
+of electrons
+No. of
+lone
+pairs
+No. of
+bonding
+pairs
+Molecule
+type
+4.5 VALENCE BOND THEORY 
+$s we Nnow that /ewis aSSroaFh helSs in 
+writing the structure of molecules but it 
+fails to e[Slain the formation of FhemiFal
+bond It also does not giYe any reason for the 
+difference in bond dissociation enthalpies and 
+bond lengths in moleFules liNe + 2  N- 
+mol    Sm and ) 2  N- mol    Sm 
+although in both the Fases a single FoYalent 
+bond is formed by the sharing of an electron 
+Sair between the resSeFtiYe atoms It also
+giYes no idea about the shaSes of SolyatomiF 
+molecules. 
+6imilarly the 96(35 theory giYes the 
+geometry of simple molecules but theoretically, 
+it does not e[Slain them and also it has limited
+aSSliFations 7o oYerFome these limitations 
+the two important theories based on quantum 
+meFhaniFal SrinFiSles are introduFed 7hese
+are YalenFe bond 9% theory and moleFular
+orbital 02 theory 
+Valence bond theory was introduced 
+by +eitler and /ondon  and deYeloSed
+further by 3auling and others $ disFussion
+of the YalenFe bond theory is based on the 
+knowledge of atomic orbitals, electronic 
+Fonfigurations of elements 8nits   the
+oYerlaS Friteria of atomiF orbitals the
+hybridi]ation of atomiF orbitals and the
+SrinFiSles of Yariation and suSerSosition $
+rigorous treatment of the 9% theory in terms 
+of these aspects is beyond the scope of this 
+booN 7herefore for the saNe of FonYenienFe
+YalenFe bond theory has been disFussed in
+terms of qualitatiYe and nonmathematiFal
+treatment only 7o start with let us Fonsider 
+the formation of hydrogen molecule which is
+the simplest of all molecules. 
+&onsider two hydrogen atoms $ and %
+aSSroaFhing eaFh other haYing nuFlei 1 A 
+and 1 % and electrons present in them are
+represented by e A and e % . When the two atoms
+are at large distance from each other, there
+is no interaction between them. As these two 
+atoms aSSroaFh eaFh other new attraFtiYe
+and reSulsiYe forFes begin to oSerate
+$ttraFtiYe forFes arise between
+i nuFleus of one atom and its own eleFtron
+that is 1 A – e A and 1 % – e % . 
+Reprint 2026-27
+
+118 CHEMISTRY 
+ii nuFleus of one atom and eleFtron of
+other atom ie 1 A – e %  1 % – e A . 
+6imilarly reSulsiYe forFes arise between
+i eleFtrons of two atoms liNe e A – e % , 
+ii nuFlei of two atoms 1 A ² 1 % . 
+$ttraFtiYe forFes tend to bring the two
+atoms Flose to eaFh other whereas reSulsiYe
+forFes tend to Sush them aSart )ig  
+([Serimentally it has been found that
+the magnitude of new attraFtiYe forFe is
+more than the new reSulsiYe forFes $s a 
+result, two atoms approach each other and
+potential energy decreases. Ultimately a stage
+is reached where the net force of attraction
+balances the force of repulsion and system
+acquires minimum energy. At this stage
+two hydrogen atoms are said to be bonded 
+Fig. 4.7 Forces of attraction and repulsion
+during the formation of H 2 molecule 
+together to form a stable moleFule haYing the
+bond length of  Sm
+6inFe the energy gets released when the 
+bond is formed between two hydrogen atoms,
+the hydrogen molecule is more stable than 
+that of isolated hydrogen atoms 7he energy 
+so released is called as bond enthalpy , which 
+is ForresSonding to minimum in the FurYe
+deSiFted in )ig  &onYersely  N- of 
+energy is required to dissociate one mole of 
++ 2 molecule. 
++ 2 g   N- mol –1 → + g  + g 
+4.5.1 Orbital Overlap Concept 
+In the formation of hydrogen molecule,
+there is a minimum energy state when two
+hydrogen atoms are so near that their atomic 
+orbitals undergo Sartial interSenetration 7his 
+partial merging of atomic orbitals is called 
+oYerlaSSing of atomiF orbitals whiFh results in
+the Sairing of eleFtrons 7he e[tent of oYerlaS
+deFides the strength of a FoYalent bond In
+general greater the oYerlaS the stronger is the
+bond formed between two atoms 7herefore
+aFFording to orbital oYerlaS FonFeSt the
+formation of a FoYalent bond between two 
+atoms results by pairing of electrons present 
+in the YalenFe shell haYing oSSosite sSins 
+Fig. 4.8 The potential energy curve for the
+formation of H 2 molecule as a function
+of internuclear distance of the H atoms.
+The minimum in the curve corresponds
+to the most stable state of H 2 . 
+Reprint 2026-27
+
+119 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+4.5.2 Directional Properties of Bonds 
+$s we haYe already seen the FoYalent bond
+is formed by oYerlaSSing of atomiF orbitals
+7he moleFule of hydrogen is formed due to the
+oYerlaS of  s orbitals of two + atoms
+In Fase of SolyatomiF moleFules liNe &+  , 
+1+  and + 2 O, the geometry of the molecules
+is also important in addition to the bond 
+formation )or e[amSle why is it so that &+ 
+moleFule has tetrahedral shaSe and +&+ 
+bond angles are 109.5°? Why is the shape of 
+1+  molecule pyramidal ? 
+7he YalenFe bond theory e[Slains the 
+shape, the formation and directional properties 
+of bonds in SolyatomiF moleFules liNe &+  , 
+1+  and + 2 2 etF in terms of oYerlaS and 
+hybridisation of atomic orbitals. 
+4.5.3 Overlapping of Atomic Orbitals 
+When orbitals of two atoms come close to form 
+bond their oYerlaS may be SositiYe negatiYe
+or ]ero deSending uSon the sign Shase and 
+direction of orientation of amplitude of orbital 
+waYe funFtion in sSaFe )ig   3ositiYe and
+negatiYe sign on boundary surfaFe diagrams
+in the )ig  show the sign Shase of orbital
+waYe funFtion and are not related to Fharge
+2rbitals forming bond should haYe same sign
+Shase and orientation in sSaFe 7his is Falled
+SositiYe oYerlaS 9arious oYerlaSs of s and p 
+orbitals are deSiFted in )ig 
+7he Friterion of oYerlaS as the main faFtor
+for the formation of FoYalent bonds aSSlies 
+uniformly to the homonuclear/heteronuclear
+diatomic molecules and polyatomic molecules. 
+:e Nnow that the shaSes of &+   1+  , and 
++ 2 O molecules are tetrahedral, pyramidal 
+and bent resSeFtiYely It would be therefore
+interesting to use 9% theory to find out if these
+geometriFal shaSes Fan be e[Slained in terms
+of the orbital oYerlaSs
+/et us first Fonsider the &+  methane
+moleFule 7he eleFtroniF Fonfiguration of
+Farbon in its ground state is >+e@ s 2 2 p 2 which 
+in the e[Fited state beFomes >+e@  s 1 2 p [ 
+1 2 p y
+1
+2 p ] 
+1  7he energy required for this e[Fitation is 
+compensated by the release of energy due to 
+oYerlaS between the orbitals of Farbon and the 
+Fig.4.9 Positive, negative and zero overlaps of
+s and p atomic orbitals 
+hydrogen 7he four atomiF orbitals of Farbon
+eaFh with an unSaired eleFtron Fan oYerlaS 
+with the 1 s orbitals of the four + atoms whiFh
+are also singly oFFuSied 7his will result in the
+formation of four &+ bonds It will howeYer
+be obserYed that while the three S orbitals of 
+carbon are at 90 ° to one another the +&+ 
+angle for these will also be 90 °  7hat is three
+&+ bonds will be oriented at  ° to one 
+another 7he  s orbital of carbon and the 1 s 
+orbital of + are sSheriFally symmetriFal and
+they Fan oYerlaS in any direFtion 7herefore
+the direFtion of the fourth &+ bond Fannot
+be asFertained 7his desFriStion does not fit
+in with the tetrahedral +&+ angles of  ° .
+Clearly, it follows that simple atomic orbital 
+oYerlaS does not aFFount for the direFtional
+FharaFteristiFs of bonds in &+  . Using similar
+procedure and arguments, it can be seen that in 
+the Fase of 1+  and + 2 2 moleFules the +1+ 
+Reprint 2026-27
+
+120 CHEMISTRY 
+and +2+ angles should be  °  7his is in 
+disagreement with the actual bond angles of 
+ ° and  ° in the 1+  and + 2 O molecules 
+resSeFtiYely 
+4.5.4 Types of Overlapping and Nature of
+Covalent Bonds 
+7he FoYalent bond may be Flassified into 
+two types depending upon the types of 
+oYerlaSSing
+i 6igma σ bond and ii Si π bond 
+(i) Sigma( σ ) bond : 7his tySe of FoYalent
+bond is formed by the end to end head
+on oYerlaS of bonding orbitals along the
+internuFlear a[is 7his is Falled as head
+on oYerlaS or a[ial oYerlaS 7his Fan be 
+formed by any one of the following types
+of combinations of atomic orbitals. 
+• s-s overlapping : In this case, there is 
+oYerlaS of two half filled s orbitals along
+the internuFlear a[is as shown below  
+• s-p overlapping: 7his tySe of oYerlaS
+oFFurs between half filled s orbitals of one
+atom and half filled p orbitals of another 
+atom. 
+• p–p overlapping  7his tySe of oYerlaS
+taNes SlaFe between half filled p orbitals 
+of the two approaching atoms. 
+ii pi( ) bond : In the formation of π bond 
+the atomiF orbitals oYerlaS in suFh a
+way that their a[es remain Sarallel to 
+each other and perpendicular to the 
+internuFlear a[is 7he orbitals formed
+due to sidewise oYerlaSSing Fonsists 
+of two saucer type charged clouds 
+aboYe and below the Slane of the 
+participating atoms. 
+4.5.5 Strength of Sigma and pi Bonds 
+%asiFally the strength of a bond deSends
+uSon the e[tent of oYerlaSSing In Fase of
+sigma bond the oYerlaSSing of orbitals taNes
+SlaFe to a larger e[tent +enFe it is stronger
+as FomSared to the Si bond where the e[tent
+of oYerlaSSing oFFurs to a smaller e[tent 
+Further, it is important to note that in the
+formation of multiple bonds between two 
+atoms of a moleFule Si bond s is formed in 
+addition to a sigma bond. 
+4.6 HYBRIDISATION 
+In order to e[Slain the FharaFteristiF 
+geometrical shapes of polyatomic molecules 
+liNe &+   1+  and + 2 2 etF 3auling introduFed 
+the concept of hybridisation. According to him
+the atomic orbitals combine to form new set of 
+equiYalent orbitals Nnown as hybrid orbitals .
+Unlike pure orbitals, the hybrid orbitals are 
+used in bond formation 7he Shenomenon is 
+known as hybridisation whiFh Fan be defined
+as the SroFess of intermi[ing of the orbitals of 
+slightly different energies so as to redistribute
+their energies, resulting in the formation of 
+new set of orbitals of equiYalent energies and
+shaSe )or e[amSle when one  s and three
+2 p orbitals of Farbon hybridise there is the 
+formation of four new sp  hybrid orbitals. 
+Salient features of hybridisation: 7he main 
+features of hybridisation are as under : 
+ 7he number of hybrid orbitals is equal to 
+the number of the atomic orbitals that get
+hybridised. 
+ 7he hybridised orbitals are always
+equiYalent in energy and shaSe 
+Reprint 2026-27
+
+121 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+ 7he hybrid orbitals are more effeFtiYe in 
+forming stable bonds than the pure atomic
+orbitals. 
+ 7hese hybrid orbitals are direFted in
+sSaFe in some Sreferred direFtion to haYe 
+minimum repulsion between electron
+pairs and thus a stable arrangement. 
+7herefore the tySe of hybridisation 
+indicates the geometry of the molecules. 
+Important conditions for hybridisation 
+i 7he orbitals Sresent in the YalenFe shell 
+of the atom are hybridised. 
+ii 7he orbitals undergoing hybridisation
+should haYe almost equal energy
+iii 3romotion of eleFtron is not essential 
+condition prior to hybridisation. 
+iY It is not neFessary that only half filled 
+orbitals participate in hybridisation. 
+In some Fases eYen filled orbitals of
+YalenFe shell taNe Sart in hybridisation 
+4.6.1 Types of Hybridisation 
+7here are Yarious tySes of hybridisation
+inYolYing s , p and d orbitals 7he different 
+types of hybridisation are as under: 
+(I) sp hybridisation: 7his tySe of hybridisation
+inYolYes the mi[ing of one s and one p orbital 
+resulting in the formation of two equiYalent 
+sp hybrid orbitals 7he suitable orbitals for 
+sp hybridisation are s and p ] , if the hybrid 
+orbitals are to lie along the ]a[is (aFh sp 
+hybrid orbitals has 50% s FharaFter and 
+50% p FharaFter 6uFh a moleFule in whiFh 
+the central atom is sp hybridised and linNed 
+directly to two other central atoms possesses 
+linear geometry 7his tySe of hybridisation is 
+also known as diagonal hybridisation. 
+7he two sp hybrids point in the opposite 
+direFtion along the ]a[is with SroMeFting
+SositiYe lobes and Yery small negatiYe lobes
+whiFh SroYides more effeFtiYe oYerlaSSing 
+resulting in the formation of stronger bonds. 
+Example of molecule having sp 
+hybridisation
+B e C l 2 : 7 h e g r o u n d s t a t e e l e F t r o n i F
+Fonfiguration of %e is  s 2 2 s 2  In the e[ited 
+state one of the 2 s eleFtrons is Sromoted to
+YaFant  p orbital to aFFount for its biYalenFy 
+One 2 s and one 2 p orbital gets hybridised to 
+form two sp hybridised orbitals 7hese two 
+sp hybrid orbitals are oriented in opposite 
+direFtion forming an angle of  (aFh of 
+the sp hybridised orbital oYerlaSs with the 
+2 p orbital of Fhlorine a[ially and form two %e
+&l sigma bonds 7his is shown in )ig  
+(II) sp 2 hybridisation : In this hybridisation 
+there is inYolYement of one s and two 
+p orbitals in order to form three equiYalent 
+sp 2 hybridised orbitals )or e[amSle in
+%&l  molecule, the ground state electronic
+configuration of central boron atom is
+1 s 2 2 s 2 2 p 1  In the e[Fited state one of the  s 
+eleFtrons is Sromoted to YaFant  p orbital as 
+Fig.4.10 (a) Formation of sp hybrids from s and
+p orbitals; (b) Formation of the linear 
+BeCl 2 molecule 
+%e 
+Fig.4.11 Formation of sp 2 hybrids and the BCl 3 
+molecule 
+Reprint 2026-27
+
+122 CHEMISTRY
+a result boron has three unpaired electrons. 
+7hese three orbitals one  s and two 2 p 
+hybridise to form three sp 2 hybrid orbitals. 
+7he three hybrid orbitals so formed are 
+oriented in a trigonal planar arrangement 
+and oYerlaS with  p orbitals of chlorine to 
+form three %&l bonds 7herefore in %&l 
+)ig   the geometry is trigonal Slanar
+with &l%&l bond angle of  
+(III) sp 3 hybridisation: 7his tySe of
+hybridisation Fan be e[Slained by taNing the
+e[amSle of &+  molecule in which there is 
+mi[ing of one s orbital and three p orbitals
+of the YalenFe shell to form four sp  hybrid 
+orbital of equiYalent energies and shaSe 7here 
+is 25% s FharaFter and  p FharaFter in 
+each sp  hybrid orbital 7he four sp  hybrid
+orbitals so formed are directed towards the 
+four Forners of the tetrahedron 7he angle 
+between sp  hybrid orbital is 109.5° as shown 
+in )ig  
+Fig.4.12 Formation of sp 3 hybrids by the
+combination of s, p x , p y and p z atomic 
+orbitals of carbon and the formation of 
+CH 4 molecule 
+ǔ
+ǔ
+ǔ
+ǔ
+7he struFture of 1+  and + 2 O molecules 
+Fan also be e[Slained with the helS of sp 
+hybridisation In 1+   the YalenFe shell outer
+eleFtroniF Fonfiguration of nitrogen in the 
+ground state is 2 2 2 2 2 1 1 1 
+S p p p x y z haYing three 
+unpaired electrons in the sp  hybrid orbitals
+and a lone pair of electrons is present in the 
+fourth one 7hese three hybrid orbitals oYerlaS 
+with 1 s orbitals of hydrogen atoms to form 
+three 1²+ sigma bonds :e Nnow that the 
+force of repulsion between a lone pair and a
+bond pair is more than the force of repulsion 
+between two bond Sairs of eleFtrons 7he 
+molecule thus gets distorted and the bond 
+angle is reduFed to  from  7he 
+geometry of such a molecule will be pyramidal 
+as shown in )ig  
+Fig.4.13 Formation of NH 3 molecule 
+In Fase of + 2 2 moleFule the four o[ygen
+orbitals one  s and three 2 p undergo sp  
+hybridisation forming four sp  hybrid orbitals
+out of which two contain one electron each and 
+the other two Fontain a Sair of eleFtrons 7hese 
+four sp  hybrid orbitals acquire a tetrahedral
+geometry, with two corners occupied by
+hydrogen atoms while the other two by the 
+lone Sairs 7he bond angle in this Fase is
+reduFed to  from  )ig 
+and the moleFule thus aFquires a 9shaSe or 
+angular geometry. 
+Fig.4.14 Formation of H 2 O molecule 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+4.6.2 Other Examples of sp 3 , sp 2 and sp 
+Hybridisation 
+sp 3 Hybridisation in C 2 H 6 molecule: In
+ethane molecule both the carbon atoms
+assume sp 3 hybrid state. One of the four 
+sp  hybrid orbitals of Farbon atom oYerlaSs
+a[ially with similar orbitals of other atom to 
+form sp 3  sp 3 sigma bond while the other three
+hybrid orbitals of each carbon atom are used
+in forming sp 3 – s sigma bonds with hydrogen 
+atoms as disFussed in seFtion  iii 
+7herefore in ethane &²& bond length is 
+Sm and eaFh &²+ bond length is  Sm 
+sp 2 Hybridisation in C 2 H 4 : In the formation
+of ethene molecule, one of the sp 2 hybrid 
+orbitals of Farbon atom oYerlaSs a[ially with 
+sp 2 hybridised orbital of another carbon atom
+to form C–C sigma bond. While the other two 
+sp 2 hybrid orbitals of each carbon atom are
+used for making sp 2 – s sigma bond with two 
+hydrogen atoms 7he unhybridised orbital  p x 
+or 2 p y of one Farbon atom oYerlaSs sidewise 
+with the similar orbital of the other carbon
+atom to form weak π bond, which consists of 
+two equal eleFtron Flouds distributed aboYe 
+and below the plane of carbon and hydrogen
+atoms. 
+7hus in ethene moleFule the Farbon 
+carbon bond consists of one sp 2 – sp 2 sigma 
+bond and one Si π bond between p orbitals
+which are not used in the hybridisation and
+are perpendicular to the plane of molecule; the 
+bond length  Sm 7he &²+ bond is sp 2 – s 
+sigma with bond length  Sm 7he +²&²+
+bond angle is  while the +²&²& angle
+is  7he formation of sigma and Si bonds 
+in et hene is shown in )ig  
+Fig. 4.15 Formation of sigma and pi bonds in ethene 
+Reprint 2026-27
+
+ CHEMISTRY 
+sp Hybridisation in C 2 H 2 : In the formation
+of ethyne molecule, both the carbon atoms
+undergo sp hybridisation haYing two 
+unhybridised orbital i.e., 2 p y and 2 p [ .
+One sp hybrid orbital of one carbon atom 
+oYerlaSs a[ially with sp hybrid orbital of the
+other carbon atom to form C–C sigma bond,
+while the other hybridised orbital of each 
+Farbon atom oYerlaSs a[ially with the half
+filled s orbital of hydrogen atoms forming 
+σ bonds (aFh of the two unhybridised p 
+orbitals of both the Farbon atoms oYerlaSs 
+sidewise to form two π bonds between the 
+Farbon atoms 6o the triSle bond between the 
+two carbon atoms is made up of one sigma
+and two pi bonds as shown in Fi g  
+4.6.3 Hybridisation of Elements
+involving d Orbitals 
+7he elements Sresent in the third Seriod 
+contain d orbitals in addition to s and p 
+orbitals 7he energy of the  d orbitals are 
+FomSarable to the energy of the  s and  p 
+orbitals 7he energy of  d orbitals are also 
+FomSarable to those of  s and  p orbitals. 
+$s a FonsequenFe the hybridisation inYolYing
+either  s   p and  d or  d   s and  p is 
+Sossible +oweYer sinFe the differenFe in
+energies of  p and  s orbitals is signifiFant no
+hybridisation inYolYing  p   d and  s orbitals
+is possible. 
+7he imSortant hybridisation sFhemes
+inYolYing s , p and d orbitals are summarised
+below: 
+Fig.4.16 Formation of sigma and pi bonds in
+ethyne 
+(i) Formation of PCl 5 (sp 3 d hybridisation): 
+7he ground state and the e[Fited state outer 
+electronic configurations of phosphorus 
+=  are reSresented below 
+sp 3 d hybrid orbitals filled by electron pairs
+donated by five Cl atoms. 
+Shape of
+molecules/
+ions
+Hybridisation
+type
+Atomic
+orbitals Examples 
+6quare 
+planar 
+dsp 2 d + s + p  >1i &1  @ 2– , 
+>3t &l  @ 2– 
+7rigonal 
+bipyramidal 
+sp  d s + p   d 3) 5  3&l 5 
+6quare 
+pyramidal 
+sp  d 2 s + p   d  %r) 5
+Octahedral sp  d 2 
+d 2 sp  
+s + p   d  
+d   s + p 
+6) 6 , [CrF 6 @ ²
+>&o 1+  6 @  
+Reprint 2026-27
+
+125 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+1ow the fiYe orbitals i.e., one s , three 
+p and one d orbitals are aYailable for
+hybridisation to yield a set of fiYe sp  d hybrid 
+orbitals whiFh are direFted towards the fiYe 
+corners of a trigonal bipyramidal as depicted 
+in the )ig  
+Fig. 4.17 Trigonal bipyramidal geometry of PCl 5
+molecule 
+It should be noted that all the bond angles
+in trigonal bipyramidal geometry are not 
+equiYalent In 3&l 5 the fiYe sp  d orbitals of 
+ShosShorus oYerlaS with the singly oFFuSied 
+p orbitals of Fhlorine atoms to form fiYe 3²&l
+sigma bonds 7hree 3²&l bond lie in one 
+plane and make an angle of 120° with each
+other; these bonds are termed as equatorial 
+bonds 7he remaining two 3²&l bonds²one
+lying aboYe and the other lying below the 
+equatorial plane, make an angle of 90° with 
+the Slane 7hese bonds are Falled a[ial bonds
+$s the a[ial bond Sairs suffer more reSulsiYe 
+interaction from the equatorial bond pairs, 
+therefore a[ial bonds haYe been found to 
+be slightly longer and hence slightly weaker 
+than the equatorial bonds whiFh maNes 3&l 5 
+moleFule more reaFtiYe 
+(ii) Formation of SF 6 (sp 3 d 2 hybridisation): 
+In 6) 6 the central sulphur atom has the 
+ground state outer eleFtroniF Fonfiguration
+ s 2  p   In the e[ited state the aYailable si[ 
+orbitals i.e., one s , three p and two d are 
+singly oFFuSied by eleFtrons 7hese orbitals
+hybridise to form si[ new sp  d 2 hybrid 
+orbitals whiFh are SroMeFted towards the si[
+Forners of a regular oFtahedron in 6) 6  7hese
+si[ sp  d 2 hybrid orbitals oYerlaS with singly
+oFFuSied orbitals of Áuorine atoms to form
+si[ 6²) sigma bonds 7hus 6) 6 molecule has
+a regular octahedral geometry as shown in 
+)ig  
+sp 3 d 2 hybridisation 
+4.7 MOLECULAR ORBITAL THEORY 
+0oleFular orbital 02 theory was deYeloSed
+by ) +und and 56 0ulliNen in  7he 
+salient features of this theory are : 
+i 7he eleFtrons in a moleFule are Sresent
+in the Yarious moleFular orbitals as the 
+electrons of atoms are present in the 
+Yarious atomiF orbitals
+ii 7he atomiF orbitals of FomSarable 
+energies and proper symmetry combine
+to form molecular orbitals. 
+iii :hile an eleFtron in an atomiF orbital 
+is influenced by one nucleus, in a 
+moleFular orbital it is inÁuenFed by 
+two or more nuclei depending upon the 
+number of atoms in the moleFule 7hus 
+Fig. 4.18 Octahedral geometry of SF 6 molecule 
+Reprint 2026-27
+
+126 CHEMISTRY
+an atomic orbital is monocentric while
+a molecular orbital is polycentric. 
+iY 7he number of moleFular orbital formed 
+is equal to the number of combining
+atomic orbitals. When two atomic
+orbitals combine, two molecular orbitals
+are formed. One is known as bonding
+molecular orbital while the other is
+called antibonding molecular orbital . 
+Y 7he bonding moleFular orbital has 
+lower energy and hence greater stability
+than the corresponding antibonding
+molecular orbital. 
+Yi -ust as the eleFtron Srobability 
+distribution around a nucleus in an 
+atom is giYen by an atomiF orbital the 
+electron probability distribution around 
+a grouS of nuFlei in a moleFule is giYen 
+by a molecular orbital. 
+Yii 7he moleFular orbitals liNe atomiF 
+orbitals are filled in aFFordanFe with 
+the aufbau SrinFiSle obeying the 3auli·s
+e[Flusion SrinFiSle and the +und·s rule 
+4.7.1 Formation of Molecular Orbitals
+Linear Combination of Atomic
+Orbitals (LCAO) 
+$FFording to waYe meFhaniFs the atomiF
+orbitals Fan be e[Sressed by waYe funFtions 
+ψ ·s whiFh reSresent the amSlitude of the
+eleFtron waYes 7hese are obtained from
+the solution of 6Fhr|dinger waYe equation
++oweYer sinFe it Fannot be solYed for any 
+system containing more than one electron,
+molecular orbitals which are one electron 
+waYe funFtions for moleFules are diffiFult 
+to obtain directly from the solution of 
+6Fhr|dinger waYe equation 7o oYerFome
+this Sroblem an aSSro[imate method Nnown 
+as linear combination of atomic orbitals
+(LCAO) has been adopted. 
+/ e t u s a S S l y t h i s m e t h o d t o t h e 
+homonuclear diatomic hydrogen molecule.
+Consider the hydrogen molecule consisting 
+of two atoms $ and % (aFh hydrogen atom 
+in the ground state has one electron in 1 s 
+orbital 7he atomiF orbitals of these atoms
+may be reSresented by the waYe funFtions 
+ψ A and 
+ψ % . Mathematically, the formation of
+molecular orbitals may be described by the
+linear combination of atomic orbitals that can
+take place by addition and by subtraction of 
+waYe funFtions of indiYidual atomiF orbitals 
+as shown below : 
+ψ MO 
+ψ A + 
+ψ %
+7herefore the two moleFular orbitals 
+σ and σ * are formed as : 
+σ =
+ψ A + 
+ψ % 
+σ 
+ψ A – 
+ψ %
+7he moleFular orbital σ formed by the
+addition of atomic orbitals is called the bonding
+molecular orbital while the molecular orbital 
+σ * formed by the subtraction of atomic orbital
+is called antibonding molecular orbital as 
+deSiFted in )ig  
+Fig.4.19 Formation of bonding ( σ ) and antibonding 
+( σ *) molecular orbitals by the linear
+combination of atomic orbitals 
+ψ A and 
+ψ B centered on two atoms A and B
+respectively. 
+4ualitatiYely the formation of moleFular 
+orbitals can be understood in terms of the 
+FonstruFtiYe or destruFtiYe interferenFe of the
+eleFtron waYes of the Fombining atoms In the 
+formation of bonding molecular orbital, the 
+two eleFtron waYes of the bonding atoms
+reinforFe eaFh other due to FonstruFtiYe 
+interference while in the formation of 
+σ 
+ψ A – 
+ψ % 
+ψ A 
+ψ % 
+σ =
+ψ A + 
+ψ % 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE
+antibonding molecular orbital, the electron 
+waYes FanFel eaFh other due to destruFtiYe 
+interference. As a result, the electron density in
+a bonding molecular orbital is located between
+the nuclei of the bonded atoms because of 
+whiFh the reSulsion between the nuFlei is Yery 
+less while in case of an antibonding molecular
+orbital, most of the electron density is located
+away from the space between the nuclei. 
+InfaFt there is a nodal Slane on whiFh the
+eleFtron density is ]ero between the nuFlei 
+and hence the repulsion between the nuclei is 
+high (leFtrons SlaFed in a bonding moleFular 
+orbital tend to hold the nuclei together and 
+stabilise a moleFule 7herefore a bonding 
+molecular orbital always possesses lower
+energy than either of the atomic orbitals that 
+haYe Fombined to form it In Fontrast the 
+electrons placed in the antibonding molecular 
+orbital destabilise the moleFule 7his is 
+because the mutual repulsion of the electrons
+in this orbital is more than the attraction
+between the electrons and the nuclei, which
+causes a net increase in energy.
+It may be noted that the energy of the 
+antibonding orbital is raised aboYe the 
+energy of the parent atomic orbitals that 
+haYe Fombined and the energy of the bonding 
+orbital has been lowered than the parent 
+orbitals 7he total energy of two moleFular
+orbitals howeYer remains the same as that 
+of two original atomic orbitals. 
+4.7.2 Conditions for the Combination of
+Atomic Orbitals 
+7he linear Fombination of atomiF orbitals to 
+form molecular orbitals takes place only if the 
+following Fonditions are satisfied 
+1. The combining atomic orbitals must
+have the same or nearly the same energy . 
+7his means that  s orbital can combine with
+another 1 s orbital but not with 2 s orbital
+because the energy of 2 s orbital is appreciably
+higher than that of 1 s orbital 7his is not true
+if the atoms are Yery different 
+2. The combining atomic orbitals must
+have the same symmetry about the
+molecular axis  %y FonYention ]a[is is taNen
+as the moleFular a[is It is imSortant to note
+that atomiF orbitals haYing same or nearly 
+the same energy will not combine if they do 
+not haYe the same symmetry )or e[amSle 
+2 p z orbital of one atom can combine with 2 p z 
+orbital of the other atom but not with the
+2 p x or 2 p y orbitals because of their different
+symmetries. 
+3. The combining atomic orbitals must
+overlap to the maximum extent . Greater 
+the e[tent of oYerlaS the greater will be the
+eleFtrondensity between the nuFlei of a 
+molecular orbital. 
+4.7.3 Types of Molecular Orbitals 
+Molecular orbitals of diatomic molecules are
+designated as σ sigma  
+π Si  
+δ delta  etF 
+In this nomenclature, the sigma ( )
+molecular orbitals are symmetrical around
+the bond-axis while pi ( ) molecular orbitals
+are not symmetrical  )or e[amSle the linear 
+combination of 1s orbitals centered on two
+nuclei produces two molecular orbitals which 
+are symmetriFal around the bonda[is 6uFh 
+molecular orbitals are of the σ type and are
+designated as σ 1s and σ * 1s >)ig  a  Sage
+@ If internuclear axis is taken to be in
+the z-direction, it can be seen that a linear
+combination of 2p z - orbitals of two atoms
+also produces two sigma molecular orbitals
+designated as 2p z and * 2p z . >)ig  b @ 
+Molecular orbitals obtained from 2p [ and 
+2p y orbitals are not symmetrical around the 
+bond a[is beFause of the SresenFe of SositiYe
+lobes aboYe and negatiYe lobes below the
+moleFular Slane 6uFh moleFular orbitals 
+are labelled as 
+π and 
+π >)ig  F @ $ 
+π bonding MO has larger electron density 
+aboYe and below the internuFlear a[is 7he 
+π * antibonding MO has a node between the
+nuclei. 
+4.7.4 Energy Level Diagram for Molecular
+Orbitals 
+:e haYe seen that  s atomic orbitals on two
+atoms form two molecular orbitals designated
+as σ 1 s and σ *1 s . In the same manner, the 2 s 
+and 2 p atomiF orbitals eight atomiF orbitals 
+Reprint 2026-27
+
+128 CHEMISTRY 
+Fig. 4.20 Contours and energies of bonding and antibonding molecular orbitals formed through
+combinations of (a) 1s atomic orbitals; (b) 2p z atomic orbitals and (c) 2p x atomic orbitals. 
+on two atoms giYe rise to the following eight 
+molecular orbitals:
+Antibonding MOs σ∗ 2s σ∗ 2p z 
+π∗ 2p x 
+π∗ 2p y 
+%onding MOs σ 2s σ 2p z 
+π 2p x 
+π 2p y 
+7he energy leYels of these moleFular
+orbitals haYe been determined e[Serimentally 
+from spectroscopic data for homonuclear
+diatomic molecules of second row elements 
+of the SeriodiF table 7he inFreasing order of 
+Reprint 2026-27
+
+129 CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+energies of Yarious molecular orbitals for O 2
+and F 2 is giYen below 
+1s <  ∗ 1s <  2s <  ∗ 2s < 2p z < ( 
+π 2p x = 
+π 2p y )
+< ( 
+π ∗ 2p x = 
+π∗ 2p y ) <  ∗ 2p z 
++oweYer this sequenFe of energy leYels 
+of molecular orbitals is not correct for the 
+remaining moleFules /i 2  %e 2  % 2 , C 2  1 2 . For 
+instanFe it has been obserYed e[Serimentally
+that for moleFules suFh as % 2 , C 2  1 2 , etc. 
+the inFreasing order of energies of Yarious 
+molecular orbitals is 
+1s <  ∗ 1s < 2s <  ∗ 2s < ( 
+π 2 p x = 
+π 2 p y )
+< 2p z < ( 
+π ∗ 2p x = 
+π∗ 2p y ) <  ∗ 2p z 
+7he imSortant FharaFteristiF feature 
+of this order is that the energy of 2p z 
+molecular orbital is higher than that
+of 2p x and 2p y molecular orbitals . 
+4.7.5 Electronic Configuration and 
+Molecular Behaviour 
+7he distribution of eleFtrons among Yarious 
+molecular orbitals is called the electronic 
+configuration of the molecule . From the 
+eleFtroniF Fonfiguration of the moleFule it is 
+possible to get important information about
+the molecule as discussed below. 
+Stability of Molecules: If 1 b is the number
+of electrons occupying bonding orbitals and 
+1 a the number occupying the antibonding
+orbitals, then 
+i the moleFule is stable if 1 b is greater 
+than 1 a , and 
+ii the moleFule is unstable if 1 b is less 
+than 1 a . 
+In i more bonding orbitals are oFFuSied
+and so the bonding inÁuenFe is stronger and a
+stable moleFule results In ii the antibonding 
+influence is stronger and therefore the
+molecule is unstable. 
+Bond order 
+Bond order (b.o.) is defined as one half the 
+difference between the number of electrons
+present in the bonding and the antibonding
+orbitals i.e., 
+%ond order bo ô 1 b ²1 a 
+7he rules disFussed aboYe regarding the 
+stability of the molecule can be restated in 
+terms of bond order as follows $ SositiYe bond
+order ie 1 b ! 1 a means a stable moleFule
+while a negatiYe ie 1 b 1 a or ]ero ie
+1 b 1 a bond order means an unstable 
+molecule. 
+Nature of the bond 
+Integral bond order Yalues of   or  
+correspond to single, double or triple bonds 
+resSeFtiYely as studied in the FlassiFal 
+concept. 
+Bond-length 
+7he bond order between two atoms in a
+moleFule may be taNen as an aSSro[imate
+measure of the bond length 7he bond length 
+decreases as bond order increases. 
+Magnetic nature 
+If all the molecular orbitals in a molecule are
+doubly occupied, the substance is diamagnetic 
+reSelled by magnetiF field  +oweYer if one or 
+more molecular orbitals are singly occupied it 
+is SaramagnetiF attraFted by magnetiF field  
+e.g., O 2 molecule. 
+4.8 BONDING IN SOME HOMONUCLEAR
+DIATOMIC MOLECULES 
+In this section we shall discuss bonding in
+some homonuclear diatomic molecules. 
+1. Hydrogen molecule (H 2 ) : It is formed by 
+the Fombination of two hydrogen atoms (aFh 
+hydrogen atom has one electron in 1 s orbital. 
+7herefore in all there are two eleFtrons in 
+hydrogen molecule which are present in σ 1s 
+moleFular orbital 6o eleFtroniF Fonfiguration 
+of hydrogen molecule is 
++ 2  σ 1s 2 
+7he bond order of + 2 molecule can be
+calculated as giYen below
+%ond order N N b a     
+2
+2 0
+2 1 
+7his means that the two hydrogen atoms
+are bonded together by a single FoYalent bond
+7he bond dissoFiation energy of hydrogen
+moleFule has been found to be  N- mol –1 
+and bond length equal to  Sm 6inFe no 
+Reprint 2026-27
+
+ CHEMISTRY
+unpaired electron is present in hydrogen
+molecule, therefore, it is diamagnetic. 
+2. Helium molecule (He 2 ) : 7he eleFtroniF
+Fonfiguration of helium atom is  s 2  (aFh 
+helium atom contains 2 electrons, therefore, 
+in +e 2 moleFule there would be  eleFtrons
+7hese eleFtrons will be aFFommodated in 
+σ 1 s and σ *1 s molecular orbitals leading to 
+eleFtroniF Fonfiguration
++e 2  σ 1s 2 σ * 1s 2 
+%ond order of +e 2 is ô  ²  
++e 2 molecule is therefore unstable and
+does not exist.
+Similarly, it can be shown that Be 2 molecule 
+σ 1 s 2 σ *1 s 2 σ 2 s 2 σ *2 s 2 also does not exist. 
+3. Lithium molecule (Li 2 ) : 7he eleFtroniF
+Fonfiguration of lithium is  s 2 , 2 s 1  7here
+are si[ eleFtrons in /i 2  7he eleFtroniF
+Fonfiguration of /i 2 molecule, therefore, is 
+/i 2  σ 1 s 2 σ *1 s 2 σ 2 s 2 
+7he aboYe Fonfiguration is also written
+as .. σ s 2 where .. reSresents the Flosed
+. shell struFture σ 1 s 2 σ *1 s 2 . 
+)rom the eleFtroniF Fonfiguration of /i 2
+molecule it is clear that there are four electrons
+present in bonding molecular orbitals and two
+electrons present in antibonding molecular 
+orbitals Its bond order therefore is ô  ²
+  It means that /i 2 molecule is stable
+and since it has no unpaired electrons it
+should be diamagnetic. Indeed diamagnetic 
+/i 2 moleFules are Nnown to e[ist in the
+YaSour Shase 
+4. Carbon molecule (C 2 ): 7he eleFtroniF
+Fonfiguration of Farbon is 1s 2 2s 2 2p 2  7here
+are twelYe eleFtrons in & 2  7he eleFtroniF
+Fonfiguration of & 2 molecule, therefore, is
+C 2  ķ s 2 ķ ∗ 1 s 2 ķ ∗ 2 s 2 
+π2 p 2 
+x 
+π 2p 2 
+y 
+or KK ķ s 2 ķ ∗ 2 s 2 
+π2 p 2 
+x 
+π 2p 2 
+y 
+7he bond order of & 2 is ô  ²   
+and C 2 should be diamagnetic. Diamagnetic
+C 2 moleFules haYe indeed been deteFted in
+YaSour Shase It is imSortant to note that 
+double bond in C 2 consists of both pi bonds
+because of the presence of four electrons in
+two pi molecular orbitals. In most of the other
+molecules a double bond is made up of a
+sigma bond and a pi bond. In a similar fashion 
+the bonding in 1 2 molecule can be discussed. 
+5. Oxygen molecule (O 2 ): 7he eleFtroniF
+Fonfiguration of o[ygen atom is 1s 2 2s 2 2p  . 
+(aFh o[ygen atom has  eleFtrons henFe 
+in O 2 moleFule there are  eleFtrons 7he 
+electronic configuration of O 2 molecule,
+therefore, is
+O 2  ķ s 2 ķ ∗ 1 s 2 ķ 2 s 2 ķ ∗ 2 s 2 ķS ] 
+2 
+π2 p x 
+2 ŋ 
+π 2 p y 
+2 
+π∗
+2 p 1
+x ŋ 
+π ∗ 2p y
+1 
+O 2 : 
+)rom the eleFtroniF Fonfiguration of 2 2
+molecule it is clear that ten electrons are 
+Sresent in bonding moleFular orbitals and si[ 
+electrons are present in antibonding molecular
+orbitals. Its bond order, therefore, is 
+%ond order >1 b ² 1 a @ > ² @ 
+6o in o[ygen moleFule atoms are held
+by a double bond 0oreoYer it may be noted 
+that it contains two unpaired electrons in 
+π ∗ 2p x and 
+π ∗ 2p y molecular orbitals, therefore, 
+O 2 molecule should be paramagnetic,
+a p r e d i c t i o n t h a t c o r r e s p o n d s t o
+experimental observation . In this way, the 
+theory suFFessfully e[Slains the SaramagnetiF
+nature of o[ygen
+6imilarly the eleFtroniF Fonfigurations 
+of other homonuclear diatomic molecules of
+the second row of the periodic table can be 
+written In )ig  are giYen the moleFular 
+orbital occupancy and molecular properties 
+for % 2 through 1e 2  7he sequenFe of 02s and
+their eleFtron SoSulation are shown 7he bond 
+energy, bond length, bond order, magnetic 
+SroSerties and YalenFe eleFtron Fonfiguration 
+appear below the orbital diagrams. 
+[ ] 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+4.9 HYDROGEN BONDING 
+1itrogen o[ygen and Áuorine are the highly
+eleFtronegatiYe elements :hen they are
+attaFhed to a hydrogen atom to form FoYalent
+bond the eleFtrons of the FoYalent bond are
+shifted towards the more eleFtronegatiYe
+atom 7his Sartially SositiYely Fharged 
+hydrogen atom forms a bond with the other 
+more eleFtronegatiYe atom 7his bond is 
+known as hydrogen bond and is weaker 
+than the FoYalent bond )or e[amSle in +)
+moleFule the hydrogen bond e[ists between
+hydrogen atom of one moleFule and Áuorine 
+atom of another molecule as depicted below : 
+² ² ² + δ + –F δ – ² ² ²+ δ + – F δ – ² ² ² + δ + – F δ – 
++ere hydrogen bond aFts as a bridge between
+two atoms whiFh holds one atom by FoYalent 
+bond and the other by hydrogen bond. 
++ydrogen bond is represented by a dotted 
+line ² ² ² while a solid line reSresents the
+FoYalent bond Thus, hydrogen bond can be 
+defined as the attractive force which binds 
+hydrogen atom of one molecule with the
+electronegative atom (F, O or N) of another
+molecule.
+4.9.1 Cause of Formation of Hydrogen
+Bond 
+When hydrogen is bonded to strongly 
+eleFtronegatiYe element ¶;· the eleFtron Sair
+shared between the two atoms moYes far 
+away from hydrogen atom. As a result the 
+hydrogen atom beFomes highly eleFtroSositiYe
+with resSeFt to the other atom ¶;· 6inFe 
+there is displacement of electrons towards 
+; the hydrogen aFquires fraFtional SositiYe
+Fharge δ + while ¶;· attain fraFtional negatiYe 
+Fig. 4.21 MO occupancy and molecular properties for B 2 through Ne 2 . 
+Reprint 2026-27
+
+ CHEMISTRY 
+SUMMARY 
+.|ssel·s first insight into the meFhanism of formation of eleFtroSositiYe and eleFtronegatiYe
+ions related the SroFess to the attainment of noble gas Fonfigurations by the resSeFtiYe ions
+(leFtrostatiF attraFtion between ions is the Fause for their stability 7his giYes the FonFeSt 
+of electrovalency . 
+7he first desFriStion of covalent bonding was SroYided by /ewis in terms of the sharing 
+of electron pairs between atoms and he related the process to the attainment of noble gas 
+Fonfigurations by reaFting atoms as a result of sharing of eleFtrons 7he /ewis dot symbols
+show the number of YalenFe eleFtrons of the atoms of a giYen element and /ewis dot struFtures 
+show pictorial representations of bonding in molecules. 
+$n ioniF FomSound is SiFtured as a threedimensional aggregation of SositiYe and negatiYe 
+ions in an ordered arrangement called the crystal lattice. In a crystalline solid there is a 
+Fharge balanFe between the SositiYe and negatiYe ions 7he Frystal lattiFe is stabili]ed by 
+the enthalpy of lattice formation . 
+:hile a single FoYalent bond is formed by sharing of an eleFtron Sair between two atoms
+multiSle bonds result from the sharing of two or three eleFtron Sairs 6ome bonded atoms
+haYe additional Sairs of eleFtrons not inYolYed in bonding 7hese are Falled loneSairs of
+eleFtrons $ /ewis dot struFture shows the arrangement of bonded Sairs and lone Sairs around 
+each atom in a molecule. Important parameters, associated with chemical bonds, like: 
+bond length, bond angle, bond enthalpy, bond order and bond polarity have significant 
+effect on the properties of compounds. 
+A number of molecules and polyatomic ions cannot be described accurately by a single 
+/ewis struFture and a number of desFriStions reSresentations based on the same sNeletal
+struFture are written and these taNen together reSresent the moleFule or ion 7his is a Yery
+imSortant and e[tremely useful FonFeSt Falled resonance  7he Fontributing struFtures 
+or canonical forms taken together constitute the resonance hybrid which represents the
+molecule or ion. 
+Fharge δ –  7his results in the formation of a
+Solar moleFule haYing eleFtrostatiF forFe of 
+attraction which can be represented as: 
++ δ + – X δ – ² ² ² + δ + – X δ – ² ² ² + δ + – X δ – 
+7he magnitude of +bonding deSends 
+on the physical state of the compound. It is 
+ma[imum in the solid state and minimum in
+the gaseous state 7hus the hydrogen bonds
+haYe strong inÁuenFe on the struFture and 
+properties of the compounds. 
+4.9.2 Types of H-Bonds 
+7here are two tySes of +bonds
+i IntermoleFular hydrogen bond
+ii IntramoleFular hydrogen bond 
+(1) Intermolecular hydrogen bond : It is
+formed between two different molecules of the 
+same or different FomSounds )or e[amSle
++bond in Fase of +) moleFule alFohol or 
+water molecules, etc. 
+(2) Intramolecular hydrogen bond : It is
+formed when hydrogen atom is in between 
+the two highly eleFtronegatiYe ) 2 1 
+atoms present within the same molecule. For 
+e[amSle in o nitroShenol the hydrogen is in
+between the two o[ygen atoms 
+Fig. 4.22 Intramolecular hydrogen bonding in
+o-nitrophenol molecule 
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+7he VSEPR model used for predicting the geometrical shapes of molecules is based on
+the assumption that electron pairs repel each other and, therefore, tend to remain as far
+apart as possible. According to this model, molecular geometry is determined by repulsions
+between lone pairs and lone pairs ; lone pairs and bonding pairs and bonding pairs and bonding
+pairs  7he order of these reSulsions being  lSlS ! lSbS ! bSbS
+7he valence bond (VB) approach to FoYalent bonding is basiFally FonFerned with the
+energetiFs of FoYalent bond formation about whiFh the /ewis and 96(35 models are silent
+%asiFally the 9% theory disFusses bond formation in terms of oYerlaS of orbitals )or e[amSle
+the formation of the + 2 moleFule from two hydrogen atoms inYolYes the oYerlaS of the  s 
+orbitals of the two + atoms whiFh are singly oFFuSied It is seen that the Sotential energy
+of the system gets lowered as the two + atoms Fome near to eaFh other $t the equilibrium
+internuFlear distanFe bond distanFe the energy touFhes a minimum $ny attemSt to bring
+the nuFlei still Floser results in a sudden inFrease in energy and Fonsequent destabili]ation
+of the moleFule %eFause of orbital oYerlaS the eleFtron density between the nuFlei inFreases
+whiFh helSs in bringing them Floser It is howeYer seen that the aFtual bond enthalSy and
+bond length Yalues are not obtained by oYerlaS alone and other Yariables haYe to be taNen 
+into account. 
+)or e[Slaining the FharaFteristiF shaSes of SolyatomiF moleFules 3auling introduFed the 
+concept of hybridisation of atomic orbitals . sp , sp 2 , sp  hybridi]ations of atomiF orbitals
+of %e % & 1 and 2 are used to e[Slain the formation and geometriFal shaSes of moleFules
+liNe %e&l 2  %&l   &+   1+  and + 2 2 7hey also e[Slain the formation of multiSle bonds in 
+molecules like C 2 + 2 and C 2 +  . 
+7he molecular orbital (MO) theory describes bonding in terms of the combination and
+arrangment of atomic orbitals to form molecular orbitals that are associated with the molecule 
+as a whole 7he number of moleFular orbitals are always equal to the number of atomiF
+orbitals from whiFh they are formed %onding moleFular orbitals inFrease eleFtron density
+between the nuFlei and are lower in energy than the indiYidual atomiF orbitals $ntibonding
+moleFular orbitals haYe a region of ]ero eleFtron density between the nuFlei and haYe more
+energy than the indiYidual atomiF orbitals
+7he eleFtroniF Fonfiguration of the moleFules is written by filling eleFtrons in the moleFular
+orbitals in the order of inFreasing energy leYels $s in the Fase of atoms the 3auli e[Flusion
+SrinFiSle and +und·s rule are aSSliFable for the filling of moleFular orbitals 0oleFules are 
+said to be stable if the number of elctrons in bonding molecular orbitals is greater than that
+in antibonding molecular orbitals. 
+Hydrogen bond is formed when a hydrogen atom finds itself between two highly
+eleFtronegatiYe atoms suFh as ) 2 and 1 It may be intermoleFular e[isting between two
+or more moleFules of the same or different substanFes or intramoleFular Sresent within
+the same moleFule  +ydrogen bonds haYe a Sowerful effeFt on the struFture and SroSerties 
+of many compounds. 
+EXERCISES 
+ ([Slain the formation of a FhemiFal bond
+ :rite /ewis dot symbols for atoms of the following elements  0g 1a % 2 1 %r
+ :rite /ewis symbols for the following atoms and ions
+6 and 6 2– ; Al and Al   + and + – 
+ 'raw the /ewis struFtures for the following moleFules and ions 
++ 2 6 6i&l   %e) 2 , CO 3
+2 − , +&22+
+ 'efine oFtet rule :rite its signifiFanFe and limitations 
+Reprint 2026-27
+
+ CHEMISTRY 
+ :rite the faYourable faFtors for the formation of ioniF bond
+ 'isFuss the shaSe of the following moleFules using the 96(35 model
+%e&l 2  %&l   6i&l  , AsF 5  + 2 6 3+ 
+ $lthough geometries of 1+  and + 2 O molecules are distorted tetrahedral, bond angle
+in water is less than that of ammonia. Discuss. 
+ +ow do you e[Sress the bond strength in terms of bond order "
+ 'efine the bond length
+ ([Slain the imSortant asSeFts of resonanFe with referenFe to the CO 3
+2 − ion. 
+ +  32  can be represented by structures 1 and 2 shown below. Can these two
+structures be taken as the canonical forms of the resonance hybrid representing 
++  32  " If not giYe reasons for the same
+ :rite the resonanFe struFtures for 62   12 2 and NO3 
+− 
+. 
+ 8se /ewis symbols to show eleFtron transfer between the following atoms to form
+Fations and anions  a . and 6 b &a and 2 F $l and 1
+ $lthough both &2 2 and + 2 2 are triatomiF moleFules the shaSe of + 2 O molecule is
+bent while that of CO 2 is linear ([Slain this on the basis of diSole moment
+ :rite the signifiFanFeaSSliFations of diSole moment
+ 'efine eleFtronegatiYity +ow does it differ from eleFtron gain enthalSy "
+ ([Slain with the helS of suitable e[amSle Solar FoYalent bond
+ $rrange the bonds in order of inFreasing ioniF FharaFter in the moleFules /i) . 2 O, 
+1 2  62 2 and ClF  . 
+ 7he sNeletal struFture of &+  &22+ as shown below is ForreFt but some of the bonds
+are shown inForreFtly :rite the ForreFt /ewis struFture for aFetiF aFid
+ $Sart from tetrahedral geometry another Sossible geometry for &+  is square planar 
+with the four + atoms at the Forners of the square and the & atom at its Fentre
+([Slain why &+  is not square planar ? 
+ ([Slain why %e+ 2 moleFule has a ]ero diSole moment although the %e²+ bonds are 
+polar. 
+ :hiFh out of 1+  and 1)  has higher dipole moment and why ? 
+ :hat is meant by hybridisation of atomiF orbitals" 'esFribe the shaSes of sp , sp 2 , 
+sp  hybrid orbitals. 
+ 'esFribe the Fhange in hybridisation if any of the $l atom in the following reaFtion 
+AlCl Cl AlCl 3 4     
+Reprint 2026-27
+
+ CHEMICAL BONDING AND MOLECULAR STRUCTURE 
+ Is there any Fhange in the hybridisation of % and 1 atoms as a result of the following 
+reaction? 
+ 'raw diagrams showing the formation of a double bond and a triSle bond between 
+carbon atoms in C 2 +  and C 2 + 2 molecules. 
+ :hat is the total number of sigma and Si bonds in the following moleFules"
+a & 2 + 2 b & 2 + 
+ &onsidering [a[is as the internuFlear a[is whiFh out of the following will
+not form a sigma bond and why" a  s and 1 s b  s and 2 p [  F  p y and 2 p y 
+d  s and 2 s . 
+ :hiFh hybrid orbitals are used by Farbon atoms in the following moleFules"
+&+  ²&+   b &+  ²&+ &+ 2  F &+  &+ 2 2+ d &+  &+2 e &+  &22+
+ :hat do you understand by bond Sairs and lone Sairs of eleFtrons" Illustrate by
+giYing one e[maSle of eaFh tySe
+ 'istinguish between a sigma and a Si bond
+ ([Slain the formation of + 2 moleFule on the basis of YalenFe bond theory
+ :rite the imSortant Fonditions required for the linear Fombination of atomiF orbitals 
+to form molecular orbitals. 
+ 8se moleFular orbital theory to e[Slain why the %e 2 moleFule does not e[ist
+ &omSare the relatiYe stability of the following sSeFies and indiFate their magnetiF 
+properties; 
+suSero[ide  O2
+2 − 
+Sero[ide
+ :rite the signifiFanFe of a Slus and a minus sign shown in reSresenting the orbitals
+ 'esFribe the hybridisation in Fase of 3&l 5  :hy are the a[ial bonds longer as FomSared 
+to equatorial bonds? 
+ 'efine hydrogen bond Is it weaNer or stronger than the Yan der :aals forFes"
+ :hat is meant by the term bond order" &alFulate the bond order of  1 2 , O 2 , O 2
++
+and O 2
+– . 
+Reprint 2026-27

@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #0f172a; font-family: "Segoe UI", system-ui, sans-serif; }
+  .scene { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; display: flex; align-items: center; justify-content: center; }
+  .scene.on { opacity: 1; }
+  .bg-brand { background: linear-gradient(135deg, #312e81, #4f46e5 55%, #6366f1); }
+  .bg-soft { background: radial-gradient(circle at 20% 10%, #e0e7ff, #f8fafc 55%); }
+
+  .hook { color: #fff; text-align: center; }
+  .hook h1 { font-size: 72px; font-weight: 700; margin: 0; line-height: 1.1; }
+  .hook p { font-size: 30px; color: #c7d2fe; margin: 22px 0 0; }
+  .rise { opacity: 0; transform: translateY(24px); transition: all .7s cubic-bezier(.2,.7,.2,1); }
+  .on .rise { opacity: 1; transform: none; }
+  .on .d1 { transition-delay: .9s; }
+  .on .d2 { transition-delay: 1.6s; }
+  .strike { position: relative; color: #a5b4fc; }
+  .strike::after { content: ""; position: absolute; left: -4px; right: -4px; top: 55%; height: 6px; background: #f43f5e; border-radius: 3px;
+    transform: scaleX(0); transform-origin: left; transition: transform .5s ease 1.2s; }
+  .on .strike::after { transform: scaleX(1); }
+
+  .feature { display: grid; grid-template-columns: 400px 1fr; gap: 48px; align-items: center; padding: 0 70px; width: 100%; }
+  .copy .step { font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #4f46e5; }
+  .copy h2 { font-size: 46px; line-height: 1.12; margin: 14px 0 0; color: #0f172a; }
+  .copy p { font-size: 22px; line-height: 1.45; color: #475569; margin: 18px 0 0; }
+  .frame { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgba(30, 27, 75, .28), 0 0 0 1px rgba(15,23,42,.06); }
+  .frame .bar { height: 30px; background: #f1f5f9; display: flex; align-items: center; gap: 7px; padding: 0 12px; }
+  .frame .bar i { width: 11px; height: 11px; border-radius: 50%; background: #cbd5e1; }
+  .frame .view { height: 420px; overflow: hidden; }
+  .frame img { width: 100%; display: block; transform-origin: 50% 30%; transition: transform 5s ease-out; }
+  .on .frame img.zoom { transform: scale(1.08); }
+  .on .frame img.pan { transform: translateY(-38%); transition-duration: 4.5s; }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .pair .view { height: 330px; }
+  .pair figcaption { text-align: center; font-size: 18px; font-weight: 600; color: #334155; margin-top: 12px; }
+
+  .stats { display: flex; gap: 26px; margin-top: 40px; justify-content: center; }
+  .stat { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 16px; padding: 20px 26px; min-width: 220px; }
+  .stat b { display: block; font-size: 40px; color: #fff; }
+  .stat span { font-size: 18px; color: #c7d2fe; }
+  .url { margin-top: 34px; display: inline-block; background: #fff; color: #3730a3; font-weight: 700; font-size: 26px; padding: 14px 30px; border-radius: 999px; }
+</style>
+</head>
+<body>
+  <section class="scene bg-brand" data-ms="5200">
+    <div class="hook">
+      <h1 class="rise">Setting a test takes <span class="strike">hours</span>.</h1>
+      <p class="rise d2">With EduBuddy, it takes about a minute.</p>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4400">
+    <div class="feature">
+      <div class="copy rise"><div class="step">Step 1</div><h2>Choose class and subject</h2><p>Classes 6 to 12, every NCERT subject.</p></div>
+      <div class="frame rise d1"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img class="zoom" src="out/shots/02-class.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4400">
+    <div class="feature">
+      <div class="copy rise"><div class="step">Step 2</div><h2>Pick the chapters</h2><p>One chapter, a few, or the whole book.</p></div>
+      <div class="frame rise d1"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img class="zoom" src="out/shots/03-chapters.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4400">
+    <div class="feature">
+      <div class="copy rise"><div class="step">Step 3</div><h2>Set the marks</h2><p>MCQ, short and long sections balance themselves.</p></div>
+      <div class="frame rise d1"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img class="zoom" src="out/shots/04-pattern.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4800">
+    <div class="feature">
+      <div class="copy rise"><div class="step">Done</div><h2>A complete paper, written for you</h2><p>Numbered questions, marks, and clean maths.</p></div>
+      <div class="frame rise d1"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img class="zoom" src="out/shots/05-paper.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4800">
+    <div style="width: 100%; padding: 0 90px;">
+      <div class="copy rise" style="text-align:center; margin-bottom: 30px;"><h2>Worksheet and answer key included</h2></div>
+      <div class="pair rise d1">
+        <figure style="margin:0"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img src="out/shots/06-worksheet.png"></div></div><figcaption>Worksheet with writing space</figcaption></figure>
+        <figure style="margin:0"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img src="out/shots/07-answers.png"></div></div><figcaption>Answer key for marking</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene bg-soft" data-ms="4800">
+    <div class="feature">
+      <div class="copy rise"><div class="step">Print</div><h2>Print it or save an A4 PDF</h2><p>The same clean layout on phone or computer.</p></div>
+      <div class="frame rise d1"><div class="bar"><i></i><i></i><i></i></div><div class="view"><img class="pan" src="out/shots/09-a4.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene bg-brand" data-ms="5200">
+    <div class="hook">
+      <h1 class="rise">Fresh questions every time</h1>
+      <div class="stats rise d1">
+        <div class="stat"><b>6–12</b><span>Classes</span></div>
+        <div class="stat"><b>All</b><span>NCERT subjects</span></div>
+        <div class="stat"><b>1–100</b><span>Marks per paper</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene bg-brand" data-ms="4800">
+    <div class="hook">
+      <p class="rise" style="margin:0; font-size: 20px; letter-spacing: .2em; text-transform: uppercase;">EduBuddy</p>
+      <h1 class="rise d1" style="margin-top: 16px;">Your next test, in a minute.</h1>
+      <div class="rise d2"><span class="url">eduactiontool-1.vercel.app</span></div>
+    </div>
+  </section>
+
+<script>
+  window.play = async () => {
+    const scenes = [...document.querySelectorAll('.scene')];
+    for (const scene of scenes) {
+      scene.classList.add('on');
+      await new Promise((r) => setTimeout(r, Number(scene.dataset.ms)));
+      if (scene !== scenes[scenes.length - 1]) scene.classList.remove('on');
+    }
+    return true;
+  };
+</script>
+</body>
+</html>

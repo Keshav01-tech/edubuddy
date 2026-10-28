@@ -1,0 +1,14 @@
+{
+  "name": "edubuddy-demo-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "record": "node record.mjs",
+    "promo": "node promo.mjs",
+    "all": "node record.mjs && node promo.mjs"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "playwright": "^1.50.0"
+  }
+}

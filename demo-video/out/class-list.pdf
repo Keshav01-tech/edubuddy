@@ -1,0 +1,55 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 960 >>
+stream
+BT /F1 12 Tf 60 760 Td (Roll) Tj ET
+BT /F1 12 Tf 160 760 Td (Name) Tj ET
+BT /F1 12 Tf 260 760 Td (Class) Tj ET
+BT /F1 12 Tf 360 760 Td (Fee) Tj ET
+BT /F1 12 Tf 460 760 Td (Due date) Tj ET
+BT /F1 12 Tf 60 736 Td (1) Tj ET
+BT /F1 12 Tf 160 736 Td (Aarav Sharma) Tj ET
+BT /F1 12 Tf 260 736 Td (10A) Tj ET
+BT /F1 12 Tf 360 736 Td (12000) Tj ET
+BT /F1 12 Tf 460 736 Td (05/11/2026) Tj ET
+BT /F1 12 Tf 60 712 Td (2) Tj ET
+BT /F1 12 Tf 160 712 Td (Diya Patel) Tj ET
+BT /F1 12 Tf 260 712 Td (10A) Tj ET
+BT /F1 12 Tf 360 712 Td (12000) Tj ET
+BT /F1 12 Tf 460 712 Td (05/11/2026) Tj ET
+BT /F1 12 Tf 60 688 Td (3) Tj ET
+BT /F1 12 Tf 160 688 Td (Kabir Singh) Tj ET
+BT /F1 12 Tf 260 688 Td (9B) Tj ET
+BT /F1 12 Tf 360 688 Td (10000) Tj ET
+BT /F1 12 Tf 460 688 Td (20/11/2026) Tj ET
+BT /F1 12 Tf 60 664 Td (4) Tj ET
+BT /F1 12 Tf 160 664 Td (Meera Nair) Tj ET
+BT /F1 12 Tf 260 664 Td (9B) Tj ET
+BT /F1 12 Tf 360 664 Td (10000) Tj ET
+BT /F1 12 Tf 460 664 Td (20/11/2026) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001252 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1322
+%%EOF

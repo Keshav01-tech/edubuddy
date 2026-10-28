@@ -1,0 +1,907 @@
+69 
+Unit II
+Work with Machines and Materials 
+From the time humans first shaped a stone into a tool, our progress has
+been closely linked with our ability to use materials and build machines.
+Every object around us – a clay pot, a wooden chair, a bicycle or a
+computer – tells a story of how we have learnt to transform raw materials
+from nature into useful products.
+Working with machines and materials means understanding both the
+characteristics of materials, and the tools and processes used to shape
+them. Whether it is forging iron, weaving fabric or building a bridge, each
+activity combines knowledge, skill and creativity.
+In ancient India, people showed remarkable craftsmanship – the
+Iron Pillar of Delhi, the rock-cut caves of Ellora and the textiles of the
+Sindhu – Sarasvatī civilisation – all reflect deep understanding of materials
+and techniques. Today’s industries are built upon the foundation of these
+traditions. 
+In today’s world, technological advances are not only increasing 
+efficiency but also protecting workers. ‘Smart systems’ are being
+developed that can warn workers of potential accidents and enable
+them to take preventive measures. For example, ‘smart’ helmets
+and vests are equipped with sensors that monitor heart rate, body
+temperature and even posture. Thus, if a welder’s body temperature
+rises to a dangerous level, or a technician’s spine and limbs are
+placed at dangerous angles, a warning will be given. Technology
+is also taking over jobs that are dangerous, for example, climbing
+up a tower to check for structural cracks or checking areas for gas
+leaks or structural damage. 
+With the arrival of machines and industrialisation, production became
+faster and more precise. Modern tools, automation and digital technology
+now help us design and make things more efficiently than ever before. Yet,
+the basic principles remain the same – selecting the right material based
+on its properties, using the right process and handling tools and machines
+safely and skilfully.
+
+72
+The figure overleaf depicts the livelihood ecosystem related to machines
+and materials. A livelihood ecosystem is an interconnected network of
+resources, people, institutions, activities and environmental factors that
+enable individuals to earn a living, while contributing to society and nation.
+For instance, the livelihood ecosystem related to machines and materials
+varies across geographies, depending on the availability of raw materials
+(like metal and wood) access to machines and tools (manual, electrical
+or automated); support services (like technicians and repair workers);
+infrastructure (like electricity) access to markets (like transportation) and
+the demand for manufactured goods at local, national or global levels.
+Further, this implies that no work is done in isolation – different kinds of
+work are deeply connected. For example, if demand for a particular kind of
+product reduces, then the manufacturer will not be the only one affected.
+Slowly, requirement for transport, production of agricultural equipment
+and of technicians will also decrease. As you can see from the figure,
+there are a range of opportunities related to working with machines and
+materials. Besides construction and manufacturing, the vocational area
+includes working with wood, bamboo and food as well as apparels, fashion,
+textiles, plumbing, pottery and sheet metal work; the list is long. Each level
+in the figure provides details of the kind of work that can be done in this
+area. The last level indicates the interlinkages between the work in the
+area and various other allied work that enable working with machines and
+materials, while ensuring that society benefits.
+In this chapter, you will explore how materials are selected, how
+they can be measured, shaped and joined, and how machines make this
+transformation possible. It will help you trace a journey – from matter to
+machine and from idea to creation.
+This unit will give you the opportunity to do work related to machines and
+materials. It is called ‘Shaping materials’ because you will select materials
+based on their properties and process them into useful products. This unit
+offers illustrations of seven vocations, as explained in the paragraphs below.
+Chapter 5 introduces key concepts and processes that are common
+across a range of work related to machines and materials. This chapter
+is mandatory for you. Chapters 6 to 8 use the common concepts and
+processes to help you understand how to do specific work. At the same
+time, they also introduce additional concepts and processes that you can
+learn, while doing. Chapters 6 and 7 detail work related to construction
+and apparel, respectively. Chapter 8 contains guidelines for sheet metal
+work, plumbing, food processing, furniture making and pottery.
+To reiterate, you can choose to do work related to any of these seven
+vocations or you can select something related to shaping materials that is
+entirely different. Remember to consult your teacher and/or an expert for
+guidance at all points. Work is to be done in groups. Remember – a big part
+of work is doing it together.
+
+Shaping
+Materials
+Figure 5.1: Materials are shaped into products through different processes 
+CHAPTER 5 
+All materials come from nature, and we shape them into different forms.
+The process involves gathering raw materials and manufacturing them
+into finished products through various processes (Figure 5.1).
+
+74 Kaushal V ikas | G rade 9 
+In this chapter, you will
+Select materials based
+on their characteristics
+Create simple
+technical drawings
+Understand quality
+criteria
+Identify different tools for
+measurement and their
+applications
+Read technical drawing
+accurately
+Explore vocations related
+to shaping materials
+Understand safety
+protocols
+Understand common
+processes related to
+shaping materials
+Explore different
+kinds of materials and
+their characteristics 
+5.1 Introduction 
+India has a rich history of shaping materials through various
+processes to suit specific needs. To illustrate, evidence from
+the Sindhu–Sarasvatī civilisation reveals that houses were
+built with bricks of the same size. Harappans mass produced
+bricks of a standard size, ensuring perfect fit and uniform
+strength. This involved moulding the wet clay and then
+controlling the firing process (curing) in large kilns to achieve
+the hardness and durability required for building. Besides
+bricks, intricate copper and brass objects, like the famous
+‘Dancing Girl’ were created using casting.
+Evidence also exists of the knowledge of working with iron.
+For example, a pillar made of purified iron was created during
+the fourth century CE. This pillar, which now stands in the
+Qutub Minar complex in Delhi, still has not rusted as this natural
+property of iron has been changed due to a protective layer.
+The Kailāśha Temple in Ellora; the Koṇārka temple in
+Puri, Odisha; the Bṛihadīśhvara Temple in Thanjavur; and
+many such temples across India stand testament to the skills
+of the engineers who designed and constructed them, their
+patience and hard work. Their work shows evidence of deep
+practical craftsmanship, and an understanding of concepts
+related to metallurgy, architecture, and engineering.
+In the more recent past, carpenters, blacksmiths, weavers,
+tailors, masons, cobblers, oil pressers, potters, jewellers and
+others were present in every village. These professionals
+learnt about the characteristics of materials and how to shape
+them, using practical knowledge of metallurgy, construction,
+Importance of
+work
+
+75 | Shaping Materials 
+DID YOU KNOW?
+Materials with unexpected characteristics 
+Our planet is truly remarkable. It is filled with materials, each one with fascinating
+characteristics that are useful in countless ways. Some materials have unusual
+characteristics or are procured from unexpected sources. 
+Glass from sand: The transparent, hard material used in windows and jars
+is made simply by heating fine sand to very high temperatures until it melts. 
+Obsidian: It is a naturally occurring glass formed from the lava extruding
+from volcanoes. A blade made from obsidian can be 500 times sharper than a
+surgeon’s steel scalpel. 
+Artificial spider silk: Natural spider silk is five times stronger than steel by
+weight. Scientists have successfully engineered a way to create artificial spider
+silk using bacteria fed on sugar, creating a biodegradable material with immense
+potential for advanced textiles (such as parachute fabric and protective clothing)
+and industrial applications.
+textiles, soil, etc., as well as the use of tools for making
+agricultural implements, pots, vessels, jewellery, weapons, etc.
+Manufacturing in earlier times solely depended on the skills
+of individuals being passed on from generation to generation.
+After industrialisation, many manual tools were replaced
+by electric power tools. This increased the efficiency of
+processes, and the pace and quality of production. As a result,
+traditional jobs and skills were replaced with new kinds of
+work, while some basic skills, like measurement, design,
+safety precautions and testing products for quality persisted.
+The manufacturing sector contributes about 17–18 per
+cent of India’s Gross Value Added (Ministry of Statistics and
+Programme Implementation, National Accounts Statistics
+2025) and remains an important source of employment. 
+Value addition 
+Whenever we transform materials from their natural form
+to useful products through various processes, their value
+increases. For example, the value of a simple stone lying on
+the hillside increases manifold when a craftsman chisels a
+statue out of it.
+Selling a material in its natural form costs less than a
+finished product. As shown in the example of cotton (Figure
+5.2), if we convert cotton to fabric and fabric to garment, then
+its value increases substantially.
+Importance of
+work 
+Value chain of
+work
+
+76 Kaushal V ikas | G rade 9 
+5.2 Processing material –
+transformation to a product 
+Different manufacturing processes shape raw materials into
+useful products. These processes have evolved over thousands
+of years, and become more and more specialised. However,
+some processes are common across a range of materials,
+for example, fabric, cloth, leather, metals and plastics as
+illustrated in Figure 5.3. 
+Figure 5.2: Value chain of cotton 
+Explore
+different
+sources of
+information
+Value chain of
+work
+Key processes
+for shaping
+materials 
+TASK 
+List all the factors that add value to any raw
+material. Ask around, search in the library,
+search online, read newspapers and identify
+experts who can help you. 
+Raw to final
+product
+Value added 
+Metal scrap
+(₹ 20/kg)
+to kitchen
+utensil
+(₹ 1200)
+Undergoes processing through which it is
+melted and moulded to form the shape of
+the utensil.
+It is polished or coated with anti-sticking
+materials to improve its quality.
+Wooden handles are attached for better
+handling of the utensil. The bottom of the
+utensil can be further processed, so that it is
+both stove and induction-friendly.
+
+77 | Shaping M aterials 
+Design and
+Estimate
+Measure and
+mark where
+material is to
+be added or
+removed
+Cut and shape Join and
+Assemble
+Finish
+Fabric 
+Use pencil to
+draw pattern
+Mark pattern
+on fabric with
+chalk
+Cut using
+scissors
+Use thread
+and needle,
+or sewing
+machine
+Ironing,
+trimming 
+Wood 
+Draw product
+to be made on
+paper
+Mark cuts and
+drilling points
+Cut with a saw,
+wood held with
+a vise
+Use adhesive,
+or hammer and
+nails
+Sanding,
+polishing and
+painting 
+Metal 
+Technical
+drawing/CAD
+Mark with an
+engraving tool
+Use cutting/
+power tools
+Use bolts and
+rivets, welding,
+soldering, etc.
+Finish using
+grinder and paint 
+Plumbing 
+Layout
+diagram of
+piping
+Mark cuts on
+pipe and join
+points
+Cut pipes using
+PVC cutter/
+hacksaw
+Use brazing,
+coupling,
+adhesives, etc.
+Check for
+leakage, tighten
+joints
+
+78 Kaushal Vikas | Grade 9 
+TASK 
+Note different products in your surroundings. For example, utensils
+in the kitchen, screw, plastic bucket, shoes, cup and saucers, bed,
+carpet or mat, electric wires, fan, automobile engine, etc.
+Find out the raw materials used to make these products and the processes
+used to transform these materials into products. 
+Construction 
+Draw a
+sketch of the
+construction
+Mark area
+using marking
+powder/chalk
+Level site lay
+foundation
+Lay bricks,
+apply mortar
+Plastering,
+painting,
+flooring,
+electrification 
+Safety – Wear protective gear and follow safety rules 
+Organise work
+area
+Measure
+accurately
+without
+damaging the
+material
+Follow all
+safety protocols
+Handle
+adhesives and
+fasteners with
+care
+Keep working
+area clean 
+Figure 5.3: Common processes involved in transforming materials into products 
+5.3 Choosing material for a specific
+product 
+The characteristics of a material determine whether it
+is suitable for certain uses. For example, we use steel or
+aluminium to make kitchen utensils and not plastic, as steel/
+aluminium can tolerate high heat and is safe for cooking,
+while plastic melts when heated and is therefore unsafe. Thus,
+selecting the right material is critical. Sturdy objects like a
+stool need a material that can hold weight, such as wood or
+metal, whereas a reusable shopping bag requires something
+flexible and light like jute fabric. Environmental/weather 
+Selection
+of material
+based on its
+characteristics
+
+79 | Shaping M aterials 
+Selection
+of material
+based on its
+characteristics
+conditions also play an important role in selecting a product.
+You may have noticed that storage units or shelves in your
+bathrooms are often made from steel, PVC or aluminium, and
+not wood. Can you guess why?
+In fact, a single material can be used for different purposes
+by utilising their specific characteristics. For example, clay,
+when soft and moist can be used for making craft items. Clay
+can also be moulded, dried and fired to make durable objects,
+like pots and bricks. 
+TASK 
+You have studied the characteristics of materials in Science. Work
+in a group to pick one product each from the options provided in
+Table 5.1, and discuss which material would be most suitable for making it.
+Justify your response on the basis of characteristics of materials. 
+Table 5.1: Selection of materials based on their characteristics
+List of
+products
+Best suited material
+for the product 
+(steel, copper, glass,
+aluminium foil,
+rubber, clay, fabric
+and wood) 
+Identify the characteristics of the material
+that make it suitable for the product 
+(hardness, elasticity, thermal conductivity,
+electrical conductivity, plasticity, corrosion
+resistance, permeability, ductility, water
+resistance and transparency)
+Raincoat
+Electric wire
+Water bottle
+Cooking pot
+Cushion
+Window
+Keychain
+School bell
+
+80 Kaushal Vikas | Grade 9 
+5.4 Key common processes 
+Figure 5.3 in Section 5.2 contains some common processes
+used to create products from different materials. While the
+tools and materials used were different in some cases, the
+key processes were similar. This is possible because there are
+some essential skills that are common to any kind of work
+with machines and materials.
+In this section, you will learn about three basic skills:
+1. Following safety protocols.
+2. Taking measurements using specific instruments.
+3. Making technical drawings.
+You will learn the basics of these skills and practise them
+in the vocation you choose. 
+5.4.1 Following safety protocol 
+Before beginning any work, read available manuals or
+instruction guides, and speak to your teacher and experts to
+understand any safety precautions that need to be taken.
+Following safety
+protocols 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE
+Machines, Automation and Robotics 
+In the past, many manufacturing tasks were done manually, relying on skills
+of manual labour. Speed of completion of the task was slow, since it depended
+on the capacities of individuals. After industrialisation, power tools replaced
+manually-operated machines. This has increased the speed of production. Due to
+advances in technology, many repetitive tasks have been automated. Automated
+machines and robots are also more accurate and precise than humans. Such
+CNC (Computerised Numerical Control) machines and robots have enabled
+production in larger quantities. 
+Safety signage 
+Safety signage refers to visual indicators that use standardised colours, symbols
+and text to communicate potential hazards, required actions, the location of
+safety equipment, and emergency procedures in workplaces and public areas.
+The purpose of safety signs is to prevent accidents and injuries by providing
+clear, easy-to-understand information.
+
+81 | Shaping Materials 
+Table 5.2 shows what different colours in safety signage
+indicate, while Table 5.3 shows examples of common safety
+symbols. 
+Table 5.2: Colours in safety signage
+Colours Meaning Examples 
+Red Fire, Prohibition Fire extinguisher, stop buttons
+Yellow Warning and physical hazards Wet floor caution, construction site
+Blue Mandatory actions Wear helmet, safety instruction of
+a machine
+Green Providing guidance/safe
+condition
+Emergency exit rows, assembly point 
+Table 5.3: Safety symbols used in public places, schools and surroundings
+Symbols Purpose Symbols Purpose 
+Warns of risk of electric
+shock 
+Indicating path for exit,
+especially during emergencies 
+Indicates the location of
+a fire extinguisher for
+emergency use 
+Protective footwear to prevent
+foot injuries 
+Shows that helmet must
+be worn to protect head
+from any heavy falling
+object 
+No smoking zone to prevent
+fire hazards and health safety 
+Location of first-aid
+supplies or support 
+Warns that the floor becomes
+slippery when water or other
+liquids are present
+SLIPPERY
+WHEN WET 
+CHECK YOUR UNDERSTANDING
+Safety Audit 
+Do you see any of the safety signs and symbols in your surroundings? Carry out
+a safety check of your school and nearby areas. Discuss where these symbols
+FIRST AID
+SMOKING PROHIBITED
+
+82 Kaushal Vikas | Grade 9 
+5.4.2 Taking measurements 
+Measurement is among the most important and basic skills
+for any work with materials. While you have already studied
+measurement in Science in Grade 6 to 8, in the context of
+work, measurement is needed for the following:
+1. To estimate the exact amount of material required
+for making a product.
+2. To ensure minimal wastage of material.
+3. To reduce material costs and ensure the product meets
+the required dimensions and quality standards.
+Selection of an instrument while working with materials
+mostly depends on how accurate the measurement needs
+to be (Table 5.4.) The smallest value that can be measured
+accurately using the instrument is called its least count. For
+example, the smallest measurement possible with a metre
+scale is 1 mm. However, the least count of a vernier callipers
+can be 0.02 mm, which means that it can be used to measure
+more precisely than a metre scale. For example, an object that
+measures 2.3 cm using a metre scale can be measured more
+precisely using a vernier callipers, that is 2.34 cm. 
+Measurement
+should be placed and why. If you feel the need, make up your own symbol and
+assign it a colour. Justify its importance. 
+Table 5.4: Measuring tools and their use 
+Vernier callipers Metre scale Metre tape Surveyor’s tape Distance metre
+Measure
+diameter or
+thickness of
+small objects
+Measure objects
+less than a
+metre
+Measure
+large objects,
+including with
+curved surfaces
+Measure land Measure long
+distances
+accurately and
+quickly
+Least count –
+0.02 mm
+Least count –
+1 mm
+Least count –
+1 mm
+Least count –
+1 mm
+Least count –
+2 mm
+
+83 | Shaping Materials 
+Measurement
+range (Length) –
+150 mm to 300
+mm (Short)
+Measurement
+range (Length) –
+Up to 1 m
+(Medium)
+Measurement
+range (Length) –
+3 m to 10 m
+(Medium to long)
+Measurement
+range (Length) –
+30 m to 100 m
+(Very long)
+Measurement
+range (Length) –
+50 m to 200 m
+(Long)
+Required
+precision
+(Tolerance) –
+Very high (e.g.,
+±0.05 mm)
+Required
+precision
+(Tolerance) –
+High to medium
+(e.g., ±0.5 mm)
+Required
+precision
+(Tolerance) –
+Medium
+(e.g., ±1 mm to
+±2 mm)
+Required
+precision
+(Tolerance) –
+Low to medium
+(e.g., ±5 cm to
+±10 cm)
+Required
+precision
+(Tolerance) –
+Medium to high
+(e.g., ±1 mm
+over a distance)
+While least count indicates the smallest measurement
+possible with an instrument, tolerance is the amount of
+error that can be allowed in a measurement. For example,
+if two pipes need to be joined, then the tolerance for error in
+measuring diameter is very low. But when measuring cloth
+for cutting a bag, tolerance is higher.
+Therefore, selection of an appropriate measuring
+instrument is important. For example, to measure land, we
+use a ‘Surveyor’s tape’, but to take measurement of clothes,
+we use a ‘metre tape’, or to measure the weight of a truck,
+a weigh bridge is used, but a grocery shop owner uses a
+simple balance. In a laboratory, we use a scientific balance
+for greater accuracy. 
+QUALITY 
+It is necessary to measure material accurately. For this, it
+is necessary to reduce the errors in measurement.
+The following care must be taken for accurate
+measurement:
+1. Select the instrument based on its least count.
+2. Handle the instrument with care to maintain its
+accuracy.
+3. Take due precautions specific to the material and
+purpose of measurement. 
+TASK 
+Select any instrument for measurement. Note the least count, the
+smallest measurement that can be taken by the instrument and any
+precaution to be taken. Two examples are given for your reference in Table 5.5. 
+Quality
+
+84 Kaushal Vikas | Grade 9 
+5.4.3 Making technical drawings 
+Technical drawings include details, such as dimensions of
+different parts and specifications of materials, enabling
+precise communication among designers, engineers and
+fabricators. This allows identical replication of products in
+large numbers without deviations, for example, a set of dining
+chairs must be of the same dimension and shape; plumbing
+in a set of flats in a multi-storey building must align across
+floors to allow smooth flow of water and sewage.
+You may have seen engineers referring to drawings at
+construction sites, tailors sketching patterns for garments or
+fabricators preparing sketches before making a product – all
+these are examples of using technical drawings to convey
+exact information visually. 
+Technical drawing symbols 
+Technical drawing is the language of technicians. Like
+any other language, technical drawing has its rules and
+grammar. These are represented by ‘drawing symbols’. You
+have already learnt the language of electric circuits – Figure
+5.4 shows a few other commonly used symbols. Persons
+working with machines and materials must learn to use these
+symbols, and learn the basic concepts of technical drawing
+to convey ideas. 
+Technical
+drawing 
+Table 5.5: Precautions to be taken while measuring materials
+Sr
+No.
+Application Measuring
+instrument
+Smallest unit of
+measurement
+Precaution 
+1 Measurement
+of cloth
+Metre tape 1 mm Keep the cloth straight without
+any slag during measurement.
+2 Water for
+construction
+Bucket of
+15 L
+1 L Calibrate the bucket
+accurately.
+3
+4
+5
+
+85 | Shaping Materials 
+Different lines in technical drawing Drawing of hollow cylinder 
+Dimensions of circle Plumbing symbols 
+Civil Engineering symbol 
+Figure 5.4: Commonly used lines and symbols in technical drawing 
+Drawing an object 
+Technical drawings must show the exact shape, size and
+proportion of an object. However, we can see the true
+dimensions of an object – its actual physical size and
+shape – only when we look at it from different angles.
+For example, look at the table you are working on from
+the top. Does this give you the complete picture? No, because
+from this view you cannot see the height of the table. Similarly,
+from the front view alone, the width may not be visible.
+Therefore, to understand the complete shape and size of an
+object, we need to look at it from different directions – front,
+top and side. A combination of these views gives a true and
+complete representation of the object. 
+Technical
+drawing
+46 cm
+50 cm
+50 cm
+46 cm
+70 cm
+50 cm
+Hidden
+line
+Hidden
+line
+
+86 Kaushal Vikas | Grade 9 
+The technique of representing a three-dimensional (3D)
+object on a two-dimensional (2D) surface using these views is
+called projection.
+Look at the examples of projection of different objects in
+Figure 5.5 to understand this further. 
+Front view Top view Side view 
+Figure 5.5: Projections of different objects 
+In construction, the top view, which shows the details of
+the ‘floor plan’ of a building, is called a Plan. The front view is
+called Elevation. Figure 5.6 shows an example. 
+3D drawing Elevation (Front
+view)
+Plan (Top View) Side view 
+Figure 5.6: Technical drawing in construction
+
+87 | Shaping Materials 
+In the case of electric circuits, technical drawings are called
+circuit diagrams – you are familiar with these from Science.
+Similarly, a technical drawing showing a plumbing system
+or the outline of a dress are called a plumbing diagram and
+pattern, respectively (Figure 5.7). 
+Typical electric circuit Plumbing diagram Technical drawings of a pattern 
+Figure 5.7: Technical drawings of electric circuits, plumbing systems and dress pattern 
+Scale of drawing 
+It is not possible to create a technical drawing with the actual
+dimensions. Try to imagine drawing a full-sized chair on a
+piece of paper. Therefore, we need to choose a scale to reduce
+or enlarge the dimensions of an object on paper in proportion
+to the exact dimensions. The scale is indicated as 1: XX – this
+means that 1 unit on the drawing corresponds to XX units in
+real life. Table 5.6 contains a few examples of selecting the
+scale for different dimensions.
+While reading a drawing, you need to refer to the scale
+mentioned. It is usually written at the bottom of the drawing,
+in the title box. 
+Reading
+and making
+technical
+drawings 
+TASK
+Read and draw 
+Table 5.6 contains a few examples – look around and add more. 
+Table 5.6: Deciding scale of measurement 
+Actual dimension
+of object
+Scale Dimensions on the technical drawing
+Height of a shop
+is 6 m
+1:100 1 unit of measurement
+on drawing is equal to
+100 units on ground
+100 m = 1 m;
+6 m = ?
+= 1 × 6 / 100 =
+0.06 m = 6 cm
+6 cm
+
+88 Kaushal Vikas | Grade 9 
+Length of field on 
+ground is 400 m 
+1:1000 1 unit of measurement 
+on drawing is equal to 
+1000 units on ground 
+1000 m = 1m; 
+400 m = ? 
+= 1 × 400/1000 = 
+0.4 m 
+= 40 cm 
+40 cm 
+Height of water 
+bottle is 20 cm 
+1:10 1 unit of measurement 
+on drawing is equal to 
+10 units in actual 
+10 cm =1; 
+20 cm = ? 
+= 1 × 20/10 = 2 cm 
+2 cm 
+Now that you have learnt the 
+basics of technical drawing – symbols, 
+dimensions, and scale interpretation – 
+you must apply this knowledge to both 
+read and draw technical drawings. 
+Reading technical drawings 
+Look carefully at Figures 5.8 and 5.9 
+and answer the questions. 
+1. What is the total length and 
+breadth of the object? 
+2. State the dimensions of the top 
+of the object. 
+3. How many legs does each table 
+have and what is the length of 
+each leg? 
+4. What is the distance between 
+two legs? 
+Reading the plan of a house 
+1. What are the dimensions of the 
+kitchen? 
+2. How many windows are there 
+in the house? 
+3. How many doors are there in 
+the house? 
+Creating a technical drawing 
+On the basis of the instructions and the 3D image in 
+Figure 5.10, draw a stool with accurate measurements. 
+You need to draw a stool whose actual 
+measurements are: 
+1. Height – 50 cm, Seat width – 30 cm, Seat 
+depth – 30 cm 
+2. You can use the scale of 1:10. Figure 5.10: 3D 
+drawing of a stool 
+Figure 5.9: Plan of a house 
+Figure 5.8: Technical drawing of a table
+
+89 | Shaping Materials 
+TASK 
+Look around you and answer the following
+questions: 
+1. Exploring vocations around us 
+Look around you and answer the following questions:
+a. What kind of work related to shaping materials
+do you observe around yourself? You can use
+different sources of information, for example,
+experts, site visits, libraries, online resources,
+specific government sites or reports.
+b. Briefly describe what the work involves? What are
+the inputs? What are the key processes and what
+are the outcomes? 
+2. Mapping resources 
+Do you think it is possible for you to do the work in school?
+Table 5.7 below will help you decide. 
+Table 5.7: Mapping resource available to do work 
+Work
+related to
+making
+products
+from
+materials
+Will you
+be able to
+complete
+the work
+in the
+time
+allocated?
+Do you
+have
+adequate
+space
+to build
+structures
+(a wall)?
+Have you
+identified
+an expert
+to help
+you?
+Will you
+be able
+to collect
+the tools,
+materials
+and
+machines
+needed to
+complete
+the work?
+Will you
+be able to
+do ‘real’
+hands-on
+work? 
+5.5 Selection of vocation 
+This section will help you to decide the vocation you will take
+up related to work with materials. The textbook provides
+details of construction and apparel, as well guidelines for
+sheet metal work, plumbing, food processing, furniture
+making and pottery. But before that you need to explore
+vocations around yourself.
+Explore
+different sources
+of information 
+Mapping
+resources
+
+90 Kaushal Vikas | Grade 9 
+5.6 When working with materials 
+1. Selection of material and manufacturing process depends on the
+characteristics of materials and the desired product.
+2. Technical drawings help with the design of the product as well as
+communication with others who may be involved in developing the
+product.
+3. Tools for measurement should be selected based on what is to be
+measured and to how much accuracy.
+4. Safety is very important – take precautions as per the work you are
+doing.
+5. Use safety signs and symbols wherever needed. There are common
+symbols and signs for communicating potential risks, and the
+precautions to be taken.
+6. Keep the workplace clean and organised to avoid accidents. 
+5.7 Assess your learning 
+1. You are given clay and wood to make a pen stand. Which one of the
+two (clay and wood) will you choose? Compare the characteristics and
+explain your decision.
+2. Create a safety symbol to caution people about extremely hot surfaces.
+Think about the colour and image while you design it.
+3. Your teacher gives you three objects to measure – a pipe’s inner
+diameter, a cloth length, and the length of the classroom. Which
+instrument will you use for each and why?
+4. Your group made a wooden tray, but it looks uneven and does not
+stand flat. On the basis of the common steps of developing a product
+discussed in the chapter, identify what could be the cause of the error.
+5. Create a technical drawing (with front, top, and side views) of a simple
+rack for storing sports items.
+6. Of the tasks that you did, which did you enjoy the most? Which did you
+enjoy the least? Give examples of what went well and what did not go
+well. What would you do differently next time?
+7. Give examples of how you can apply your learnings in a real-life
+situation.

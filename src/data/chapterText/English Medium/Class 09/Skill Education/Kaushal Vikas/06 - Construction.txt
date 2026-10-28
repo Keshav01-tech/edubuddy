@@ -1,0 +1,772 @@
+Construction
+Figure 6.1: Tehri dam in Uttarakhand 
+CHAPTER 6
+According to the Ministry of Jal Shakti and the National Register of Large
+Dams (NRLD), India built over 6,138 dams between Independence and 2025.
+These dams are used for providing irrigation for agriculture, generating 
+electricity, flood control and drinking water. One of the highest dams in
+India is the Tehri dam, with a height of 261 m built across the Bhagirathi 
+river in Uttarakhand (Figure 6.1).
+
+92 Kaushal Vikas | Grade 9 
+In this chapter, you will
+Prepare the foundation Lay bricks to construct
+the selected structure 
+Mark the drawing on the field 
+Complete the structure with 
+curing, plastering, finishing 
+and painting
+Prepare a bill of
+materials
+Prepare a technical
+drawing of a structure
+you will construct 
+6.1 Introduction 
+Construction simply means the process of building structures
+that people use in their daily lives. It enables us to live safely,
+travel and work comfortably, and protect ourselves from
+heat, rain and other weather conditions.
+Since the beginning of human life, people have always
+needed a safe place to live. In early times, humans took
+shelter in caves. As they began to settle in one place and
+grow food, they started making simple homes using mud,
+grass, wood and stones. Slowly, as basic construction
+principles evolved, people learnt to use bricks, cement,
+iron and steel, which helped them build stronger and
+longer-lasting houses.
+As villages turned into towns and towns into cities, the
+need for more houses and better facilities increased. Due to
+the lack of open space in cities, people started constructing
+multi-storey buildings. Along with houses, other structures,
+such as schools, hospitals, shops, factories, roads, bridges
+and railway stations, also became necessary. This is how the
+construction sector became an important part of everyday
+life, contributing to the nation’s progress.
+Today, construction uses modern tools, machines and
+materials, along with traditional skills. In this chapter, you
+will explore how structures are built through different
+materials and the steps involved in construction.
+
+93 | Construction 
+DID YOU KNOW?
+Basic elements of building construction 
+Figure 6.2 shows the basic structural elements, that is, the different parts of any 
+building.
+Finishing works, such as plumbing, electrical wiring, plastering and painting
+are also carried out to complete the structure. 
+Figure 6.2: Basic elements of buildings 
+1. Foundation: A strong foundation is needed to increase the life of
+buildings, avoid cracks in the structure and safeguard against natural
+calamities like earthquakes. The depth of the foundation depends on the
+quantity of the load. 
+2. Walls: Different materials are used for making walls – bricks, stones, 
+cement panels, wood, bamboo, etc. 
+3. Beams: Beams are the horizontal structural elements that carry the load
+of the slab (that is, upper floors) or roof. The size of the beam depends on 
+the load of the slab. 
+4. Columns: The vertical structural elements supporting the beams are
+called ‘columns’. They transfer the weight of the building to the foundation. 
+5. Roofs: The roof is the upper structural element of a building, designed 
+and built using rafters (structural frameworks that connect different 
+elements in a triangular fashion) or trusses (long sloping beams that
+make up the sloping roof) to support the load of the roof, and provide
+protection from weather, while completing the enclosure of the structure. 
+6. Windows and doors: These are structural openings in a building’s walls
+to provide entry into the building, ventilation, natural light and aesthetic
+appeal.
+
+94 Kaushal Vikas | Grade 9 
+6.2 Process Chart 
+6.2.1 Scoping work 
+Deciding the scope of the work means that decisions need to
+be taken regarding the following: 
+1. What will be constructed: This decision can be based
+on the need of the school or community. For example,
+a boundary wall, a shed, a ramp, a pavement or a wash
+basin. Figure 6.3 shows examples of some structures you
+could construct. 
+Ramp Fence Flower bed 
+Tree guard Handwash stand 
+Bench Stand for pots Curved flower bed 
+Figure 6.3: Examples of structures you could construct 
+2. Material and resource availability: Find out whether
+the materials and tools required for simple construction
+are available (for example, bricks, sand, cement, gravel,
+water or recycled materials). You should also consider the
+cost of these materials, and whether they can be safely
+managed and handled. 
+Defining scope 
+of work
+
+95 | Construction 
+3. What is useful: Is the structure, which you have in mind,
+useful for the school or the community? 
+4. Where will the construction take place: You must decide
+the location where the structure will be built. It could
+be within or just outside the school. You must consider
+the space available, safety of the area, whether you can
+reach it easily, and also whether you can carry tools and
+materials to the site easily. 
+PORTFOLIO 
+1. What type of construction work will you take up in your school or
+community? Why?
+2. Are there any specific considerations you will keep in mind? 
+6.2.2 Making a process chart 
+Once you identify the structure and decide where to build 
+it, you must list the key tasks, along with estimated dates by
+which they will be completed. Table 6.1 contains a sample. 
+Table 6.1: Sample process chart for construction
+Tasks for construction Dates Responsibility 
+Preparing the construction drawing 
+Marking the drawing on the field (line out) 
+Preparation of foundation 
+Brick work 
+Curing (process to strengthen the construction)
+Plastering 
+Finishing and painting 
+6.3 Site visit 
+Before beginning work, you must visit a construction site in the 
+surrounding area with a teacher and speak to practitioners.
+A practitioner can be a mason, civil contractor, civil engineer,
+architect or anyone else involved in actual design and 
+Making a
+process chart
+
+96 Kaushal Vikas | Grade 9 
+construction. You can ask them about the processes, tools
+and materials to be used. You can also take their guidance for
+planning the work you will do. 
+PORTFOLIO 
+Use the pointers in Table 6.2 for discussion with practitioners and take notes. 
+Table 6.2: Pointers for observation during site visit
+Points of observation/
+discussions
+Description 
+Tools and materials
+used
+Materials used and their storage
+Tools used and their maintenance
+Key processes Key steps and their importance
+Schedules Frequency and timing of key tasks, if any
+Safety protocols Using appropriate tools, safety precautions, etc.
+Quality criteria Criteria for quality inputs, process and output
+Use of technology Digital tools/apps used
+Think of any other points for observation while visiting the site. For example:
+• What do the practitioners value the most about the work (for example, quality 
+of construction, specific processes, pride in building something useful, etc.)? 
+• You can ask about possible challenges you may face during construction and
+how to overcome them. 
+Once you have returned from the site visit, work in groups to detail out the 
+process chart further. 
+DID YOU KNOW? 
+Construction of houses depends on how the weight of 
+the building is supported. On the basis of this, housing 
+construction can be of two main types: 
+1. Load bearing (wall-bearing) construction 
+In this type of construction, the walls themselves carry
+the entire weight of the roof and upper parts of the
+building, and transfer it directly to the ground.
+This method is commonly used for single-storey
+houses and areas where deep foundations are not
+needed. These houses are simple in design, cost less to
+build and are easy to repair (Figure 6.4). 
+Figure 6.4: A single-storey
+house showing the load
+bearing construction
+
+97 | Construction 
+2. RCC (Reinforced Cement Concrete) construction 
+In RCC construction, the building stands on a strong skeleton of columns 
+and beams made of concrete and steel. Here, the load of the slab and floors is 
+transferred to the ground through this frame, not through the walls. 
+Figure 6.5: A multi-storey building showcasing RCC construction 
+This type of construction is used for multi-storey buildings and structures
+that need to be very strong and earthquake-resistant (Figure 6.5). 
+CASELET 
+Students of Government High School decided to construct a ramp. 
+They defined a scale and then made a technical drawing of the ramp 
+(Figure 6.6). 
+Actual size On paper
+dimension Scale to be written as 1: XX
+(1 unit on paper: XX unit on the field) 
+10 m
+(1 m on field = 
+1 cm on paper)
+10 cm 1: 100 
+(1 cm on paper = 100 cm on field) 
+6.4 Making a technical drawing of
+the selected structure 
+It is possible that the person who is designing the construction 
+(for example, an architect) is different from the person who 
+is actually doing the work of construction (for example, civil
+engineer and mason). Technical drawings help communicate
+the exact details of work to be done.
+Refer to Section 5.4.3 in Chapter 5 and draw the side view,
+plan and elevation of the structure you plan to construct. 
+Technical
+drawing
+
+98 Kaushal Vikas | Grade 9 
+PORTFOLIO 
+Make a drawing to scale of the construction you want to take up. Show the
+side view, plan and elevation. Clearly mark the dimensions and the scale. 
+Figure 6.6: Elevation, Side view and Plan of a ramp 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE 
+In order to develop the technical drawing quickly and with accuracy,
+you can use computer-aided design (CAD) software. CAD also makes it easy to
+edit and rework the drawing.
+Using CAD, you can:
+1. Decide the exact measurements and scale of the structure;
+2. Make 2D and 3D views of the structure;
+3. Easily correct mistakes without erasing the entire drawing; and
+4. Plan the use of materials and, therefore, reduce waste.
+Further, CAD drawings can easily be shared with others as soft copies. You
+can search online to find suitable software as well as videos on making drawings
+using CAD. 
+6.5 Selecting materials 
+Table 6.3 lists the essential materials used for construction.
+You can select materials based on the type of structure you
+plan to construct in consultation with your teacher and/or
+the expert. 
+Select tools and
+materials
+
+99 | Construction 
+Table 6.3: Materials used for construction
+Materials Use Safety note 
+Bricks Used for building walls and
+partitions
+Stack properly to avoid injury; handle 
+gently – they can break or hurt someone 
+if thrown around without care
+Cement Used as a binding material to
+hold bricks, sand and stones
+together
+Avoid direct contact with skin and eyes;
+use gloves while handling; store material
+in a dry place
+Sand Mixed with cement to make
+mortar and concrete
+Avoid inhaling dust; wear a mask while
+handling dry sand
+Gravel Mixed with cement and sand
+to make strong concrete
+Lift sacks carefully to avoid back strain;
+handle with gloves
+Water Used for mixing cement and
+curing
+Prevent water spills in areas used for
+standing and walking to avoid slipping
+Paint Used for finishing, and 
+protecting walls and surfaces
+Use in a well-ventilated area; wear mask
+to avoid inhaling fumes
+Lime Used in plaster and
+whitewashing
+Avoid direct contact with eyes; wear
+gloves while handling 
+DID YOU KNOW?
+Difference between mortar and concrete 
+Both mortar and concrete are important materials in construction. Mortar 
+is used for binding other materials in a building (for example, ‘gluing’ bricks
+together, laying stone steps, installing bathroom tiles, etc.), while concrete is
+used for creating the actual structure and for supporting weight (for example,
+making a ramp, laying a foundation, making a fence, laying roads, etc.). Concrete
+‘reinforced’ with steel bars (RCC) is used to support huge and heavy structures
+like skyscrapers (Figures 6.7 and 6.8). 
+Figure 6.7: Mortar is made up of sand, water, cement and lime – it is more flexible than 
+concrete, as it allows for slight movement without cracking.
+
+100 Kaushal Vikas | Grade 9 
+6.6 Selecting tools 
+Table 6.4 lists tools used for simple construction. Many
+technology and AI-based tools are also available to reduce 
+manual efforts, for example, robots for tasks like brick-laying
+and demolition, light amplification by stimulated emission of 
+radiation (laser) scanners to detect any faults in buildings. 
++ = 
+Figure 6.8: Concrete is made up of sand, water, cement, and gravel or crushed stones – it is
+a strong and durable building material that hardens over time, getting a stone-like quality. 
+Table 6.4: Tools used for construction
+Tools Use Safety note 
+Trowel/Karni/
+Thappa
+Used for lifting, spreading, and
+smoothening cement or mortar 
+Hold firmly by the handle; avoid 
+touching sharp edges and clean
+after use
+Hoe Used for loosening soil, mixing
+sand and cement on the ground,
+and levelling the surface
+Use with proper grip; keep a
+safe distance from others while
+working 
+Wooden float Used for smoothening and 
+finishing the surface of plastered
+walls and floors 
+Use with dry hands for better grip;
+avoid slipping on wet surfaces
+Metre tape Used for measuring length, width,
+and height of walls and structures
+If it is retractable, then retract 
+slowly to avoid finger injury 
+Wire brush Used for removing rust and dirt, or
+for smoothening rough surfaces
+Use a face shield and gloves for 
+protection against flying debris or
+wire filaments 
+Spirit level Used to check whether a surface 
+is perfectly horizontal (level) or 
+vertical (straight)
+Handle gently to avoid breaking
+the glass tube inside
+Plumb bob Used to check whether a wall or
+pillar is perfectly vertical
+Do not swing near others; hold the 
+string firmly
+
+101 | Construction 
+Water level
+tube
+Long transparent rubber tube that 
+is filled with water used to check
+horizontal level 
+Keep the ends secured to avoid
+spillage
+Chisel Used for cutting bricks, shaping
+stone, and removing extra cement
+or plaster 
+Hold firmly and keep fingers away 
+from the cutting edge
+Hammer Used for striking the chisel, 
+breaking bricks and fixing nails
+Hold with a firm grip; do not strike 
+on hard surfaces without control 
+6.7 Bill of Materials 
+Bill of Materials (BoM) helps in estimating costs in advance 
+and avoiding waste by ensuring only what is necessary is
+bought. 
+6.7.1 Estimating number of bricks required 
+Before making the bill of materials, you need to estimate the 
+number of bricks required. 
+Bricks of different sizes and materials are available in the 
+market, for example, clay bricks, fly ash bricks and concrete 
+bricks. In India, the standard size of bricks is 190 × 90 × 90 mm
+(Figure 6.9). However, we need to consider 10 mm extra for 
+the mortar we will apply to join bricks together. Hence, we 
+should consider the brick size as 200 × 100 × 100 mm. 
+Estimation 
+DID YOU KNOW?
+Volume as basis for estimation of materials 
+When you build a structure out of bricks, imagine 
+that you are filling a 3D space. To estimate how many 
+bricks you need, you have to compare the total space
+of the structure with the space taken up by a single 
+brick – this is the ‘capacity’ of the ramp to ‘contain’ 
+bricks. 
+Every brick has a specific volume. By calculating
+the volume of the ramp, you can find its total ‘capacity’ 
+to contain the required number of bricks. Some bricks 
+may break or may need to be cut to the required size. 
+To cater for this, engineers calculate the volume and
+add 10 per cent to the number of bricks. 
+Figure 6.9: Dimensions of
+a typical brick in India are 
+190 × 90 × 90 mm
+
+102 Kaushal Vikas | Grade 9 
+6.7.2 Estimate for mortar 
+A mixture of sand, cement and water is called mortar. Sand
+must be of good quality and it should be free of impurities
+like clay, dust, etc. Mortar is mainly used for plastering, brick
+work and similar tasks, as it creates a strong bond among the
+bricks. It is also used for the construction of walls, repair of
+construction and leakage, etc.
+The recommended proportion for making mortar depends
+on the construction, as shown in Table 6.5. 
+Table 6.5: Ratio of cement and sand to make mortar for
+different kinds of construction work
+Use of mortar Ratio 
+Brick masonry 1:3
+RCC 1:2
+General repair and maintenance 1:3 to 1:6 
+By rule of thumb, typically to lay 100 standard bricks,
+approximately 5 kg to10 kg of cement is used for a ratio of 1:4 
+Estimation 
+CASELET 
+Students of Government High School estimated the number of
+bricks required for constructing the ramp (Figure 6.10). 
+Volume of construction = Area of 
+triangle (ramp) × width 
+Area of triangle (ramp) = ½ × 0.5 × 6 = 1.5 m 2 
+Width = 1.5 m
+Volume = 1.5 × 1.5 = 2.25 m 3 
+By rule of thumb, 1 m 3 construction needs 500
+bricks. 
+Therefore, 2.25 × 500 = 1125 bricks 
+To cater for any wastage, 10 per cent of the number of bricks is added to the 
+total, so about 1200 bricks will need to be bought for making a structure of 1 m 3 . 
+Please note that bricks are also available in non-standard sizes. Therefore,
+it is important to check the sizes of the bricks available, and then estimate the 
+quantity. 
+Figure 6.10: Drawing of a ramp
+with dimensions 
+In India, bricks are typically made as per the specifications 
+of the Bureau of Indian Standards (BIS), the body that 
+maintains standards across products.
+
+103 | Construction 
+or 1:5 of cement and sand. Ask an expert about the ratio for
+the construction work you are doing. 
+6.7.3 Preparing Bill of Materials 
+In addition to the actual cost of materials, the cost of labour
+must also be calculated. Cost of labour should also include
+the estimated time spent in doing the tasks.
+Cost
+estimation and
+documentation 
+CASELET 
+Students of Government High School prepared a Bill of Materials for 
+construction of the ramp (Table 6.6). 
+Table 6.6: Bill of materials
+Item Quantity Estimated cost
+(in ₹)
+Remarks (if any) 
+Bricks 1200 × ₹ 10/brick 12000
+Cement 50 kg 400
+Sand 0.3 m 3 ~ 500 kg 500
+Water 100 L - 
+Cost of
+labour
+Value (time spent in hours × hourly
+estimate × number of people)
+Estimated
+cost (in ₹)
+Remarks
+(if any) 
+Making
+foundation 
+1 hours × ₹ 50 × 2 people 100
+Marking
+layout 
+1 hours × ₹ 50 × 2 people 100
+Mixing
+cement and
+sand 
+2 hours × ₹ 50 × 2 200 
+Brick 
+laying 
+2 hours × ₹ 50 × 2 people 200
+Curing 10min/day × 28 days = 280 min ~ 4.6
+hours × ₹ 50 
+230 
+Total 13,730
+
+104 Kaushal Vikas | Grade 9 
+6.8 Minor repair and maintenance 
+Before you actually take up the selected construction work, 
+you can practise making and using mortar for minor repair
+and maintenance work (Figure 6.11). 
+6.8.1 Carrying out minor repair 
+Identify the places in school/community/home, where minor
+maintenance of construction work is needed. For example,
+broken tiles, damaged walls, broken ramp, fencing, tree guard,
+small walls, etc. 
+6.8.2 Curing and drying 
+Once you have applied mortar, it is necessary to keep it wet
+for 14–28 days. This process is called curing. It is necessary 
+to complete the chemical reaction between water and mortar,
+which is important for ‘bonding’ materials together. This
+bonding process becomes stronger with curing. Generally, the 
+TASK
+Carrying out minor repairs 
+Step 1: Mix one part cement and three parts sand. 
+Step 2: Add water slowly to make a smooth, thick
+paste. 
+Step 3: Clean the surface and lightly sprinkle water
+on it. Then apply the mortar on cracks, joints, tiles
+or uneven surfaces using a trowel. 
+Step 4: Press, level and smoothen the applied area. 
+Figure 6.11: Steps for carrying out minor repairs
+
+105 | Construction 
+process takes 28 days to complete. Hence, it is necessary to
+keep mortar wet after its application. If curing is stopped too
+early, then the structure becomes weak and cracks may appear,
+thereby reducing the strength of the structure. In case of minor
+repairs, you should leave the mortar to set for 24 hours. After 
+24 hours have passed, sprinkle water lightly for 14–28 days. 
+You can also perform curing by placing wet jute/gunny
+bags over the surface (especially if the water flows off sloped
+surfaces like a ramp) or sprinkling water through pipes,
+sprinklers or mugs to keep the surface continuously moist. 
+6.9 Making a structure 
+This section will discuss how to proceed with making the
+structure you have selected with the help of your teacher/expert. 
+DID YOU KNOW?
+Brick bonds 
+Different types of patterns are used for arranging and 
+laying bricks using mortar. These patterns help make the
+structure strong and stable. 
+In Figure 6.12, you can see different methods of laying 
+bricks for constructing a wall. 
+Use of tools and
+materials 
+Stretcher bond: Length of brick facing 
+front – used for boundary wall/partition 
+with short span/wall of half brick thickness. 
+Header bond: Width of brick facing 
+front – used for thick walls and also for 
+curved walls. 
+English bond: Alternate rows of stretcher 
+and header bonds – among strongest bonds 
+mainly used for wall bearing structure. 
+Flemish bond: Alternate stretcher and
+header in each row. 
+Figure 6.12: Different methods of laying bricks
+
+106 Kaushal Vikas | Grade 9 
+6.9.1 Preparation 
+The following steps are required to prepare for construction: 
+1. Preparing ground: As a first step, clean the construction 
+site. Remove grass, loose soil, etc. Sprinkle water on the
+ground to settle any dust. 
+2. Marking on ground: Use a meter tape to mark the
+boundary of the structure; you can use a pointed stick to
+do so. 
+3. Making the foundation: Different types of construction
+need different kinds of foundations, as you read earlier 
+in the chapter. In case of simple construction, a deep
+foundation is not necessary since the load is not high. 
+However, it is necessary to ensure that the ground is flat
+and soil is firm for construction. Use a spirit level and
+water level tube to check if the ground is flat. If not, you
+will need to remove extra soil and flatten the surface.
+Spray water and let it dry to allow the soil to become firm. 
+4. Putting a reference line for brick on ground: Mark
+the layout of the structure on the levelled surface, using
+string or chalk lines to ensure the brickwork starts at the
+correct alignment, length and orientation before actual
+laying begins (Figure 6.13).
+(a) (b) 
+Figure 6.13: (a) Using reference lines for marking site of
+construction, and (b) marking lines for construction 
+Constructing a
+structure 
+6.9.2 Preparing and laying bricks 
+Soak the bricks in water for a minimum of 6–12 hours. If you 
+use dry bricks, then they will absorb water from the mortar. 
+Brick laying is done by placing bricks as required, and 
+then applying mortar. Laying of the bricks must be done in
+the pattern of the selected bond, before applying mortar
+between them.
+If you are making a ramp (or for that matter, any other
+structure that is not a perfect rectangle or square), you
+
+107 | Construction 
+will need to cut bricks into the required shape and size so 
+that they fit properly, ensuring structural strength and a
+smooth finish.
+You should ensure that there are no gaps or edges
+protruding from the structure. 
+Figure 6.16: Cutting the brick
+using chisel and hammer 
+Figure 6.15: Applying
+mortar while laying bricks 
+Figure 6.14: Bricks are
+soaked in water before use 
+While there are advanced machines that cut the brick as
+per the desired shape, it needs precision and skill to handle
+the tool. However, you can cut the brick using a simple
+chisel and hammer under the supervision of an expert.
+You may refer Figures 6.14 to 6.16. 
+6.9.3 Ensuring alignment 
+Structures are designed to push the load straight down into
+the ground. If a structure is not perpendicular and parallel to
+the ground, or two points within it are not at the same height,
+gravity acts to weaken the structure.
+Tools that are used to prevent this are the plumb bob (to
+ensure the structure is perpendicular to the ground), spirit
+level (to ensure the structure is parallel to the ground) and a
+water level tube (to ensure two points at a distance are at the
+same height) (Figure 6.17). 
+Figure 6.17: (a)Plumb bob must hang parallel to the ground;
+(b) bubble in spirit level tube must be at the centre; and
+(c) level in water level tube must be the same at all points of the structure 
+(a) (b) (c) 
+Quality
+
+108 Kaushal Vikas | Grade 9 
+6.9.4 Curing and plastering 
+After completing the brickwork, the next step is plastering.
+Plastering is the process of applying a smooth or textured
+coating of plaster to a wall. This is done to increase the
+durability of the construction, provide protection from
+moisture and heat, and to make the structure look neat and
+attractive. Specific tools are used for plastering (Figure 6.18).
+The following steps need to be followed for plastering
+the wall: 
+1. Preparation of surface : Use a wire brush to remove
+any loose debris on the wall. Also lightly dampen the
+wall with water. 
+2. Making cement plaster for plastering: Do not make
+the paste for plastering in large quantities. Mix the
+material and add water as required.
+Generally, the proportion of cement to fine sand is taken as
+1:6 for external plastering and 1:4 for interior plastering. You
+can add water slowly to the mixture to form the paste with
+the required consistency. The mix should be thick enough to
+not slide off the wall. 
+Trowel/Thappa/Karni: 
+It is used to apply and 
+flatten the plaster. 
+Float: It is used to 
+flatten the plaster. 
+Wire Brush: 
+For cleaning 
+Figure 6.18: Tools used for plastering 
+3. Apply plaster: First apply a base coat of plaster.
+Allow it to set, that is, become dry and hardened. 
+Generally, the thickness of plaster is 12–15 mm. Apply 
+a second coat of plaster to complete the plastering
+(Figure 6.19). 
+Figure 6.19: Applying
+plaster on the wall 
+Figure 6.20: Plastering of
+a wall 
+Finishing
+
+109 | Construction 
+6.10 Finishing the product 
+Once plastering and curing have been completed, the 
+construction work is almost complete. However, some 
+finishing touches will make your work look professional. 
+Painting helps in making walls look neat and attractive. 
+Besides aesthetics, painting helps in increasing the life of 
+the construction by preventing leakages. It also helps in pest
+control.
+Different types of paints are available in the market. Visit
+a hardware shop and select the most suitable paint based on
+your budget and choice.
+Table 6.7 contains a summary of different types of paints
+commonly used in India, along with their applications and
+advantages. 
+Finishing 
+CHECK YOUR UNDERSTANDING 
+Think about the work you did. What did you enjoy? Did you face any challenges?
+If yes, describe them and what you did to overcome them. 
+Table 6.7: Different types of paints used in India
+Type of Paint Applications Advantages 
+Whitewash
+(Lime wash)
+Houses, temporary
+structures, ceilings,
+low-cost housing
+Very cheap, antibacterial properties, 
+reflects heat, eco-friendly 
+Distemper Interior walls and
+ceilings in low-cost
+buildings
+Economical, easy to apply, available in
+many colours, breathable surface
+Cement Paint Exterior walls, boundary
+walls, basements, damp
+areas
+Water-resistant, prevents fungus/
+mildew, economical for large surfaces,
+durable in outdoor use 
+4. Finishing: Use a finishing tool and trowel to get a 
+smooth texture (Figure 6.20). 
+5. Drying and curing: Carry out curing for several days.
+Keep the surface wet by spraying water regularly.
+The construction of the basic structure is now complete
+except for a few finishing touches.
+
+110 Kaushal Vikas | Grade 9 
+CASELET 
+Students of Government High School decided that the most suitable 
+finishing paint for the ramp is cement paint, since it is water-resistant 
+and prevents slipperiness. They followed the process below to apply cement
+paint on the ramp (Figure 6.21): 
+1. Surface cleaning: First, clean the ramp surface properly. Remove dust, loose
+cement, sand, grease and any old paint using a brush, broom or water wash.
+A clean surface helps the paint stick better. 
+2. Wetting the surface: Before applying cement paint, sprinkle clean water on 
+the ramp. Cement paint must be applied on a slightly wet surface for proper
+bonding. 
+Figure 6.21: Applying first coat of paint on side of ramp 
+3. Preparing the paint: Mix the cement paint with water as per the instructions
+given on the packet. Stir well to get a smooth mixture without lumps. 
+4. Applying the first coat: Apply the first coat using a brush or roller, starting 
+from one end of the ramp and moving evenly across the surface. Apply in 
+one direction for a smooth finish. 
+5. Curing the first coat: Allow the first coat to dry for at least 24 hours. Lightly 
+sprinkle water on the painted surface during this time for proper setting. 
+6. Applying the second coat: Once the first coat is dried for at least 24 hours, 
+apply the second coat in the same manner. This improves colour, durability
+and water resistance. 
+7. Final drying and safety check: Let the ramp dry for 48–72 hours before
+use. Put up a ‘Wet Paint – Do Not Use’ sign to avoid accidents. 
+8. Post-construction cleaning: Cleaning the place around a construction site
+is important for safety, and a neat and attractive appearance. Remove trash
+from the site and store unused material in the assigned place.
+
+111 | Construction 
+PORTFOLIO 
+Maintain a record of the work done by you. Take photographs, if possible, at
+each step of construction. Some sample images of work done by students in
+other schools are given in Figure 6.22. 
+Figure 6.22: Structures built by students 
+6.11 While constructing a structure 
+1. Before beginning any work, it is necessary to learn through observation. 
+This can be done by visiting a construction site, online search or
+interviewing experts in the area.
+2. Preparation of ground of construction is an important step. Take
+guidance of experts to decide the depth of the foundation, depending
+on the weight of the structure and soil type.
+3. Use a water level tube to ensure that two distant points of the
+construction are at the same level and a spirit level to check that all
+surfaces are level with the ground. Also, use a plumb bob to check that
+the construction is perpendicular to the ground.
+4. Always soak the bricks in water for 6–12 hours before using them. Use 
+correct proportion of sand, cement and water for making mortar and
+sand, cement, gravel, and water for preparing concrete.
+5. Spray water on the construction work after applying concrete or 
+mortar for a minimum of 14–28 days. 
+6. Do not allow the construction to dry out. This process of applying water
+to new construction is called curing. After construction, clean all the
+surroundings for any debris, unused sand and cement.
+7. Painting the constructed structure will not only make it attractive but
+also increase its durability.
+
+112 Kaushal Vikas | Grade 9 
+6.12 Assess your learning 
+1. Look around your school or neighbourhood, and identify any one
+structure. Identify the basic structural elements (foundation, walls,
+roof, beams or columns) that you can observe and describe their
+functions.
+2. What kind of construction has been used for your house or school
+(Load-bearing construction or RCC construction)? Write the reasons
+for selecting particular types of construction.
+3. Suppose you are asked to construct a small boundary wall in your
+school. List the major steps you would include in the process chart
+and explain why sequencing of steps is important.
+4. Identify three safety rules that must be followed at a construction site.
+Explain how ignoring any one of them could lead to an accident.
+5. Cement was left exposed in the room during the rainy season for many
+months. What might happen to cement and why ?
+6. Often, during summer season, especially during a drought year, the 
+Government bans construction activities. Why do you think this is
+done?
+7. A student is laying bricks to make a boundary wall and decides to
+skip using the plumb bob to save time, claiming they can ‘see’ if the 
+wall is straight. What is the specific technical risk of relying on visual 
+estimation instead of a plumb bob? If the wall is even slightly ‘out of 
+plumb’ (not perfectly vertical), how might this affect the building’s 
+safety over the years?
+8. Of the tasks that you did, which did you enjoy the most? Which did you 
+enjoy the least? Give examples of what went well and what did not go 
+well. What would you do differently next time? 
+9. Give examples of how you can apply your learnings in a real-life
+situation.

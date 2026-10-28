@@ -1,0 +1,737 @@
+Precision
+Farming
+Figure 3.1: ‘Health map’ used for monitoring crop conditions in a field using 
+remote sensing (satellite or drone imagery) 
+CHAPTER 3 
+Different colours on the map in Figure 3.1 indicate crops health, with red
+indicating the worst and green indicating the best. In the figure, 17 per cent
+of crops are in poor health and only 1 per cent are in good health. Farmers
+use these data to make decisions related to irrigation, fertilisation and pest
+management for small areas of land.
+
+40 Kaushal Vikas | Grade 9 
+In this chapter, you will
+Estimate the
+quantity of compost
+for healthy growth
+of plants
+Prepare a bio-fertiliser
+(LAB culture)
+Set up a humidity chamber for
+production of healthy seedlings
+Build a low-tunnel
+Harvest and label produce for
+distribution
+Use agro-climatic data
+for deciding the mode
+of crop protection
+Learn about the use
+of technology in
+farming 
+3.1 Introduction 
+Precision farming uses science and technology to improve
+agricultural yield, while caring for the environment. The
+word ‘precision’ means ‘exactly as required and consistent,
+that is, the same every time’. In keeping with this meaning,
+precision farming focuses on giving plants exactly what they
+need, i.e., the right amount of water, nutrients, and care at
+the right time and in the right amount (Table 3.1).
+Precision farming is especially useful in small nurseries,
+since space and resources are limited. By using techniques like
+drip irrigation and sensors, and making data-based decisions,
+you can save water and avoid wastage, reduce excess use of
+fertilisers and pesticides, and grow healthier plants.
+Greenhouses and shade-net (please refer to Grade 7 
+Kaushal Bodh ) are examples of precision farming, since
+plants are provided with essential conditions for growth as
+per their need. 
+Table 3.1: Comparison of traditional and precision farming
+Farming practice Traditional farming Precision farming 
+Agro-climatic
+impact
+No control on climatic
+parameters
+Precise control on temperature,
+humidity, light intensity, etc., through
+use of greenhouse, shade-net and also
+forecast using meteorological data.
+Seed sowing Seed broadcasting or
+sowing with manual tools
+Sowing seeds with the help of
+machinery at proper spacing and
+depth; plant nursery management
+using modern techniques.
+
+41 | Precision Farming 
+Irrigation Flood irrigation (watering
+entire field)
+Targeted watering using micro-
+irrigation (drip, sprinkler, etc.)
+guided by soil–moisture sensor and
+automated systems.
+Fertiliser and pest
+management
+Estimation of doses of
+fertilisers and pesticides
+by experience
+Need-based application based on soil
+analysis and information from drones,
+satellites and apps, and experts.
+Harvesting and
+packaging
+Higher losses due to poor
+handling and packaging
+Lower losses due to automated
+harvesters, using sensors and advanced
+packaging using digital labels. 
+3.2 Process chart 
+3.2.1 Scoping work 
+In order to proceed with the work, you need to make decisions
+about the following:
+1. You can choose to work with farmers, who are already
+using precision farming techniques. You can request
+them to allow you to assist them in small groups of 5–10.
+2. You can establish a precision farming unit in your school,
+including a small plant nursery.
+3. You can convert your school garden into a precision
+farming unit by using technology-based inputs for
+decision making.
+The following questions will help refine your
+decision-making process further:
+1. Which plants should be grown? Refer to the discussion
+on agro-climate relationship in Chapter 1 to choose what
+you can grow. Ensure that the life cycle of the selected
+plants is 2–3 months.
+2. What is useful? You need to decide what will be useful
+for the school or the community (for example, vegetables
+for the midday meal or flowers during the festival and
+wedding seasons).
+3. Where to set up the precision farming unit? You will need
+a level area with good ventilation and scope for building
+structural support like a greenhouse. You will also need
+access to a reliable water source for irrigation and a separate
+area for storage. The entire set-up should be located, so
+that there is ventilation and penetration of sunlight. 
+Defining scope
+of work
+
+42 Kaushal Vikas | Grade 9 
+4. Which technology to use? For example, use of a humidity
+chamber, low-tunnel, shade-net or greenhouse structure,
+drip irrigation system, and sensors (for example, moisture
+sensors and climate sensors). 
+PORTFOLIO 
+1. Where will you use the precision techniques – in a farmer’s field or in school?
+2. Which plants will you grow? Justify your choice. 
+3.2.2 Making a process chart 
+A process chart lists all the tasks you will do, along with
+estimated dates of completion and responsibility (Table 3.2). 
+Table 3.2: Template for process chart
+Tasks for precision farming Dates for task Responsibility 
+Site selection and layout
+Deciding crop protection method based on
+agro-climatic data
+Testing for organic carbon and adding
+required compost
+Setting up humidity chamber for raising
+seedlings 
+Building a low-tunnel or shade-net
+Installation of drip irrigation system 
+Preparing biofertiliser 
+Identifying and managing pests using apps
+Harvesting 
+Packaging and transport/labelling with QR
+code 
+Making a
+process chart
+
+43 | Precision Farming 
+3.3 Site visit 
+To understand how precision farming works in practice,
+you can interact with farmers, agricultural scientists or even
+urban gardeners. Possible sites for visit can be Krishi Vigyan
+Kendra (KVK), agricultural universities or greenhouses in a
+community, in the presence of a teacher. 
+PORTFOLIO 
+Table 3.3 lists some points of observation, while visiting the site. 
+Table 3.3: Guidelines for observation during site visit
+Points of observation/
+discussion
+Description 
+Tools and materials used Materials used and their storage Tools used
+and their storage
+Key processes Key steps and their importance
+Safety protocols Using appropriate tools, safety precautions, etc.
+Schedules Frequency and timing of key tasks, if any
+Quality criteria Criteria for quality inputs, process and output
+Technology use Types of digital tools/apps used
+You can ask the expert, what they value most about their work (for example,
+quality of produce, connect with nature, opportunity for employment, earnings,
+etc.), and how they face any specific challenges. 
+Create a process chart for the work you will do. 
+CASELET 
+A group of students from Grade 9 in Government High School visited
+farmers in their vicinity to learn about precision farming techniques
+such as low-tunnel farming (Figure 3.2) and drip irrigation. Using these modes
+farmers cultivate vegetables that usually grow in the summer and rainy season
+(like tomatoes and cucumbers) in harsh winter months. They learnt the process
+of low-tunnel farming, which involves creating tunnel-like structures made
+
+44 Kaushal Vikas | Grade 9 
+up with hoops and polythene covers. These low-tunnels create a ‘greenhouse
+effect’ to protect the crops from cold weather and provide conditions necessary
+for their growth. Farmers also use humidity chambers, which are designed to
+maintain high humidity. This supports the growth of young plants that are yet
+to develop a root system. 
+Figure 3.2: Low-tunnels used in precision farming to create necessary
+conditions for growth 
+3.4 Setting up a precision farming
+unit in school 
+3.4.1 Collecting weather data 
+In precision farming, you can modify climatic conditions for
+better plant growth by providing shade, increasing humidity,
+and protecting them from rain and wind. Use Table 3.4 to
+decide the crop protection method you will use. 
+Essential
+conditions for
+growth 
+TASK
+Collecting weather data and deciding which crop protection
+method to use. 
+Collect data from the school meteorological observatory (Chapter 1)
+and identify the crop protection method for your area (Table 3.4). You can also
+collect data from the Indian Meteorological Department (IMD) website, local
+Krishi Vigyan Kendra (KVK) or an agricultural university in your locality.
+
+45 | Precision Farming 
+3.4.2 Layout 
+As you design the layout of the precision farming unit, you can
+refer to the project on Plant Nursery in Grade 7 Kaushal Bodh .
+Figure 3.3 shows a layout that includes raised beds, low-
+tunnel and an area for pots.
+1. On the basis of weather data and the selected plant
+protection mode, you can build a small greenhouse,
+low-tunnel or a shade-net.
+2. You will also need a small space to create a humidity
+chamber – this provides special protection to seedlings.
+3. You will need to mark areas for plant beds or to place
+pots for plant cultivation.
+4. You will also need to indicate the placement of water
+tank, water pump, storage of raw material, pathways, etc.
+5. You may like to keep space for composting and any other
+aspect you feel is important. 
+Table 3.4: Deciding crop protection method
+Mode of protection Advantages 
+Greenhouse Lowering temperature, protection from rainfall and frost
+Low-tunnel Increasing temperature, protection from intense sunlight
+Humidity chamber Increasing humidity, especially for nursery seedlings
+Shade-net Protection from high temperatures and scorching heat 
+CHECK YOUR UNDERSTANDING 
+Students of Government High School collected data from the school
+meteorological observatory and the meteorological department website. They
+observed that the temperature usually ranges between 22°C and 34°C (the
+hottest months are April and May, while December is the coolest with 22°C).
+The area experiences heavy monsoon rainfall, mainly from June to September
+(average annual precipitation of around 3,000 to 3,350 mm). Humidity remains
+high, between 70 and 90 per cent, especially during the monsoon season.
+Which crop protection method should they use? Justify your selection.
+
+46 Kaushal Vikas | Grade 9 
+Figure 3.3: Layout of a small precision farming unit 
+PORTFOLIO 
+Make a sketch of the layout of the precision farming unit you plan to set up.
+Mark the dimensions accurately. 
+3.5 Selecting materials 
+After the layout has been planned, the next step is to select
+materials. Table 3.5 will help you make decisions for gathering
+materials for the rooftop garden. You may recall some of
+these from Grades 6–8 Kaushal Bodh textbooks. 
+Select tools and
+materials 
+Table 3.5: Selection of materials
+Materials Use Safety note 
+Seeds/saplings For plant cultivation Ensure viability (healthy,
+disease-free); handle gently to
+avoid crushing; store in a dry
+and cool place
+Growing media
+(soil, cocopeat,
+vermicompost, sand
+and pot mix)
+For seed germination and
+plant growth
+Wear gloves, while handling
+to prevent skin irritation;
+wash hands thoroughly after
+handling organic media
+Bamboo poles/metal
+frame
+Framework for
+low-tunnel/humidity
+chamber/shade-net
+Ensure bamboo or metal
+frames are securely fixed and
+free of sharp edges
+
+47 | Precision Farming 
+Polyethylene sheet/
+shade-net
+Covering for tunnel/
+humidity chamber/
+shade-net
+Trays, pots and
+containers
+Sowing of seeds and
+saplings
+Water hose
+pipe, drippers,
+micro-sprinkler, etc.
+Irrigation Ensure minimal wastage of
+water 
+3.6 Selecting tools 
+Table 3.6 below provides a list of tools necessary for developing
+the rooftop garden, along with their use and safe handling.
+You may recall some of these from the Grades 6–8 Kaushal
+Bodh textbook. 
+Table 3.6: Selection of tools
+Tools Use Safety note 
+Hand trowel Digging soil, planting
+seeds, transplanting
+seedlings
+Do not leave sharp tools lying
+around; store safely after use.
+Measuring tape Marking systematic
+grid layout for beds and
+spacing
+Use flexible tape to avoid
+sharp metal edges; store
+properly to prevent injury.
+Hygrometer (humidity
+meter)
+Measuring humidity in
+chamber
+Handle carefully, as cover can
+break; do not expose to excess
+water.
+Pruning scissors Cutting stems, removing
+dried leaves, shaping
+plants
+Handle carefully; keep blades
+closed when not in use.
+Watering can/Spray
+bottle
+Watering plants gently,
+especially seedlings
+Avoid spilling water on the
+roof floor; keep a firm grip to
+prevent slipping.
+Gloves Protecting hands from
+soil, compost, and cuts
+Always wear gloves, while
+handling soil or organic
+manure.
+Measuring scale Measure precise amounts
+Pipes For drip irrigation system
+Hand tools For making structures As per protocols for using tools
+
+48 Kaushal Vikas | Grade 9 
+3.7 Making Bill of Materials 
+The Bill of Materials helps in estimating costs in advance,
+avoiding waste by buying only what is necessary and
+organising the work step by step. You can use the template
+in Table 3.7 or modify it to list your estimated materials
+and tools. 
+Cost
+estimation and
+documentation 
+CASELET 
+Students of Government High School calculated the Bill of Materials
+for their work on 30 square metres of land. They planned to set
+up four plant beds, two for low-
+tunnel chambers (Figure 3.4) and
+two for open farming. They also
+planned to set up a humidity
+chamber, and leave space for a
+water tank and material storage.
+With the help of the expert,
+they estimated the cost of tools,
+materials, technologies used,
+and the duration of the hands-on
+activity. 
+Table 3.7: Bill of Materials
+Items Quantity Estimated cost
+(in ₹) Remarks (if any) 
+Trays 10 100 As per the space available
+on the roof
+Bamboo sticks for
+low–tunnel frame
+20 poles (about
+2 m long) 200 Alternatives – wooden
+sticks, PVC pipes, iron rod
+Mulching
+material 20 sq m 500 Alternatives – newspaper,
+used paper
+Spinach seeds 250 g 150 Other alternative – seeds
+of any leafy vegetable 
+Total 950
+Figure 3.4: Setting up a low-tunnel for
+precision farming
+
+49 | Precision Farming 
+Cost of labour Value (time spent in hours ×
+hourly estimate × frequency
+per week)
+Estimated
+cost (in ₹)
+Remarks
+(if any) 
+Watering beds 0.25 × ₹ 10 × 12 30
+Marking of land and
+cleaning
+0.5 hr × ₹ 25 (1 time activity) 12.50
+Making raised beds 2.0 × ₹ 25 × 2 100
+Making low-tunnel 1 hr × ₹ 25 (1 time activity) 25 
+Total 167.50 
+PORTFOLIO 
+Create a Bill of Materials for the work you will do. 
+3.8 Building a precision farming unit
+in school 
+Besides protection, a humidity chamber or low-tunnel
+provides a warm and humid environment, and soil moisture,
+thereby supporting germination and reducing need for daily
+watering. You can use a humidity chamber for growing
+seedlings and then transfer them to a low-tunnel for
+controlled growth of healthier plants. 
+3.8.1 Humidity chamber for plant nursery 
+A humidity chamber is a small, specialised structure that
+provides extremely high, precise levels of moisture and
+temperature, making it ideal for the rapid growth of cuttings
+and seed germination. 
+Modes of crop
+protection 
+TASK 
+Figure 3.5 shows three different ways to make a humidity chamber
+to grow saplings in a controlled environment.
+
+50 Kaushal Vikas | Grade 9 
+3.8.2 Low-tunnel 
+Compared to a humidity chamber, a low-tunnel is a larger,
+less controlled structure. It primarily serves to extend the
+growing season by trapping solar heat and providing a
+protective barrier against harsh weather. This results in
+better crop quality and higher yields. Figure 3.6 shows how
+to make a simple low-tunnel. 
+Figure 3.5: Making a humidity chamber — (a) place a clear polythene bag over a pot,
+(b) over a tray or (c) place a pot inside a clear bottle whose bottom has been cut off 
+Steps to Create a Simple Low-Tunnel 
+Step 1: Build a tunnel structure (frame)
+using bamboo, wood, or metal rods. 
+Step 2: Cover the frame with transparent
+polyethylene sheets to trap heat and
+moisture. 
+Step 3: At the base, spread a layer of sand
+and compost (1:1 proportion), which can be
+sprinkled with water to increase humidity. 
+Step 4: Provide (a) small openings or
+(b) roll-up sides for airflow to prevent
+overheating, as required. 
+Figure 3.6: Steps to create a low-tunnel 
+(b) (a)
+(c)
+(a) (b)
+
+51 | Precision Farming 
+You can place trays of water or use misting bottles inside
+the tunnel to maintain moisture levels. You can also place a
+DIY dry bulb-wet bulb thermometer or use a basic hygrometer
+(humidity meter) to regularly check and regulate humidity. 
+3.8.3 Installation of drip irrigation system 
+Drip irrigation systems are used to deliver water drop by
+drop, directly to the root zone through drippers. Soil moisture
+sensors can be added to the system to ensure that water is
+given as per the need and when required. 
+Maintenance
+and monitoring 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE
+Do-It-Yourself (DIY) weather monitor 
+To record temperature and
+humidity inside a humidity
+chamber, you can build a ‘DIY
+weather monitor’ with simple
+sensors and programming boards
+(Figure 3.7). Please refer to
+Project on Home Automation in
+Grade 8 Kaushal Bodh . You can also
+look for videos on assembling the
+circuit online. 
+Figure 3.7: DIY weather monitor 
+TASK 
+You may have prepared plant seedlings by using plug or seedling
+trays and the stem cutting method ( Kaushal Bodh , Grade 7). Now,
+observe the germination and growth of seedlings in a humidity chamber. Follow
+the simple steps for this activity:
+1. Observe plants on a daily basis for germination (sprouting), growth, number
+of leaves, etc., and prepare an observation record.
+2. Keep a record of the temperature and humidity in the humidity chamber.
+3. Note any analysis or reflections, based on your observations.
+
+52 Kaushal Vikas | Grade 9 
+TASK
+Setting up drip irrigation system 
+Figure 3.8 provides details related to setting up a drip irrigation system. 
+Step 1: Laying out pipes – Arrange main pipes and smaller lateral pipes, along
+the plant beds. 
+Step 2: Attach drippers – Fix small nozzles or emitters at intervals, close to the
+roots of each plant. 
+Step 3: Connect to water source – Attach the system to a tank or pump that
+supplies water. 
+Step 4: Add filter unit – Place a simple filter to prevent clogging of pipes and
+drippers. 
+Step 5: Control flow – Use valves to adjust how much water each part of the
+field/garden/nursery receives. 
+Step 6: Integrate ‘fertigation’ – Dissolve nutrients (fertilisers) in the irrigation
+tank, so that water and nutrients are delivered together in a measured amount. 
+Figure 3.8: Drip irrigation system 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE
+Do-It-Yourself (DIY) drip irrigation system with soil–moisture
+sensor 
+In precision farming, water is provided to plants through drip irrigation
+(micro-irrigation). The drip system can be automated with the help of
+soil–moisture sensors for precise water management (Figure 3.9).
+
+53 | Precision Farming 
+3.8.4 Deciding quantity of organic fertiliser 
+You have learnt about testing soil for its texture (mason-jar
+test), and acidity or alkalinity of soil (soil pH test) in Chapter
+1. In precision farming, soil nutrient management is achieved
+through precise measurement and supply of essential plant
+nutrients using a soil-sensor-based ‘fertigation’ (fertiliser
+supply through drip irrigation) system.
+In this section, you will learn how fertiliser requirement
+can be estimated using a simple test. 
+Preparation of
+growing media 
+Figure 3.9: Soil – moisture sensor 
+TASK
+Rough estimation of organic carbon in soil 
+Take two soil samples in two small clear containers: 
+1. Sample A (Control): Soil without addition of compost 
+2. Sample B (Test): Soil enriched with compost. You will also need 3 per cent
+Hydrogen Peroxide (H 2 O 2 ) 
+Step 1: Prepare the Samples – Place small and equal amounts of debris-free
+soil samples A and B in two separate containers. 
+Step 2: Add Hydrogen Peroxide – Pour hydrogen peroxide in both containers,
+such that both samples are saturated (wear safety gear during this step). 
+Step 3: Observe the Reaction – Observe both samples for immediate fizzing,
+bubbling or foaming as hydrogen peroxide reacts with the Organic Carbon
+(OC) in the soil (an oxidation reaction), releasing oxygen gas (O 2 ) (Table 3.8).
+
+54 Kaushal Vikas | Grade 9 
+Table 3.8: Organic carbon content based on observation
+Observation Conclusion 
+No bubbling Indicates poor or very low organic carbon
+Light bubbling Indicates moderate organic carbon
+Intense effervescence and/or foam Indicates good or high organic carbon 
+Calculating compost for maintaining from 1.5 per cent to 2 per cent organic
+carbon in soil 
+Soil must contain from 1.5 per cent to 2.0 per cent organic carbon for healthy
+plant growth. Organic carbon makes soil more porous for healthy root growth,
+enhances water-holding capacity of soil, increases nutrient availability and
+provides energy to beneficial microorganisms that support plant growth. Organic
+fertiliser is added to soil to maintain the desired amount of organic carbon.
+To calculate the amount of compost required for maintaining from 1.5 per
+cent to 2.0 per cent organic carbon in soil, follow the steps in Figure 3.10. 
+Figure 3.10: Organic carbon in soil
+
+55 | Precision Farming 
+Once your soil and compost mix is ready with the known
+amount of organic carbon, you can use it for planting seedlings
+grown in the nursery. 
+3.9 Preparing an organic biofertiliser
+for nutrients 
+Plants need essential nutrients during the growth stage. These
+nutrients can be supplied through organic fertilisers, liquid
+organic manure ( jīvāmṛita , vermiwash, pañchagavya , compost
+tea, etc.) and compost (farmyard manure, vermicompost and
+kitchen waste compost).
+In addition to these, synthetic (chemical) fertilisers and
+biofertilisers are also available. Biofertilisers are made from
+beneficial micro-organisms, like bacterial fungi and algae.
+These micro-organisms help plants absorb nutrients from
+the soil and also improve soil fertility. You will learn how to
+make a biofertiliser in this section. 
+Maintenance
+and monitoring 
+TASK
+Preparing a Lactic Acid Bacteria (LAB) culture 
+Lactic Acid Bacteria (LAB) culture is a useful biofertiliser
+containing beneficial lactic acid producing bacteria (Figure 3.11). You will
+need – Rice grains (500 g), clean water, milk (100 ml of any type of milk), glass
+jars, muslin cloth, rubber band and labels 
+1. Wash uncooked rice and collect
+the rinse water from the first two
+washes. Use only this water.
+2. Pour the rinse water into a clean glass
+jar, filling it about two-thirds full.
+Cover the jar with a muslin cloth and
+secure it with a rubber band. Keep
+the jar at room temperature, away
+from direct sunlight, for 3 to 5 days;
+do not move it during this period.
+
+56 Kaushal Vikas | Grade 9 
+3. After fermentation, a floating ‘mat’
+will form on top. Pour out only the
+cloudy liquid beneath the mat. This
+liquid contains wild Lactic Acid
+Bacteria (LAB).
+4. Mix one part of the fermented rice
+rinsed water with ten parts of milk.
+Pour this mixture into another clean
+jar, filling it, about two-thirds of the
+glass, and cover as before. Keep it in
+a dark place at room temperature for
+3 to 5 days. 
+5. The jar contents will separate into
+solids (curds) and a yellowish liquid.
+Pour off the yellow liquid carefully
+as this is the active LAB culture.
+Store it in a clean bottle for use as
+biofertiliser.
+6. Mix 1 L LAB culture in 9 L water
+and apply to plants through drip
+irrigation or direct application. 
+Figure 3.11: Preparing Lactic Acid Bacteria (LAB) Culture. 
+CASELET 
+Students of Government High School visited a nearby Krishi Vigyan
+Kendra (KVK) to understand different types of organic fertilisers
+and pesticides. They learnt that many bacteria and fungi are useful in farming.
+KVK’s Subject Matter Expert (SME) gifted a packet of Trichoderma, a type of
+fungus ( Trichoderma viride ) to use as a biofertiliser. Students learnt that it is a
+very useful biopesticide, that lives on the surface of roots and helps the plant
+absorb nutrients like phosphorus. It releases lytic enzymes that dissolve the cell
+walls (outer skin) of harmful fungi, thereby protecting the plant. It also releases
+natural toxins, strong chemicals that kill harmful fungi and other pathogens. 
+Remember – LAB culture has living micro-organisms
+(bacteria), so always use clean containers and utensils to
+avoid contamination. Do not shake or move the jars during
+fermentation, and keep the jars away from direct sunlight.
+
+57 | Precision Farming 
+3.10 Identification and management
+of pests 
+You will need to protect your plants from harmful insect pests.
+As insects are part of the ecosystem, we must not eliminate
+them completely. Therefore, it is important to manage pest
+population in a way that balances crop protection with
+environmental health. Identification of harmful insect pests
+is the first step towards sustainable pest management. 
+You can build a simple light trap to identify various insects.
+A light trap is an eco-friendly pest management tool used by
+farmers. It uses a light source to attract and trap harmful
+insect pests in crop fields. Apart from identification of pests,
+a light trap can also help reduce the pest population. 
+Maintenance
+and monitoring 
+TECHNOLOGY AND ARTIFICIAL INTELLIGENCE
+Do-It-Yourself (DIY)
+Light Dependent Resistor (LDR) sensor for an insect trap 
+You can automatically switch on and switch off your insect trap during night
+and day, using an LDR sensor (Figure 3.12). 
+Figure 3.12: Light Dependent Resistant (LDR) sensor
+
+58 Kaushal Vikas | Grade 9 
+3.11 Harvesting, packaging and
+storage of produce 
+Harvesting is the stage, where all the care and effort put
+into rooftop gardening yield results. The timely collection of
+produce is very important, because it ensures both quality
+and a longer shelf life of fruits, vegetables and herbs. If
+harvesting is delayed, the produce may become overripe,
+lose taste or spoil quickly. You have already learnt the basics
+of harvesting in Grade 6 Kaushal Bodh for nursery plants and
+Grade 8 Kaushal Bodh for hydroponics.
+In precision farming, data-driven decisions and use
+of sensors help reduce crop losses, maintain quality and
+therefore fetch better prices. 
+1. Using data to determine time for harvesting: Harvesting
+should be done when the temperature and humidity
+are the lowest. Use data (for example, temperature and
+humidity trends) from the DIY school meteorological
+observatory or the website of the meteorological
+department to decide the best time of day for harvesting. 
+2. Climate-controlled storage: Imagine you have just
+harvested a batch of fresh spinach. If the air is too dry, the
+leaves will wilt (become limp). If the air is too damp (high
+humidity) and the room is dark, mould (fungus) will start
+to grow. In a normal room, you would have to manually
+open windows or turn on fans. In precision farming,
+sensors do this automatically. A humidity sensor can send
+a signal to the drip irrigation system or a fan. Similarly, 
+Harvesting,
+packaging and
+storage 
+TASK 
+Indian Council of Agricultural Research (ICAR) has launched a
+mobile-based pest identification and surveillance application named
+National Pest Surveillance System (NPSS). It uses Artificial Intelligence (AI) and
+Machine Learning (ML) technology for identification of insect pests in farming.
+Identify the insects on the plants or those collected in the light trap using the
+mobile app.
+1. What is their role in the ecosystem?
+2. What value do they add to the ecosystem?
+3. How many of them are pests (harmful for your plants)?
+
+59 | Precision Farming 
+some produce stays fresh longer in the dark since the area remains
+cooler – a Light Dependent Resistor can detect if a door was left open
+or if the sun is too bright, and automatically pull down shades or turn
+off the lights. 
+3. Smart packaging: Sensors to track humidity and temperature can be
+placed within packaging for monitoring during transport, ensuring
+lower losses compared to traditional methods. You can also create a
+QR code for the label of your package with information related to the
+origin of the produce, the date of harvest and the specific precision
+techniques (like drip irrigation) used during growth. 
+4. Using data for other decisions: Apps like Fasal and Kisan Suvidha
+can be used for weather updates as well as for monitoring market
+prices, which will help make decisions related to how long produce
+can be stored before selling it for the best price. 
+3.12 While setting up your precision farming
+unit 
+1. Use data related to agro-climatic conditions in your region for plant
+selection as well as making the decision – whether to use shade-net, a
+low-tunnel or greenhouse structure.
+2. Prepare a precision nursery (humidity chamber, shade-net) for
+growing healthy plant seedlings.
+3. Test soil and use right quantity of organic fertilisers for adjusting Soil
+Organic Carbon (SOC). 
+4. Use sensors for monitoring weather parameters (for example,
+temperature, humidity) and use micro-irrigation (for example, drip)
+for healthy plant growth.
+5. Identify insect pests and diseases harming your plants and manage
+them by using organic pesticides.
+6. Use compost and biofertiliser for healthy plants growth and yield. 
+3.13 Assess your learning 
+1. Describe the role of digital tools in precision farming. How do they
+change the way decisions are made on farms?
+2. Create a safety checklist for the tools you used, including digital tools.
+3. During a visit to a precision farming unit, list the key aspects you would
+observe to understand how precision techniques are applied.
+
+60 Kaushal Vikas | Grade 9 
+4. A farmer is using random compost application in one nursery bed and
+measured compost in another.
+5. You are asked to design a nursery layout. How would you ensure
+uniform growth and optimal use of resources?
+6. ‘With the help of technology, you can grow anything, anywhere,
+anytime.’ Do you agree with this statement? Give two examples to
+support your answer. If a farmer has limited water resources, how can
+precision farming techniques help them use water more efficiently?
+7. Suggest one low-cost innovation that could help small farmers adopt
+precision farming practices.
+8. Of the tasks that you did, which did you enjoy the most? Which did you
+enjoy the least? Give examples of what went well and what did not go
+well. What would you do differently next time?
+9. Give examples of how you can apply your learning in a real-life
+situation.
