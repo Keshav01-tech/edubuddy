@@ -25,7 +25,7 @@ export default function Login() {
   const [isAiSetupMissing, setIsAiSetupMissing] = useState(false);
 
   useEffect(() => {
-    if (user) navigate('/');
+    if (user) navigate('/dashboard');
     setIsAiSetupMissing(!isOpenAIConfigured());
   }, [user, navigate]);
 
@@ -44,7 +44,7 @@ export default function Login() {
       } else {
         const { error: signInErr } = await signIn(email, password);
         if (signInErr) throw signInErr;
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (err) {
       setError(err.message || 'Something went wrong. Try again.');

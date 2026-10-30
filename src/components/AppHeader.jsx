@@ -5,7 +5,7 @@ import { Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X, User
 const ICON_BUTTON = 'h-10 w-10 grid place-items-center rounded-xl text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400';
 
 const NAV = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/students', label: 'Students', icon: Users },
   { to: '/classes', label: 'Classes', icon: GraduationCap },
   { to: '/attendance', label: 'Attendance', icon: CalendarCheck },
@@ -20,7 +20,7 @@ const itemClass = (isActive) => `flex items-center gap-3 h-11 px-3 rounded-xl te
 
 function Brand() {
   return (
-    <Link to="/" className="flex items-center gap-2.5 px-3 h-16 shrink-0">
+    <Link to="/dashboard" className="flex items-center gap-2.5 px-3 h-16 shrink-0">
       <span className="h-8 w-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-white text-sm font-bold grid place-items-center">E</span>
       <span className="text-[15px] font-semibold tracking-tight text-slate-900">EduBuddy</span>
     </Link>

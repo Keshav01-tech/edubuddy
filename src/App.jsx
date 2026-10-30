@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { StudyProvider } from './context/StudyContext';
 import Login from './pages/Login';
+import LandingPage from './pages/LandingPage';
+import ZaplinePage from './zapline/ZaplinePage';
 import Dashboard from './pages/Dashboard';
 import TestGenerator from './pages/TestGenerator';
 import TestPage from './pages/TestPage';
@@ -14,6 +16,7 @@ import Fees from './pages/Fees';
 import SettingsPage from './pages/Settings';
 import Profile from './pages/Profile';
 import Leads from './pages/Leads';
+import Contact from './pages/Contact';
 import { Spinner } from './components/Spinner';
 
 const ProtectedRoute = ({ children }) => {
@@ -34,7 +37,11 @@ export default function App() {
         <StudyProvider>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<ZaplinePage />} />
+            <Route path="/zapline" element={<ZaplinePage />} />
+            <Route path="/edubuddy" element={<LandingPage />} />
+            <Route path="/landing" element={<LandingPage />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/tests" element={<ProtectedRoute><TestGenerator /></ProtectedRoute>} />
             <Route path="/papers" element={<ProtectedRoute><Papers /></ProtectedRoute>} />
