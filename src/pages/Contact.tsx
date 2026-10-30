@@ -1,43 +1,67 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Contact.css';
+import { useAuth } from '../context/AuthContext';
+import PublicNavbar from '../components/PublicNavbar';
 
 export default function Contact() {
+  const { user, signIn } = useAuth();
+  const navigate = useNavigate();
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [instituteName, setInstituteName] = useState('');
-  const [cityState, setCityState] = useState('');
-  const [studentCapacity, setStudentCapacity] = useState('150-300 Students');
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([
-    'Class 9-10 (Board)',
-    'Class 11-12 (Science)',
-  ]);
-  const [primaryInterest, setPrimaryInterest] = useState('Full Platform Walkthrough');
-  const [contactMode, setContactMode] = useState<'whatsapp' | 'call' | 'email'>('whatsapp');
+  const [interest, setInterest] = useState('Full Platform Walkthrough & Demo');
   const [message, setMessage] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [ticketId, setTicketId] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const toggleCourse = (course: string) => {
-    setSelectedCourses((prev) =>
-      prev.includes(course) ? prev.filter((c) => c !== course) : [...prev, course]
-    );
+  const handleStartTrial = async () => {
+    if (user) {
+      navigate('/dashboard');
+      return;
+    }
+    try {
+      await signIn('demo@edubuddy.ai', 'demo123');
+      navigate('/dashboard');
+    } catch {
+      navigate('/login');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    // Simulate reliable inquiry submission
-    setTimeout(() => {
-      const generatedTicket = `EDU-INQ-${Math.floor(1000 + Math.random() * 9000)}`;
-      setTicketId(generatedTicket);
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 700);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        setIsSubmitting(false);
+      } else {
+        // If client AJAX is restricted on free tier, fallback to native POST submission
+        form.submit();
+      }
+    } catch {
+      // Fallback to standard form submission
+      form.submit();
+    }
   };
 
   const handleReset = () => {
@@ -46,470 +70,463 @@ export default function Contact() {
     setEmail('');
     setPhone('');
     setInstituteName('');
-    setCityState('');
     setMessage('');
+    setErrorMessage(null);
   };
 
-  const coursesList = [
-    'Class 6-8 (Middle)',
-    'Class 9-10 (Board)',
-    'Class 11-12 (Science)',
-    'Class 11-12 (Commerce)',
-    'NEET/JEE Foundation',
-    'State Board / Other',
-  ];
-
-  const capacityOptions = [
-    '<50 Students',
-    '50-150 Students',
-    '150-300 Students',
-    '300-500 Students',
-    '500+ Students',
-  ];
-
   const whatsappMessage = encodeURIComponent(
-    `Hi EduBuddy Team! My name is ${fullName || 'Director'}, from ${instituteName || 'my coaching academy'} (${cityState || 'India'}). I am interested in ${primaryInterest}. Please share details / schedule a demo.`
+    `Hi EduBuddy Team! My name is ${fullName || 'Director'}, from ${instituteName || 'my coaching academy'}. I am interested in ${interest}. Please share details / schedule a demo.`
   );
 
   return (
     <div className="contact-page-root">
-      {/* 1. Header Bar */}
-      <header className="contact-page-header">
-        <Link to="/" className="contact-nav-brand">
-          <svg
-            viewBox="0 0 24 24"
-            width="22"
-            height="22"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-            <path d="M6 12v5c3 3 9 3 12 0v-5" />
-          </svg>
-          <span className="contact-brand-title">
-            Edu<span>Buddy</span>
-          </span>
-          <span className="contact-tag-badge">INSTITUTE OS</span>
-        </Link>
+      {/* 1. COMMON PUBLIC NAVBAR (SAME AS LANDING PAGE) */}
+      <PublicNavbar />
 
-        <nav className="contact-nav-links">
-          <Link to="/" className="contact-nav-link">
-            Home Overview
-          </Link>
-          <a href="/#features" className="contact-nav-link">
-            Modules
-          </a>
-          <a href="/#pricing" className="contact-nav-link">
-            Pricing
-          </a>
-          <a href="/#faq" className="contact-nav-link">
-            FAQ
-          </a>
-          <Link to="/dashboard" className="contact-nav-link">
-            Live App
-          </Link>
-        </nav>
-
-        <Link to="/" className="contact-nav-cta">
-          Back to Terminal ↗
-        </Link>
-      </header>
-
-      {/* 2. Hero Section */}
-      <section className="contact-hero-wrap">
-        <span className="contact-hero-badge">
-          💬 DIRECTOR CONSULTATION & ADVISORY DESK
-        </span>
-        <h1 className="contact-hero-title">
-          Let’s Scale Your Coaching Center with <em>Conviction.</em>
-        </h1>
-        <p className="contact-hero-lede">
-          Have questions about 1-Tap WhatsApp Haziri, NCERT question papers, or custom multi-branch setup? Connect with our dedicated institute success specialists.
-        </p>
-      </section>
-
-      {/* 3. Main Grid (Form + Contact Sidebar) */}
-      <main className="contact-main-grid">
-        {/* Left Card: Form or Success */}
-        <div className="contact-form-card">
-          <div className="form-header-bar">
-            <div>
-              <h2>Institute Inquiry Form</h2>
-              <p style={{ fontSize: '11px', color: '#887d96', margin: '3px 0 0' }}>
-                Fill in your coaching details to receive a customized demo & pricing.
-              </p>
-            </div>
-            <span className="guarantee-chip">⚡ 15-Min WhatsApp Response</span>
+      {/* 2. HERO SECTION WITH SKY GRADIENT AMBIENCE */}
+      <section className="contact-hero">
+        <div className="contact-hero-inner">
+          <div className="contact-rating-pill">
+            <span className="contact-gold-stars">★★★★★</span>
+            <span className="contact-rating-text">Director Advisory & Support Desk</span>
           </div>
 
-          {!isSubmitted ? (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {/* Row 1: Director Name & Email */}
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="fullName">
-                    Director / Admin Name <span className="required-star">*</span>
-                  </label>
-                  <input
-                    id="fullName"
-                    type="text"
-                    required
-                    placeholder="e.g. Er. Rajesh Sharma"
-                    className="form-input"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </div>
+          <h1 className="contact-hero-headline">
+            We're here to help your institute grow.
+          </h1>
 
-                <div className="form-group">
-                  <label className="form-label" htmlFor="email">
-                    Official Email Address <span className="required-star">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    placeholder="director@sharmaclasses.com"
-                    className="form-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+          <p className="contact-hero-sub">
+            Have questions about 1-Tap WhatsApp Haziri, board-pattern NCERT question papers, or need a customized setup for your coaching center? Send us a message and our team will get in touch within minutes.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. MAIN CONTENT GRID: FORM (LEFT) + DIRECT SUPPORT CARDS (RIGHT) */}
+      <main className="contact-main-container">
+        <div className="contact-grid">
+          {/* Left Column: Web3Forms Contact Form */}
+          <div className="contact-form-card">
+            <div className="contact-card-header">
+              <div>
+                <h2 className="contact-card-title">Send Us a Message</h2>
+                <p className="contact-card-sub">
+                  Fill in your coaching details below. All inquiries receive direct attention from our product consultants.
+                </p>
               </div>
+              <span className="contact-speed-badge">⚡ 15-Min Response SLA</span>
+            </div>
 
-              {/* Row 2: Phone/WhatsApp & Institute Name */}
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="phone">
-                    WhatsApp Phone Number <span className="required-star">*</span>
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210"
-                    className="form-input"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
+            {!isSubmitted ? (
+              <form
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                onSubmit={handleSubmit}
+                className="contact-actual-form"
+              >
+                {/* Web3Forms Access Key */}
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value="98474fca-20d3-4e56-b11c-b5544b1b584c"
+                />
+                {/* Form Subject */}
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New Inquiry from EduBuddy Contact Page"
+                />
+                <input
+                  type="hidden"
+                  name="from_name"
+                  value="EduBuddy Website"
+                />
+                {/* Honeypot Anti-Spam */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  style={{ display: 'none' }}
+                />
+
+                {/* Row 1: Name & Email */}
+                <div className="form-grid-2">
+                  <div className="form-field-group">
+                    <label className="form-label" htmlFor="name">
+                      Your Name / Director Name <span className="req">*</span>
+                    </label>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="e.g. Er. Rajesh Sharma"
+                      className="form-input"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="form-field-group">
+                    <label className="form-label" htmlFor="email">
+                      Official Email Address <span className="req">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="director@sharmaclasses.com"
+                      className="form-input"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label" htmlFor="instituteName">
-                    Coaching / Academy Name <span className="required-star">*</span>
-                  </label>
-                  <input
-                    id="instituteName"
-                    type="text"
-                    required
-                    placeholder="e.g. Apex Science Tutorials"
-                    className="form-input"
-                    value={instituteName}
-                    onChange={(e) => setInstituteName(e.target.value)}
-                  />
-                </div>
-              </div>
+                {/* Row 2: WhatsApp Phone & Coaching Name */}
+                <div className="form-grid-2">
+                  <div className="form-field-group">
+                    <label className="form-label" htmlFor="phone">
+                      WhatsApp Phone Number <span className="req">*</span>
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      required
+                      placeholder="+91 98765 43210"
+                      className="form-input"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
 
-              {/* Row 3: City & State + Primary Interest */}
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cityState">
-                    City & State <span className="required-star">*</span>
-                  </label>
-                  <input
-                    id="cityState"
-                    type="text"
-                    required
-                    placeholder="e.g. Jaipur, Rajasthan"
-                    className="form-input"
-                    value={cityState}
-                    onChange={(e) => setCityState(e.target.value)}
-                  />
+                  <div className="form-field-group">
+                    <label className="form-label" htmlFor="coaching_name">
+                      Coaching / Institute Name
+                    </label>
+                    <input
+                      id="coaching_name"
+                      type="text"
+                      name="coaching_name"
+                      placeholder="e.g. Sharma Science Academy"
+                      className="form-input"
+                      value={instituteName}
+                      onChange={(e) => setInstituteName(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label" htmlFor="primaryInterest">
+                {/* Area of Interest */}
+                <div className="form-field-group">
+                  <label className="form-label" htmlFor="interest">
                     Primary Area of Interest
                   </label>
                   <select
-                    id="primaryInterest"
+                    id="interest"
+                    name="interest"
                     className="form-select"
-                    value={primaryInterest}
-                    onChange={(e) => setPrimaryInterest(e.target.value)}
+                    value={interest}
+                    onChange={(e) => setInterest(e.target.value)}
                   >
-                    <option value="Full Platform Walkthrough">Full Platform Walkthrough & Demo</option>
-                    <option value="1-Tap Daily WhatsApp Haziri">1-Tap WhatsApp Haziri & Absent Alerts</option>
-                    <option value="NCERT AI Question Paper Generator">30-Second NCERT AI Question Paper Maker</option>
-                    <option value="Fee Management & GST Receipts">Fee Invoicing, Receipts & WhatsApp Reminders</option>
-                    <option value="Multi-Branch Management">Multi-Branch Academy Custom Setup</option>
+                    <option value="Full Platform Walkthrough & Demo">
+                      Full Platform Walkthrough & Live Demo
+                    </option>
+                    <option value="1-Tap Daily WhatsApp Haziri">
+                      1-Tap Daily WhatsApp Haziri & Absent Parent Alerts
+                    </option>
+                    <option value="30-Second NCERT AI Question Paper Generator">
+                      30-Second NCERT AI Question Paper Maker
+                    </option>
+                    <option value="Fee Management & GST Receipts">
+                      Fee Management, UPI Receipts & WhatsApp Reminders
+                    </option>
+                    <option value="Multi-Branch Management">
+                      Multi-Branch Coaching Custom Setup
+                    </option>
                   </select>
                 </div>
-              </div>
 
-              {/* Enrolled Students Capacity */}
-              <div className="form-group">
-                <label className="form-label">
-                  Current Enrolled Student Count <span className="required-star">*</span>
-                </label>
-                <div className="chips-group">
-                  {capacityOptions.map((opt) => (
-                    <button
-                      type="button"
-                      key={opt}
-                      className={`chip-selector ${studentCapacity === opt ? 'active' : ''}`}
-                      onClick={() => setStudentCapacity(opt)}
-                    >
-                      {opt}
-                    </button>
-                  ))}
+                {/* Message Textarea */}
+                <div className="form-field-group">
+                  <label className="form-label" htmlFor="message">
+                    Your Message / Specific Requirements <span className="req">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Tell us about your batch sizes, classes taught (e.g. Class 10 Foundation, NEET/JEE), or any special migration requests..."
+                    className="form-textarea"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
                 </div>
-              </div>
 
-              {/* Classes & Courses Handled */}
-              <div className="form-group">
-                <label className="form-label">
-                  Classes / Courses Taught (Select all that apply)
-                </label>
-                <div className="chips-group">
-                  {coursesList.map((course) => (
-                    <button
-                      type="button"
-                      key={course}
-                      className={`chip-selector ${selectedCourses.includes(course) ? 'active' : ''}`}
-                      onClick={() => toggleCourse(course)}
-                    >
-                      {selectedCourses.includes(course) ? '✓ ' : '+ '}
-                      {course}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Preferred Contact Mode */}
-              <div className="form-group">
-                <label className="form-label">Preferred Contact Channel</label>
-                <div className="contact-mode-radios">
-                  <div
-                    className={`radio-card ${contactMode === 'whatsapp' ? 'active' : ''}`}
-                    onClick={() => setContactMode('whatsapp')}
-                  >
-                    <span>💬</span> WhatsApp (Fastest)
+                {errorMessage && (
+                  <div className="form-error-banner">
+                    ⚠️ {errorMessage}
                   </div>
-                  <div
-                    className={`radio-card ${contactMode === 'call' ? 'active' : ''}`}
-                    onClick={() => setContactMode('call')}
-                  >
-                    <span>📞</span> Phone Call
-                  </div>
-                  <div
-                    className={`radio-card ${contactMode === 'email' ? 'active' : ''}`}
-                    onClick={() => setContactMode('email')}
-                  >
-                    <span>✉️</span> Email Quote
-                  </div>
-                </div>
-              </div>
+                )}
 
-              {/* Message / Special Requirements */}
-              <div className="form-group">
-                <label className="form-label" htmlFor="message">
-                  Specific Requirements or Questions (Optional)
-                </label>
-                <textarea
-                  id="message"
-                  className="form-textarea"
-                  placeholder="Tell us about your batch timings, number of faculty members, or special requirements (e.g. migration from existing registers)..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </div>
-
-              {/* Submit CTA */}
-              <button
-                type="submit"
-                className="submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting Inquiry...' : 'Submit Institute Inquiry ↗'}
-              </button>
-
-              <p style={{ fontSize: '10px', color: '#7e758c', textAlign: 'center', margin: 0 }}>
-                🔒 100% Privacy Guarantee: Your institute phone number is never shared with third parties.
-              </p>
-            </form>
-          ) : (
-            /* Submission Success Screen */
-            <div className="success-screen-card">
-              <div className="success-icon-bubble">✓</div>
-              <h3>Thank You, {fullName || 'Director'}!</h3>
-              <p>
-                Your inquiry for <strong>{instituteName}</strong> ({cityState}) has been received. Our senior product consultant will contact you via {contactMode.toUpperCase()} within 15 minutes.
-              </p>
-
-              <span className="ref-ticket-pill">
-                Reference ID: {ticketId}
-              </span>
-
-              {/* Instant WhatsApp Connect Button */}
-              <div className="instant-wa-box">
-                <p>Want an immediate answer right now without waiting?</p>
-                <a
-                  href={`https://wa.me/919876543210?text=${whatsappMessage}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="wa-instant-btn"
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="contact-submit-btn"
+                  disabled={isSubmitting}
                 >
-                  <span>💬</span> Continue on WhatsApp Now ↗
-                </a>
+                  {isSubmitting ? (
+                    <span>Submitting Message...</span>
+                  ) : (
+                    <>
+                      <span>Send Message to EduBuddy</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+
+                <p className="form-guarantee-note">
+                  🔒 100% Privacy Guarantee: Your institute contact information is strictly confidential and never shared with third parties.
+                </p>
+              </form>
+            ) : (
+              /* Submission Success Screen */
+              <div className="contact-success-box">
+                <div className="success-icon-ring">✓</div>
+                <h3 className="success-title">Message Received!</h3>
+                <p className="success-desc">
+                  Thank you, <strong>{fullName || 'Director'}</strong>! Your message regarding{' '}
+                  <strong>{instituteName || 'your coaching center'}</strong> has been routed to our senior product team. We will reach out to you via WhatsApp or Email within 15 minutes.
+                </p>
+
+                <div className="success-wa-action">
+                  <p>Need an instant response right now?</p>
+                  <a
+                    href={`https://wa.me/919876543210?text=${whatsappMessage}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="success-btn-wa"
+                  >
+                    <span>💬</span> Chat on WhatsApp Immediately ↗
+                  </a>
+                </div>
+
+                <button
+                  type="button"
+                  className="success-reset-btn"
+                  onClick={handleReset}
+                >
+                  Send Another Message
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Right Column: Direct Help & Fast Channels */}
+          <aside className="contact-sidebar-col">
+            {/* 1. Fast WhatsApp Desk Card */}
+            <div className="sidebar-contact-card wa-accent-card">
+              <div className="sidebar-card-top">
+                <div className="sidebar-card-icon wa">💬</div>
+                <div>
+                  <h3 className="sidebar-card-heading">Director WhatsApp Desk</h3>
+                  <span className="sidebar-card-subhead">Instant 1-on-1 direct line</span>
+                </div>
               </div>
 
-              <button
-                type="button"
-                className="reset-form-btn"
-                onClick={handleReset}
+              <p className="sidebar-card-p">
+                Skip the email queue! Chat directly with our product specialist for batch pricing, student migrations, or customized demonstrations.
+              </p>
+
+              <a
+                href="https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20to%20explore%20EduBuddy."
+                target="_blank"
+                rel="noreferrer"
+                className="sidebar-wa-pill-btn"
               >
-                Submit Another Request
-              </button>
+                <span>💬</span>
+                <span>Chat on WhatsApp (+91 98765 43210) ↗</span>
+              </a>
+
+              <div className="sidebar-card-footer">
+                <span className="sidebar-live-dot" />
+                <span>Typical reply time: Under 5 minutes</span>
+              </div>
             </div>
-          )}
+
+            {/* 2. Official Channels & Hours */}
+            <div className="sidebar-contact-card">
+              <div className="sidebar-card-top">
+                <div className="sidebar-card-icon office">🏢</div>
+                <div>
+                  <h3 className="sidebar-card-heading">Official Support & Head Office</h3>
+                  <span className="sidebar-card-subhead">EduBuddy Technologies Pvt Ltd</span>
+                </div>
+              </div>
+
+              <div className="contact-channels-stack">
+                <div className="channel-row">
+                  <span className="ch-icon">📞</span>
+                  <div className="ch-body">
+                    <span className="ch-title">Director Helpline</span>
+                    <a href="tel:+919876543210" className="ch-value">
+                      +91 98765 43210
+                    </a>
+                  </div>
+                </div>
+
+                <div className="channel-row">
+                  <span className="ch-icon">✉️</span>
+                  <div className="ch-body">
+                    <span className="ch-title">Official Inquiries & Support</span>
+                    <a href="mailto:director-support@edubuddy.ai" className="ch-value">
+                      director-support@edubuddy.ai
+                    </a>
+                  </div>
+                </div>
+
+                <div className="channel-row">
+                  <span className="ch-icon">📍</span>
+                  <div className="ch-body">
+                    <span className="ch-title">Corporate Headquarters</span>
+                    <span className="ch-value text-muted">
+                      EduBuddy Tower, Tonk Road, Jaipur, Rajasthan 302015
+                    </span>
+                  </div>
+                </div>
+
+                <div className="channel-row">
+                  <span className="ch-icon">⏰</span>
+                  <div className="ch-body">
+                    <span className="ch-title">Operational Hours</span>
+                    <span className="ch-value text-muted">
+                      Monday to Saturday · 09:00 AM – 08:00 PM IST
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Director Trust Guarantee */}
+            <div className="sidebar-trust-box">
+              <div className="trust-box-header">
+                <span className="trust-badge">🇮🇳 BUILT FOR BHARAT</span>
+                <strong>Trusted by 1,400+ Coaching Institutes</strong>
+              </div>
+              <p className="trust-box-p">
+                From local 30-student tuition batches to 2,000+ student NEET/JEE academies, EduBuddy delivers 98% parent engagement with zero number ban risk.
+              </p>
+            </div>
+          </aside>
         </div>
-
-        {/* Right Column: Direct Help & Trust Cards */}
-        <aside className="contact-sidebar">
-          {/* Card 1: 1-Tap WhatsApp Desk */}
-          <div className="sidebar-info-card sidebar-wa-card">
-            <div className="sidebar-card-top">
-              <div className="sidebar-icon-circle">💬</div>
-              <div>
-                <h3>Director WhatsApp Desk</h3>
-                <p>Instant chat with our onboarding team</p>
-              </div>
-            </div>
-            <p className="sidebar-body-text">
-              Have a quick question about fee receipts, NCERT question papers, or student limits? Skip the form and chat with us on WhatsApp immediately.
-            </p>
-            <a
-              href="https://wa.me/919876543210?text=Hi%20EduBuddy%20Team%2C%20I%20run%20a%20coaching%20institute%20and%20want%20to%20explore%20EduBuddy."
-              target="_blank"
-              rel="noreferrer"
-              className="sidebar-wa-btn"
-            >
-              <span>💬</span> Open WhatsApp Chat ↗
-            </a>
-          </div>
-
-          {/* Card 2: Official Contact Details */}
-          <div className="sidebar-info-card">
-            <div className="sidebar-card-top">
-              <div className="sidebar-icon-circle">🏢</div>
-              <div>
-                <h3>Official Help & Support</h3>
-                <p>EduBuddy Technologies Pvt Ltd</p>
-              </div>
-            </div>
-
-            <div className="channels-list">
-              <div className="channel-item">
-                <span className="ch-icon">📞</span>
-                <div className="ch-info">
-                  <span className="ch-label">Director Helpline</span>
-                  <a href="tel:+919876543210" className="ch-val">
-                    +91 98765 43210
-                  </a>
-                </div>
-              </div>
-
-              <div className="channel-item">
-                <span className="ch-icon">✉️</span>
-                <div className="ch-info">
-                  <span className="ch-label">Support Email</span>
-                  <a href="mailto:director-support@edubuddy.ai" className="ch-val">
-                    director-support@edubuddy.ai
-                  </a>
-                </div>
-              </div>
-
-              <div className="channel-item">
-                <span className="ch-icon">📍</span>
-                <div className="ch-info">
-                  <span className="ch-label">Head Office</span>
-                  <span className="ch-val">
-                    EduBuddy Tower, Tonk Road, Jaipur, Rajasthan 302015
-                  </span>
-                </div>
-              </div>
-
-              <div className="channel-item">
-                <span className="ch-icon">⏰</span>
-                <div className="ch-info">
-                  <span className="ch-label">Advisory Timings</span>
-                  <span className="ch-val">
-                    Monday – Saturday (9:00 AM – 8:00 PM IST)
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Free Migration Guarantee */}
-          <div className="sidebar-info-card">
-            <div className="sidebar-card-top">
-              <div className="sidebar-icon-circle">🚀</div>
-              <div>
-                <h3>Free Migration Guarantee</h3>
-                <p>Zero effort for your coaching staff</p>
-              </div>
-            </div>
-            <ul className="perks-list">
-              <li>
-                <span className="perk-bullet">✓</span>
-                <span>Send us your existing Excel or scanned paper ledger.</span>
-              </li>
-              <li>
-                <span className="perk-bullet">✓</span>
-                <span>Our team uploads your entire student roster within 2 hours.</span>
-              </li>
-              <li>
-                <span className="perk-bullet">✓</span>
-                <span>Includes a 15-minute 1-on-1 video call to train your receptionist.</span>
-              </li>
-            </ul>
-          </div>
-        </aside>
       </main>
 
-      {/* 4. Bottom Quick FAQ Strip */}
-      <section className="contact-faq-strip">
-        <div className="contact-faq-box">
-          <div className="contact-faq-head">
-            <h3>Quick Answers Before You Reach Out</h3>
-            <Link to="/#faq">View All FAQs ↗</Link>
+      {/* 4. CINEMATIC GRAND 3D FOOTER (EXACT SAME AS LANDING PAGE) */}
+      <footer className="ref-grand-footer">
+        {/* Soft Ambient Crimson & Blue Underglow */}
+        <div className="ref-footer-ambient-glow" />
+
+        <div className="ref-footer-container">
+          {/* 5-Column Navigation Grid */}
+          <div className="ref-footer-grid">
+            {/* Column 1: Core Navigation */}
+            <div className="ref-footer-col">
+              <Link to="/#how-it-works">How it works</Link>
+              <Link to="/#terminal">Terminal</Link>
+              <Link to="/#pricing">Pricing</Link>
+              <Link to="/#faq">FAQ</Link>
+              <Link to="/contact">Contact Us</Link>
+              <Link to="/login">Log in</Link>
+            </div>
+
+            {/* Column 2: Comparisons 1 */}
+            <div className="ref-footer-col">
+              <Link to="/dashboard">Classplus</Link>
+              <Link to="/dashboard">Teachmint</Link>
+              <Link to="/dashboard">Proctur</Link>
+              <Link to="/dashboard">Winuall</Link>
+              <Link to="/dashboard">Paper Registers</Link>
+              <Link to="/#pricing" className="ref-footer-gold-link">All comparisons →</Link>
+            </div>
+
+            {/* Column 3: Tools & Systems (with vertical drop line) */}
+            <div className="ref-footer-col ref-col-center">
+              <Link to="/contact">WhatsApp Business</Link>
+              <Link to="/contact">Excel Spreadsheets</Link>
+              <Link to="/contact">Google Forms</Link>
+              <Link to="/contact">Tally ERP</Link>
+              <Link to="/contact">Biometric Attendance</Link>
+              <Link to="/#pricing" className="ref-footer-gold-link">All comparisons →</Link>
+            </div>
+
+            {/* Column 4: Features */}
+            <div className="ref-footer-col">
+              <Link to="/#how-it-works">AI NCERT Question Papers</Link>
+              <Link to="/#how-it-works">Daily Haziri Roll Call</Link>
+              <Link to="/#how-it-works">Branded GST Invoices</Link>
+              <Link to="/#how-it-works">Admission Leads CRM</Link>
+              <Link to="/#how-it-works">Fee Reminder Automation</Link>
+              <Link to="/#how-it-works" className="ref-footer-gold-link">All lists →</Link>
+            </div>
+
+            {/* Column 5: Company */}
+            <div className="ref-footer-col">
+              <span className="ref-footer-col-header">Resources</span>
+              <Link to="/contact">Blog</Link>
+              <Link to="/contact">Changelog</Link>
+              <Link to="/contact">Mission</Link>
+              <Link to="/contact">Team</Link>
+            </div>
           </div>
-          <div className="contact-faq-grid">
-            <div className="contact-faq-card">
-              <h4>Can I test the platform with sample students?</h4>
-              <p>Yes! Click "Live App" in the top bar to immediately test the interactive terminal with Kartik, Priya, and Aman's records.</p>
-            </div>
-            <div className="contact-faq-card">
-              <h4>Is WhatsApp messaging extra paid?</h4>
-              <p>No! Our 1-tap WhatsApp attendance and fee reminder integration works directly with your regular WhatsApp Web / App.</p>
-            </div>
-            <div className="contact-faq-card">
-              <h4>Can we get a custom quote for 3+ branches?</h4>
-              <p>Yes. Select "500+ Students" above and our multi-branch account executive will share an enterprise tier quote.</p>
+
+          {/* Vertical Drop Line connecting from Center Column towards EduBuddy */}
+          <div className="ref-drop-line-wrap">
+            <div className="ref-drop-line" />
+            <div className="ref-drop-point" />
+          </div>
+
+          {/* Giant 3D Extruded Brand Typography "EduBuddy" in Blue */}
+          <div className="ref-giant-brand-wrap">
+            <h1 className="ref-giant-3d-text">
+              EduBuddy
+            </h1>
+          </div>
+
+          {/* Bottom Copyright Strip */}
+          <div className="ref-footer-bottom">
+            <span>© 2026 EduBuddy Technologies Pvt Ltd · Bharat's #1 Coaching OS</span>
+            <div className="ref-footer-legal-links">
+              <Link to="/contact">Privacy</Link>
+              <span>·</span>
+              <Link to="/contact">Terms</Link>
+              <span>·</span>
+              <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer">WhatsApp Helpline</a>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* 5. Footer Bar */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '24px', textAlign: 'center', fontSize: '11px', color: '#7a7088' }}>
-        © 2026 EduBuddy Technologies Pvt Ltd · Crafted for Coaching Institutes Across Bharat 🇮🇳
       </footer>
+
+      {/* 5. STICKY MOBILE CONVERSION BAR (FOR PHONE THUMB USERS) */}
+      <div className="ref-sticky-mobile">
+        <a
+          href="https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20to%20see%20a%20demo."
+          target="_blank"
+          rel="noreferrer"
+          className="ref-sticky-wa"
+        >
+          <span>💬</span> WhatsApp Demo
+        </a>
+        <button
+          type="button"
+          className="ref-sticky-trial"
+          onClick={handleStartTrial}
+        >
+          <span>⚡</span> Start Free Trial →
+        </button>
+      </div>
     </div>
   );
 }

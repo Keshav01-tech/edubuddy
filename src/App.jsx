@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { StudyProvider } from './context/StudyContext';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
+import MobileLandingPage from './pages/MobileLandingPage';
 import ZaplinePage from './zapline/ZaplinePage';
 import Dashboard from './pages/Dashboard';
 import TestGenerator from './pages/TestGenerator';
@@ -38,10 +39,12 @@ export default function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/" element={<ZaplinePage />} />
-            <Route path="/zapline" element={<ZaplinePage />} />
+            <Route path="/" element={<MobileLandingPage />} />
+            <Route path="/mobile" element={<MobileLandingPage />} />
+            <Route path="/landing" element={<MobileLandingPage />} />
             <Route path="/edubuddy" element={<LandingPage />} />
-            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/zapline" element={<ZaplinePage />} />
+            <Route path="/dark" element={<ZaplinePage />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/tests" element={<ProtectedRoute><TestGenerator /></ProtectedRoute>} />
             <Route path="/papers" element={<ProtectedRoute><Papers /></ProtectedRoute>} />
