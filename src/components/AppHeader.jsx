@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X, Users, GraduationCap, LayoutDashboard,
-  Building2, Sparkles, Plus, ChevronDown, FolderOpen, CalendarDays,
+  Building2, Sparkles, Plus, ChevronDown, FolderOpen, CalendarDays, ArrowRight,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useClassroom, todayISO } from '../services/classroom';
@@ -60,15 +60,15 @@ function navGroups(b) {
 }
 
 const COUNT_TONES = {
-  muted: 'bg-white/10 text-neutral-300',
-  warn: 'bg-white text-neutral-950',
-  danger: 'bg-white text-neutral-950',
+  muted: 'bg-neutral-900/[0.06] text-neutral-600',
+  warn: 'bg-neutral-200 text-neutral-900',
+  danger: 'bg-[#005a9c] text-white',
 };
 
 const itemClass = (isActive) => `group relative flex items-center gap-3 h-10 px-3 rounded-xl text-[13.5px] font-medium transition-all ${
-  isActive ? 'bg-white/[0.09] text-white ring-1 ring-white/10' : 'text-neutral-400 hover:text-white hover:bg-white/[0.05]'
+  isActive ? 'bg-[#005a9c] text-white font-semibold' : 'text-neutral-700 hover:text-neutral-900 hover:bg-white/80'
 }`;
-const iconClass = (isActive) => `w-[18px] h-[18px] shrink-0 transition-colors ${isActive ? 'text-white' : 'text-neutral-500 group-hover:text-neutral-300'}`;
+const iconClass = (isActive) => `w-[18px] h-[18px] shrink-0 transition-colors ${isActive ? 'text-neutral-900' : 'text-neutral-600 group-hover:text-neutral-900'}`;
 
 export function BrandMark({ size = 'md', invert = false }) {
   const box = size === 'sm' ? 'h-7 w-7 text-xs rounded-lg' : 'h-9 w-9 text-sm rounded-xl';
@@ -82,10 +82,10 @@ export function BrandMark({ size = 'md', invert = false }) {
 function Brand({ institute }) {
   return (
     <Link to="/dashboard" className="flex items-center gap-3 px-5 h-[4.5rem] shrink-0">
-      <BrandMark invert />
+      <span className="h-9 w-9 shrink-0 rounded-full grid place-items-center bg-gradient-to-br from-[#60c1e5] to-[#005a9c] text-[15px] font-black text-white">E</span>
       <span className="leading-tight min-w-0">
-        <span className="block text-[15px] font-bold tracking-tight text-white">EduBuddy</span>
-        <span className="block text-[11px] font-medium text-neutral-400 truncate">{institute || 'Institute workspace'}</span>
+        <span className="block text-[15px] font-extrabold uppercase tracking-wide text-neutral-900">EduBuddy</span>
+        <span className="block text-[11px] font-medium text-neutral-500 truncate">{institute || 'Institute workspace'}</span>
       </span>
     </Link>
   );
@@ -96,7 +96,6 @@ function NavItem({ to, label, icon: Icon, end, badge, count, countTone, countTit
     <NavLink to={to} end={end} onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
       {({ isActive }) => (
         <>
-          {isActive && <span className="absolute -left-3 top-2 bottom-2 w-1 rounded-r-full bg-white" />}
           <Icon className={iconClass(isActive)} />
           <span className="flex-1 truncate">{label}</span>
           {count != null && (
@@ -105,7 +104,7 @@ function NavItem({ to, label, icon: Icon, end, badge, count, countTone, countTit
             </span>
           )}
           {badge && (
-            <span className="inline-flex items-center gap-0.5 rounded-md bg-gradient-to-r from-brand-500 to-neutral-900 px-1.5 py-0.5 text-[10px] font-bold text-white">
+            <span className="inline-flex items-center gap-0.5 rounded-md bg-[#005a9c] px-1.5 py-0.5 text-[10px] font-bold text-white">
               <Sparkles className="w-2.5 h-2.5" />{badge}
             </span>
           )}
@@ -129,44 +128,28 @@ function Avatar({ user, className = 'h-9 w-9 text-[13px]', invert = false }) {
 }
 
 function SideNav({ onSignOut, onNavigate }) {
-  const { user } = useAuth() || {};
   const badges = useNavBadges();
   const groups = navGroups(badges);
   return (
     <div className="flex flex-col h-full">
       <Brand institute={badges.room.institute?.name} />
-      <nav className="flex-1 px-3 pt-1 overflow-y-auto" aria-label="Main">
-        {groups.map((group) => (
-          <div key={group.label} className="mb-5">
-            <p className="px-3 mb-1.5 text-[10.5px] font-bold uppercase tracking-[0.12em] text-neutral-500">{group.label}</p>
-            <div className="space-y-0.5">
-              {group.items.map((item) => <NavItem key={item.to} {...item} onNavigate={onNavigate} />)}
-            </div>
-          </div>
-        ))}
+      <nav className="flex-1 px-4 pt-2 overflow-y-auto" aria-label="Main">
+        <div className="space-y-1">
+          {groups.flatMap((group) => group.items).map((item) => <NavItem key={item.to} {...item} onNavigate={onNavigate} />)}
+        </div>
       </nav>
-      {badges.room.students.length > 0 && (
-        <Link to="/attendance" onClick={onNavigate} className="mx-3 mb-3 block rounded-2xl bg-gradient-to-br from-brand-600/30 to-neutral-900/10 ring-1 ring-white/10 p-3.5 hover:ring-white/20 transition">
-          <p className="flex items-center justify-between text-[12px] font-semibold text-white">
-            <span className="flex items-center gap-1.5"><CalendarCheck className="w-3.5 h-3.5 text-white" /> Today's roll call</span>
-            <span className="tabular-nums text-neutral-300">{badges.room.students.length - badges.unmarked}/{badges.room.students.length}</span>
-          </p>
-          <div className="mt-2 h-1.5 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full rounded-full bg-white" style={{ width: `${((badges.room.students.length - badges.unmarked) / badges.room.students.length) * 100}%` }} />
-          </div>
-          <p className="mt-1.5 text-[11px] text-neutral-400">{badges.unmarked ? `${badges.unmarked} still to mark` : 'Everyone is marked'}</p>
-        </Link>
-      )}
-      <div className="p-3 border-t border-white/[0.07]">
-        {user && (
-          <div className="flex items-center gap-3 rounded-xl px-2.5 py-2 mb-1">
-            <Avatar user={user} className="h-8 w-8 text-[13px]" invert />
-            <span className="min-w-0 leading-tight">
-              <span className="block truncate text-[13px] font-semibold text-white">{userName(user)}</span>
-              {user.email && <span className="block truncate text-[11px] text-neutral-500">{user.email}</span>}
-            </span>
-          </div>
-        )}
+      <Link to="/tests" onClick={onNavigate} className="relative mx-4 mb-4 block overflow-hidden rounded-3xl bg-[#1b365d] p-4 text-center">
+        <span aria-hidden className="pointer-events-none absolute -left-8 -top-10 h-28 w-28 rounded-full bg-white/10 blur-xl" />
+        <span className="relative mb-2 flex justify-center -space-x-2">
+          {[[FileText, '#a3a3a3'], [Users, '#e5e5e5'], [GraduationCap, '#737373'], [Wallet, '#ffffff']].map(([Icon, bg], i) => (
+            <span key={i} className="h-8 w-8 rounded-full grid place-items-center ring-2 ring-[#1b365d]" style={{ background: bg }}><Icon className="w-4 h-4 text-neutral-800" /></span>
+          ))}
+        </span>
+        <span className="relative flex items-center justify-center gap-1.5 text-[15px] font-semibold text-white"><Sparkles className="w-4 h-4" /> What's New</span>
+        <span className="relative mt-1.5 block text-[12.5px] leading-snug text-white/70">AI test papers in a minute.</span>
+        <span className="relative mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-white text-[13px] font-semibold text-neutral-900">Try it now <ArrowRight className="w-4 h-4" /></span>
+      </Link>
+      <div className="px-4 py-3 border-t border-neutral-200/70">
         <div className="space-y-0.5">
           <NavLink to="/profile" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
             {({ isActive }) => (<><Building2 className={iconClass(isActive)} />Institute profile</>)}
@@ -175,8 +158,8 @@ function SideNav({ onSignOut, onNavigate }) {
             {({ isActive }) => (<><Settings className={iconClass(isActive)} />Settings</>)}
           </NavLink>
           {onSignOut && (
-            <button type="button" onClick={onSignOut} className={`${itemClass(false)} w-full hover:!text-neutral-300`}>
-              <LogOut className="w-[18px] h-[18px] shrink-0 text-neutral-500 group-hover:text-neutral-300" />
+            <button type="button" onClick={onSignOut} className={`${itemClass(false)} w-full`}>
+              <LogOut className="w-[18px] h-[18px] shrink-0 text-neutral-600 group-hover:text-neutral-900" />
               Sign out
             </button>
           )}
@@ -211,12 +194,12 @@ function QuickMenu() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="h-10 pl-3 pr-2.5 rounded-xl bg-neutral-950 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-[0_6px_16px_-6px_rgba(0,0,0,0.6)] hover:bg-neutral-800 transition-colors"
+        className="h-10 pl-4 pr-3 rounded-2xl bg-[#005a9c] text-white text-sm font-medium inline-flex items-center gap-1.5 hover:brightness-95 transition"
       >
         <Plus className="w-4 h-4" /> New <ChevronDown className={`w-3.5 h-3.5 opacity-80 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white ring-1 ring-neutral-200 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.3)] p-2 z-50 animate-fade-up">
+        <div className="absolute right-0 mt-2 w-72 rounded-3xl bg-white shadow-[0_24px_60px_-12px_rgba(0,0,0,0.3)] p-2 z-50 animate-fade-up">
           <p className="px-2.5 pt-1.5 pb-2 text-[11px] font-bold uppercase tracking-wider text-neutral-400">What do you want to do?</p>
           {QUICK.map(({ to, label, hint, icon: Icon, tone }) => (
             <Link key={to} to={to} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-xl px-2.5 py-2 hover:bg-neutral-50">
@@ -236,10 +219,10 @@ function QuickMenu() {
 function TopBar({ leading, title, subtitle }) {
   const { pathname } = useLocation();
   const { user } = useAuth() || {};
-  const [routeTitle, section] = PAGE_TITLES[pathname] || ['EduBuddy', ''];
+  const [routeTitle] = PAGE_TITLES[pathname] || ['EduBuddy', ''];
   const date = new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
   return (
-    <div className="no-print hidden md:flex sticky top-0 z-30 h-16 items-center gap-3 px-6 lg:px-8 bg-white/80 backdrop-blur-xl border-b border-neutral-200/70">
+    <div className="no-print hidden md:flex sticky top-0 z-30 h-16 items-center gap-3 px-6 lg:px-8 bg-white/50 backdrop-blur-xl border-b border-white/70">
       {leading}
       <div className="min-w-0 flex-1">
         {title ? (
@@ -248,18 +231,15 @@ function TopBar({ leading, title, subtitle }) {
             {subtitle && <p className="text-xs text-neutral-500 truncate">{subtitle}</p>}
           </>
         ) : (
-          <p className="text-sm text-neutral-500 truncate">
-            {section && <><span>{section}</span><span className="mx-2 text-neutral-300">/</span></>}
-            <span className="font-bold text-neutral-900">{routeTitle}</span>
-          </p>
+          <p className="truncate text-[1.35rem] font-medium tracking-tight text-neutral-900">{routeTitle}</p>
         )}
       </div>
-      <span className="hidden lg:inline-flex items-center gap-1.5 h-9 px-3 rounded-xl bg-neutral-50 ring-1 ring-neutral-200 text-xs font-semibold text-neutral-600">
+      <span className="hidden lg:inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-white text-xs font-medium text-neutral-700">
         <CalendarDays className="w-3.5 h-3.5 text-neutral-400" /> {date}
       </span>
       <QuickMenu />
       {user && (
-        <Link to="/profile" className="rounded-full ring-2 ring-white shadow-sm hover:ring-brand-100" title={userName(user)}>
+        <Link to="/profile" className="rounded-full ring-2 ring-white shadow-sm" title={userName(user)}>
           <Avatar user={user} />
         </Link>
       )}
@@ -267,7 +247,7 @@ function TopBar({ leading, title, subtitle }) {
   );
 }
 
-export function AppHeader({ leading, title, subtitle, onSignOut, nav = false }) {
+export function AppHeader({ leading, title, subtitle, onSignOut, nav = false, topBar = true }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -302,7 +282,7 @@ export function AppHeader({ leading, title, subtitle, onSignOut, nav = false }) 
     );
   }
 
-  const sidebarBg = 'bg-[#0a0a0a] bg-[radial-gradient(28rem_20rem_at_0%_0%,rgba(0,0,0,0.22),transparent_70%),radial-gradient(20rem_16rem_at_100%_100%,rgba(0,0,0,0.08),transparent_70%)]';
+  const sidebarBg = 'bg-white/80 backdrop-blur-xl border-r border-white shadow-[1px_0_0_rgba(15,23,42,0.04)]';
 
   return (
     <>
@@ -310,15 +290,15 @@ export function AppHeader({ leading, title, subtitle, onSignOut, nav = false }) 
         <SideNav onSignOut={onSignOut} />
       </aside>
 
-      <header className="no-print md:hidden sticky top-0 z-30 bg-[#0a0a0a] text-white pt-[env(safe-area-inset-top)]">
+      <header className="no-print md:hidden sticky top-0 z-30 bg-white/90 backdrop-blur-xl text-neutral-900 border-b border-neutral-200/70 pt-[env(safe-area-inset-top)]">
         <div className="h-14 px-2 flex items-center gap-1.5">
-          <button type="button" onClick={() => setOpen(true)} className="h-10 w-10 grid place-items-center rounded-xl text-neutral-300 hover:bg-white/10" aria-label="Open menu">
+          <button type="button" onClick={() => setOpen(true)} className="h-10 w-10 grid place-items-center rounded-xl text-neutral-600 hover:bg-neutral-100" aria-label="Open menu">
             <Menu className="w-5 h-5" />
           </button>
           {leading}
-          {!title && <BrandMark size="sm" invert />}
+          {!title && <BrandMark size="sm" />}
           <p className="min-w-0 flex-1 truncate text-[15px] font-bold tracking-tight">{title || PAGE_TITLES[pathname]?.[0] || 'EduBuddy'}</p>
-          <Link to="/attendance" className="h-9 px-3 rounded-xl bg-white/10 text-xs font-semibold inline-flex items-center gap-1.5" aria-label="Mark attendance">
+          <Link to="/attendance" className="h-9 px-3 rounded-xl bg-neutral-100 text-xs font-semibold inline-flex items-center gap-1.5" aria-label="Mark attendance">
             <CalendarCheck className="w-4 h-4" /> Attendance
           </Link>
         </div>
@@ -328,7 +308,7 @@ export function AppHeader({ leading, title, subtitle, onSignOut, nav = false }) 
         <div className="md:hidden fixed inset-0 z-50">
           <button type="button" className="absolute inset-0 bg-neutral-900/50 backdrop-blur-[2px] animate-fade-up" aria-label="Close menu" onClick={() => setOpen(false)} />
           <aside className={`absolute inset-y-0 left-0 w-72 max-w-[85vw] shadow-2xl flex flex-col pt-[env(safe-area-inset-top)] ${sidebarBg}`}>
-            <button type="button" onClick={() => setOpen(false)} className="h-10 w-10 grid place-items-center rounded-xl text-neutral-400 hover:bg-white/10 absolute top-3 right-2" aria-label="Close menu">
+            <button type="button" onClick={() => setOpen(false)} className="h-10 w-10 grid place-items-center rounded-xl text-neutral-500 hover:bg-neutral-100 absolute top-3 right-2" aria-label="Close menu">
               <X className="w-5 h-5" />
             </button>
             <SideNav onSignOut={onSignOut} onNavigate={() => setOpen(false)} />
@@ -336,7 +316,7 @@ export function AppHeader({ leading, title, subtitle, onSignOut, nav = false }) 
         </div>
       )}
 
-      <TopBar leading={leading} title={title} subtitle={subtitle} />
+      {topBar && <TopBar leading={leading} title={title} subtitle={subtitle} />}
     </>
   );
 }

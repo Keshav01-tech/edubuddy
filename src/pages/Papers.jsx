@@ -75,7 +75,7 @@ export default function Papers() {
           </div>
           <Link
             to="/tests"
-            className="h-10 px-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold"
+            className="h-10 px-4 inline-flex items-center gap-1.5 rounded-lg bg-[#005a9c] hover:brightness-95 text-white text-sm font-semibold"
           >
             <Plus className="w-4 h-4" />
             New paper
@@ -107,7 +107,7 @@ export default function Papers() {
             <FileText className="w-8 h-8 mx-auto text-neutral-300" />
             <p className="mt-3 text-[15px] font-medium text-neutral-900">No tests yet</p>
             <p className="mt-1 text-sm text-neutral-500">Your first test will appear here.</p>
-            <Link to="/tests" className="mt-4 inline-flex h-10 px-4 items-center rounded-lg bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800">
+            <Link to="/tests" className="mt-4 inline-flex h-10 px-4 items-center rounded-lg bg-[#005a9c] text-white text-sm font-semibold hover:brightness-95">
               Make a test
             </Link>
           </div>

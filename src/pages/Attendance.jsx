@@ -148,7 +148,7 @@ export default function Attendance() {
     if (!studentsWithPhone.length) {
       setNotice({
         type: 'info',
-        message: 'No absent students have a valid phone number. Add phone numbers in the Students tab.',
+        message: 'No absent student has a phone number.',
       });
       return;
     }
@@ -181,7 +181,7 @@ export default function Attendance() {
       if (result.configured === false) {
         setNotice({
           type: 'info',
-          message: 'Direct WhatsApp links are ready below! (Twilio credentials not configured in server env).',
+          message: 'WhatsApp links are ready below.',
         });
         return;
       }
@@ -202,7 +202,7 @@ export default function Attendance() {
     } catch {
       setNotice({
         type: 'error',
-        message: 'Could not contact WhatsApp service. Please use individual WhatsApp links below.',
+        message: 'WhatsApp unavailable. Use the links below.',
       });
     } finally {
       setSendingWhatsApp(false);
@@ -240,11 +240,11 @@ export default function Attendance() {
           eyebrow="Institute"
           title={<span className="inline-flex items-center gap-2.5">Attendance{isToday && (
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-50 text-neutral-900 ring-1 ring-neutral-200 align-middle">
-              <span className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#005a9c] animate-pulse" />
               Today
             </span>
           )}</span>}
-          subtitle="Mark today's roll call in a few taps, check the weekly register, and see each student's history."
+          subtitle="Mark roll call and check the weekly register."
           actions={(
           <div className="flex items-center gap-2">
             <div className="inline-flex p-1 bg-white ring-1 ring-neutral-200 rounded-xl shadow-xs">
@@ -253,7 +253,7 @@ export default function Attendance() {
                 onClick={() => setViewMode('daily')}
                 className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-colors ${
                   viewMode === 'daily'
-                    ? 'bg-brand-600 text-white shadow-xs'
+                    ? 'bg-[#005a9c] text-white shadow-xs'
                     : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
@@ -265,7 +265,7 @@ export default function Attendance() {
                 onClick={() => setViewMode('register')}
                 className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-colors ${
                   viewMode === 'register'
-                    ? 'bg-brand-600 text-white shadow-xs'
+                    ? 'bg-[#005a9c] text-white shadow-xs'
                     : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
@@ -286,7 +286,7 @@ export default function Attendance() {
         />
 
         {/* Date Selector Banner */}
-        <section className="mb-6 bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
+        <section className="mb-6 bg-white rounded-3xl p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -371,7 +371,7 @@ export default function Attendance() {
                   >
                     <span className={`text-[10px] font-bold tabular-nums ${rate == null ? 'text-neutral-300' : rate < 75 ? 'text-neutral-900' : 'text-neutral-600'}`}>{rate == null ? '–' : `${rate}%`}</span>
                     <span
-                      className={`w-full max-w-8 rounded-md ${rate == null ? 'bg-neutral-100' : rate < 75 ? 'bg-neutral-400' : 'bg-neutral-900'} ${selected ? 'ring-2 ring-brand-500 ring-offset-1' : ''}`}
+                      className={`w-full max-w-8 rounded-md ${rate == null ? 'bg-neutral-100' : rate < 75 ? 'bg-[#005a9c]' : 'bg-[#005a9c]'} ${selected ? 'ring-2 ring-brand-500 ring-offset-1' : ''}`}
                       style={{ height: rate == null ? 6 : Math.max(6, rate * 0.7) }}
                     />
                     <span className={`text-[10px] font-medium ${selected ? 'text-brand-700' : 'text-neutral-400'}`}>{shortDay(d).split(' ')[0]}</span>
@@ -384,15 +384,15 @@ export default function Attendance() {
 
         {/* Empty State when no students exist */}
         {room.students.length === 0 ? (
-          <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-12 text-center shadow-card">
+          <div className="bg-white rounded-3xl p-12 text-center shadow-card">
             <Users className="w-12 h-12 mx-auto text-neutral-300" />
             <h2 className="mt-4 text-base font-semibold text-neutral-900">No students enrolled yet</h2>
             <p className="mt-1 text-sm text-neutral-500 max-w-sm mx-auto">
-              Please add your students first to take attendance, mark batches, and track presence.
+              Add students to take attendance.
             </p>
             <Link
               to="/students"
-              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 shadow-sm transition-colors"
+              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-[#005a9c] text-white text-sm font-semibold hover:bg-[#1b365d] shadow-sm transition-colors"
             >
               <Users className="w-4 h-4" /> Go to Students
             </Link>
@@ -402,7 +402,7 @@ export default function Attendance() {
             {/* KPI Cards & Progress Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               {/* Total Students Card */}
-              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card">
+              <div className="bg-white rounded-3xl p-4 shadow-card">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-medium text-neutral-500">Total Enrolled</span>
                   <div className="h-7 w-7 rounded-lg bg-neutral-100 text-neutral-600 grid place-items-center">
@@ -417,10 +417,10 @@ export default function Attendance() {
               <button
                 type="button"
                 onClick={() => setStatusFilter(statusFilter === 'P' ? 'all' : 'P')}
-                className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
+                className={`text-left rounded-3xl p-4 shadow-card transition-all ${
                   statusFilter === 'P'
-                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
-                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
+                    ? 'bg-neutral-50/90 shadow-md'
+                    : 'bg-white hover:'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -442,10 +442,10 @@ export default function Attendance() {
               <button
                 type="button"
                 onClick={() => setStatusFilter(statusFilter === 'A' ? 'all' : 'A')}
-                className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
+                className={`text-left rounded-3xl p-4 shadow-card transition-all ${
                   statusFilter === 'A'
-                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
-                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
+                    ? 'bg-neutral-50/90 shadow-md'
+                    : 'bg-white hover:'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -467,10 +467,10 @@ export default function Attendance() {
               <button
                 type="button"
                 onClick={() => setStatusFilter(statusFilter === 'unmarked' ? 'all' : 'unmarked')}
-                className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
+                className={`text-left rounded-3xl p-4 shadow-card transition-all ${
                   statusFilter === 'unmarked'
-                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
-                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
+                    ? 'bg-neutral-50/90 shadow-md'
+                    : 'bg-white hover:'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -487,7 +487,7 @@ export default function Attendance() {
             </div>
 
             {/* Attendance Percentage Progress Bar */}
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card">
+            <div className="bg-white rounded-3xl p-4 shadow-card">
               <div className="flex items-center justify-between text-xs mb-2">
                 <span className="font-semibold text-neutral-700 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-brand-500" />
@@ -504,7 +504,7 @@ export default function Attendance() {
                   title={`Present: ${presentCount}`}
                 />
                 <div
-                  className="bg-neutral-900 transition-all duration-300"
+                  className="bg-neutral-300 transition-all duration-300"
                   style={{ width: `${totalCount ? (absentCount / totalCount) * 100 : 0}%` }}
                   title={`Absent: ${absentCount}`}
                 />
@@ -515,7 +515,7 @@ export default function Attendance() {
                     <span className="w-2 h-2 rounded-full bg-neutral-900" /> {presentCount} Present
                   </span>
                   <span className="inline-flex items-center gap-1 text-neutral-600">
-                    <span className="w-2 h-2 rounded-full bg-neutral-900" /> {absentCount} Absent
+                    <span className="w-2 h-2 rounded-full bg-neutral-300 ring-1 ring-neutral-400" /> {absentCount} Absent
                   </span>
                   <span className="inline-flex items-center gap-1 text-neutral-600">
                     <span className="w-2 h-2 rounded-full bg-neutral-200" /> {unmarkedCount} Unmarked
@@ -557,7 +557,7 @@ export default function Attendance() {
             )}
 
             {/* Class / Batch Filters Bar */}
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card space-y-3">
+            <div className="bg-white rounded-3xl p-4 shadow-card space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                   Select Class / Batch
@@ -591,14 +591,14 @@ export default function Attendance() {
                       }}
                       className={`h-8 shrink-0 px-3.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
                         selectedGroup === item.id
-                          ? 'bg-neutral-900 text-white shadow-xs'
+                          ? 'bg-[#ededed] text-neutral-900 shadow-xs'
                           : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                       }`}
                     >
                       {item.label}
                       <span
                         className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                          selectedGroup === item.id ? 'bg-neutral-700 text-white' : 'bg-neutral-200 text-neutral-600'
+                          selectedGroup === item.id ? 'bg-white/70 text-neutral-900' : 'bg-neutral-200 text-neutral-600'
                         }`}
                       >
                         {count}
@@ -610,7 +610,7 @@ export default function Attendance() {
             </div>
 
             {/* Controls Bar: Bulk Actions & Search */}
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
+            <div className="bg-white rounded-3xl p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
               {/* Bulk Actions */}
               <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -619,7 +619,7 @@ export default function Attendance() {
                     room.markAll(date, inScopeStudents.map((s) => s.id), 'P');
                     setNotice({ type: 'success', message: `Marked all ${inScopeStudents.length} students Present.` });
                   }}
-                  className="h-9 px-3.5 rounded-xl bg-neutral-900 hover:bg-neutral-900 text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs transition-colors"
+                  className="h-9 px-3.5 rounded-xl bg-[#ededed] hover:bg-[#ededed] text-neutral-900 text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs transition-colors"
                 >
                   <Check className="w-3.5 h-3.5" />
                   Mark All Present
@@ -679,7 +679,7 @@ export default function Attendance() {
 
             {/* VIEW 1: DAILY ROLL CALL LIST / CARDS */}
             {viewMode === 'daily' && (
-              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card overflow-hidden">
+              <div className="bg-white rounded-3xl shadow-card overflow-hidden">
                 {/* Header row */}
                 <div className="px-4 py-3 bg-neutral-50/80 border-b border-neutral-200 flex items-center justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
                   <span>Student & History</span>
@@ -729,9 +729,9 @@ export default function Attendance() {
                             <span
                               className={`h-10 w-10 shrink-0 rounded-full font-bold grid place-items-center text-xs transition-colors ${
                                 status === 'P'
-                                  ? 'bg-neutral-900 text-white ring-2 ring-neutral-200'
+                                  ? 'bg-neutral-900 text-white ring-2 ring-white'
                                   : status === 'A'
-                                  ? 'bg-neutral-900 text-white ring-2 ring-neutral-200'
+                                  ? 'bg-white text-neutral-900 ring-2 ring-neutral-900'
                                   : 'bg-neutral-100 text-neutral-600 ring-1 ring-neutral-200'
                               }`}
                             >
@@ -800,7 +800,7 @@ export default function Attendance() {
                               onClick={() => room.markAttendance(date, student.id, 'P')}
                               className={`h-9 px-3.5 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                                 status === 'P'
-                                  ? 'bg-neutral-900 text-white shadow-xs'
+                                  ? 'bg-neutral-900 text-white'
                                   : 'bg-white text-neutral-600 ring-1 ring-neutral-200 hover:text-neutral-900 hover:ring-neutral-300'
                               }`}
                             >
@@ -814,7 +814,7 @@ export default function Attendance() {
                               onClick={() => room.markAttendance(date, student.id, 'A')}
                               className={`h-9 px-3.5 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                                 status === 'A'
-                                  ? 'bg-neutral-900 text-white shadow-xs'
+                                  ? 'bg-white text-neutral-900 ring-1 ring-neutral-400'
                                   : 'bg-white text-neutral-600 ring-1 ring-neutral-200 hover:text-neutral-900 hover:ring-neutral-300'
                               }`}
                             >
@@ -844,7 +844,7 @@ export default function Attendance() {
 
             {/* VIEW 2: WEEKLY REGISTER MATRIX (Haziri Register) */}
             {viewMode === 'register' && (
-              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card overflow-hidden">
+              <div className="bg-white rounded-3xl shadow-card overflow-hidden">
                 <div className="p-4 bg-neutral-50/80 border-b border-neutral-200 flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-semibold text-neutral-900">
@@ -860,7 +860,7 @@ export default function Attendance() {
                       Present
                     </span>
                     <span className="inline-flex items-center gap-1 ml-2">
-                      <span className="w-2.5 h-2.5 rounded bg-neutral-900 text-white text-[9px] font-bold grid place-items-center">A</span>
+                      <span className="w-2.5 h-2.5 rounded bg-white text-neutral-900 ring-1 ring-neutral-400 text-[9px] font-bold grid place-items-center">A</span>
                       Absent
                     </span>
                     <span className="inline-flex items-center gap-1 ml-2">

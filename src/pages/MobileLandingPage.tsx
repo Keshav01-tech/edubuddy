@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './MobileLandingPage.css';
 import { useAuth } from '../context/AuthContext';
 import PublicNavbar from '../components/PublicNavbar';
+import BrightFutureInvoice from '../components/BrightFutureInvoice';
+import BrightFutureExamPaper from '../components/BrightFutureExamPaper';
 
 export default function MobileLandingPage() {
   const { user, signIn } = useAuth();
@@ -11,6 +13,28 @@ export default function MobileLandingPage() {
   const [darkViewMode, setDarkViewMode] = useState<'edubuddy' | 'typical' | 'test' | 'fees'>('edubuddy');
   const [waNotice, setWaNotice] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  // Phone Mockup Active Tab & Interactive State (Fees, NCERT, Haziri)
+  const [phoneMode, setPhoneMode] = useState<'fees' | 'ncert' | 'haziri'>('fees');
+  const [feeReminderSent, setFeeReminderSent] = useState(false);
+  const [ncertPdfReady, setNcertPdfReady] = useState(false);
+  const [studentAbsent, setStudentAbsent] = useState(true);
+
+  const handleSendFeeReminder = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFeeReminderSent(true);
+    setTimeout(() => setFeeReminderSent(false), 3500);
+  };
+
+  const handleGeneratePdf = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setNcertPdfReady(true);
+    setTimeout(() => setNcertPdfReady(false), 3500);
+  };
+
+  const toggleStudentStatus = () => {
+    setStudentAbsent((prev) => !prev);
+  };
 
   const handleStartTrial = async () => {
     if (user) {
@@ -35,131 +59,102 @@ export default function MobileLandingPage() {
       {/* 1. COMMON PUBLIC NAVBAR */}
       <PublicNavbar />
 
-      {/* 2. HERO SECTION — EXACT PIXEL-PERFECT MATCH */}
-      <section className="ref-hero">
-        {/* Atmospheric horizon & clouds wash */}
-        <div className="ref-hero-cloud-left" />
-        <div className="ref-hero-cloud-right" />
+      {/* 2. HERO SECTION — CENTERED SAAS LAYOUT WITH AURA & CONCENTRIC ARCS */}
+      <section className="ref-hero ref-hero-centered">
+        {/* Soft Radial Ambient Glow & Concentric Orbital Arcs in EduBuddy Electric Blue */}
+        <div className="ref-hero-aura-wrap" aria-hidden="true">
+          <div className="ref-hero-radial-glow" />
+          <svg
+            className="ref-hero-concentric-rings"
+            viewBox="0 0 1440 760"
+            fill="none"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <circle cx="720" cy="700" r="300" stroke="rgba(0, 122, 255, 0.22)" strokeWidth="1.2" />
+            <circle cx="720" cy="700" r="500" stroke="rgba(0, 122, 255, 0.15)" strokeWidth="1.2" />
+            <circle cx="720" cy="700" r="700" stroke="rgba(0, 122, 255, 0.09)" strokeWidth="1.2" />
+            <circle cx="720" cy="700" r="900" stroke="rgba(0, 122, 255, 0.05)" strokeWidth="1.2" />
+            <circle cx="720" cy="700" r="1100" stroke="rgba(0, 122, 255, 0.03)" strokeWidth="1.2" />
+          </svg>
+        </div>
 
-        <div className="ref-hero-container">
-          <div className="ref-hero-grid">
-            {/* LEFT COLUMN */}
-            <div className="ref-hero-left">
-              {/* Rating pill badge: ★★★★★ Rated 4.9 out of 5 */}
-              <div className="ref-rating-pill">
-                <span className="ref-stars">★★★★★</span>
-                <span className="ref-rating-text">Rated 4.9 out of 5</span>
-              </div>
+        <div className="ref-hero-container ref-hero-centered-content">
+          {/* Main Centered Headline with Gradient Highlights (matching reference UX) */}
+          <h1 className="ref-hero-title-centered">
+            <span className="ref-hero-title-line">
+              Effortless Coaching <span className="ref-hero-highlight-word">Management</span>
+            </span>
+            <span className="ref-hero-title-line">
+              That Makes your Life <span className="ref-hero-highlight-word">Easier</span>
+            </span>
+          </h1>
 
-              {/* Exact Editorial Serif Headline (Two Lines with Period) */}
-              <h1 className="ref-hero-headline">
-                Fastest way to run your<br />
-                coaching institute.
-              </h1>
+          {/* Centered Subtitle */}
+          <p className="ref-hero-sub-centered">
+            Schedule daily haziri with a single tap, generate NCERT test papers in 30 seconds, and collect batch fees with automatic GST receipts dispatched straight to parents' WhatsApp.
+          </p>
 
-              {/* Step pills row with arrows: [ ⚡ Daily Haziri ] → [ 📄 NCERT Tests ] → [ 🧾 Auto Receipts ] */}
-              <div className="ref-steps-row">
-                <div className="ref-step-chip">
-                  <span className="ref-chip-icon chip-orange">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                  </span>
-                  <span>Daily Haziri</span>
-                </div>
-
-                <span className="ref-step-arrow">→</span>
-
-                <div className="ref-step-chip">
-                  <span className="ref-chip-icon chip-blue">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                      <line x1="16" y1="13" x2="8" y2="13" />
-                      <line x1="16" y1="17" x2="8" y2="17" />
-                    </svg>
-                  </span>
-                  <span>NCERT Tests</span>
-                </div>
-
-                <span className="ref-step-arrow">→</span>
-
-                <div className="ref-step-chip">
-                  <span className="ref-chip-icon chip-green">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <line x1="6" y1="8" x2="6" y2="8" />
-                      <line x1="10" y1="8" x2="18" y2="8" />
-                      <line x1="6" y1="12" x2="6" y2="12" />
-                      <line x1="10" y1="12" x2="18" y2="12" />
-                    </svg>
-                  </span>
-                  <span>Auto Receipts</span>
-                </div>
-              </div>
-
-              {/* CTA Button & Social Proof (SIDE-BY-SIDE EXACT ALIGNMENT) */}
-              <div className="ref-cta-proof-row">
-                {/* Left: Big Black Pill Button */}
-                <div className="ref-cta-col">
-                  <button
-                    type="button"
-                    className="ref-hero-btn"
-                    onClick={handleStartTrial}
-                  >
-                    <span className="ref-wa-squircle">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.115-.515-1.815-.75-2.985-2.597-3.076-2.717-.091-.121-.733-.974-.733-1.859 0-.885.464-1.32.63-1.498.165-.178.36-.223.479-.223.121 0 .241.002.348.007.112.005.263-.042.41.312.155.372.531 1.294.577 1.389.047.094.078.204.016.326-.062.122-.093.197-.186.305-.093.109-.196.244-.28.328-.093.093-.19.194-.082.38.109.185.483.797 1.036 1.29.712.634 1.312.83 1.499.923.186.094.296.079.406-.048.111-.126.475-.552.602-.741.127-.189.255-.158.428-.094.174.064 1.101.519 1.291.614.191.095.318.143.364.223.047.079.047.46-.097.865z" />
-                      </svg>
-                    </span>
-                    <span>Start 14-day free trial</span>
-                  </button>
-                  <a
-                    href="https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20a%20demo"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="ref-cta-sublink"
-                  >
-                    <span className="ref-sub-green-dot" />
-                    <span>or chat on WhatsApp</span>
-                  </a>
-                </div>
-
-                {/* Right: Overlapping Avatars + Institutes Proof */}
-                <div className="ref-social-proof">
-                  <div className="ref-avatar-stack">
-                    <img
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80"
-                      alt="Director"
-                      className="ref-avatar-img"
-                    />
-                    <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80"
-                      alt="Director"
-                      className="ref-avatar-img"
-                    />
-                    <img
-                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80"
-                      alt="Director"
-                      className="ref-avatar-img"
-                    />
-                    <img
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80"
-                      alt="Director"
-                      className="ref-avatar-img"
-                    />
-                  </div>
-                  <div className="ref-proof-copy">
-                    <strong>1,200+ coaching institutes</strong>
-                    <span>already running on EduBuddy</span>
-                  </div>
-                </div>
-              </div>
+          {/* Centered CTA Button & WhatsApp Demo */}
+          <div className="ref-hero-cta-wrap">
+            <button
+              type="button"
+              className="ref-hero-main-cta"
+              onClick={handleStartTrial}
+            >
+              <span>Get Started</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+            <div className="ref-hero-cta-subtext">
+              <span>No credit card required · Free 14-day trial</span>
+              <span className="ref-hero-sub-dot">•</span>
+              <a
+                href="https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20a%20demo"
+                target="_blank"
+                rel="noreferrer"
+                className="ref-hero-wa-chat"
+              >
+                <span className="ref-wa-live-dot" />
+                or chat on WhatsApp
+              </a>
             </div>
+          </div>
 
-            {/* RIGHT COLUMN: THE iPHONE MOCKUP (EXACT REFERENCE DESIGN) */}
-            <div className="ref-hero-right">
-              <div className="ref-iphone-frame">
+          {/* Social Proof Trust Stack */}
+          <div className="ref-hero-trust-badge">
+            <div className="ref-avatar-stack">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80"
+                alt="Director"
+                className="ref-avatar-img"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80"
+                alt="Director"
+                className="ref-avatar-img"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80"
+                alt="Director"
+                className="ref-avatar-img"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80"
+                alt="Director"
+                className="ref-avatar-img"
+              />
+            </div>
+            <div className="ref-trust-text">
+              <span className="ref-trust-stars">★★★★★</span>
+              <span>Trusted by <strong>1,200+ coaching institutes</strong> across India</span>
+            </div>
+          </div>
+
+          {/* Centered iPhone Mockup Emerging at Bottom of Hero */}
+          <div className="ref-hero-phone-centered-container">
+            <div className="ref-iphone-frame">
                 {/* Physical buttons on bezel */}
                 <div className="ref-btn-volume-up" />
                 <div className="ref-btn-volume-down" />
@@ -189,88 +184,193 @@ export default function MobileLandingPage() {
                     </div>
                   </div>
 
-                  {/* App Header (iMessage style) */}
-                  <div className="ref-chat-head">
-                    <div className="ref-chat-back">
-                      <span className="ref-chevron-left">‹</span>
-                      <span className="ref-back-badge">3</span>
-                    </div>
-
-                    <div className="ref-chat-title-group">
-                      <div className="ref-chat-avatar">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                        </svg>
-                      </div>
-                      <div className="ref-chat-name">
-                        EduBuddy <span>›</span>
+                  {/* App Header: Coaching Institute & Live Batch */}
+                  <div className="phone-app-header">
+                    <div className="phone-app-brand">
+                      <div className="phone-brand-avatar">🏫</div>
+                      <div>
+                        <div className="phone-brand-name">Sharma Science Academy</div>
+                        <div className="phone-brand-batch">Class 10 Foundation (Batch A)</div>
                       </div>
                     </div>
-
-                    <div className="ref-chat-action">
-                      <svg width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polygon points="23 7 16 12 23 17 23 7" />
-                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                      </svg>
+                    <div className="phone-live-indicator">
+                      <span className="phone-live-dot" />
+                      <span>Live OS</span>
                     </div>
                   </div>
 
-                  {/* Date Header */}
-                  <div className="ref-date-header">Today 8:30 AM</div>
-
-                  {/* Chat Messages Stream (Exact Reference Structure) */}
-                  <div className="ref-chat-body">
-                    {/* 1. Incoming: greeting */}
-                    <div className="ref-bubble bubble-grey">
-                      gm ☕ here are 3 batches needing attention today
-                    </div>
-
-                    {/* 2. Incoming: batch breakdown list */}
-                    <div className="ref-bubble bubble-grey">
-                      1. Class 10 Foundation: 42 present, 2 absent (WhatsApp sent)<br />
-                      2. NCERT Test: Science (Light) ready to print<br />
-                      3. Fee Pending: ₹1,200 from Kartik Verma
-                    </div>
-
-                    {/* 3. Outgoing: blue reply */}
-                    <div className="ref-bubble bubble-blue bubble-outgoing">
-                      send fee reminder on whatsapp to kartik's father
-                    </div>
-
-                    {/* 4. Incoming: say less */}
-                    <div className="ref-bubble bubble-grey">
-                      say less. here's what i'd send their parent:
-                    </div>
-
-                    {/* 5. Incoming: quote */}
-                    <div className="ref-bubble bubble-grey bubble-quote">
-                      "Namaste Mr. Verma, Kartik's fee of ₹1,200 for Class 10 Foundation is due today. Pay securely via UPI: edubuddy.me/pay/84"
-                    </div>
-
-                    {/* 6. Incoming: prompt */}
-                    <div className="ref-bubble bubble-grey">
-                      reply SEND and it goes out from your coaching number
-                    </div>
-
-                    {/* 7. Outgoing: SEND */}
-                    <div className="ref-bubble bubble-blue bubble-outgoing bubble-send">
-                      SEND 🚀
-                    </div>
-                    <div className="ref-delivered-tag">Delivered</div>
+                  {/* Feature Switcher Tabs inside Phone */}
+                  <div className="phone-tab-bar">
+                    <button
+                      type="button"
+                      className={`phone-tab-btn ${phoneMode === 'fees' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('fees')}
+                    >
+                      💳 Fees
+                    </button>
+                    <button
+                      type="button"
+                      className={`phone-tab-btn ${phoneMode === 'ncert' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('ncert')}
+                    >
+                      📑 NCERT Tests
+                    </button>
+                    <button
+                      type="button"
+                      className={`phone-tab-btn ${phoneMode === 'haziri' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('haziri')}
+                    >
+                      ⚡ Haziri
+                    </button>
                   </div>
 
-                  {/* iMessage Input Bar */}
-                  <div className="ref-imessage-bar">
-                    <button type="button" className="ref-btn-plus">+</button>
-                    <div className="ref-input-pill">
-                      <span>iMessage</span>
-                      <svg width="12" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                        <line x1="12" y1="19" x2="12" y2="23" />
-                        <line x1="8" y1="23" x2="16" y2="23" />
-                      </svg>
-                    </div>
+                  {/* Phone Screen Dynamic Content */}
+                  <div className="phone-screen-body">
+                    {/* 1. FEES MANAGEMENT VIEW (BRIGHT FUTURE OFFICIAL INVOICE / RECEIPT) */}
+                    {phoneMode === 'fees' && (
+                      <div className="phone-view-container">
+                        <div className="phone-doc-card">
+                          <BrightFutureInvoice compact={true} />
+                        </div>
+
+                        <div className="phone-item-action" style={{ marginTop: '2px' }}>
+                          {feeReminderSent ? (
+                            <div className="phone-success-toast">
+                              ✓ WhatsApp Fee Receipt with UPI QR Sent to Aditya Paswan!
+                            </div>
+                          ) : (
+                            <button
+                              type="button"
+                              className="phone-action-btn wa-btn"
+                              onClick={handleSendFeeReminder}
+                            >
+                              <span>💬</span> 1-Tap WhatsApp Receipt & UPI QR
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 2. NCERT QUESTION PAPER MAKER VIEW (BRIGHT FUTURE ANNUAL EXAM) */}
+                    {phoneMode === 'ncert' && (
+                      <div className="phone-view-container">
+                        <div className="phone-doc-card">
+                          <BrightFutureExamPaper compact={true} />
+                        </div>
+
+                        <div className="phone-paper-actions" style={{ marginTop: '2px' }}>
+                          {ncertPdfReady ? (
+                            <div className="phone-success-toast">
+                              ✓ Printable PDF with "Bright Future" Header & Set-A Ready!
+                            </div>
+                          ) : (
+                            <button
+                              type="button"
+                              className="phone-action-btn print-btn"
+                              onClick={handleGeneratePdf}
+                            >
+                              <span>🖨️</span> Print Set-A Paper with Header
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3. 1-TAP HAZIRI (ATTENDANCE) VIEW */}
+                    {phoneMode === 'haziri' && (
+                      <div className="phone-view-container">
+                        {/* Attendance Metric Card */}
+                        <div className="phone-hero-card green-accent">
+                          <div className="phone-card-eyebrow">
+                            <span>Today's Morning Haziri</span>
+                            <span className="phone-badge-green">Batch 10-A</span>
+                          </div>
+                          <div className="phone-haziri-stats">
+                            <div className="phone-h-stat">
+                              <span className="h-val text-green">{studentAbsent ? '46' : '47'}</span>
+                              <span className="h-lbl">Present</span>
+                            </div>
+                            <div className="phone-h-divider" />
+                            <div className="phone-h-stat">
+                              <span className="h-val text-red">{studentAbsent ? '2' : '1'}</span>
+                              <span className="h-lbl">Absent</span>
+                            </div>
+                            <div className="phone-h-divider" />
+                            <div className="phone-h-stat">
+                              <span className="h-val">18s</span>
+                              <span className="h-lbl">Roll Call Time</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Student Roll Call Interactive List */}
+                        <div className="phone-haziri-list">
+                          <div className="phone-hz-row">
+                            <div className="hz-avatar">KP</div>
+                            <div className="hz-info">
+                              <span className="hz-name">Kartik Pandey (Roll #01)</span>
+                              <span className="hz-sub">100% Monthly Haziri</span>
+                            </div>
+                            <span className="hz-badge present">PRESENT ✓</span>
+                          </div>
+
+                          <div className="phone-hz-row" onClick={toggleStudentStatus} style={{ cursor: 'pointer' }}>
+                            <div className="hz-avatar red">AV</div>
+                            <div className="hz-info">
+                              <span className="hz-name">Aman Verma (Roll #03)</span>
+                              <span className="hz-sub text-red">
+                                {studentAbsent ? 'Parent WhatsApp Alert Sent 09:02' : 'Marked Present ✓'}
+                              </span>
+                            </div>
+                            <span className={`hz-badge ${studentAbsent ? 'absent' : 'present'}`}>
+                              {studentAbsent ? 'ABSENT ❌' : 'PRESENT ✓'}
+                            </span>
+                          </div>
+
+                          <div className="phone-hz-row">
+                            <div className="hz-avatar">RM</div>
+                            <div className="hz-info">
+                              <span className="hz-name">Rohan Mehra (Roll #04)</span>
+                              <span className="hz-sub">In-Class · Physics Batch</span>
+                            </div>
+                            <span className="hz-badge present">PRESENT ✓</span>
+                          </div>
+                        </div>
+
+                        {/* WhatsApp Delivery Note */}
+                        <div className="phone-wa-status-box">
+                          <span>📱 2 Parent Absentees alerted on WhatsApp with zero typing</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* App Bottom Navigation Strip */}
+                  <div className="phone-app-bottom">
+                    <button
+                      type="button"
+                      className={`phone-bottom-tab ${phoneMode === 'fees' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('fees')}
+                    >
+                      <span className="tab-icon">💳</span>
+                      <span>Fees</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`phone-bottom-tab ${phoneMode === 'ncert' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('ncert')}
+                    >
+                      <span className="tab-icon">📑</span>
+                      <span>NCERT</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`phone-bottom-tab ${phoneMode === 'haziri' ? 'active' : ''}`}
+                      onClick={() => setPhoneMode('haziri')}
+                    >
+                      <span className="tab-icon">⚡</span>
+                      <span>Haziri</span>
+                    </button>
                   </div>
 
                   {/* iOS Home Indicator Bar */}
@@ -279,7 +379,6 @@ export default function MobileLandingPage() {
               </div>
             </div>
           </div>
-        </div>
       </section>
 
       {/* 3. HIGHLIGHT EMOJIS & FEATURES ROW */}
@@ -302,61 +401,82 @@ export default function MobileLandingPage() {
         </div>
 
         <div className="ref-pastel-grid">
-          {/* Card 1: Peach (#fbe6d5) */}
+          {/* Card 1: Warm Peach — Daily Haziri */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-peach">
               <div className="ref-card-screen">
-                {/* Screen Header with Floating EduBuddy Pill */}
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-peach">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <polyline points="16 11 18 13 22 9" />
                     </svg>
-                  </div>
+                    <span>Daily Haziri</span>
+                  </span>
+                  <span className="card-mock-status green">
+                    <span className="status-dot green" />
+                    46 / 48 Present
+                  </span>
                 </div>
 
-                {/* Screen Chat */}
-                <div className="ref-screen-chat">
-                  {/* Audio voice note with red heart reaction */}
-                  <div className="ref-reaction-wrap">
-                    <div className="ref-reaction-badge top-left">❤️</div>
-                    <div className="ref-mini-bubble mini-blue mini-audio">
-                      <span className="ref-audio-play">▶</span>
-                      <span className="ref-audio-bars">|||l||l|||l||l|||l||</span>
-                      <span className="ref-audio-time">0:14</span>
+                <div className="card-mock-content">
+                  <div className="card-batch-row">
+                    <span className="batch-name">Class 10 Foundation (Batch A)</span>
+                    <span className="batch-time">Today · 09:00 AM</span>
+                  </div>
+
+                  <div className="clean-roster-list">
+                    <div className="clean-roster-item">
+                      <div className="roster-avatar">KP</div>
+                      <div className="roster-info">
+                        <span className="roster-name">Kartik Pandey</span>
+                        <span className="roster-sub">Roll #01 · 100% Monthly</span>
+                      </div>
+                      <span className="roster-pill present">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Present
+                      </span>
+                    </div>
+
+                    <div className="clean-roster-item absent-item">
+                      <div className="roster-avatar red">AV</div>
+                      <div className="roster-info">
+                        <span className="roster-name">Aman Verma</span>
+                        <span className="roster-sub text-red">Roll #03 · WA alert sent</span>
+                      </div>
+                      <span className="roster-pill absent">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Absent
+                      </span>
+                    </div>
+
+                    <div className="clean-roster-item">
+                      <div className="roster-avatar">RM</div>
+                      <div className="roster-info">
+                        <span className="roster-name">Rohan Mehra</span>
+                        <span className="roster-sub">Roll #04 · In-Class</span>
+                      </div>
+                      <span className="roster-pill present">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Present
+                      </span>
                     </div>
                   </div>
 
-                  <div className="ref-mini-bubble mini-blue">
-                    yo so mark Class 10 Foundation batch haziri, 2 absent today
-                  </div>
-                  <div className="ref-mini-status">Delivered</div>
-
-                  <div className="ref-mini-bubble mini-grey">
-                    38 present in Class 10. Aman & Rohit absent. Bet, automatic WhatsApp alerts sent to their parents 🙌
+                  <div className="clean-alert-bar">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span>Absentee alerts dispatched to parents via WhatsApp</span>
                   </div>
                 </div>
 
-                {/* Screen Input Bar */}
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span>1-Tap Attendance Broadcast</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -364,61 +484,93 @@ export default function MobileLandingPage() {
             <div className="ref-card-caption">
               <h3 className="ref-card-heading">
                 <span className="ref-card-num">1</span>
-                Tell it about your coaching
+                Tell it about your coaching & take 1-tap haziri
               </h3>
               <p className="ref-card-desc">
-                Send your student list, timetable, or a quick voice note. EduBuddy registers batches, tracks absent students, and sends instant parent alerts.
+                Mark 50 students in under 15 seconds. Instant WhatsApp notifications are automatically dispatched to absent students' parents with zero manual typing.
               </p>
             </div>
           </div>
 
-          {/* Card 2: Mint Green (#e1f3e8) */}
+          {/* Card 2: Fresh Mint — NCERT Test Paper */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-mint">
               <div className="ref-card-screen">
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-mint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
-                  </div>
+                    <span>NCERT Test Maker</span>
+                  </span>
+                  <span className="card-mock-status blue">
+                    Class 11 Maths · Set A
+                  </span>
                 </div>
 
-                <div className="ref-screen-chat">
-                  <div className="ref-mini-bubble mini-faint">
-                    noted 📌 NCERT test blueprints drop every morning
-                  </div>
-                  <div className="ref-mini-date">Today 8:30 AM</div>
-                  <div className="ref-mini-bubble mini-grey">
-                    gm 🌟 6 new NCERT test papers fit your syllabus today
-                  </div>
-                  <div className="ref-reaction-wrap">
-                    <div className="ref-reaction-badge top-right">‼️</div>
-                    <div className="ref-mini-bubble mini-grey">
-                      top pick: Class 10 Science (Light). 5 MCQs, 4 Short Qs, 2 Long Qs + Step-by-Step Marking Scheme.
+                <div className="card-mock-content">
+                  <div className="clean-paper-sheet">
+                    <div className="paper-head-row">
+                      <div className="paper-title-col">
+                        <span className="paper-inst-name">BRIGHT FUTURE INSTITUTE</span>
+                        <span className="paper-exam-name">Annual Examination 2026–27 · Mathematics</span>
+                      </div>
+                      <span className="paper-set-pill">SET - A</span>
+                    </div>
+
+                    <div className="paper-meta-row">
+                      <span>Time: <strong>3 Hours</strong></span>
+                      <span>Max Marks: <strong>100</strong></span>
+                      <span className="paper-blueprint-tag">CBSE Blueprint</span>
+                    </div>
+
+                    <div className="paper-questions-list">
+                      <div className="paper-q-item">
+                        <span className="paper-q-num">Q1</span>
+                        <div className="paper-q-text">
+                          If A = &#123;1, 2, 3&#125;, number of subsets of A is:
+                          <span className="paper-q-answer">
+                            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            (c) 8 subsets
+                          </span>
+                        </div>
+                      </div>
+                      <div className="paper-q-item">
+                        <span className="paper-q-num">Q2</span>
+                        <div className="paper-q-text">
+                          The value of sin 60°:
+                          <span className="paper-q-answer">
+                            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            √3 / 2
+                          </span>
+                        </div>
+                      </div>
+                      <div className="paper-q-item">
+                        <span className="paper-q-num">Q6</span>
+                        <div className="paper-q-text">
+                          Solve log₂ 8:
+                          <span className="paper-q-answer">
+                            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            3 (Teacher key included)
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Download Print-Ready PDF</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -426,7 +578,7 @@ export default function MobileLandingPage() {
             <div className="ref-card-caption">
               <h3 className="ref-card-heading">
                 <span className="ref-card-num">2</span>
-                It drafts NCERT tests every morning
+                It drafts NCERT tests & printable PDFs
               </h3>
               <p className="ref-card-desc">
                 Every morning it picks chapters from Class 6-12 Maths & Science. Generates printable PDFs with your institute logo, blueprint marks, and complete answer keys.
@@ -434,52 +586,81 @@ export default function MobileLandingPage() {
             </div>
           </div>
 
-          {/* Card 3: Sky Blue (#e2edfc) */}
+          {/* Card 3: Sky Blue — Branded Fee Receipt */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-sky">
               <div className="ref-card-screen">
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-sky">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
                     </svg>
+                    <span>Official Fee Receipt</span>
+                  </span>
+                  <span className="card-mock-status green">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Paid · ₹42,000
+                  </span>
+                </div>
+
+                <div className="card-mock-content">
+                  <div className="clean-receipt-sheet">
+                    <div className="receipt-brand-row">
+                      <div className="receipt-brand-meta">
+                        <span className="receipt-inst-name">BRIGHT FUTURE INSTITUTE</span>
+                        <span className="receipt-num-text">Invoice #BFIT/2026/1048 · 25 Oct 2026</span>
+                      </div>
+                      <span className="receipt-tax-pill">GST Tax Invoice</span>
+                    </div>
+
+                    <div className="receipt-student-bar">
+                      <div className="receipt-student-info">
+                        <strong>Aditya Paswan</strong>
+                        <span>BCA 1st Year (BFIT20260124)</span>
+                      </div>
+                      <span className="receipt-upi-pill">UPI Verified</span>
+                    </div>
+
+                    <div className="receipt-breakdown">
+                      <div className="receipt-line">
+                        <span>Tuition Fee (Semester 1)</span>
+                        <strong>₹35,000.00</strong>
+                      </div>
+                      <div className="receipt-line">
+                        <span>Registration & Exam Fee</span>
+                        <strong>₹7,000.00</strong>
+                      </div>
+                      <div className="receipt-line total-line">
+                        <span>Total Amount Paid</span>
+                        <span className="receipt-total-val">₹42,000.00</span>
+                      </div>
+                    </div>
+
+                    <div className="receipt-audit-bar">
+                      <span className="audit-ref">HDFC A/C: 50201234567890</span>
+                      <span className="audit-status">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                          <polyline points="20 11 13 18 10 15" />
+                        </svg>
+                        Delivered on WhatsApp
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="ref-screen-chat">
-                  <div className="ref-mini-bubble mini-faint">
-                    drafted fee receipt & UPI link for Kartik's father:
-                  </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    "Namaste Mr. Verma, Kartik's fee of ₹1,200 for Class 10 is due. Pay in 1-tap via UPI QR: edubuddy.me/pay/84"
-                  </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    reply SEND, EDIT or SKIP
-                  </div>
-                  <div className="ref-mini-bubble mini-blue">
-                    make it a lil shorter
-                  </div>
-                </div>
-
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="18" cy="5" r="3"/>
+                      <circle cx="6" cy="12" r="3"/>
+                      <circle cx="18" cy="19" r="3"/>
+                      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    <span>Share Branded PDF on WhatsApp</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -495,53 +676,74 @@ export default function MobileLandingPage() {
             </div>
           </div>
 
-          {/* Card 4: Lavender (#ece6fa) */}
+          {/* Card 4: Lavender — WhatsApp Automation */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-lavender">
               <div className="ref-card-screen">
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-lavender">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                     </svg>
+                    <span>WhatsApp Automation</span>
+                  </span>
+                  <span className="card-mock-status blue">
+                    Delivered 10:14 AM
+                  </span>
+                </div>
+
+                <div className="card-mock-content">
+                  <div className="clean-wa-chat">
+                    <div className="wa-recipient-strip">
+                      <div className="wa-user-avatar">RV</div>
+                      <div className="wa-user-meta">
+                        <span className="wa-user-name">Mr. Rajesh Verma</span>
+                        <span className="wa-user-sub">Kartik's Father · Class 10</span>
+                      </div>
+                    </div>
+
+                    <div className="wa-speech-bubble">
+                      <p className="wa-bubble-text">
+                        Namaste Mr. Verma, Kartik scored <strong>24/25</strong> in today's Class 10 NCERT Science Test (Rank #2 in batch). Progress report and fee receipt are attached.
+                      </p>
+                      <div className="wa-pdf-attachment">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                          <line x1="16" y1="13" x2="8" y2="13"/>
+                          <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                        <div className="wa-file-meta">
+                          <span className="wa-file-name">Kartik_Class10_Report.pdf</span>
+                          <span className="wa-file-size">148 KB · Signed by Director</span>
+                        </div>
+                      </div>
+                      <div className="wa-time-row">
+                        <span>10:14 AM</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                          <polyline points="20 11 13 18 10 15" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <div className="wa-metric-note">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                      </svg>
+                      <span>142 parent updates dispatched in 4 seconds</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="ref-screen-chat">
-                  <div className="ref-mini-bubble mini-grey">
-                    shorter ✂️ "Hi, Kartik's fee of ₹1,200 is due. Pay securely: edubuddy.me/pay/84"
-                  </div>
-                  <div className="ref-mini-bubble mini-blue mini-send">
-                    send
-                  </div>
-                  <div className="ref-mini-status">Delivered</div>
-                  <div className="ref-mini-bubble mini-faint">
-                    sent via official WhatsApp ✉️
-                  </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    if they don't pay by Sunday, I'll send an automated follow-up
-                  </div>
-                </div>
-
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                    <span>Send Batch Broadcast</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -557,56 +759,73 @@ export default function MobileLandingPage() {
             </div>
           </div>
 
-          {/* Card 5: Honey Yellow (#faeed9) */}
+          {/* Card 5: Honey Yellow — Admission Leads CRM */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-honey">
               <div className="ref-card-screen">
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-honey">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                     </svg>
-                  </div>
+                    <span>Admission Leads CRM</span>
+                  </span>
+                  <span className="card-mock-status orange">
+                    3 Inquiries Today
+                  </span>
                 </div>
 
-                <div className="ref-screen-chat">
-                  <div className="ref-reaction-wrap">
-                    <div className="ref-reaction-badge top-right">🎉</div>
-                    <div className="ref-mini-bubble mini-grey">
-                      🎯 New inquiry: Rohan Gupta for Class 11 Science. Wants a demo!
+                <div className="card-mock-content">
+                  <div className="clean-crm-leads">
+                    <div className="clean-lead-card">
+                      <div className="lead-top-row">
+                        <div className="lead-info">
+                          <span className="lead-name">Rohan Gupta</span>
+                          <span className="lead-class">Class 11 Science · Tonk Road</span>
+                        </div>
+                        <span className="lead-status-pill booked">Demo Booked</span>
+                      </div>
+                      <div className="lead-time-line">Trial: Tuesday 4:30 PM (Physics & Maths)</div>
+                      <div className="lead-actions-row">
+                        <button type="button" className="lead-quick-btn">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                          </svg>
+                          Call Parent
+                        </button>
+                        <button type="button" className="lead-quick-btn wa">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                          </svg>
+                          Send Demo Link
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="clean-lead-card secondary">
+                      <div className="lead-top-row">
+                        <div className="lead-info">
+                          <span className="lead-name">Ananya Sen</span>
+                          <span className="lead-class">Class 10 Foundation · NEET Target</span>
+                        </div>
+                        <span className="lead-status-pill intent">High Intent</span>
+                      </div>
+                      <div className="lead-time-line">Walk-in inquiry · Fee discussion scheduled tomorrow</div>
                     </div>
                   </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    they wanna attend Tuesday 4:30 PM. full details logged in CRM
-                  </div>
-                  <div className="ref-mini-bubble mini-blue">
-                    LET'S GOOO
-                  </div>
-                  <div className="ref-mini-status">Read 10:43 AM</div>
-                  <div className="ref-mini-bubble mini-grey">
-                    go get em 🌟 want a quick demo attendance sheet before class?
-                  </div>
                 </div>
 
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>Add Walk-In Admission</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -622,56 +841,64 @@ export default function MobileLandingPage() {
             </div>
           </div>
 
-          {/* Card 6: Blush Pink (#fbe4e8) */}
+          {/* Card 6: Blush Pink — Director Intelligence */}
           <div className="ref-card-item">
             <div className="ref-card-box ref-box-rose">
               <div className="ref-card-screen">
                 <div className="ref-screen-head">
-                  <div className="ref-screen-back">
-                    <span>‹</span>
-                    <span className="ref-screen-badge">3</span>
-                  </div>
-                  <div className="ref-screen-pill-title">
-                    <span className="ref-screen-avatar">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </span>
-                    <span>EduBuddy ›</span>
-                  </div>
-                  <div className="ref-screen-video">
-                    <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2">
-                      <polygon points="23 7 16 12 23 17 23 7" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  <span className="card-mock-tag tag-rose">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"/>
+                      <line x1="12" y1="20" x2="12" y2="4"/>
+                      <line x1="6" y1="20" x2="6" y2="14"/>
                     </svg>
-                  </div>
+                    <span>Director Intelligence</span>
+                  </span>
+                  <span className="card-mock-status live">
+                    <span className="status-dot green" />
+                    Institute on Track
+                  </span>
                 </div>
 
-                <div className="ref-screen-chat">
-                  <div className="ref-mini-status">Read 6:12 PM</div>
-                  <div className="ref-mini-bubble mini-grey">
-                    this week: 142 students, 98.4% attendance, ₹2,48,500 fees collected 🎉
-                  </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    Class 10 NCERT test average: 22.4/25 (+14% improvement)
-                  </div>
-                  <div className="ref-mini-bubble mini-grey">
-                    everything's here: <span style={{ color: '#007aff', textDecoration: 'underline' }}>edubuddy.ai/dashboard</span>
-                  </div>
-                  <div className="ref-reaction-wrap">
-                    <div className="ref-reaction-badge top-left">❤️</div>
-                    <div className="ref-mini-bubble mini-blue">
-                      ur the goat
+                <div className="card-mock-content">
+                  <div className="clean-director-dashboard">
+                    <div className="clean-kpi-row">
+                      <div className="clean-kpi-card">
+                        <span className="kpi-label">Fees Collected</span>
+                        <span className="kpi-value text-green">₹2,48,500</span>
+                        <span className="kpi-target">94% of monthly goal</span>
+                      </div>
+                      <div className="clean-kpi-card">
+                        <span className="kpi-label">Weekly Haziri</span>
+                        <span className="kpi-value text-blue">98.4%</span>
+                        <span className="kpi-target">142 active students</span>
+                      </div>
+                    </div>
+
+                    <div className="clean-ai-insight">
+                      <div className="insight-top">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                          <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                        <strong>Institute Recommendation</strong>
+                      </div>
+                      <p className="insight-para">
+                        Class 10-A Maths average improved by <strong>+14%</strong> after formula revision. Batch 12-B has 2 pending fee payments.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="ref-screen-input">
-                  <span className="ref-screen-plus">+</span>
-                  <div className="ref-screen-field">
-                    <span>iMessage</span>
-                    <span className="ref-screen-mic">🎤</span>
-                  </div>
+                <div className="card-mock-footer">
+                  <button type="button" className="card-btn-action dark">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"/>
+                      <line x1="12" y1="20" x2="12" y2="4"/>
+                      <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <span>Open Director Dashboard</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -943,83 +1170,17 @@ export default function MobileLandingPage() {
                 </div>
               )}
 
-              {/* VIEW 3: NCERT TEST MAKER */}
+              {/* VIEW 3: NCERT TEST MAKER (BRIGHT FUTURE OFFICIAL ANNUAL EXAM PAPER) */}
               {darkViewMode === 'test' && (
-                <div className="ref-mode-content">
-                  <div className="ref-test-preview-box">
-                    <div className="ref-test-header-preview">
-                      <div>
-                        <strong style={{ fontSize: '13.5px', color: '#0f172a' }}>SHARMA CLASSES · WEEKLY UNIT ASSESSMENT</strong>
-                        <div style={{ fontSize: '11px', color: '#64748b' }}>Class 10 Science · Chapter 10: Light (Reflection & Refraction)</div>
-                      </div>
-                      <div className="ref-test-marks-badge">
-                        <span>Max Marks: <strong>25</strong></span>
-                        <span>Time: <strong>60 Mins</strong></span>
-                      </div>
-                    </div>
-
-                    <div className="ref-test-questions-list">
-                      <div className="ref-test-q">
-                        <strong>Q1 (MCQ · 1 Mark):</strong> An object is placed at 15 cm in front of a concave mirror of focal length 10 cm. The image formed is:
-                        <div className="ref-mcq-options">
-                          <span>(a) Virtual & Erect</span>
-                          <span style={{ color: '#16a34a', fontWeight: 700 }}>(b) Real & Inverted ✓</span>
-                          <span>(c) Highly Magnified</span>
-                          <span>(d) At Focus</span>
-                        </div>
-                      </div>
-                      <div className="ref-test-q">
-                        <strong>Q2 (Short · 3 Marks):</strong> State Snell's law. A ray travels from water (n=1.33) into crown glass (n=1.52). Find angle of refraction when incidence is 30°.
-                      </div>
-                      <div className="ref-test-q">
-                        <strong>Q3 (Long · 5 Marks):</strong> Draw ray diagrams for image formed by convex lens when object is between F and 2F. Derive lens formula.
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' }}>
-                      <span className="ref-var-pill var-green">Branded PDF Ready with Watermark</span>
-                      <span className="ref-var-pill var-blue">Step-by-Step Teacher Answer Key Included</span>
-                      <span className="ref-var-pill var-purple">NCERT / CBSE Blueprint Verified</span>
-                    </div>
-                  </div>
+                <div className="ref-mode-content" style={{ padding: '0' }}>
+                  <BrightFutureExamPaper compact={false} />
                 </div>
               )}
 
-              {/* VIEW 4: GST FEE RECEIPT */}
+              {/* VIEW 4: GST FEE RECEIPT (BRIGHT FUTURE OFFICIAL FEE INVOICE) */}
               {darkViewMode === 'fees' && (
-                <div className="ref-mode-content">
-                  <div className="ref-invoice-preview-box">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px', marginBottom: '8px' }}>
-                      <div>
-                        <strong style={{ fontSize: '13px' }}>GST Tax Invoice #EDU-2026-084</strong>
-                        <div style={{ fontSize: '10px', color: '#64748b' }}>Issued by: Sharma Classes · GSTIN: 08AAAAA0000A1Z5</div>
-                      </div>
-                      <span className="ref-status-badge badge-present">PAID VIA UPI ✓</span>
-                    </div>
-
-                    <p className="ref-editor-p">
-                      Received with thanks from <span className="ref-var-pill var-blue">Kartik Verma</span> (Parent: Mrs. Anita Verma) tuition fee for <span className="ref-var-pill var-purple">October 2026</span> for batch <span className="ref-var-pill var-blue">Class 10 Foundation</span>.
-                    </p>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', background: '#f8fafc', padding: '10px', borderRadius: '8px', margin: '10px 0', border: '1px solid #e2e8f0', fontSize: '11px' }}>
-                      <div>
-                        <span style={{ color: '#64748b', display: 'block' }}>Base Tuition:</span>
-                        <strong>₹1,016.95</strong>
-                      </div>
-                      <div>
-                        <span style={{ color: '#64748b', display: 'block' }}>CGST + SGST (18%):</span>
-                        <strong>₹183.05</strong>
-                      </div>
-                      <div>
-                        <span style={{ color: '#64748b', display: 'block' }}>Total Amount:</span>
-                        <strong style={{ color: '#16a34a', fontSize: '13px' }}>₹1,200.00</strong>
-                      </div>
-                    </div>
-
-                    <p className="ref-editor-p">
-                      WhatsApp Delivery Status: <span className="ref-var-pill var-green">Instant PDF Dispatched to +91 98765 43210 ✓✓</span>
-                    </p>
-                  </div>
+                <div className="ref-mode-content" style={{ padding: '0' }}>
+                  <BrightFutureInvoice compact={false} />
                 </div>
               )}
             </div>

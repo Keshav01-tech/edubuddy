@@ -39,7 +39,7 @@
   background: #ffffff;
   color: var(--ref-ink);
   font-family: var(--ref-font-sans);
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -157,87 +157,311 @@
 }
 
 /* ========================================================
-   2. HERO SECTION (ATMOSPHERIC SKY & HORIZON EFFECT)
+   2. HERO SECTION — CENTERED SAAS LAYOUT WITH AURA & CONCENTRIC ARCS
+   Matching shape.ai UI/UX in EduBuddy Electric Blue Brand Theme
    ======================================================== */
-.ref-hero {
+.ref-hero.ref-hero-centered {
   position: relative;
   width: 100%;
+  max-width: 100%;
   background:
-    radial-gradient(ellipse 70% 50% at 95% 90%, rgba(254, 243, 199, 0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 45% at 5% 85%, rgba(254, 240, 138, 0.35) 0%, transparent 60%),
-    radial-gradient(ellipse 130% 70% at 50% 0%, #bce2f6 0%, #d4eefb 25%, #e9f5fd 50%, #f6fbfe 75%, #ffffff 100%);
-  padding: 36px 20px 72px;
+    radial-gradient(ellipse 90% 65% at 50% 100%, #dbeafe 0%, #e0f2fe 32%, #f0f9ff 68%, #ffffff 100%);
+  padding: 84px 20px 0;
   overflow: hidden;
-}
-
-@media (min-width: 1024px) {
-  .ref-hero {
-    padding: 56px 32px 90px;
-  }
-}
-
-.ref-hero-cloud-left {
-  position: absolute;
-  bottom: 0;
-  left: -100px;
-  width: 500px;
-  height: 250px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.85) 0%, transparent 70%);
-  pointer-events: none;
-  filter: blur(40px);
-}
-
-.ref-hero-cloud-right {
-  position: absolute;
-  bottom: -40px;
-  right: -80px;
-  width: 550px;
-  height: 300px;
-  background: radial-gradient(ellipse at center, rgba(255, 250, 235, 0.9) 0%, transparent 70%);
-  pointer-events: none;
-  filter: blur(45px);
-}
-
-.ref-hero-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 10;
-}
-
-.ref-hero-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
 }
 
 @media (min-width: 1024px) {
-  .ref-hero-grid {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    align-items: center;
-    gap: 48px;
+  .ref-hero.ref-hero-centered {
+    padding: 104px 32px 0;
   }
 }
 
-/* Left Column */
-.ref-hero-left {
+/* Background Soft Glow Aura & Concentric Arcs */
+.ref-hero-aura-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1440px;
+  height: 760px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ref-hero-radial-glow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 960px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 122, 255, 0.24) 0%, rgba(56, 189, 248, 0.12) 45%, transparent 70%);
+  filter: blur(50px);
+}
+
+.ref-hero-concentric-rings {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1440px;
+  height: 760px;
+  pointer-events: none;
+}
+
+/* Centered Content Container */
+.ref-hero-container.ref-hero-centered-content {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;
 }
 
-@media (min-width: 1024px) {
-  .ref-hero-left {
-    align-items: flex-start;
-    text-align: left;
+/* Centered Main Headline — Exact font details: Inter, 72px, 600, 72px line-height */
+.ref-hero-title-centered {
+  font-family: Inter, "Inter Fallback", sans-serif;
+  font-size: clamp(42px, 5.15vw, 72px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -2px;
+  color: #0b0f19;
+  text-align: center;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ref-hero-title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.ref-hero-highlight-word {
+  background: linear-gradient(135deg, #007aff 0%, #2563eb 50%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .ref-hero-aura-wrap {
+    width: 100%;
+    max-width: 100vw;
+    height: 520px;
+  }
+
+  .ref-hero-radial-glow {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .ref-hero-concentric-rings {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .ref-footer-ambient-glow {
+    max-width: 100vw;
+  }
+
+  .ref-hero-title-centered {
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -0.8px;
+    padding: 0 12px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .ref-hero-title-line {
+    display: block;
+    white-space: normal;
+  }
+
+  .ref-hero.ref-hero-centered {
+    padding: 92px 14px 0;
+  }
+
+  .ref-hero-sub-centered {
+    font-size: 14px;
+    margin-top: 14px;
+    padding: 0 8px;
+  }
+
+  .ref-hero-trust-badge {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+  }
+
+  .ref-trust-text {
+    font-size: 11px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
   }
 }
 
-/* Rating Pill Badge */
+@media (max-width: 480px) {
+  .ref-hero-title-centered {
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    padding: 0 6px;
+  }
+
+  .ref-hero.ref-hero-centered {
+    padding: 88px 12px 0;
+  }
+}
+
+.ref-hero-highlight-word {
+  background: linear-gradient(135deg, #007aff 0%, #2563eb 50%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Centered Subtitle */
+.ref-hero-sub-centered {
+  font-family: var(--ref-font-sans);
+  font-size: clamp(15px, 1.25vw, 17px);
+  line-height: 1.6;
+  color: #475569;
+  max-width: 680px;
+  margin: 22px auto 0;
+  font-weight: 400;
+}
+
+/* CTA Wrap */
+.ref-hero-cta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 28px auto 0;
+  gap: 12px;
+}
+
+.ref-hero-main-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: #0f172a;
+  color: #ffffff;
+  font-family: var(--ref-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  box-shadow:
+    0 20px 35px -8px rgba(15, 23, 42, 0.35),
+    0 6px 14px -3px rgba(15, 23, 42, 0.2);
+  transition: all 0.18s ease;
+}
+
+.ref-hero-main-cta:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow:
+    0 24px 42px -8px rgba(15, 23, 42, 0.42),
+    0 8px 18px -3px rgba(15, 23, 42, 0.25);
+}
+
+.ref-hero-cta-subtext {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #64748b;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ref-hero-sub-dot {
+  color: #cbd5e1;
+}
+
+.ref-hero-wa-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.ref-hero-wa-chat:hover {
+  color: #16a34a;
+}
+
+.ref-wa-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.8);
+}
+
+/* Trust Badge Stack */
+.ref-hero-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 6px 18px 6px 8px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.ref-trust-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #475569;
+}
+
+.ref-trust-text strong {
+  color: #0f172a;
+}
+
+.ref-trust-stars {
+  color: #eab308;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* Centered Phone Container — ONLY SHOWS TOP HALF OF PHONE (as requested) */
+.ref-hero-phone-centered-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 380px;
+  margin: 36px auto 0;
+  display: flex;
+  justify-content: center;
+  height: 330px; /* Cropped: only top half of phone is visible */
+  overflow: hidden;
+}
 .ref-rating-pill {
   display: inline-flex;
   align-items: center;
@@ -480,16 +704,16 @@
 
 .ref-iphone-frame {
   width: 100%;
-  max-width: 346px;
+  max-width: 375px;
   background: #11151c;
   border-radius: 52px;
   padding: 10px;
   position: relative;
   box-shadow:
-    0 45px 95px -20px rgba(15, 23, 42, 0.42),
+    0 40px 90px -15px rgba(0, 102, 204, 0.28),
     0 25px 45px -15px rgba(15, 23, 42, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 0 1px 2px rgba(255, 255, 255, 0.15);
+    0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
 
 /* Physical Buttons */
@@ -592,179 +816,578 @@
   border-radius: 1px;
 }
 
-/* Chat Header */
-.ref-chat-head {
-  padding: 6px 14px 10px;
+/* ========================================================
+   COACHING OS PHONE APP INTERFACE (FEES, NCERT & HAZIRI)
+   ======================================================== */
+.phone-app-header {
+  padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 0.5px solid #e5e5ea;
-  background: #ffffff;
 }
 
-.ref-chat-back {
+.phone-app-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.phone-brand-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: #e0f2fe;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+
+.phone-brand-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.phone-brand-batch {
+  font-size: 8.5px;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+.phone-live-indicator {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #007aff;
-  font-size: 17px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.ref-chevron-left {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.ref-back-badge {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #000000;
-  color: #ffffff;
-  font-size: 9.5px;
-  font-weight: 700;
-  display: grid;
-  place-items: center;
-}
-
-.ref-chat-title-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.ref-chat-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ea384c;
-  display: grid;
-  place-items: center;
-  color: #ffffff;
-}
-
-.ref-chat-name {
-  font-size: 11px;
-  font-weight: 600;
-  color: #000000;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.ref-chat-name span {
-  color: #8e8e93;
-}
-
-.ref-chat-action {
-  cursor: pointer;
-}
-
-/* Date Header */
-.ref-date-header {
-  text-align: center;
-  font-size: 9.5px;
-  color: #8e8e93;
-  margin: 10px 0 6px;
-  font-weight: 500;
-}
-
-/* Chat Body */
-.ref-chat-body {
-  padding: 6px 10px;
-  display: flex;
-  flex-direction: column;
-  min-height: 280px;
-  background: #ffffff;
-}
-
-.ref-bubble {
-  max-width: 86%;
-  padding: 8px 12px;
-  font-size: 10.5px;
-  line-height: 1.42;
-  margin-bottom: 6px;
-  word-break: break-word;
-}
-
-.bubble-grey {
-  align-self: flex-start;
-  background: #e9e9eb;
-  color: #000000;
-  border-radius: 16px;
-}
-
-.bubble-quote {
-  border-left: 3px solid #007aff;
-  font-style: normal;
-  background: #f2f2f7;
-}
-
-.bubble-blue {
-  background: #007aff;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
-}
-
-.bubble-outgoing {
-  align-self: flex-end;
-  border-radius: 16px;
-}
-
-.bubble-send {
-  padding: 6px 14px;
-  font-weight: 700;
-  font-size: 11.5px;
-  margin-bottom: 2px;
-}
-
-.ref-delivered-tag {
   font-size: 8.5px;
-  color: #8e8e93;
-  text-align: right;
-  margin-right: 4px;
-  margin-bottom: 8px;
-}
-
-/* iMessage Input Bar */
-.ref-imessage-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px 10px;
-  border-top: 0.5px solid #e5e5ea;
-  background: #ffffff;
-}
-
-.ref-btn-plus {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #e5e5ea;
-  border: none;
-  font-size: 15px;
-  font-weight: 500;
-  color: #8e8e93;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.ref-input-pill {
-  flex: 1;
-  border: 1px solid #c7c7cc;
+  font-weight: 700;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 2px 7px;
   border-radius: 999px;
-  padding: 4px 12px;
+}
+
+.phone-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+/* Feature Switcher Tabs inside Phone */
+.phone-tab-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 6px 8px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.phone-tab-btn {
+  padding: 5px 2px;
+  border-radius: 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.phone-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Screen Dynamic Body */
+.phone-screen-body {
+  padding: 9px;
+  background: #f8fafc;
+  min-height: 285px;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.phone-doc-card {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.phone-doc-card::-webkit-scrollbar {
+  width: 3px;
+}
+
+.phone-doc-card::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+/* Hero Metric Card */
+.phone-hero-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.phone-hero-card.blue-accent {
+  border-color: #bfdbfe;
+  background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+}
+
+.phone-hero-card.green-accent {
+  border-color: #bbf7d0;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.phone-card-eyebrow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11px;
-  color: #8e8e93;
+  font-size: 9px;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.phone-badge-green {
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1.5px 5px;
+  border-radius: 999px;
+}
+
+.phone-badge-blue {
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1.5px 5px;
+  border-radius: 999px;
+}
+
+.phone-card-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-bottom: 5px;
+}
+
+.phone-curr {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.phone-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.4px;
+}
+
+.phone-total {
+  font-size: 9.5px;
+  color: #94a3b8;
+  margin-left: 3px;
+}
+
+.phone-progress-track {
+  width: 100%;
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.phone-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.phone-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* List Item Card */
+.phone-list-card {
   background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.phone-list-card.overdue {
+  border-left: 3px solid #f59e0b;
+}
+
+.phone-list-card.paid {
+  border-left: 3px solid #16a34a;
+}
+
+.phone-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.phone-student-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.phone-student-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.phone-student-sub {
+  font-size: 8.5px;
+  color: #64748b;
+}
+
+.phone-due-tag {
+  font-size: 8px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.phone-paid-tag {
+  font-size: 8px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.phone-action-btn {
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 9.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.phone-action-btn.wa-btn {
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(37, 211, 102, 0.25);
+}
+
+.phone-action-btn.wa-btn:hover {
+  background: #1ebe5a;
+}
+
+.phone-action-btn.print-btn {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.phone-action-btn.print-btn:hover {
+  background: #1e293b;
+}
+
+.phone-receipt-pill {
+  font-size: 8.5px;
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 2.5px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.phone-success-toast {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 5px 7px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #86efac;
+}
+
+/* NCERT Specific Styles */
+.phone-paper-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 3px 0 5px;
+  line-height: 1.3;
+}
+
+.phone-blueprint-tags {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.phone-b-tag {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  font-size: 8px;
+  color: #1e40af;
+  font-weight: 600;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+}
+
+.phone-paper-preview {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.phone-q-item {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 4px;
+}
+
+.phone-q-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.phone-q-num {
+  font-size: 8px;
+  font-weight: 700;
+  color: #2563eb;
+  display: block;
+  margin-bottom: 1px;
+}
+
+.phone-q-text {
+  font-size: 9px;
+  color: #1e293b;
+  margin: 0 0 3px;
+  line-height: 1.3;
+}
+
+.phone-q-options {
+  display: flex;
+  gap: 5px;
+  font-size: 8px;
+  color: #64748b;
+}
+
+.phone-opt.correct {
+  color: #16a34a;
+  font-weight: 700;
+  background: #dcfce7;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+/* Haziri Specific Styles */
+.phone-haziri-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4px 0;
+}
+
+.phone-h-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.h-val.text-green {
+  color: #16a34a;
+}
+
+.h-val.text-red {
+  color: #dc2626;
+}
+
+.h-lbl {
+  font-size: 8px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.phone-h-divider {
+  width: 1px;
+  height: 18px;
+  background: #cbd5e1;
+}
+
+.phone-haziri-list {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.phone-hz-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 7px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.12s ease;
+}
+
+.phone-hz-row:last-child {
+  border-bottom: none;
+}
+
+.phone-hz-row:hover {
+  background: #f8fafc;
+}
+
+.hz-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 8px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.hz-avatar.red {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.hz-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hz-name {
+  font-size: 9px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.hz-sub {
+  font-size: 7.5px;
+  color: #64748b;
+}
+
+.hz-badge {
+  font-size: 7.5px;
+  font-weight: 700;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+}
+
+.hz-badge.present {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.hz-badge.absent {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.phone-wa-status-box {
+  font-size: 8px;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px dashed #6ee7b7;
+  padding: 4px 7px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* App Bottom Navigation Strip */
+.phone-app-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 4px 6px 2px;
+}
+
+.phone-bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  background: none;
+  border: none;
+  font-size: 8px;
+  color: #94a3b8;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 0;
+  transition: color 0.15s ease;
+}
+
+.phone-bottom-tab.active {
+  color: #007aff;
+}
+
+.tab-icon {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .ref-home-bar {
@@ -881,17 +1504,21 @@
 .ref-box-honey { background: #faedd8; }
 .ref-box-rose { background: #fce3e7; }
 
-/* White Chat Mockup Window */
+/* White Chat Mockup Window — EXACT UNIFORM 335PX HEIGHT ACROSS ALL 6 CARDS */
 .ref-card-screen {
   background: #ffffff;
   border-radius: 20px;
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.05),
     0 1px 3px rgba(0, 0, 0, 0.03);
-  padding: 10px 12px 12px;
+  padding: 11px 13px 11px;
   display: flex;
   flex-direction: column;
-  min-height: 295px;
+  justify-content: space-between;
+  height: 335px;
+  min-height: 335px;
+  max-height: 335px;
+  overflow: hidden;
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
 }
@@ -956,140 +1583,805 @@
   align-items: center;
 }
 
-/* Screen Chat Stream */
-.ref-screen-chat {
+/* ========================================================
+   PASTEL CARDS SCREEN MOCKUPS (EDUBUDDY REAL MANAGEMENT UI)
+   ======================================================== */
+.card-mock-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tag-peach { background: #ffedd5; color: #c2410c; }
+.tag-mint { background: #dcfce7; color: #15803d; }
+.tag-sky { background: #e0f2fe; color: #0369a1; }
+.tag-lavender { background: #f3e8ff; color: #7e22ce; }
+.tag-honey { background: #fef3c7; color: #b45309; }
+.tag-rose { background: #ffe4e6; color: #be123c; }
+
+.card-mock-status {
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748b;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #f1f5f9;
+}
+
+.card-mock-status.green { background: #dcfce7; color: #15803d; }
+.card-mock-status.blue { background: #dbeafe; color: #1d4ed8; }
+.card-mock-status.orange { background: #ffedd5; color: #c2410c; }
+.card-mock-status.live { background: #fee2e2; color: #b91c1c; }
+
+.card-mock-content {
   flex: 1;
-  padding: 10px 2px 8px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.card-mock-content.doc-scroll {
+  max-height: 235px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+}
+
+.card-mock-content.doc-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.card-mock-content.doc-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+/* ========================================================
+   CLEAN PASTEL CARD DESIGNS (ZERO EMOJIS, AIRY, CRISP SAAS)
+   ======================================================== */
+
+/* Card 1: Haziri Roster */
+.card-batch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.batch-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.1px;
+}
+
+.batch-time {
+  font-size: 9.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.clean-roster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.clean-roster-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  background: #f8fafc;
+  border: 1px solid #eef2f6;
+  border-radius: 9px;
+  transition: all 0.15s ease;
+}
+
+.clean-roster-item.absent-item {
+  background: #fff7f7;
+  border-color: #fee2e2;
+}
+
+.roster-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.roster-avatar.red {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.roster-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.roster-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.roster-sub {
+  font-size: 9px;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+.roster-sub.text-red {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.roster-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2.5px 7px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.roster-pill.present {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.roster-pill.absent {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.clean-alert-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 8px;
+  font-size: 9.5px;
+  color: #166534;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.clean-alert-bar svg {
+  flex-shrink: 0;
+  color: #16a34a;
+}
+
+/* Card 2: NCERT Test Sheet */
+.clean-paper-sheet {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.paper-head-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.paper-title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.paper-inst-name {
+  font-size: 10px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.3px;
+}
+
+.paper-exam-name {
+  font-size: 8.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.paper-set-pill {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.paper-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 3.5px 8px;
+  border-radius: 6px;
+  font-size: 8.5px;
+  color: #475569;
+}
+
+.paper-blueprint-tag {
+  color: #059669;
+  font-weight: 600;
+  background: #ecfdf5;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.paper-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5px;
+}
+
+.paper-q-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 7px;
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px;
+}
+
+.paper-q-num {
+  font-size: 8px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.paper-q-text {
+  font-size: 8.5px;
+  color: #1e293b;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  flex: 1;
+}
+
+.paper-q-answer {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 8px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* Card 3: Branded Fee Receipt */
+.clean-receipt-sheet {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.receipt-brand-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.receipt-brand-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.receipt-inst-name {
+  font-size: 10px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.3px;
+}
+
+.receipt-num-text {
+  font-size: 8.5px;
+  color: #64748b;
+}
+
+.receipt-tax-pill {
+  font-size: 8px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.receipt-student-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 8.5px;
+}
+
+.receipt-student-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt-student-info strong {
+  color: #0f172a;
+  font-size: 9.5px;
+}
+
+.receipt-student-info span {
+  color: #64748b;
+  font-size: 8px;
+}
+
+.receipt-upi-pill {
+  font-size: 8px;
+  font-weight: 600;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 1.5px 6px;
+  border-radius: 999px;
+}
+
+.receipt-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 3px 0;
+  border-top: 1px solid #f8fafc;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.receipt-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8.5px;
+  color: #475569;
+}
+
+.receipt-line.total-line {
+  padding-top: 3px;
+  border-top: 1px dashed #cbd5e1;
+  font-size: 9px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.receipt-total-val {
+  color: #059669;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.receipt-audit-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 7.5px;
+  color: #64748b;
+}
+
+.receipt-audit-bar .audit-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Card 4: WhatsApp Automation */
+.clean-wa-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.wa-recipient-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.wa-user-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 8.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wa-user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-user-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.wa-user-sub {
+  font-size: 8.5px;
+  color: #64748b;
+}
+
+.wa-speech-bubble {
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 10px;
+  border-top-left-radius: 2px;
+  padding: 8px 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.ref-mini-bubble {
-  max-width: 86%;
-  padding: 7px 11px;
-  border-radius: 14px;
-  font-size: 10px;
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-.mini-grey {
-  align-self: flex-start;
-  background: #e9e9eb;
-  color: #000000;
-}
-
-.mini-faint {
-  align-self: flex-start;
-  color: #8e8e93;
+.wa-bubble-text {
   font-size: 9px;
-  padding: 2px 4px;
+  color: #1e293b;
+  line-height: 1.4;
+  margin: 0;
 }
 
-.mini-blue {
-  align-self: flex-end;
-  background: #007aff;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.2);
+.wa-bubble-text strong {
+  color: #0f172a;
 }
 
-.mini-audio {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-}
-
-.ref-audio-play { font-size: 9px; }
-.ref-audio-bars { font-size: 10px; letter-spacing: 0.5px; font-weight: 700; }
-.ref-audio-time { font-size: 8.5px; opacity: 0.9; }
-
-.mini-send {
-  padding: 5px 12px;
-  font-weight: 700;
-  font-size: 11px;
-}
-
-.ref-mini-status {
-  font-size: 8px;
-  color: #8e8e93;
-  text-align: right;
-  margin-right: 4px;
-  margin-top: -3px;
-}
-
-.ref-mini-date {
-  text-align: center;
-  font-size: 8.5px;
-  color: #8e8e93;
-  margin: 2px 0;
-}
-
-/* Reaction Badges on Bubbles */
-.ref-reaction-wrap {
-  position: relative;
-  display: inline-block;
-  align-self: flex-start;
-}
-
-.ref-reaction-badge {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  display: grid;
-  place-items: center;
-  font-size: 10px;
-  z-index: 5;
-}
-
-.ref-reaction-badge.top-left {
-  top: -8px;
-  left: -6px;
-}
-
-.ref-reaction-badge.top-right {
-  top: -8px;
-  right: -6px;
-}
-
-/* Screen Input Bar */
-.ref-screen-input {
+.wa-pdf-attachment {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding-top: 6px;
-  border-top: 0.5px solid #f2f2f7;
+  gap: 7px;
+  background: #ffffff;
+  border: 1px solid #d1fae5;
+  border-radius: 6px;
+  padding: 5px 8px;
 }
 
-.ref-screen-plus {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #e5e5ea;
-  color: #8e8e93;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
+.wa-pdf-attachment svg {
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+.wa-file-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wa-file-name {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wa-file-size {
+  font-size: 7.5px;
+  color: #64748b;
+}
+
+.wa-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 7.5px;
+  color: #64748b;
+}
+
+.wa-metric-note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 8.5px;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
+  padding: 4px 8px;
+  border-radius: 6px;
   font-weight: 600;
 }
 
-.ref-screen-field {
-  flex: 1;
-  border: 1px solid #d1d1d6;
-  border-radius: 999px;
-  padding: 3px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 10px;
-  color: #8e8e93;
+.wa-metric-note svg {
+  color: #059669;
+  flex-shrink: 0;
 }
 
-.ref-screen-mic { font-size: 9px; }
+/* Card 5: Admission Leads CRM */
+.clean-crm-leads {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clean-lead-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.clean-lead-card.secondary {
+  background: #fafaf9;
+  border-color: #f1f5f9;
+}
+
+.lead-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.lead-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.lead-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.lead-class {
+  font-size: 8.5px;
+  color: #64748b;
+}
+
+.lead-status-pill {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.lead-status-pill.booked {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #dbeafe;
+}
+
+.lead-status-pill.intent {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.lead-time-line {
+  font-size: 8.5px;
+  color: #334155;
+  background: #f8fafc;
+  padding: 3px 6px;
+  border-radius: 5px;
+  line-height: 1.3;
+}
+
+.lead-actions-row {
+  display: flex;
+  gap: 5px;
+  margin-top: 1px;
+}
+
+.lead-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  padding: 3px 7px;
+  font-size: 8.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.lead-quick-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.lead-quick-btn.wa {
+  background: #ecfdf5;
+  border-color: #d1fae5;
+  color: #059669;
+}
+
+.lead-quick-btn.wa:hover {
+  background: #d1fae5;
+  color: #047857;
+}
+
+/* Card 6: Director Intelligence */
+.clean-director-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clean-kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.clean-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.kpi-label {
+  font-size: 8.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.kpi-value {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin: 1px 0;
+  line-height: 1.2;
+}
+
+.kpi-value.text-green { color: #059669; }
+.kpi-value.text-blue { color: #2563eb; }
+
+.kpi-target {
+  font-size: 8px;
+  color: #94a3b8;
+}
+
+.clean-ai-insight {
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.insight-top {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  color: #1e40af;
+}
+
+.insight-top strong {
+  font-weight: 700;
+}
+
+.insight-para {
+  font-size: 8.5px;
+  color: #1e3a8a;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.insight-para strong {
+  color: #0f172a;
+}
+
+/* Common Card Mock Action Buttons */
+.card-mock-footer {
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.card-btn-action {
+  width: 100%;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.card-btn-action.dark {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.card-btn-action.dark:hover {
+  background: #1e293b;
+}
+
+.card-btn-action.dark svg {
+  stroke-width: 2.2;
+}
+
 
 /* Caption Below the Card */
 .ref-card-caption {

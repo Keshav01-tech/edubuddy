@@ -1,42 +1,85 @@
 /* ========================================================
    COMMON PUBLIC NAVBAR (FOR LANDING & CONTACT PAGES)
-   Backdoor-inspired floating frosted sky navbar
+   Transforms smoothly from wide header to floating pill on scroll
    ======================================================== */
 
 .ref-nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   width: 100%;
-  background: rgba(226, 242, 252, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(186, 230, 253, 0.5);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* STATE 1: AT TOP OF PAGE (Wide, Clean Header like shape.ai Image 1) */
+.ref-nav.ref-nav-top {
+  top: 0;
+  padding: 12px 28px;
+  background: transparent;
+}
+
+.ref-nav.ref-nav-top .ref-nav-inner {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1260px;
+  height: 60px;
+  padding: 0 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* STATE 2: SCROLLED (Floating Frosted Capsule Pill like shape.ai Image 2) */
+.ref-nav.ref-nav-scrolled {
+  top: 14px;
+  padding: 0 16px;
+}
+
+.ref-nav.ref-nav-scrolled .ref-nav-inner {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 860px;
+  height: 52px;
+  padding: 0 10px 0 20px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 999px;
+  box-shadow:
+    0 12px 32px -8px rgba(15, 23, 42, 0.08),
+    0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+/* Inner Container Flexbox Layout */
 .ref-nav-inner {
-  max-width: 1240px;
-  margin: 0 auto;
-  height: 68px;
-  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ref-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
   color: #0a0e17;
+  flex-shrink: 0;
 }
 
 .ref-brand-img-logo {
-  height: 38px;
+  height: 32px;
   width: auto;
-  max-width: 175px;
+  max-width: 145px;
   object-fit: contain;
   display: block;
   transition: transform 0.15s ease;
@@ -49,10 +92,10 @@
 .ref-nav-links {
   display: none;
   align-items: center;
-  gap: 32px;
+  gap: 30px;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 820px) {
   .ref-nav-links {
     display: flex;
   }
@@ -63,12 +106,12 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.12s ease;
+  transition: color 0.15s ease;
   position: relative;
 }
 
 .ref-nav-links a:hover {
-  color: #0b0f19;
+  color: #0f172a;
 }
 
 .ref-nav-links a.ref-nav-link-active {
@@ -80,26 +123,74 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
-.ref-nav-login {
+.ref-nav-login-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 20px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(203, 213, 225, 0.9);
+  padding: 6px 14px;
+  color: #334155;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.ref-nav-login-link:hover {
   color: #0f172a;
+}
+
+.ref-nav-signup-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: #0f172a;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
 }
 
-.ref-nav-login:hover {
-  background: #ffffff;
-  border-color: #94a3b8;
+.ref-nav-signup-btn:hover {
+  background: #1e293b;
   transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.24);
+}
+
+@media (max-width: 540px) {
+  .ref-nav.ref-nav-top {
+    padding: 10px 14px;
+  }
+
+  .ref-nav.ref-nav-scrolled {
+    top: 8px;
+    padding: 0 8px;
+  }
+
+  .ref-nav.ref-nav-scrolled .ref-nav-inner {
+    height: 48px;
+    padding: 0 8px 0 14px;
+  }
+
+  .ref-brand-img-logo {
+    height: 25px;
+    max-width: 110px;
+  }
+
+  .ref-nav-login-link {
+    display: none;
+  }
+
+  .ref-nav-signup-btn {
+    padding: 6px 14px;
+    font-size: 11.5px;
+  }
 }

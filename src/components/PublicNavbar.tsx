@@ -1,13 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './PublicNavbar.css';
 
 export default function PublicNavbar() {
   const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
   const isHomePage =
     location.pathname === '/' ||
     location.pathname === '/mobile' ||
     location.pathname === '/landing';
+
+  // Detect scroll to transform navbar from full-width to floating capsule pill
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
+      setIsScrolled(currentScroll > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Smooth-scroll on hash changes or direct URL visits with hash
   useEffect(() => {
@@ -34,7 +47,7 @@ export default function PublicNavbar() {
   };
 
   return (
-    <header className="ref-nav">
+    <header className={`ref-nav ${isScrolled ? 'ref-nav-scrolled' : 'ref-nav-top'}`}>
       <div className="ref-nav-inner">
         {/* Brand Logo */}
         <Link to="/" className="ref-brand" aria-label="EduBuddy Home">
@@ -75,10 +88,13 @@ export default function PublicNavbar() {
           </Link>
         </nav>
 
-        {/* Right Action: Pill Log in Button */}
+        {/* Right Actions: Log in + Start Free Button (matching shape.ai UI) */}
         <div className="ref-nav-right">
-          <Link to="/login" className="ref-nav-login">
+          <Link to="/login" className="ref-nav-login-link">
             Log in
+          </Link>
+          <Link to="/dashboard" className="ref-nav-signup-btn">
+            Start Free
           </Link>
         </div>
       </div>

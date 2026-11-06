@@ -1,43 +1,47 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  GraduationCap,
-  Plus,
-  Trash2,
-  Pencil,
-  Users,
-  Layers,
-  ChevronDown,
-  ChevronUp,
-  X,
-  Check,
-  Sparkles,
+  GraduationCap, Plus, Trash2, Pencil, Users, Layers, ChevronDown, ChevronUp, X, Check, Sparkles, AlertCircle, CheckCircle2, ArrowRight,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
+import { StatCard, Initials } from '../components/ui';
 import { useClassroom } from '../services/classroom';
 
-const field = 'h-11 px-3 text-base bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
+const field = 'h-11 px-4 text-sm bg-white rounded-2xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#c4c4c4] placeholder:text-neutral-400';
 
 const SUGGESTED_CLASSES = ['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'];
 const SUGGESTED_BATCHES = ['Batch A', 'Batch B', 'Morning', 'Evening'];
+
+// Each class card gets its own pastel header, in the same palette as the dashboard.
+const TINTS = ['#60c1e5', '#d6d6d6', '#c4c4c4', '#ededed'];
+const SEGMENT = ['bg-neutral-900/80', 'bg-neutral-900/55', 'bg-neutral-900/35', 'bg-neutral-900/20'];
+
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
 export default function Classes() {
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const room = useClassroom();
+  const createRef = useRef(null);
 
   const [newClassName, setNewClassName] = useState('');
-  const [showAddClass, setShowAddClass] = useState(false);
   const [editingClassId, setEditingClassId] = useState(null);
   const [editClassName, setEditClassName] = useState('');
-
-  // Per-class batch draft inputs
   const [batchDraft, setBatchDraft] = useState({});
-  // Expanded class student rosters
   const [expandedRoster, setExpandedRoster] = useState({});
 
   const totalBatches = room.classes.reduce((sum, item) => sum + (item.sections?.length || 0), 0);
+  const sectionsOf = (name) => room.classes.find((c) => c.name === name)?.sections || [];
+  const unplaced = room.students.filter((s) => {
+    if (!s.className || !room.classes.some((c) => c.name === s.className)) return true;
+    return sectionsOf(s.className).length > 0 && !s.section;
+  });
+
+  const focusCreate = () => {
+    createRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    createRef.current?.focus();
+  };
 
   const handleCreateClass = (e) => {
     e?.preventDefault();
@@ -45,7 +49,6 @@ export default function Classes() {
     if (!clean) return;
     room.addClass(clean);
     setNewClassName('');
-    setShowAddClass(false);
   };
 
   const handleAddBatch = (classId, batchName) => {
@@ -55,375 +58,276 @@ export default function Classes() {
     setBatchDraft((prev) => ({ ...prev, [classId]: '' }));
   };
 
-  const startEditClass = (item) => {
-    setEditingClassId(item.id);
-    setEditClassName(item.name);
-  };
-
+  const startEditClass = (item) => { setEditingClassId(item.id); setEditClassName(item.name); };
   const saveEditClass = (id) => {
-    if (editClassName.trim()) {
-      room.updateClass(id, editClassName.trim());
-    }
+    if (editClassName.trim()) room.updateClass(id, editClassName.trim());
     setEditingClassId(null);
     setEditClassName('');
   };
 
   const handleRemoveClass = (item) => {
     const count = room.students.filter((s) => s.className === item.name).length;
-    const warning = count
-      ? ` Warning: ${count} ${count === 1 ? 'student is' : 'students are'} enrolled in this class.`
-      : '';
-    if (confirm(`Are you sure you want to delete ${item.name}?${warning}`)) {
-      room.removeClass(item.id);
-    }
+    const warning = count ? ` Warning: ${count} ${count === 1 ? 'student is' : 'students are'} enrolled in this class.` : '';
+    if (confirm(`Are you sure you want to delete ${item.name}?${warning}`)) room.removeClass(item.id);
   };
 
   const handleRemoveBatch = (classId, className, batchName) => {
-    const count = room.students.filter(
-      (s) => s.className === className && (s.section || '') === batchName
-    ).length;
-    const warning = count
-      ? ` ${count} ${count === 1 ? 'student has' : 'students have'} this batch assigned.`
-      : '';
-    if (confirm(`Remove batch "${batchName}" from ${className}?${warning}`)) {
-      room.removeSection(classId, batchName);
-    }
+    const count = room.students.filter((s) => s.className === className && (s.section || '') === batchName).length;
+    const warning = count ? ` ${count} ${count === 1 ? 'student has' : 'students have'} this batch assigned.` : '';
+    if (confirm(`Remove batch "${batchName}" from ${className}?${warning}`)) room.removeSection(classId, batchName);
   };
 
-  const toggleRoster = (classId) => {
-    setExpandedRoster((prev) => ({ ...prev, [classId]: !prev[classId] }));
-  };
+  const toggleRoster = (classId) => setExpandedRoster((prev) => ({ ...prev, [classId]: !prev[classId] }));
+
+  const freeSuggestions = SUGGESTED_CLASSES.filter((c) => !room.classes.some((item) => item.name.toLowerCase() === c.toLowerCase()));
 
   return (
     <div className="min-h-dvh app-canvas">
-      <AppHeader
-        nav
-        onSignOut={async () => { await signOut(); navigate('/login'); }}
-      />
+      <AppHeader nav onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
-        {/* Page Title & Actions */}
+      <main className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Institute</p>
-            <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">
-              Classes & Batches
-            </h1>
-            <p className="mt-1 text-sm text-neutral-500">
-              Create a class, then add its batches (A, B, Morning…). Attendance and fees use these groups. {room.classes.length} {room.classes.length === 1 ? 'class' : 'classes'} · {totalBatches} {totalBatches === 1 ? 'batch' : 'batches'}
-            </p>
-          </div>
+          <p className="max-w-2xl text-sm text-neutral-600">
+            Create classes, then add batches.
+          </p>
           <button
             type="button"
-            onClick={() => setShowAddClass((v) => !v)}
-            className="h-10 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
+            onClick={focusCreate}
+            className="h-11 px-5 rounded-2xl bg-[#005a9c] text-white text-sm font-medium inline-flex items-center gap-2 hover:brightness-95 transition"
           >
-            <Plus className="w-4 h-4" />
-            Create class
+            <Plus className="w-4 h-4" /> Create class
           </button>
         </div>
 
-        {/* Collapsible Create Class Form */}
-        {showAddClass && (
-          <section className="mb-6 bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5 animate-fade-up">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[15px] font-semibold text-neutral-900">Create new class</h2>
-              <button
-                type="button"
-                onClick={() => setShowAddClass(false)}
-                className="h-8 w-8 grid place-items-center rounded-lg text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <form onSubmit={handleCreateClass} className="flex gap-2">
-              <input
-                className={`${field} min-w-0 flex-1`}
-                value={newClassName}
-                onChange={(e) => setNewClassName(e.target.value)}
-                placeholder="Class name, e.g. Class 10 or Class 12 Science"
-                aria-label="New class name"
-                autoFocus
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 items-start">
+          {/* ───────── left: summary + classes ───────── */}
+          <div className="min-w-0 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <StatCard label="Classes" value={room.classes.length} icon={GraduationCap} tone="rose" hint={room.classes.length ? 'Active' : 'Create your first class'} />
+              <StatCard label="Batches" value={totalBatches} icon={Layers} tone="amber" hint={totalBatches ? `${(totalBatches / Math.max(room.classes.length, 1)).toFixed(1)} per class` : 'No batches yet'} />
+              <StatCard
+                label="Students enrolled" value={room.students.length} icon={Users} tone="emerald"
+                hint={unplaced.length ? `${unplaced.length} not placed yet` : room.students.length ? 'Everyone is placed' : 'No students yet'}
+                hintTone={unplaced.length ? 'rose' : undefined}
+                to="/students"
               />
-              <button
-                type="submit"
-                disabled={!newClassName.trim()}
-                className="h-11 px-5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm disabled:opacity-50"
-              >
-                Create
-              </button>
-            </form>
-
-            {/* Quick suggested chips */}
-            <div className="mt-3 flex flex-wrap items-center gap-1.5">
-              <span className="text-xs text-neutral-400 font-medium mr-1 inline-flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-neutral-500" /> Suggestions:
-              </span>
-              {SUGGESTED_CLASSES.filter(
-                (c) => !room.classes.some((item) => item.name.toLowerCase() === c.toLowerCase())
-              ).map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  onClick={() => {
-                    room.addClass(preset);
-                  }}
-                  className="h-7 px-2.5 rounded-lg bg-neutral-100 hover:bg-brand-50 hover:text-brand-700 text-neutral-600 text-xs font-medium transition-colors"
-                >
-                  + {preset}
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Empty State */}
-        {room.classes.length === 0 && !showAddClass && (
-          <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-8 sm:p-12 text-center shadow-card">
-            <GraduationCap className="w-12 h-12 mx-auto text-neutral-300" />
-            <h2 className="mt-3 text-base font-semibold text-neutral-900">No classes created yet</h2>
-            <p className="mt-1 text-sm text-neutral-500 max-w-md mx-auto">
-              Create your classes (e.g. Class 9, Class 10) and then add batches (Morning, Evening, Batch A, etc.) to organize students and attendance.
-            </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-2">
-              <button
-                type="button"
-                onClick={() => setShowAddClass(true)}
-                className="h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 shadow-sm inline-flex items-center gap-1.5"
-              >
-                <Plus className="w-4 h-4" /> Create first class
-              </button>
             </div>
 
-            {/* Quick 1-click batch setup */}
-            <div className="mt-6 pt-6 border-t border-neutral-100">
-              <p className="text-xs font-medium text-neutral-400 mb-2.5">Or quick add standard CBSE classes:</p>
-              <div className="flex flex-wrap justify-center gap-2">
-                {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => room.addClass(item)}
-                    className="h-8 px-3 rounded-lg bg-neutral-100 hover:bg-brand-100 hover:text-brand-700 text-xs font-medium text-neutral-700 transition-colors"
-                  >
-                    + Add {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+            {room.classes.length === 0 && (
+              <section className="bg-white rounded-3xl p-8 sm:p-12 text-center shadow-card">
+                <span className="mx-auto h-16 w-16 rounded-full grid place-items-center bg-[#f1f1f1] text-[#005a9c]">
+                  <GraduationCap className="w-7 h-7" />
+                </span>
+                <h2 className="mt-4 text-lg font-medium text-neutral-900">No classes created yet</h2>
+                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">
+                  Add a class, then its batches.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-2">
+                  {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map((name) => (
+                    <button key={name} type="button" onClick={() => room.addClass(name)}
+                      className="h-10 px-4 rounded-full bg-[#f8f8f8] hover:bg-[#f1f1f1] text-sm font-medium text-[#005a9c] transition-colors">
+                      + {name}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
 
-        {/* Classes List */}
-        {room.classes.length > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-            {room.classes.map((item) => {
-              const classStudents = room.students.filter((s) => s.className === item.name);
-              const isEditing = editingClassId === item.id;
-              const isRosterOpen = !!expandedRoster[item.id];
-              const sections = item.sections || [];
+            {room.classes.length > 0 && (
+              <div className="grid grid-cols-1 2xl:grid-cols-2 gap-5 items-start">
+                {room.classes.map((item, idx) => {
+                  const classStudents = room.students.filter((s) => s.className === item.name);
+                  const isEditing = editingClassId === item.id;
+                  const isRosterOpen = !!expandedRoster[item.id];
+                  const sections = item.sections || [];
+                  const counts = sections.map((b) => classStudents.filter((s) => (s.section || '') === b).length);
+                  const unassigned = classStudents.length - counts.reduce((a, b) => a + b, 0);
+                  const tint = TINTS[idx % TINTS.length];
 
-              return (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5 transition-shadow hover:shadow-md"
-                >
-                  {/* Class Header */}
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <span className="h-10 w-10 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center">
-                        <GraduationCap className="w-5 h-5" />
-                      </span>
-                      {isEditing ? (
-                        <div className="flex items-center gap-2 flex-1 max-w-sm">
-                          <input
-                            className={`${field} h-9 py-1 text-sm`}
-                            value={editClassName}
-                            onChange={(e) => setEditClassName(e.target.value)}
-                            autoFocus
-                          />
-                          <button
-                            type="button"
-                            onClick={() => saveEditClass(item.id)}
-                            className="h-9 px-3 rounded-xl bg-brand-600 text-white text-xs font-semibold"
-                          >
-                            <Check className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setEditingClassId(null)}
-                            className="h-9 px-2.5 rounded-xl text-neutral-500 hover:bg-neutral-100 text-xs"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="min-w-0 flex-1">
-                          <h2 className="text-base font-semibold text-neutral-900 truncate">
-                            {item.name}
-                          </h2>
-                          <p className="text-xs text-neutral-500 mt-0.5">
-                            {classStudents.length} {classStudents.length === 1 ? 'student enrolled' : 'students enrolled'} · {sections.length} {sections.length === 1 ? 'batch' : 'batches'}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Class Controls */}
-                    <div className="flex items-center gap-1 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => startEditClass(item)}
-                        className="h-9 w-9 grid place-items-center rounded-lg text-neutral-400 hover:text-brand-700 hover:bg-brand-50 transition-colors"
-                        aria-label={`Rename ${item.name}`}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveClass(item)}
-                        className="h-9 w-9 grid place-items-center rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
-                        aria-label={`Delete ${item.name}`}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Batches / Sections Section */}
-                  <div className="mt-4 pt-4 border-t border-neutral-100">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
-                        <Layers className="w-3.5 h-3.5" /> Batches in this class
-                      </h3>
-                      {classStudents.length > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => toggleRoster(item.id)}
-                          className="text-xs font-medium text-brand-700 hover:text-brand-800 inline-flex items-center gap-1"
-                        >
-                          <Users className="w-3.5 h-3.5" />
-                          {isRosterOpen ? 'Hide students' : 'View enrolled students'}
-                          {isRosterOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-                        </button>
-                      )}
-                    </div>
-
-                    {/* Existing Batches Chips */}
-                    <div className="flex flex-wrap gap-2">
-                      {sections.map((batch) => {
-                        const batchCount = classStudents.filter(
-                          (s) => (s.section || '') === batch
-                        ).length;
-
-                        return (
-                          <div
-                            key={batch}
-                            className="inline-flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200/80 rounded-xl px-3 py-1.5 text-xs font-medium text-neutral-800 transition-colors"
-                          >
-                            <span className="font-semibold text-neutral-900">{batch}</span>
-                            <span className="text-[11px] text-neutral-500 bg-white/80 px-1.5 py-0.5 rounded-md font-mono">
-                              {batchCount} {batchCount === 1 ? 'student' : 'students'}
+                  return (
+                    <article key={item.id} className="bg-white rounded-3xl shadow-card overflow-hidden transition-shadow hover:shadow-lift">
+                      {/* tinted header */}
+                      <div className="p-5" style={{ background: tint }}>
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <span className="h-11 w-11 shrink-0 rounded-full bg-white grid place-items-center text-neutral-900">
+                              <GraduationCap className="w-5 h-5" />
                             </span>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveBatch(item.id, item.name, batch)}
-                              className="h-4 w-4 grid place-items-center rounded-full text-neutral-400 hover:text-neutral-900 hover:bg-white transition-colors"
-                              aria-label={`Remove batch ${batch}`}
-                            >
-                              <X className="w-3 h-3" />
-                            </button>
-                          </div>
-                        );
-                      })}
-
-                      {sections.length === 0 && (
-                        <p className="text-xs text-neutral-400 py-1">
-                          No batches created yet. Add a batch below (e.g. Morning, Batch A).
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Quick Add Batch Input */}
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        handleAddBatch(item.id, batchDraft[item.id]);
-                      }}
-                      className="mt-3 flex items-center gap-2"
-                    >
-                      <input
-                        className={`${field} h-9 text-xs flex-1`}
-                        placeholder="Batch name, e.g. Batch A, Morning, Evening"
-                        value={batchDraft[item.id] || ''}
-                        onChange={(e) =>
-                          setBatchDraft((prev) => ({ ...prev, [item.id]: e.target.value }))
-                        }
-                      />
-                      <button
-                        type="submit"
-                        disabled={!(batchDraft[item.id] || '').trim()}
-                        className="h-9 px-3.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold inline-flex items-center gap-1 disabled:opacity-40 transition-colors"
-                      >
-                        <Plus className="w-3.5 h-3.5" /> Add batch
-                      </button>
-                    </form>
-
-                    {/* Batch Suggestions */}
-                    <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                      <span className="text-[11px] text-neutral-400 font-medium">Quick add:</span>
-                      {SUGGESTED_BATCHES.filter((b) => !sections.includes(b)).map((suggested) => (
-                        <button
-                          key={suggested}
-                          type="button"
-                          onClick={() => handleAddBatch(item.id, suggested)}
-                          className="h-6 px-2 rounded-md bg-neutral-50 hover:bg-brand-50 hover:text-brand-700 text-neutral-600 text-[11px] font-medium border border-neutral-200/60 transition-colors"
-                        >
-                          + {suggested}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Expanded Enrolled Students List */}
-                    {isRosterOpen && (
-                      <div className="mt-4 pt-3 border-t border-neutral-100 animate-fade-up">
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="text-xs font-semibold text-neutral-700">
-                            Enrolled students in {item.name}:
-                          </p>
-                          <Link
-                            to="/students"
-                            className="text-xs text-brand-700 hover:underline font-medium"
-                          >
-                            Manage in Students →
-                          </Link>
-                        </div>
-                        <ul className="divide-y divide-neutral-100 rounded-xl ring-1 ring-neutral-100 max-h-48 overflow-y-auto">
-                          {classStudents.map((student) => (
-                            <li
-                              key={student.id}
-                              className="px-3 py-2 flex items-center justify-between text-xs"
-                            >
-                              <div className="flex items-center gap-2">
-                                <span className="h-6 w-6 rounded-full bg-brand-100 text-brand-700 font-bold grid place-items-center text-[10px]">
-                                  {student.name.charAt(0).toUpperCase()}
-                                </span>
-                                <span className="font-medium text-neutral-900">{student.name}</span>
+                            {isEditing ? (
+                              <div className="flex items-center gap-2 flex-1 max-w-xs">
+                                <input className={`${field} h-10 flex-1 min-w-0`} value={editClassName} onChange={(e) => setEditClassName(e.target.value)}
+                                  onKeyDown={(e) => { if (e.key === 'Enter') saveEditClass(item.id); if (e.key === 'Escape') setEditingClassId(null); }} autoFocus />
+                                <button type="button" onClick={() => saveEditClass(item.id)} aria-label="Save name" className="h-10 w-10 shrink-0 rounded-full bg-white grid place-items-center text-neutral-900 hover:shadow-md"><Check className="w-4 h-4" /></button>
+                                <button type="button" onClick={() => setEditingClassId(null)} aria-label="Cancel" className="h-10 w-10 shrink-0 rounded-full bg-white/60 grid place-items-center text-neutral-700 hover:bg-white"><X className="w-4 h-4" /></button>
                               </div>
-                              <span className="text-neutral-500 bg-neutral-50 px-2 py-0.5 rounded text-[11px]">
-                                {student.section ? `Batch ${student.section}` : 'No batch'}
-                              </span>
-                            </li>
+                            ) : (
+                              <div className="min-w-0">
+                                <h2 className="text-lg font-medium text-neutral-900 truncate">{item.name}</h2>
+                                <p className="text-xs text-neutral-700">{plural(sections.length, 'batch', 'batches')}</p>
+                              </div>
+                            )}
+                          </div>
+                          {!isEditing && (
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <button type="button" onClick={() => startEditClass(item)} aria-label={`Rename ${item.name}`} className="h-9 w-9 rounded-full bg-white/70 hover:bg-white grid place-items-center text-neutral-800 transition-colors"><Pencil className="w-4 h-4" /></button>
+                              <button type="button" onClick={() => handleRemoveClass(item)} aria-label={`Delete ${item.name}`} className="h-9 w-9 rounded-full bg-white/70 hover:bg-white grid place-items-center text-neutral-800 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="mt-5 flex items-end justify-between gap-3">
+                          <div>
+                            <p className="text-[2rem] leading-none font-medium tracking-tight text-neutral-900 tabular-nums">{classStudents.length}</p>
+                            <p className="mt-1 text-xs text-neutral-700">{classStudents.length === 1 ? 'student enrolled' : 'students enrolled'}</p>
+                          </div>
+                          {classStudents.length > 0 && (
+                            <div className="flex items-center -space-x-2">
+                              {classStudents.slice(0, 4).map((s) => <Initials key={s.id} name={s.name} className="h-8 w-8 text-[11px] ring-2 ring-white" />)}
+                              {classStudents.length > 4 && <span className="h-8 w-8 rounded-full bg-white grid place-items-center text-[11px] font-semibold text-neutral-700 ring-2 ring-white">+{classStudents.length - 4}</span>}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* distribution across batches */}
+                        <div className="mt-4 h-2 rounded-full bg-white/50 overflow-hidden flex" aria-hidden="true">
+                          {counts.map((c, i) => c > 0 && (
+                            <div key={sections[i]} className={SEGMENT[i % SEGMENT.length]} style={{ width: `${(c / classStudents.length) * 100}%` }} title={`${sections[i]}: ${c}`} />
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    )}
+
+                      {/* body */}
+                      <div className="p-5">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5" /> Batches
+                          </h3>
+                          {unassigned > 0 && sections.length > 0 && (
+                            <span className="text-[11px] font-medium text-neutral-800 bg-[#f4f4f4] rounded-full px-2.5 py-0.5">{unassigned} without batch</span>
+                          )}
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                          {sections.map((batch, i) => (
+                            <div key={batch} className="inline-flex items-center gap-2 bg-[#f7f7f7] rounded-full pl-3 pr-1.5 py-1.5 text-sm text-neutral-900">
+                              <span className={`h-2 w-2 rounded-full ${SEGMENT[i % SEGMENT.length]}`} />
+                              <span className="font-medium">{batch}</span>
+                              <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-0.5 tabular-nums">{counts[i]}</span>
+                              <button type="button" onClick={() => handleRemoveBatch(item.id, item.name, batch)} aria-label={`Remove batch ${batch}`}
+                                className="h-5 w-5 grid place-items-center rounded-full text-neutral-400 hover:text-neutral-900 hover:bg-white transition-colors">
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                          {sections.length === 0 && <p className="text-sm text-neutral-500 py-1">No batches yet.</p>}
+                        </div>
+
+                        <form onSubmit={(e) => { e.preventDefault(); handleAddBatch(item.id, batchDraft[item.id]); }} className="mt-4 flex items-center gap-2">
+                          <input className={`${field} h-10 flex-1 min-w-0`} placeholder="New batch name" value={batchDraft[item.id] || ''}
+                            onChange={(e) => setBatchDraft((prev) => ({ ...prev, [item.id]: e.target.value }))} aria-label={`New batch for ${item.name}`} />
+                          <button type="submit" disabled={!(batchDraft[item.id] || '').trim()}
+                            className="h-10 px-4 rounded-2xl bg-[#ededed] hover:brightness-95 text-neutral-900 text-sm font-medium inline-flex items-center gap-1.5 disabled:opacity-40 transition">
+                            <Plus className="w-4 h-4" /> Add
+                          </button>
+                        </form>
+
+                        {SUGGESTED_BATCHES.some((b) => !sections.includes(b)) && (
+                          <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                            <span className="text-xs text-neutral-400 mr-0.5">Quick add</span>
+                            {SUGGESTED_BATCHES.filter((b) => !sections.includes(b)).map((suggested) => (
+                              <button key={suggested} type="button" onClick={() => handleAddBatch(item.id, suggested)}
+                                className="h-7 px-3 rounded-full bg-white ring-1 ring-neutral-200 hover:bg-[#f8f8f8] hover:ring-[#dedede] text-neutral-700 text-xs font-medium transition-colors">
+                                + {suggested}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+
+                        {classStudents.length > 0 && (
+                          <>
+                            <button type="button" onClick={() => toggleRoster(item.id)} aria-expanded={isRosterOpen}
+                              className="mt-5 w-full h-10 rounded-2xl bg-[#f7f7f7] hover:bg-[#efefef] text-sm font-medium text-neutral-800 inline-flex items-center justify-center gap-2 transition-colors">
+                              <Users className="w-4 h-4" />
+                              {isRosterOpen ? 'Hide students' : `View ${plural(classStudents.length, 'student', 'students')}`}
+                              {isRosterOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                            </button>
+
+                            {isRosterOpen && (
+                              <div className="mt-3 animate-fade-up">
+                                <ul className="divide-y divide-neutral-100 rounded-2xl border border-neutral-200 max-h-60 overflow-y-auto">
+                                  {classStudents.map((student) => (
+                                    <li key={student.id} className="px-3 py-2.5 flex items-center justify-between gap-3 text-sm">
+                                      <span className="flex items-center gap-2.5 min-w-0">
+                                        <Initials name={student.name} className="h-8 w-8 text-[11px]" />
+                                        <span className="font-medium text-neutral-900 truncate">{student.name}</span>
+                                      </span>
+                                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${student.section ? 'bg-[#f1f1f1] text-[#005a9c]' : 'bg-neutral-100 text-neutral-500'}`}>
+                                        {student.section || 'No batch'}
+                                      </span>
+                                    </li>
+                                  ))}
+                                </ul>
+                                <Link to="/students" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-[#005a9c] hover:underline">
+                                  Manage in Students <ArrowRight className="w-3.5 h-3.5" />
+                                </Link>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* ───────── right rail ───────── */}
+          <aside className="space-y-5 xl:sticky xl:top-24">
+            <section className="bg-white rounded-3xl shadow-card p-5">
+              <h2 className="text-base font-medium text-neutral-800">Add a class</h2>
+                            <form onSubmit={handleCreateClass} className="mt-4 space-y-3">
+                <input ref={createRef} className={`${field} w-full`} value={newClassName} onChange={(e) => setNewClassName(e.target.value)}
+                  placeholder="e.g. Class 10 or Class 12 Science" aria-label="New class name" />
+                <button type="submit" disabled={!newClassName.trim()}
+                  className="w-full h-11 rounded-2xl bg-[#005a9c] text-white text-sm font-medium inline-flex items-center justify-center gap-2 hover:brightness-95 disabled:opacity-40 transition">
+                  <Plus className="w-4 h-4" /> Create class
+                </button>
+              </form>
+
+              {freeSuggestions.length > 0 && (
+                <div className="mt-5">
+                  <p className="mb-2 text-xs font-medium text-neutral-500 inline-flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> One-tap suggestions</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {freeSuggestions.map((preset) => (
+                      <button key={preset} type="button" onClick={() => room.addClass(preset)}
+                        className="h-8 px-3 rounded-full bg-[#f8f8f8] hover:bg-[#f1f1f1] text-[#005a9c] text-xs font-medium transition-colors">
+                        + {preset}
+                      </button>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              )}
+            </section>
+
+            {room.students.length > 0 && (
+              unplaced.length > 0 ? (
+                <Link to="/students" className="block rounded-3xl bg-[#d6d6d6] p-5 hover:brightness-95 transition">
+                  <span className="h-9 w-9 rounded-full bg-white grid place-items-center text-neutral-900"><AlertCircle className="w-[18px] h-[18px]" /></span>
+                  <p className="mt-3 text-base font-medium text-neutral-900">{plural(unplaced.length, 'student needs', 'students need')} a class or batch</p>
+                  <p className="mt-1 text-sm text-neutral-800/80">Needed for attendance and fees.</p>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900">Assign in Students <ArrowRight className="w-4 h-4" /></span>
+                </Link>
+              ) : (
+                <div className="rounded-3xl bg-[#dff3e7] p-5">
+                  <span className="h-9 w-9 rounded-full bg-white grid place-items-center text-[#005a9c]"><CheckCircle2 className="w-[18px] h-[18px]" /></span>
+                  <p className="mt-3 text-base font-medium text-neutral-900">All students are placed</p>
+                  <p className="mt-1 text-sm text-neutral-700">Every student has a class.</p>
+                </div>
+              )
+            )}
+          </aside>
+        </div>
       </main>
     </div>
   );

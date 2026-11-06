@@ -1,0 +1,711 @@
+/* ========================================================
+   BRIGHT FUTURE OFFICIAL DOCUMENT STYLES
+   Exact replica of user's uploaded Invoice & Question Paper
+   ======================================================== */
+
+/* --- FEE RECEIPT / INVOICE DOCUMENT --- */
+.bf-invoice-doc {
+  background: #ffffff;
+  color: #0b192c;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  padding: 18px 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  font-size: 11px;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.bf-invoice-doc.compact {
+  padding: 8px 10px;
+  font-size: 8.5px;
+  border: none;
+  box-shadow: none;
+}
+
+/* Header Top */
+.bf-inv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.bf-inv-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bf-inv-doc.compact .bf-inv-brand {
+  gap: 6px;
+}
+
+.bf-logo-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.bf-inv-doc.compact .bf-logo-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.bf-brand-name {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #0a2540;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.bf-inv-doc.compact .bf-brand-name {
+  font-size: 10.5px;
+}
+
+.bf-brand-sub {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #475569;
+  display: block;
+  margin-top: 1px;
+}
+
+.bf-inv-doc.compact .bf-brand-sub {
+  font-size: 7px;
+  letter-spacing: 0.8px;
+}
+
+.bf-brand-address {
+  font-size: 9px;
+  color: #64748b;
+  margin: 3px 0 0;
+  line-height: 1.35;
+}
+
+.bf-inv-doc.compact .bf-brand-address {
+  display: none;
+}
+
+/* Invoice Title & Meta Box */
+.bf-inv-meta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bf-inv-title {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #1e3a8a;
+  margin: 0;
+  line-height: 1;
+}
+
+.bf-inv-doc.compact .bf-inv-title {
+  font-size: 15px;
+}
+
+.bf-inv-subtitle {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.bf-inv-doc.compact .bf-inv-subtitle {
+  font-size: 7.5px;
+  margin-bottom: 3px;
+}
+
+.bf-meta-table {
+  border-collapse: collapse;
+  font-size: 9.5px;
+  color: #334155;
+}
+
+.bf-inv-doc.compact .bf-meta-table {
+  font-size: 7.5px;
+}
+
+.bf-meta-table td {
+  padding: 1px 3px;
+  text-align: left;
+}
+
+/* Banner Bars */
+.bf-banner-bar {
+  background: #e2edfc;
+  color: #0a2540;
+  font-weight: 800;
+  padding: 4px 10px;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  border-radius: 2px;
+  margin: 8px 0 6px;
+}
+
+.bf-inv-doc.compact .bf-banner-bar {
+  padding: 2.5px 6px;
+  font-size: 7.5px;
+  margin: 4px 0 3px;
+}
+
+.bf-banner-bar.sub {
+  font-size: 9px;
+  padding: 3px 8px;
+  margin: 6px 0 4px;
+}
+
+.bf-inv-doc.compact .bf-banner-bar.sub {
+  font-size: 7px;
+  padding: 2px 5px;
+  margin: 3px 0 2px;
+}
+
+/* Bill To Grid */
+.bf-billto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 12px;
+  padding: 2px 6px 8px;
+  font-size: 10px;
+}
+
+.bf-inv-doc.compact .bf-billto-grid {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 1px 4px 4px;
+  font-size: 7.5px;
+}
+
+.bf-kv {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  line-height: 1.4;
+  color: #334155;
+}
+
+.bf-kv span:first-child {
+  width: 90px;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.bf-inv-doc.compact .bf-kv span:first-child {
+  width: 65px;
+}
+
+.bf-kv strong {
+  color: #0b192c;
+}
+
+/* Particulars Table */
+.bf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 10px;
+  font-size: 10px;
+}
+
+.bf-inv-doc.compact .bf-table {
+  font-size: 7.5px;
+  margin: 3px 0 5px;
+}
+
+.bf-table th {
+  background: #dbeafe;
+  color: #0a2540;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  padding: 5px 8px;
+  text-align: left;
+}
+
+.bf-inv-doc.compact .bf-table th {
+  padding: 2px 4px;
+}
+
+.bf-table td {
+  border: 1px solid #e2e8f0;
+  padding: 4px 8px;
+  color: #1e293b;
+}
+
+.bf-inv-doc.compact .bf-table td {
+  padding: 2px 4px;
+}
+
+.bf-table td.num {
+  text-align: right;
+  font-family: 'SF Mono', Consolas, Menlo, monospace;
+}
+
+.bf-table tfoot td {
+  background: #f8fafc;
+  border-top: 2px solid #cbd5e1;
+  font-weight: 800;
+  font-size: 11px;
+}
+
+.bf-inv-doc.compact .bf-table tfoot td {
+  font-size: 8px;
+}
+
+.bf-table .total-lbl {
+  text-align: right;
+  color: #0a2540;
+}
+
+.bf-table .total-val {
+  text-align: right;
+  color: #0a2540;
+  font-size: 12px;
+}
+
+.bf-inv-doc.compact .bf-table .total-val {
+  font-size: 8.5px;
+}
+
+/* Bottom Split */
+.bf-inv-bottom {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.bf-inv-doc.compact .bf-inv-bottom {
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.bf-payment-rows {
+  padding: 2px 4px;
+  font-size: 9.5px;
+}
+
+.bf-inv-doc.compact .bf-payment-rows {
+  font-size: 7px;
+}
+
+.bf-terms-list {
+  padding-left: 14px;
+  margin: 3px 0 0;
+  font-size: 8.5px;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.bf-inv-doc.compact .bf-terms-list {
+  display: none;
+}
+
+/* QR Code & Stamp on Right */
+.bf-bottom-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bf-qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.bf-inv-doc.compact .bf-qr-card {
+  padding: 4px 8px;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.bf-qr-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.bf-qr-code {
+  width: 64px;
+  height: 64px;
+}
+
+.bf-inv-doc.compact .bf-qr-code {
+  width: 38px;
+  height: 38px;
+}
+
+.bf-upi-id {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 4px;
+}
+
+.bf-inv-doc.compact .bf-upi-id {
+  font-size: 7.5px;
+}
+
+.bf-stamp-sign-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.bf-inv-doc.compact .bf-stamp-sign-row {
+  margin-top: 4px;
+}
+
+/* Stamp */
+.bf-official-stamp {
+  width: 62px;
+  height: 62px;
+  border: 2px dashed #1e40af;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-7deg);
+  opacity: 0.85;
+}
+
+.bf-inv-doc.compact .bf-official-stamp {
+  width: 40px;
+  height: 40px;
+  border-width: 1.5px;
+}
+
+.stamp-inner {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #1e40af;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #1e40af;
+  font-size: 5px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.bf-inv-doc.compact .stamp-inner {
+  width: 32px;
+  height: 32px;
+  font-size: 4px;
+}
+
+.stamp-inner strong {
+  font-size: 7px;
+  margin: 1px 0;
+}
+
+.bf-inv-doc.compact .stamp-inner strong {
+  font-size: 5px;
+}
+
+/* Signature */
+.bf-signature-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bf-sig-svg {
+  width: 70px;
+  height: 26px;
+}
+
+.bf-inv-doc.compact .bf-sig-svg {
+  width: 48px;
+  height: 18px;
+}
+
+.bf-sig-label {
+  font-size: 8px;
+  color: #475569;
+  border-top: 1px solid #94a3b8;
+  padding-top: 2px;
+  margin-top: -2px;
+}
+
+.bf-inv-doc.compact .bf-sig-label {
+  font-size: 6.5px;
+}
+
+
+/* --- EXAM QUESTION PAPER DOCUMENT --- */
+.bf-exam-doc {
+  background: #ffffff;
+  color: #0b192c;
+  font-family: 'Times New Roman', Times, Georgia, serif;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  padding: 18px 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  font-size: 11px;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.bf-exam-doc.compact {
+  padding: 8px 10px;
+  font-size: 8.5px;
+  border: none;
+  box-shadow: none;
+}
+
+.bf-exam-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.bf-exam-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bf-exam-doc.compact .bf-exam-brand {
+  gap: 6px;
+}
+
+.bf-exam-brand .bf-brand-name {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0a2540;
+}
+
+.bf-exam-doc.compact .bf-exam-brand .bf-brand-name {
+  font-size: 10px;
+}
+
+.bf-exam-brand .bf-brand-sub {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+}
+
+.bf-exam-doc.compact .bf-exam-brand .bf-brand-sub {
+  font-size: 6.5px;
+}
+
+.bf-exam-address {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 8px;
+  color: #64748b;
+  margin: 1px 0 0;
+}
+
+.bf-exam-doc.compact .bf-exam-address {
+  display: none;
+}
+
+.bf-set-roll-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.bf-set-badge {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  border: 1.5px solid #0a2540;
+  background: #f8fafc;
+  color: #0a2540;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 2px;
+}
+
+.bf-exam-doc.compact .bf-set-badge {
+  font-size: 8px;
+  padding: 1px 6px;
+}
+
+.bf-roll-line {
+  font-size: 10px;
+  color: #0f172a;
+}
+
+.bf-exam-doc.compact .bf-roll-line {
+  font-size: 7.5px;
+}
+
+.roll-fill {
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+/* Center Title */
+.bf-exam-title-center {
+  text-align: center;
+  margin: 4px 0 8px;
+}
+
+.bf-exam-main-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #0a2540;
+  margin: 0;
+}
+
+.bf-exam-doc.compact .bf-exam-main-title {
+  font-size: 9.5px;
+}
+
+.bf-exam-class {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  margin: 1px 0;
+}
+
+.bf-exam-doc.compact .bf-exam-class {
+  font-size: 8px;
+}
+
+.bf-exam-subject {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #000000;
+  margin: 2px 0 0;
+}
+
+.bf-exam-doc.compact .bf-exam-subject {
+  font-size: 9px;
+}
+
+/* Time & Marks */
+.bf-time-marks-bar {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  padding: 3px 6px;
+  font-weight: 700;
+  font-size: 10px;
+  margin: 6px 0;
+}
+
+.bf-exam-doc.compact .bf-time-marks-bar {
+  font-size: 7.5px;
+  padding: 2px 4px;
+  margin: 3px 0;
+}
+
+/* General Instructions */
+.bf-instructions-list {
+  margin: 3px 0 6px;
+  padding-left: 16px;
+  font-size: 8.5px;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.bf-exam-doc.compact .bf-instructions-list {
+  display: none;
+}
+
+/* Section Header Bar */
+.bf-banner-bar.section-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #dbeafe;
+  color: #0a2540;
+  padding: 3px 8px;
+  font-size: 9.5px;
+  font-weight: 800;
+  margin: 8px 0 4px;
+}
+
+.bf-exam-doc.compact .bf-banner-bar.section-bar {
+  font-size: 7.5px;
+  padding: 2px 5px;
+  margin: 4px 0 2px;
+}
+
+.bf-section-note {
+  font-style: italic;
+  font-size: 8.5px;
+  color: #475569;
+  margin: 2px 0 4px;
+}
+
+.bf-exam-doc.compact .bf-section-note {
+  display: none;
+}
+
+/* Questions */
+.bf-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bf-exam-doc.compact .bf-questions-list {
+  gap: 3px;
+}
+
+.bf-q-item {
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.bf-exam-doc.compact .bf-q-item {
+  font-size: 8px;
+}
+
+.bf-q-text {
+  color: #0f172a;
+}
+
+.bf-mcq-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: 2px;
+  padding-left: 12px;
+  font-size: 8.5px;
+  color: #334155;
+}
+
+.bf-exam-doc.compact .bf-mcq-grid {
+  font-size: 7.5px;
+  padding-left: 6px;
+  gap: 2px;
+}
+
+.bf-mcq-grid .correct-opt {
+  color: #16a34a;
+  font-weight: 700;
+}

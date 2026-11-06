@@ -11,10 +11,10 @@ const field = 'w-full h-11 px-3 text-base sm:text-sm bg-white rounded-xl ring-1 
 const SOURCES = ['Call', 'WhatsApp', 'Walk-in', 'Reference'];
 
 const STATUSES = [
-  { id: 'new', label: 'New', chip: 'bg-neutral-100 text-neutral-900 ring-neutral-200', dot: 'bg-neutral-900', icon: UserPlus },
-  { id: 'contacted', label: 'Contacted', chip: 'bg-neutral-100 text-neutral-900 ring-neutral-200', dot: 'bg-neutral-900', icon: PhoneCall },
-  { id: 'visit', label: 'Visit planned', chip: 'bg-neutral-100 text-neutral-900 ring-neutral-200', dot: 'bg-neutral-900', icon: MapPin },
-  { id: 'joined', label: 'Joined', chip: 'bg-neutral-950 text-white ring-neutral-950', dot: 'bg-neutral-900', icon: CheckCircle2 },
+  { id: 'new', label: 'New', chip: 'bg-[#f0f0f0] text-neutral-800 ring-[#dedede]', dot: 'bg-[#d6d6d6]', icon: UserPlus },
+  { id: 'contacted', label: 'Contacted', chip: 'bg-[#e2e2e2] text-neutral-800 ring-[#c4c4c4]', dot: 'bg-[#005a9c]', icon: PhoneCall },
+  { id: 'visit', label: 'Visit planned', chip: 'bg-[#005a9c] text-white ring-[#005a9c]', dot: 'bg-[#005a9c]', icon: MapPin },
+  { id: 'joined', label: 'Joined', chip: 'bg-[#1b365d] text-white ring-[#1b365d]', dot: 'bg-[#1b365d]', icon: CheckCircle2 },
   { id: 'dropped', label: 'Not joining', chip: 'bg-neutral-200 text-neutral-600 ring-neutral-300', dot: 'bg-neutral-400', icon: Inbox },
 ];
 
@@ -138,7 +138,7 @@ export default function Leads() {
           icon={Inbox}
           eyebrow="Institute"
           title="Leads & inquiries"
-          subtitle="Save every call, message or walk-in. Set a follow-up date, and move each inquiry along until they join."
+          subtitle="Track inquiries and follow-ups."
         />
 
         {/* Pipeline */}
@@ -150,7 +150,7 @@ export default function Leads() {
                 key={s.id}
                 type="button"
                 onClick={() => setFilter(s.id)}
-                className={`relative text-left rounded-2xl bg-white p-4 shadow-card ring-1 transition-all hover:-translate-y-0.5 ${filter === s.id ? 'ring-2 ring-brand-500' : 'ring-neutral-200/80'}`}
+                className={`relative text-left rounded-3xl bg-white p-4 shadow-card transition-all hover:-translate-y-0.5 ${filter === s.id ? 'ring-2 ring-brand-500' : ''}`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Step {i + 1}</span>
@@ -166,7 +166,7 @@ export default function Leads() {
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
           {/* List */}
-          <section className="xl:col-span-2 bg-white rounded-2xl ring-1 ring-neutral-200/80 shadow-card overflow-hidden min-w-0">
+          <section className="xl:col-span-2 bg-white rounded-3xl shadow-card overflow-hidden min-w-0">
             <div className="p-4 border-b border-neutral-100 space-y-3">
               <div className="flex gap-1.5 overflow-x-auto pb-0.5" role="radiogroup" aria-label="Filter inquiries">
                 {filters.map(([id, label, count]) => (
@@ -176,7 +176,7 @@ export default function Leads() {
                     role="radio"
                     aria-checked={filter === id}
                     onClick={() => setFilter(id)}
-                    className={`h-8 shrink-0 px-3 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 ${filter === id ? 'bg-neutral-900 text-white' : 'bg-neutral-50 text-neutral-600 ring-1 ring-neutral-200 hover:bg-white'}`}
+                    className={`h-8 shrink-0 px-3 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 ${filter === id ? 'bg-[#ededed] text-neutral-900' : 'bg-neutral-50 text-neutral-600 ring-1 ring-neutral-200 hover:bg-white'}`}
                   >
                     {label}
                     <span className={`min-w-5 h-5 px-1 rounded-full text-[11px] grid place-items-center ${filter === id ? 'bg-white/20' : id === 'due' && count ? 'bg-neutral-400 text-neutral-900' : 'bg-neutral-200/70'}`}>{count}</span>
@@ -190,7 +190,7 @@ export default function Leads() {
             </div>
 
             {room.leads.length === 0 ? (
-              <EmptyState icon={Inbox} title="No inquiries yet" text="When a parent calls, messages or walks in, save them with the form. You'll never forget a follow-up again." />
+              <EmptyState icon={Inbox} title="No inquiries yet" text="Save every inquiry and follow up." />
             ) : (
               <ul className="divide-y divide-neutral-100">
                 {shown.length === 0 && <li className="px-5 py-12 text-sm text-center text-neutral-500">No inquiries in this view.</li>}
@@ -240,7 +240,7 @@ export default function Leads() {
                   <span className="mb-1 block text-xs font-semibold text-neutral-600">Note</span>
                   <input className={field} value={form.note} onChange={set('note')} placeholder="e.g. Asked about fees" aria-label="Inquiry note" />
                 </label>
-                <button type="submit" className="w-full h-11 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-white text-sm font-semibold shadow-sm">
+                <button type="submit" className="w-full h-11 rounded-xl bg-[#ededed] hover:brightness-95 text-neutral-900 text-sm font-semibold shadow-sm">
                   Save inquiry
                 </button>
                 {saved && <p className="text-xs font-semibold text-neutral-900 flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Saved {saved}. It's in “To follow up”.</p>}

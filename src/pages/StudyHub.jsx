@@ -68,7 +68,7 @@ export default function StudyHub() {
 
   if (loadingSessions || !activeSession) {
     return (
-      <div className="min-h-screen bg-[#f7f8fc] flex items-center justify-center">
+      <div className="min-h-screen bg-[#f8f8f8] flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -108,14 +108,14 @@ export default function StudyHub() {
   const LockedTab = ({ label }) => (
     <div className="flex flex-col items-center justify-center py-24 text-center">
       <p className="text-sm font-medium text-neutral-700 mb-1">{label} is unavailable</p>
-      <p className="text-xs text-neutral-400 max-w-xs">This feature requires a specific chapter session. Select a class, subject and chapter from the dashboard.</p>
+      <p className="text-xs text-neutral-400 max-w-xs">Open a chapter from the dashboard first.</p>
       <Button variant="secondary" size="sm" className="mt-5" onClick={() => navigate('/')}>Go to Dashboard</Button>
     </div>
   );
 
   /* ─────────────────────────────────────────────── */
   return (
-    <div className="min-h-screen bg-[#f7f8fc] flex flex-col">
+    <div className="min-h-screen bg-[#f8f8f8] flex flex-col">
 
       {/* ── Top bar ─────────────────────────────── */}
       <header className="h-14 bg-white border-b border-neutral-200 flex items-center px-5 gap-4 sticky top-0 z-20">

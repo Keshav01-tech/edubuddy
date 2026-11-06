@@ -21,7 +21,7 @@
   color: var(--contact-ink);
   font-family: var(--contact-sans);
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
 }
@@ -34,7 +34,7 @@
 .contact-hero {
   position: relative;
   background: radial-gradient(ellipse 70% 50% at 50% -10%, #d4ecf9 0%, #edf7fc 45%, #ffffff 80%);
-  padding: clamp(40px, 6vh, 60px) 20px clamp(20px, 4vh, 30px);
+  padding: clamp(80px, 10vh, 100px) 20px clamp(20px, 4vh, 30px);
   text-align: center;
 }
 

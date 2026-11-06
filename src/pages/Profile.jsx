@@ -102,7 +102,7 @@ export default function Profile() {
               <Building2 className="w-6 h-6 text-brand-600" /> Institute Profile
             </h1>
             <p className="mt-1 text-sm text-neutral-500">
-              Your name, logo and contact details appear on every fee receipt and printed test paper.
+              Shown on receipts and printed papers.
             </p>
           </div>
           {savedNotice && (
@@ -114,7 +114,7 @@ export default function Profile() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Logo & Identity Section */}
-          <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-5 sm:p-6">
+          <section className="bg-white rounded-3xl shadow-card p-5 sm:p-6">
             <h2 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
               <Camera className="w-4 h-4 text-brand-600" /> Institute Logo & Brand
             </h2>
@@ -151,7 +151,7 @@ export default function Profile() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="h-9 px-3.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
+                    className="h-9 px-3.5 rounded-xl bg-[#ededed] hover:brightness-95 text-neutral-900 text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
                   >
                     <Upload className="w-3.5 h-3.5" />
                     {form.logo ? 'Change logo' : 'Upload logo'}
@@ -167,7 +167,7 @@ export default function Profile() {
                   )}
                 </div>
                 <p className="text-xs text-neutral-400">
-                  PNG, JPG, or SVG. Square recommended (min. 200×200px).
+                  PNG, JPG or SVG, square.
                 </p>
                 {logoError && <p className="text-xs text-neutral-900 font-medium">{logoError}</p>}
               </div>
@@ -202,7 +202,7 @@ export default function Profile() {
 
               <label className="block">
                 <span className="mb-1 block text-xs font-medium text-neutral-600">
-                  Director / Principal Name
+                  Principal name
                 </span>
                 <input
                   className={field}
@@ -214,7 +214,7 @@ export default function Profile() {
 
               <label className="block">
                 <span className="mb-1 block text-xs font-medium text-neutral-600">
-                  Receipt Series Prefix
+                  Receipt prefix
                 </span>
                 <input
                   className={field}
@@ -228,7 +228,7 @@ export default function Profile() {
           </section>
 
           {/* Contact Details */}
-          <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-5 sm:p-6">
+          <section className="bg-white rounded-3xl shadow-card p-5 sm:p-6">
             <h2 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
               <Phone className="w-4 h-4 text-brand-600" /> Contact Details
             </h2>
@@ -252,7 +252,7 @@ export default function Profile() {
 
               <label className="block">
                 <span className="mb-1 block text-xs font-medium text-neutral-600">
-                  Official Email Address
+                  Email
                 </span>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
@@ -268,7 +268,7 @@ export default function Profile() {
 
               <label className="block sm:col-span-2">
                 <span className="mb-1 block text-xs font-medium text-neutral-600">
-                  Website / Social Page
+                  Website
                 </span>
                 <div className="relative">
                   <Globe className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
@@ -284,7 +284,7 @@ export default function Profile() {
           </section>
 
           {/* Location & Address */}
-          <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-5 sm:p-6">
+          <section className="bg-white rounded-3xl shadow-card p-5 sm:p-6">
             <h2 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
               <MapPin className="w-4 h-4 text-brand-600" /> Location & Address
             </h2>
@@ -292,7 +292,7 @@ export default function Profile() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <label className="block sm:col-span-3">
                 <span className="mb-1 block text-xs font-semibold text-neutral-700">
-                  Street Address (Building, Street, Landmark)
+                  Street address
                 </span>
                 <input
                   className={field}
@@ -336,12 +336,12 @@ export default function Profile() {
           </section>
 
           {/* Live Preview Section */}
-          <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-5 sm:p-6">
+          <section className="bg-white rounded-3xl shadow-card p-5 sm:p-6">
             <h2 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider text-neutral-400 mb-1 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-neutral-500" /> Live Receipt Header Preview
             </h2>
             <p className="text-xs text-neutral-400 mb-4">
-              This is how your institute header will appear on fee receipts and printed papers.
+              Receipt and paper header preview.
             </p>
 
             <div className="border border-dashed border-neutral-300 rounded-xl p-5 bg-neutral-50/50 text-center">
@@ -377,7 +377,7 @@ export default function Profile() {
           <div className="flex items-center justify-end gap-3 pt-2">
             <button
               type="submit"
-              className="h-11 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition-colors"
+              className="h-11 px-6 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition-colors"
             >
               <Check className="w-4 h-4" /> Save Profile
             </button>

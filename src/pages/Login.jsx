@@ -54,10 +54,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen lg:grid lg:grid-cols-[1.05fr_0.95fr] bg-canvas">
+    <div className="min-h-screen lg:grid lg:grid-cols-[1.05fr_0.95fr] dash-canvas">
       <section className="hidden lg:flex flex-col justify-between px-14 py-14">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-lg bg-brand-700 text-white grid place-items-center">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#60c1e5] to-[#9ccdf0] text-neutral-900 grid place-items-center">
             <GraduationCap className="w-5 h-5" />
           </div>
           <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
@@ -65,23 +65,23 @@ export default function Login() {
 
         <div className="max-w-md">
           <h1 className="font-semibold text-4xl text-neutral-900 leading-tight">
-            Question papers for your class, ready to print.
+            Print-ready question papers
           </h1>
           <p className="mt-4 text-base text-neutral-600 leading-relaxed">
-            Pick a class, the chapters, and the marks. EduBuddy writes the questions, the worksheet, and the answer key.
+            Pick class, chapters and marks. Get paper, worksheet and key.
           </p>
           <ul className="mt-8 space-y-3 text-[15px] text-neutral-700">
             <li className="flex gap-3">
-              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-brand-600 shrink-0" />
-              NCERT chapters for classes 6 to 12
+              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#60c1e5] shrink-0" />
+              NCERT Class 6–12
             </li>
             <li className="flex gap-3">
-              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-brand-600 shrink-0" />
-              Any total from 1 to 100 marks
+              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#60c1e5] shrink-0" />
+              Any marks, 1–100
             </li>
             <li className="flex gap-3">
-              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-brand-600 shrink-0" />
-              A fresh set of questions every time
+              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#60c1e5] shrink-0" />
+              Fresh questions every time
             </li>
           </ul>
         </div>
@@ -89,7 +89,7 @@ export default function Login() {
         <p className="text-sm text-neutral-500">Classes 6–12 · NCERT</p>
       </section>
 
-      <section className="relative min-h-screen bg-white lg:border-l border-neutral-200 flex items-center justify-center px-5 py-10">
+      <section className="relative min-h-screen bg-white/70 backdrop-blur-xl lg:border-l border-white flex items-center justify-center px-5 py-10">
         <button
           type="button"
           onClick={() => setSettingsOpen(true)}
@@ -101,7 +101,7 @@ export default function Login() {
 
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-2.5 mb-8">
-            <div className="w-9 h-9 rounded-lg bg-brand-700 text-white grid place-items-center">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#60c1e5] to-[#9ccdf0] text-neutral-900 grid place-items-center">
               <GraduationCap className="w-5 h-5" />
             </div>
             <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
@@ -194,7 +194,7 @@ export default function Login() {
           {isDemoMode && (
             <div className="mt-8 flex items-start gap-2.5 p-3.5 bg-brand-50 border border-brand-100 rounded-xl text-xs text-brand-900 leading-relaxed">
               <Info className="w-4 h-4 shrink-0 mt-0.5" />
-              <p>Demo mode is on. Sign in with any email and password. Tests stay in this browser.</p>
+              <p>Demo mode: use any email and password.</p>
             </div>
           )}
         </div>

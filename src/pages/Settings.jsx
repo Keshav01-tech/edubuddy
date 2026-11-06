@@ -44,9 +44,9 @@ export default function SettingsPage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Account</p>
         <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">Settings</h1>
-        <p className="mt-1 text-sm text-neutral-500">Add a class, then its sections. Attendance uses these to show one list at a time.</p>
+        <p className="mt-1 text-sm text-neutral-500">Classes and sections.</p>
 
-        <section className="mt-5 bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5">
+        <section className="mt-5 bg-white rounded-3xl shadow-card p-4 sm:p-5">
           <h2 className="text-[15px] font-semibold text-neutral-900">Classes and sections</h2>
           <form onSubmit={addClass} className="mt-3 flex gap-2">
             <input
@@ -56,7 +56,7 @@ export default function SettingsPage() {
               placeholder="Class name, e.g. 10"
               aria-label="Class name"
             />
-            <button type="submit" className="h-11 px-4 shrink-0 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-1.5">
+            <button type="submit" className="h-11 px-4 shrink-0 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold inline-flex items-center gap-1.5">
               <Plus className="w-4 h-4" /> Add class
             </button>
           </form>
@@ -111,7 +111,7 @@ export default function SettingsPage() {
           </ul>
         </section>
 
-        <section className="mt-4 bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5 flex items-center gap-3">
+        <section className="mt-4 bg-white rounded-3xl shadow-card p-4 sm:p-5 flex items-center gap-3">
           <div className="min-w-0 flex-1">
             <h2 className="text-[15px] font-semibold text-neutral-900">Question papers</h2>
             <p className="mt-0.5 text-sm text-neutral-500">The key used to write tests.</p>

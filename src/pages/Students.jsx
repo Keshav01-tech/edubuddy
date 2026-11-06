@@ -168,7 +168,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [] }) {
         )}
         <button
           type="submit"
-          className="h-10 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
+          className="h-10 px-4 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
         >
           {initial ? 'Save changes' : (<><UserPlus className="w-4 h-4" /> Add student</>)}
         </button>
@@ -192,7 +192,7 @@ export function PdfImport({ onAdd, onClose }) {
     try {
       const students = await studentsFromPdf(file);
       if (!students.length) {
-        setMessage('No students found. The PDF needs a table with Name and Class columns, or lines like "Aarav Sharma, Class 10A".');
+        setMessage('No students found. Use a Name and Class table.');
         return;
       }
       setFound(students);
@@ -211,11 +211,11 @@ export function PdfImport({ onAdd, onClose }) {
     );
 
   return (
-    <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5">
+    <section className="bg-white rounded-3xl shadow-card p-4 sm:p-5">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-[15px] font-semibold text-neutral-900">Import students from a PDF</h2>
-          <p className="mt-0.5 text-sm text-neutral-500">Upload a class roster. Names, classes and fees are parsed automatically.</p>
+          <p className="mt-0.5 text-sm text-neutral-500">Upload a class roster.</p>
         </div>
         {onClose && (
           <button
@@ -297,7 +297,7 @@ export function PdfImport({ onAdd, onClose }) {
                 setFound(null);
                 if (onClose) onClose();
               }}
-              className="h-10 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold disabled:opacity-40 inline-flex items-center gap-1.5 shadow-sm"
+              className="h-10 px-4 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold disabled:opacity-40 inline-flex items-center gap-1.5 shadow-sm"
             >
               <UserPlus className="w-4 h-4" /> Add {picked.length} {picked.length === 1 ? 'student' : 'students'}
             </button>
@@ -416,7 +416,7 @@ export default function Students() {
             <button
               type="button"
               onClick={() => { setShowAddForm((v) => !v); setShowPdfImport(false); }}
-              className="h-9 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
+              className="h-9 px-4 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
             >
               <UserPlus className="w-4 h-4" />
               Add student
@@ -438,7 +438,7 @@ export default function Students() {
           return (
             <div className="mb-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
               {tiles.map(([label, value, hint, tone]) => (
-                <div key={label} className="bg-white rounded-2xl ring-1 ring-neutral-200/80 shadow-card px-4 py-3.5">
+                <div key={label} className="bg-white rounded-3xl shadow-card px-4 py-3.5">
                   <p className="text-xs font-semibold text-neutral-500">{label}</p>
                   <p className={`mt-1 text-2xl font-extrabold tabular-nums ${tone}`}>{value}</p>
                   <p className="text-[11px] text-neutral-400">{hint}</p>
@@ -450,7 +450,7 @@ export default function Students() {
 
         {/* Collapsible Add Student Form */}
         {showAddForm && (
-          <section className="mb-5 bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-5 animate-fade-up">
+          <section className="mb-5 bg-white rounded-3xl shadow-card p-5 animate-fade-up">
             <div className="flex items-center justify-between mb-4 pb-2 border-b border-neutral-100">
               <h2 className="text-sm font-semibold text-neutral-900">Add a new student</h2>
               <button
@@ -484,17 +484,17 @@ export default function Students() {
 
         {/* Empty State */}
         {room.students.length === 0 && !showAddForm && !showPdfImport && (
-          <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-10 text-center shadow-card">
+          <div className="bg-white rounded-3xl p-10 text-center shadow-card">
             <Users className="w-10 h-10 mx-auto text-neutral-300" />
             <h2 className="mt-3 text-base font-semibold text-neutral-900">No students yet</h2>
             <p className="mt-1 text-sm text-neutral-500 max-w-sm mx-auto">
-              Add your students to manage attendance, track fee payments, and generate targeted tests.
+              Add students to get started.
             </p>
             <div className="mt-5 flex items-center justify-center gap-2">
               <button
                 type="button"
                 onClick={() => setShowAddForm(true)}
-                className="h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 shadow-sm inline-flex items-center gap-1.5"
+                className="h-10 px-4 rounded-xl bg-[#005a9c] text-white text-sm font-semibold hover:bg-[#1b365d] shadow-sm inline-flex items-center gap-1.5"
               >
                 <UserPlus className="w-4 h-4" /> Add first student
               </button>
@@ -513,7 +513,7 @@ export default function Students() {
         {room.students.length > 0 && (
           <div className="space-y-4">
             {/* Filters Bar */}
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 space-y-3">
+            <div className="bg-white rounded-3xl shadow-card p-4 space-y-3">
               <div className="relative">
                 <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                 <input
@@ -535,7 +535,7 @@ export default function Students() {
                     onClick={() => setSelectedClass('all')}
                     className={`h-8 shrink-0 px-3 rounded-full text-xs font-medium transition-colors ${
                       selectedClass === 'all'
-                        ? 'bg-neutral-900 text-white'
+                        ? 'bg-[#ededed] text-neutral-900'
                         : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                     }`}
                   >
@@ -554,7 +554,7 @@ export default function Students() {
                         onClick={() => setSelectedClass(item.id)}
                         className={`h-8 shrink-0 px-3 rounded-full text-xs font-medium transition-colors ${
                           selectedClass === item.id
-                            ? 'bg-neutral-900 text-white'
+                            ? 'bg-[#ededed] text-neutral-900'
                             : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                         }`}
                       >
@@ -567,7 +567,7 @@ export default function Students() {
             </div>
 
             {/* Table Container */}
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card overflow-hidden">
+            <div className="bg-white rounded-3xl shadow-card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
@@ -585,7 +585,7 @@ export default function Students() {
                     {paginatedStudents.length === 0 ? (
                       <tr>
                         <td colSpan={7} className="py-12 text-center text-sm text-neutral-500">
-                          No students match your search or filter.
+                          No matches.
                         </td>
                       </tr>
                     ) : (
@@ -781,7 +781,7 @@ export default function Students() {
                             onClick={() => setCurrentPage(pageNum)}
                             className={`h-8 w-8 rounded-lg text-xs font-semibold transition-colors ${
                               safePage === pageNum
-                                ? 'bg-neutral-900 text-white'
+                                ? 'bg-[#ededed] text-neutral-900'
                                 : 'bg-white ring-1 ring-neutral-200 text-neutral-700 hover:bg-neutral-100'
                             }`}
                           >
@@ -809,7 +809,7 @@ export default function Students() {
         {/* Edit Student Modal */}
         {editingStudent && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm animate-fade-up">
-            <div className="bg-white rounded-2xl ring-1 ring-neutral-200 shadow-2xl max-w-lg w-full p-5 sm:p-6">
+            <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-5 sm:p-6">
               <div className="flex items-center justify-between mb-4 pb-2 border-b border-neutral-100">
                 <h3 className="text-base font-semibold text-neutral-900">Edit Student Details</h3>
                 <button

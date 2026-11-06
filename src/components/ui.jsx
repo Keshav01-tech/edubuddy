@@ -6,12 +6,12 @@ import { ArrowUpRight } from 'lucide-react';
    Charts are plain SVG so they print, scale and need no extra dependency. */
 
 export const TONES = {
-  brand: { solid: '#0a0a0a', soft: 'bg-neutral-100', text: 'text-neutral-900', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
-  emerald: { solid: '#0a0a0a', soft: 'bg-neutral-100', text: 'text-neutral-900', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
-  amber: { solid: '#0a0a0a', soft: 'bg-neutral-100', text: 'text-neutral-900', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
-  rose: { solid: '#0a0a0a', soft: 'bg-neutral-100', text: 'text-neutral-900', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
-  sky: { solid: '#0a0a0a', soft: 'bg-neutral-100', text: 'text-neutral-900', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
-  slate: { solid: '#a3a3a3', soft: 'bg-neutral-100', text: 'text-neutral-600', ring: 'ring-neutral-200', icon: 'bg-neutral-950 text-white' },
+  brand:   { solid: '#005a9c', soft: 'bg-[#eef7fc]', text: 'text-[#005a9c]', ring: 'ring-neutral-200', icon: 'bg-white text-[#005a9c]', card: '#ececec' },
+  emerald: { solid: '#525252', soft: 'bg-neutral-100', text: 'text-neutral-700', ring: 'ring-neutral-200', icon: 'bg-white text-neutral-900', card: '#f2f2f2' },
+  amber:   { solid: '#737373', soft: 'bg-neutral-100', text: 'text-neutral-700', ring: 'ring-neutral-200', icon: 'bg-white text-neutral-900', card: '#e8e8e8' },
+  rose:    { solid: '#171717', soft: 'bg-neutral-100', text: 'text-neutral-700', ring: 'ring-neutral-200', icon: 'bg-white text-neutral-900', card: '#e2e2e2' },
+  sky:     { solid: '#a3a3a3', soft: 'bg-neutral-100', text: 'text-neutral-700', ring: 'ring-neutral-200', icon: 'bg-white text-neutral-900', card: '#f6f6f6' },
+  slate:   { solid: '#a3a3a3', soft: 'bg-neutral-100', text: 'text-neutral-600', ring: 'ring-neutral-200', icon: 'bg-white text-neutral-900', card: '#efefef' },
 };
 
 /** Page title row: optional icon + eyebrow, title, one-line explanation, and actions on the right. */
@@ -20,13 +20,13 @@ export function PageHeader({ icon: Icon, eyebrow, title, subtitle, actions, chil
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div className="min-w-0 flex items-start gap-3.5">
         {Icon && (
-          <span className="hidden sm:grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white ring-1 ring-neutral-200 shadow-card text-brand-600">
+          <span className="hidden sm:grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white shadow-card text-neutral-900">
             <Icon className="h-5.5 w-5.5" />
           </span>
         )}
         <div className="min-w-0">
-          {eyebrow && <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">{eyebrow}</p>}
-          <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900 leading-tight">{title}</h1>
+          {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-500 mb-1">{eyebrow}</p>}
+          <h1 className="text-2xl sm:text-[1.75rem] font-medium tracking-tight text-neutral-900 leading-tight">{title}</h1>
           {subtitle && <p className="mt-1 text-sm text-neutral-500 max-w-2xl">{subtitle}</p>}
           {children}
         </div>
@@ -40,37 +40,37 @@ export function PageHeader({ icon: Icon, eyebrow, title, subtitle, actions, chil
 export function Panel({ title, subtitle, icon: Icon, tone = 'brand', action, className = '', bodyClass = '', children }) {
   const t = TONES[tone] || TONES.brand;
   return (
-    <section className={`bg-white rounded-2xl ring-1 ring-neutral-200/80 shadow-card ${className}`}>
+    <section className={`bg-white rounded-3xl shadow-card ${className}`}>
       {(title || action) && (
-        <header className="flex items-center justify-between gap-3 px-5 pt-5 pb-3">
+        <header className="flex items-center justify-between gap-3 px-5 sm:px-6 pt-5 pb-3">
           <div className="flex items-center gap-2.5 min-w-0">
             {Icon && (
-              <span className={`h-9 w-9 shrink-0 rounded-xl grid place-items-center ${t.soft} ${t.text}`}>
+              <span className={`h-9 w-9 shrink-0 rounded-full grid place-items-center ${t.soft} ${t.text}`}>
                 <Icon className="w-[18px] h-[18px]" />
               </span>
             )}
             <div className="min-w-0">
-              <h2 className="text-[15px] font-bold text-neutral-900 truncate">{title}</h2>
+              <h2 className="text-base font-medium text-neutral-800 truncate">{title}</h2>
               {subtitle && <p className="text-xs text-neutral-500 truncate">{subtitle}</p>}
             </div>
           </div>
           {action}
         </header>
       )}
-      <div className={`px-5 pb-5 ${title || action ? '' : 'pt-5'} ${bodyClass}`}>{children}</div>
+      <div className={`px-5 sm:px-6 pb-5 sm:pb-6 ${title || action ? '' : 'pt-5'} ${bodyClass}`}>{children}</div>
     </section>
   );
 }
 
 export function PanelLink({ to, children }) {
   return (
-    <Link to={to} className="shrink-0 h-8 px-2.5 rounded-lg text-xs font-semibold text-brand-700 hover:bg-brand-50 inline-flex items-center gap-1 transition-colors">
+    <Link to={to} className="shrink-0 h-8 px-3 rounded-full text-xs font-medium text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 inline-flex items-center gap-1 transition-colors">
       {children} <ArrowUpRight className="w-3.5 h-3.5" />
     </Link>
   );
 }
 
-/** KPI tile: label, big value, hint line, optional sparkline. Renders as a link when `to` is set. */
+/** KPI tile: pastel card with label, big value, hint line, optional sparkline. Renders as a link when `to` is set. */
 export function StatCard({ label, value, hint, hintTone, icon: Icon, tone = 'brand', trend, to, active, onClick }) {
   const t = TONES[tone] || TONES.brand;
   const Tag = to ? Link : onClick ? 'button' : 'div';
@@ -80,28 +80,31 @@ export function StatCard({ label, value, hint, hintTone, icon: Icon, tone = 'bra
       onClick={onClick}
       type={onClick ? 'button' : undefined}
       aria-pressed={onClick ? !!active : undefined}
-      className={`group relative text-left overflow-hidden bg-white rounded-2xl p-4 sm:p-5 shadow-card ring-1 transition-all ${
-        active ? 'ring-2 ring-brand-400' : 'ring-neutral-200/80'
+      style={{ background: t.card }}
+      className={`group relative text-left overflow-hidden rounded-3xl p-4 sm:p-5 min-h-[128px] flex flex-col justify-between transition-all ${
+        active ? 'ring-2 ring-[#005a9c]' : 'ring-1 ring-inset ring-neutral-200'
       } ${to || onClick ? 'hover:-translate-y-0.5 hover:shadow-lift' : ''}`}
     >
       <div className="flex items-start justify-between gap-3">
-        <p className="text-[13px] font-semibold text-neutral-500">{label}</p>
+        <p className="text-sm font-medium text-neutral-800">{label}</p>
         {Icon && (
-          <span className={`h-9 w-9 shrink-0 rounded-xl grid place-items-center ${t.icon} shadow-sm`}>
+          <span className={`h-9 w-9 shrink-0 rounded-full grid place-items-center ${t.icon}`}>
             <Icon className="w-[18px] h-[18px]" />
           </span>
         )}
       </div>
-      <p className="mt-2 text-[1.35rem] sm:text-[1.7rem] leading-none font-extrabold tracking-tight text-neutral-900 tabular-nums">{value}</p>
-      <div className="mt-2.5 flex items-end justify-between gap-3 min-h-6">
-        {hint && <p className={`text-xs font-medium truncate ${hintTone ? TONES[hintTone].text : 'text-neutral-500'}`}>{hint}</p>}
-        {trend && trend.length > 1 && <span className="hidden sm:block"><Sparkline data={trend} color={t.solid} /></span>}
+      <div>
+        <p className="mt-3 text-[1.5rem] sm:text-[1.95rem] leading-none font-medium tracking-tight text-neutral-900 tabular-nums">{value}</p>
+        <div className="mt-3 flex items-end justify-between gap-3 min-h-6">
+          {hint && <p className={`text-xs truncate text-neutral-700 ${hintTone ? 'font-semibold' : 'font-medium'}`}>{hint}</p>}
+          {trend && trend.length > 1 && <span className="hidden sm:block"><Sparkline data={trend} color="#262626" /></span>}
+        </div>
       </div>
     </Tag>
   );
 }
 
-export function Sparkline({ data, color = '#0a0a0a', width = 84, height = 26 }) {
+export function Sparkline({ data, color = '#262626', width = 84, height = 26 }) {
   const max = Math.max(...data, 1);
   const min = Math.min(...data, 0);
   const span = max - min || 1;
@@ -129,7 +132,7 @@ export function BarChart({ data, height = 160, format = (v) => v, tone = 'brand'
   return (
     <div className="flex items-end gap-2 sm:gap-3" style={{ height: height + 40 }}>
       {data.map((d, i) => {
-        const fill = highlightLast ? (i === data.length - 1 ? '#0a0a0a' : '#d4d4d4') : (TONES[d.tone || tone] || TONES.brand).solid;
+        const fill = highlightLast ? (i === data.length - 1 ? '#005a9c' : '#e5e5e5') : (TONES[d.tone || tone] || TONES.brand).solid;
         const h = Math.max(4, (d.value / max) * height);
         return (
           <div key={d.label + i} className="flex-1 min-w-0 flex flex-col items-center justify-end gap-1.5 h-full">
@@ -144,7 +147,7 @@ export function BarChart({ data, height = 160, format = (v) => v, tone = 'brand'
 }
 
 /** Smooth line/area chart for a 0–100 series (e.g. attendance %). data: [{ label, value|null }] */
-export function TrendChart({ data, height = 170, color = '#0a0a0a', target, suffix = '%' }) {
+export function TrendChart({ data, height = 170, color = '#005a9c', target, suffix = '%' }) {
   const W = 600;
   const H = height;
   const pad = { l: 34, r: 10, t: 12, b: 26 };
@@ -198,7 +201,7 @@ export function Donut({ segments, size = 150, thickness = 18, children }) {
   return (
     <div className="relative shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#ededed" strokeWidth={thickness} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#f0f1f6" strokeWidth={thickness} />
         {segments.map((s, i) => {
           const len = (s.value / total) * c;
           const el = (
@@ -228,7 +231,7 @@ export function Meter({ value, max = 100, tone = 'brand', label, right, classNam
           <span className="font-semibold text-neutral-800 tabular-nums">{right}</span>
         </div>
       )}
-      <div className="h-2 rounded-full bg-neutral-100 overflow-hidden">
+      <div className="h-2.5 rounded-full bg-neutral-100 overflow-hidden">
         <div className="h-full rounded-full" style={{ width: `${pct}%`, background: t.solid }} />
       </div>
     </div>
@@ -239,21 +242,27 @@ export function EmptyState({ icon: Icon, title, text, action }) {
   return (
     <div className="py-10 px-6 text-center">
       {Icon && (
-        <span className="mx-auto mb-3 h-14 w-14 rounded-2xl bg-neutral-950 text-white grid place-items-center">
+        <span className="mx-auto mb-3 h-14 w-14 rounded-full bg-[#f1f1f1] text-[#005a9c] grid place-items-center">
           <Icon className="w-6 h-6" />
         </span>
       )}
-      <p className="text-sm font-bold text-neutral-800">{title}</p>
+      <p className="text-sm font-medium text-neutral-800">{title}</p>
       {text && <p className="mt-1 text-xs text-neutral-500 max-w-xs mx-auto">{text}</p>}
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }
 
+const INITIAL_COLORS = [['#1f1f1f', '#ffffff'], ['#e5e5e5', '#171717'], ['#525252', '#ffffff'], ['#f0f0f0', '#171717']];
+
 export function Initials({ name, className = 'h-9 w-9 text-xs' }) {
-  const letters = String(name || '?').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  const text = String(name || '?');
+  const letters = text.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  let h = 0;
+  for (const ch of text) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  const [bg, fg] = INITIAL_COLORS[h % INITIAL_COLORS.length];
   return (
-    <span className={`${className} shrink-0 rounded-full grid place-items-center font-bold`} style={{ background: '#ececec', color: '#171717' }}>
+    <span className={`${className} shrink-0 rounded-full grid place-items-center font-semibold`} style={{ background: bg, color: fg }}>
       {letters}
     </span>
   );

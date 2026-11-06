@@ -302,7 +302,7 @@ export default function TestPage() {
                     type="button"
                     onClick={() => setForm(item.id)}
                     className={`h-9 px-2.5 sm:px-3 rounded-lg text-[13px] sm:text-sm font-medium transition-colors ${
-                      form === item.id ? 'bg-neutral-900 text-white' : 'text-neutral-500 hover:text-neutral-800'
+                      form === item.id ? 'bg-[#ededed] text-neutral-900' : 'text-neutral-500 hover:text-neutral-800'
                     }`}
                   >
                     {item.label}
@@ -312,7 +312,7 @@ export default function TestPage() {
               <button
                 type="button"
                 onClick={() => { void printExam(); }}
-                className="h-11 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold flex items-center gap-2"
+                className="h-11 px-4 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold flex items-center gap-2"
               >
                 <Printer className="w-4 h-4" />
                 Print

@@ -146,7 +146,7 @@ export function useClassroom() {
       )),
     })),
 
-    addStudent: (student) => update((d) => ({ students: [...d.students, { ...student, id: newId() }] })),
+    addStudent: (student) => update((d) => ({ students: [...d.students, { ...student, id: newId(), createdAt: student.createdAt || todayISO() }] })),
     updateStudent: (id, patch) => update((d) => ({
       students: d.students.map((s) => (s.id === id ? { ...s, ...patch } : s)),
     })),

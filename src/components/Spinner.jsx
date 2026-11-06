@@ -4,7 +4,7 @@ export const Spinner = ({ size = 'md', className = '' }) => {
   const sizes = { sm: 'w-4 h-4 border-2', md: 'w-6 h-6 border-2', lg: 'w-8 h-8 border-2' };
   return (
     <div className={`inline-flex ${className}`}>
-      <div className={`animate-spin rounded-full border-neutral-200 border-t-brand-500 ${sizes[size]}`} />
+      <div className={`animate-spin rounded-full border-neutral-200 border-t-[#60c1e5] ${sizes[size]}`} />
     </div>
   );
 };

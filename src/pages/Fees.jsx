@@ -64,7 +64,7 @@ function PaymentForm({ student, due, onSave }) {
         <span className="block text-xs font-medium text-neutral-500 mb-1">Note (optional)</span>
         <input className={field} value={note} onChange={(e) => setNote(e.target.value)} placeholder="e.g. April fee" />
       </label>
-      <button type="submit" disabled={!(value > 0)} className="w-full h-12 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold disabled:opacity-40 inline-flex items-center justify-center gap-2">
+      <button type="submit" disabled={!(value > 0)} className="w-full h-12 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white font-semibold disabled:opacity-40 inline-flex items-center justify-center gap-2">
         <Receipt className="w-4 h-4" /> Save and make receipt
       </button>
     </form>
@@ -116,7 +116,7 @@ function ReceiptView({ payment, student, institute, school, paidTotal }) {
           </p>
         </div>
       </div>
-      <button type="button" onClick={() => window.print()} className="no-print mt-4 w-full h-12 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold inline-flex items-center justify-center gap-2 shadow-sm">
+      <button type="button" onClick={() => window.print()} className="no-print mt-4 w-full h-12 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white font-semibold inline-flex items-center justify-center gap-2 shadow-sm">
         <Printer className="w-4 h-4" /> Print or save PDF
       </button>
     </div>
@@ -171,7 +171,7 @@ export default function Fees() {
           icon={Wallet}
           eyebrow="Institute"
           title="Fees"
-          subtitle="See who has paid, record a payment in seconds, and print a receipt for every payment."
+          subtitle="Track payments and print receipts."
         />
 
         {room.students.length === 0 ? (
@@ -179,8 +179,8 @@ export default function Fees() {
             <EmptyState
               icon={Wallet}
               title="No students yet"
-              text="Add students with their total fee first. Then you can record payments and print receipts here."
-              action={<button type="button" onClick={() => navigate('/students')} className="h-10 px-4 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700">Add students</button>}
+              text="Add students with fees first."
+              action={<button type="button" onClick={() => navigate('/students')} className="h-10 px-4 rounded-xl bg-[#005a9c] text-white text-sm font-semibold hover:bg-[#1b365d]">Add students</button>}
             />
           </Panel>
         ) : (
@@ -198,8 +198,8 @@ export default function Fees() {
                     role="radio"
                     aria-checked={status === id}
                     onClick={() => setStatus(id)}
-                    className={`text-left rounded-2xl bg-white p-4 shadow-card ring-1 transition-all hover:-translate-y-0.5 ${
-                      status === id ? 'ring-2 ring-brand-500' : 'ring-neutral-200/80'
+                    className={`text-left rounded-3xl bg-white p-4 shadow-card transition-all hover:-translate-y-0.5 ${
+                      status === id ? 'ring-2 ring-brand-500' : ''
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -212,7 +212,7 @@ export default function Fees() {
                 ))}
               </div>
 
-              <section className="bg-white rounded-2xl ring-1 ring-neutral-200/80 shadow-card overflow-hidden">
+              <section className="bg-white rounded-3xl shadow-card overflow-hidden">
                 <div className="p-4 border-b border-neutral-100 flex flex-wrap items-center gap-3">
                   <div className="relative flex-1 min-w-56">
                     <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
@@ -276,7 +276,7 @@ export default function Fees() {
                         <button
                           type="button"
                           onClick={() => setPaying(student)}
-                          className="shrink-0 h-10 px-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold inline-flex items-center gap-1 shadow-sm"
+                          className="shrink-0 h-10 px-3 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold inline-flex items-center gap-1 shadow-sm"
                           aria-label={`Record payment for ${student.name}`}
                         >
                           <IndianRupee className="w-4 h-4" /><span className="hidden sm:inline">Payment</span>

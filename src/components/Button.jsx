@@ -5,15 +5,15 @@ export const Button = ({
   variant = 'primary', size = 'md',
   disabled = false, className = '', icon, ...props
 }) => {
-  const base = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 disabled:opacity-40 disabled:pointer-events-none select-none';
+  const base = 'inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#60c1e5]/60 disabled:opacity-40 disabled:pointer-events-none select-none';
 
   const variants = {
-    primary:   'bg-neutral-950 text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_6px_16px_-6px_rgba(0,0,0,0.6)] hover:bg-neutral-800',
-    secondary: 'bg-white ring-1 ring-neutral-200 text-neutral-700 shadow-sm hover:bg-neutral-50 hover:ring-neutral-300',
-    danger:    'bg-neutral-900 text-white shadow-[0_6px_16px_-6px_rgba(0,0,0,0.6)] hover:bg-neutral-900',
-    ghost:     'text-neutral-500 hover:bg-neutral-100 hover:text-neutral-800',
-    outline:   'ring-1 ring-brand-300 text-brand-700 hover:bg-brand-50',
-    accent:    'bg-brand-600 text-white shadow-sm hover:bg-brand-700',
+    primary:   'bg-[#005a9c] text-white hover:brightness-95',
+    secondary: 'bg-white ring-1 ring-neutral-200 text-neutral-800 hover:bg-neutral-50',
+    danger:    'bg-[#005a9c] text-white hover:brightness-95',
+    ghost:     'text-neutral-600 hover:bg-white/70 hover:text-neutral-900',
+    outline:   'ring-1 ring-[#c4c4c4] text-[#005a9c] hover:bg-[#f8f8f8]',
+    accent:    'bg-[#c4c4c4] text-neutral-900 hover:brightness-95',
   };
 
   const sizes = {

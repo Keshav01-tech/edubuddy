@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { StudyProvider } from './context/StudyContext';
 import Login from './pages/Login';
+import Home from './pages/Home';
 import LandingPage from './pages/LandingPage';
 import MobileLandingPage from './pages/MobileLandingPage';
 import ZaplinePage from './zapline/ZaplinePage';
@@ -39,7 +40,7 @@ export default function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/" element={<MobileLandingPage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/mobile" element={<MobileLandingPage />} />
             <Route path="/landing" element={<MobileLandingPage />} />
             <Route path="/edubuddy" element={<LandingPage />} />
