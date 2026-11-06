@@ -3,17 +3,17 @@ import { AlertCircle, CheckCircle2, Info, X } from 'lucide-react';
 
 export const Alert = ({ type = 'info', message, onClose, className = '' }) => {
   const styles = {
-    info: 'bg-blue-50 text-blue-800 border-blue-200',
-    success: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    error: 'bg-rose-50 text-rose-800 border-rose-200',
-    warning: 'bg-amber-50 text-amber-800 border-amber-200'
+    info: 'bg-neutral-50 text-neutral-900 border-neutral-200',
+    success: 'bg-neutral-50 text-neutral-900 border-neutral-200',
+    error: 'bg-neutral-50 text-neutral-900 border-neutral-200',
+    warning: 'bg-neutral-50 text-neutral-900 border-neutral-200'
   };
 
   const icons = {
-    info: <Info className="w-5 h-5 text-blue-500 mr-3 shrink-0" />,
-    success: <CheckCircle2 className="w-5 h-5 text-emerald-500 mr-3 shrink-0" />,
-    error: <AlertCircle className="w-5 h-5 text-rose-500 mr-3 shrink-0" />,
-    warning: <Info className="w-5 h-5 text-amber-500 mr-3 shrink-0" />
+    info: <Info className="w-5 h-5 text-neutral-500 mr-3 shrink-0" />,
+    success: <CheckCircle2 className="w-5 h-5 text-neutral-500 mr-3 shrink-0" />,
+    error: <AlertCircle className="w-5 h-5 text-neutral-500 mr-3 shrink-0" />,
+    warning: <Info className="w-5 h-5 text-neutral-500 mr-3 shrink-0" />
   };
 
   return (

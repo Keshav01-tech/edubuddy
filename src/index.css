@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
   --dp-color-ground: #050505;
@@ -26,23 +26,25 @@
 }
 
 @theme {
-  --color-brand-50:  #f4f6ff;
-  --color-brand-100: #e7ebff;
-  --color-brand-200: #cdd6fe;
-  --color-brand-300: #a8b6fb;
-  --color-brand-400: #7c8ef6;
-  --color-brand-500: #5468ee;
-  --color-brand-600: #3d4fe0;
-  --color-brand-700: #323fc4;
-  --color-brand-800: #2c379e;
-  --color-brand-900: #28347d;
+  --color-brand-50:  #f4f4f4;
+  --color-brand-100: #e9e9e9;
+  --color-brand-200: #d4d4d4;
+  --color-brand-300: #b0b0b0;
+  --color-brand-400: #858585;
+  --color-brand-500: #4a4a4a;
+  --color-brand-600: #0a0a0a;
+  --color-brand-700: #000000;
+  --color-brand-800: #000000;
+  --color-brand-900: #000000;
 
   --color-paper: #ffffff;
-  --color-ink: #1c1917;
+  --color-ink: #0f172a;
+  --color-canvas: #f5f6fb;
 
-  --font-sans: 'Poppins', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
 
-  --shadow-card: 0 1px 2px rgba(28, 25, 23, 0.04), 0 10px 28px rgba(28, 25, 23, 0.05);
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.03);
+  --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.04), 0 12px 28px -12px rgba(15, 23, 42, 0.14);
 }
 
 *, *::before, *::after {
@@ -53,17 +55,44 @@ body {
   font-family: var(--font-sans);
   @apply bg-paper text-ink antialiased;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
 }
+
+::selection { background: #0a0a0a; color: #ffffff; }
 
 @media (min-width: 768px) {
   body:has([data-app-sidebar]) {
-    padding-left: 15rem;
+    padding-left: 15.5rem;
   }
 }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* Shared background for every logged-in page: soft canvas with a faint brand glow at the top. */
+.app-canvas {
+  background-color: #f4f4f4;
+}
+
+/* Cards across the app: hairline ring + layered shadow, lift on hover for links. */
+.shadow-card { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+a.shadow-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+
+/* Form fields: consistent focus treatment everywhere. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select,
+textarea {
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.10);
+}
+
+h1, h2, h3 { letter-spacing: -0.015em; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-stone-300 rounded-full; }
+::-webkit-scrollbar-thumb { background: #cfcfcf; border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: #b4b9c7; }
 
 .flip-card { perspective: 1200px; }
 
@@ -88,6 +117,53 @@ body {
 }
 
 .animate-fade-up { animation: fade-up 0.28s ease both; }
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(36px, -28px, 0); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .drift { animation: drift 18s ease-in-out infinite; }
+  .drift-slow { animation: drift 24s ease-in-out infinite reverse; }
+  .float-soft { animation: float-soft 6.5s ease-in-out infinite; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .is-in .reveal { opacity: 1; transform: none; }
+
+  .grow-y {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .is-in .grow-y { transform: scaleY(1); }
+
+  .grow-x {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .is-in .grow-x { transform: scaleX(1); }
+
+  .trace {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.8s ease 0.2s;
+  }
+  .is-in .trace { stroke-dashoffset: 0; }
+
+  .fade-late { opacity: 0; transition: opacity 0.8s ease 1s; }
+  .is-in .fade-late { opacity: 1; }
+}
 
 @keyframes spin { to { transform: rotate(360deg); } }
 .animate-spin { animation: spin 0.8s linear infinite; }

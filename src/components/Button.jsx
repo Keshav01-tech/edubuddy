@@ -5,15 +5,15 @@ export const Button = ({
   variant = 'primary', size = 'md',
   disabled = false, className = '', icon, ...props
 }) => {
-  const base = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none select-none';
+  const base = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 disabled:opacity-40 disabled:pointer-events-none select-none';
 
   const variants = {
-    primary:   'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
-    secondary: 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300',
-    danger:    'bg-rose-500 text-white hover:bg-rose-600',
-    ghost:     'text-slate-500 hover:bg-slate-100 hover:text-slate-800',
-    outline:   'border border-brand-300 text-brand-700 hover:bg-brand-50',
-    accent:    'bg-brand-600 text-white hover:bg-brand-700',
+    primary:   'bg-neutral-950 text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_6px_16px_-6px_rgba(0,0,0,0.6)] hover:bg-neutral-800',
+    secondary: 'bg-white ring-1 ring-neutral-200 text-neutral-700 shadow-sm hover:bg-neutral-50 hover:ring-neutral-300',
+    danger:    'bg-neutral-900 text-white shadow-[0_6px_16px_-6px_rgba(0,0,0,0.6)] hover:bg-neutral-900',
+    ghost:     'text-neutral-500 hover:bg-neutral-100 hover:text-neutral-800',
+    outline:   'ring-1 ring-brand-300 text-brand-700 hover:bg-brand-50',
+    accent:    'bg-brand-600 text-white shadow-sm hover:bg-brand-700',
   };
 
   const sizes = {

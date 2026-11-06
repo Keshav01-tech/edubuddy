@@ -27,9 +27,9 @@ const MAX_MARKS_EACH = 20;
 const LETTERS = 'ABCDEFGH';
 
 const TYPE_META = {
-  mcq: { label: 'MCQ', pill: 'bg-sky-50 text-sky-700 ring-sky-200', bar: 'bg-sky-500' },
-  short: { label: 'Short answer', pill: 'bg-amber-50 text-amber-700 ring-amber-200', bar: 'bg-amber-500' },
-  long: { label: 'Long answer', pill: 'bg-violet-50 text-violet-700 ring-violet-200', bar: 'bg-violet-500' },
+  mcq: { label: 'MCQ', pill: 'bg-neutral-50 text-neutral-900 ring-neutral-200', bar: 'bg-neutral-900' },
+  short: { label: 'Short answer', pill: 'bg-neutral-50 text-neutral-900 ring-neutral-200', bar: 'bg-neutral-900' },
+  long: { label: 'Long answer', pill: 'bg-neutral-50 text-neutral-900 ring-neutral-200', bar: 'bg-neutral-900' },
 };
 
 const PATTERN_LABEL = { mixed: 'Mixed', mcq: 'MCQ', short: 'Short', long: 'Long' };
@@ -51,18 +51,18 @@ function chip(on) {
   return `h-10 rounded-xl text-sm font-medium transition-colors ring-1 ${
     on
       ? 'bg-brand-600 text-white ring-brand-600 shadow-sm'
-      : 'bg-white text-slate-600 ring-slate-200 hover:ring-brand-300 hover:text-brand-700'
+      : 'bg-white text-neutral-600 ring-neutral-200 hover:ring-brand-300 hover:text-brand-700'
   }`;
 }
 
 function Card({ step, title, aside, children }) {
   return (
-    <section className="bg-white rounded-2xl ring-1 ring-slate-200/70 shadow-card p-4 sm:p-5">
+    <section className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card p-4 sm:p-5">
       <header className="flex items-center gap-3 mb-4">
         <span className="h-7 w-7 shrink-0 rounded-full bg-brand-100 text-brand-700 text-xs font-bold grid place-items-center">
           {step}
         </span>
-        <h2 className="text-[15px] font-semibold text-slate-900">{title}</h2>
+        <h2 className="text-[15px] font-semibold text-neutral-900">{title}</h2>
         {aside && <div className="ml-auto min-w-0 text-right">{aside}</div>}
       </header>
       {children}
@@ -73,16 +73,16 @@ function Card({ step, title, aside, children }) {
 function SelectBox({ label, value, onChange, children }) {
   return (
     <label className="block min-w-0">
-      <span className="block text-xs font-medium text-slate-500 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-neutral-500 mb-1.5">{label}</span>
       <span className="relative block">
         <select
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full h-11 pl-3 pr-9 text-sm font-medium text-slate-900 bg-slate-50 rounded-xl ring-1 ring-slate-200 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white"
+          className="w-full h-11 pl-3 pr-9 text-sm font-medium text-neutral-900 bg-neutral-50 rounded-xl ring-1 ring-neutral-200 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white"
         >
           {children}
         </select>
-        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
       </span>
     </label>
   );
@@ -92,13 +92,13 @@ function Stepper({ label, value, min, max, onChange }) {
   const set = (next) => onChange(Math.min(max, Math.max(min, next)));
   return (
     <div className="min-w-0">
-      <p className="text-[11px] font-medium text-slate-500 mb-1">{label}</p>
-      <div className="flex items-center h-10 rounded-xl bg-slate-50 ring-1 ring-slate-200">
+      <p className="text-[11px] font-medium text-neutral-500 mb-1">{label}</p>
+      <div className="flex items-center h-10 rounded-xl bg-neutral-50 ring-1 ring-neutral-200">
         <button
           type="button"
           onClick={() => set(value - 1)}
           disabled={value <= min}
-          className="h-10 w-9 shrink-0 grid place-items-center text-slate-500 disabled:opacity-30"
+          className="h-10 w-9 shrink-0 grid place-items-center text-neutral-500 disabled:opacity-30"
           aria-label={`Fewer ${label.toLowerCase()}`}
         >
           <Minus className="w-4 h-4" />
@@ -111,13 +111,13 @@ function Stepper({ label, value, min, max, onChange }) {
             set(Number.isFinite(n) ? n : min);
           }}
           aria-label={label}
-          className="flex-1 min-w-0 w-full text-center bg-transparent text-base font-semibold tabular-nums text-slate-900 focus:outline-none"
+          className="flex-1 min-w-0 w-full text-center bg-transparent text-base font-semibold tabular-nums text-neutral-900 focus:outline-none"
         />
         <button
           type="button"
           onClick={() => set(value + 1)}
           disabled={value >= max}
-          className="h-10 w-9 shrink-0 grid place-items-center text-slate-500 disabled:opacity-30"
+          className="h-10 w-9 shrink-0 grid place-items-center text-neutral-500 disabled:opacity-30"
           aria-label={`More ${label.toLowerCase()}`}
         >
           <Plus className="w-4 h-4" />
@@ -243,30 +243,30 @@ export default function TestGenerator() {
   };
 
   return (
-    <div className="h-dvh flex flex-col bg-gradient-to-b from-brand-50 via-slate-50 to-slate-50">
+    <div className="h-dvh flex flex-col app-canvas">
       <div className="shrink-0">
         <AppHeader
           nav
-          width="max-w-3xl"
           onSettings={() => setSettingsOpen(true)}
           onSignOut={async () => { await signOut(); navigate('/login'); }}
         />
       </div>
 
-      <main className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain max-w-2xl w-full mx-auto px-4 sm:px-6 pt-5 sm:pt-8 pb-6">
+      <main className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-6">
         <div className="mb-5 flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-900">New test paper</h1>
-            <p className="mt-1 text-sm text-slate-500">Pick the chapters, set the sections, and create.</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Teaching · AI</p>
+            <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">New test paper</h1>
+            <p className="mt-1 text-sm text-neutral-500">Three steps: choose class and subject, pick chapters, set the marks. You get the paper, a worksheet and the answer key.</p>
           </div>
           {sessions.length > 0 && (
             <Link
               to="/papers"
-              className="shrink-0 h-10 px-3 rounded-xl bg-white ring-1 ring-slate-200 text-sm font-medium text-slate-700 hover:text-brand-700 hover:ring-brand-300 flex items-center gap-1.5"
+              className="shrink-0 h-10 px-3 rounded-xl bg-white ring-1 ring-neutral-200 text-sm font-medium text-neutral-700 hover:text-brand-700 hover:ring-brand-300 flex items-center gap-1.5"
             >
               <BookOpen className="w-4 h-4" />
               My tests
-              <span className="text-xs text-slate-400 tabular-nums">{sessions.length}</span>
+              <span className="text-xs text-neutral-400 tabular-nums">{sessions.length}</span>
             </Link>
           )}
         </div>
@@ -275,10 +275,10 @@ export default function TestGenerator() {
           <button
             type="button"
             onClick={() => setSettingsOpen(true)}
-            className="mb-4 w-full flex items-center gap-2 p-3 bg-amber-50 ring-1 ring-amber-200 rounded-xl text-left"
+            className="mb-4 w-full flex items-center gap-2 p-3 bg-neutral-50 ring-1 ring-neutral-200 rounded-xl text-left"
           >
-            <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
-            <span className="text-sm font-medium text-amber-900">Add an OpenAI key to create tests</span>
+            <AlertCircle className="w-4 h-4 text-neutral-500 shrink-0" />
+            <span className="text-sm font-medium text-neutral-900">Add an OpenAI key to create tests</span>
           </button>
         )}
 
@@ -297,14 +297,14 @@ export default function TestGenerator() {
               </SelectBox>
             </div>
             {streamNames.length > 0 && (
-              <div className="mt-3 grid grid-cols-3 gap-2 p-1 bg-slate-100 rounded-xl">
+              <div className="mt-3 grid grid-cols-3 gap-2 p-1 bg-neutral-100 rounded-xl">
                 {streamNames.map((name) => (
                   <button
                     key={name}
                     type="button"
                     onClick={() => setStream(name)}
                     className={`h-9 rounded-lg text-sm font-medium transition-colors ${
-                      stream === name ? 'bg-white text-brand-700 shadow-sm' : 'text-slate-500'
+                      stream === name ? 'bg-white text-brand-700 shadow-sm' : 'text-neutral-500'
                     }`}
                   >
                     {name}
@@ -319,7 +319,7 @@ export default function TestGenerator() {
             title="Chapters"
             aside={(
               <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                picked.length ? 'bg-brand-50 text-brand-700' : 'bg-rose-50 text-rose-600'
+                picked.length ? 'bg-brand-50 text-brand-700' : 'bg-neutral-50 text-neutral-900'
               }`}
               >
                 {wholeBook ? 'All chapters' : picked.length ? `${picked.length} selected` : 'None selected'}
@@ -327,7 +327,7 @@ export default function TestGenerator() {
             )}
           >
             <div className="relative">
-              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
               <input
                 type="text"
                 value={query}
@@ -341,7 +341,7 @@ export default function TestGenerator() {
                   }
                 }}
                 placeholder="Search or type a chapter"
-                className="w-full h-11 pl-9 pr-3 text-base bg-slate-50 rounded-xl ring-1 ring-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white placeholder:text-slate-400"
+                className="w-full h-11 pl-9 pr-3 text-base bg-neutral-50 rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white placeholder:text-neutral-400"
               />
             </div>
 
@@ -363,7 +363,7 @@ export default function TestGenerator() {
             )}
 
             <div
-              className="chapter-list mt-3 overflow-y-auto overscroll-y-contain rounded-xl ring-1 ring-slate-200 divide-y divide-slate-100"
+              className="chapter-list mt-3 overflow-y-auto overscroll-y-contain rounded-xl ring-1 ring-neutral-200 divide-y divide-neutral-100"
               style={{ maxHeight: 'min(28rem, 52dvh)' }}
             >
               <ChapterRow on={wholeBook} onClick={toggleWholeBook} label="Select all" strong />
@@ -371,7 +371,7 @@ export default function TestGenerator() {
                 <ChapterRow on onClick={() => setCustom('')} label={extra} strong />
               )}
               {visibleChapters.length === 0 && !extra && (
-                <p className="px-3 py-6 text-sm text-slate-400">
+                <p className="px-3 py-6 text-sm text-neutral-400">
                   {typedIsNew ? `Press Enter to add “${typedChapter}”.` : 'No chapters match.'}
                 </p>
               )}
@@ -391,13 +391,13 @@ export default function TestGenerator() {
             step="3"
             title="Paper pattern"
             aside={(
-              <span className="text-xs font-medium text-slate-400">
+              <span className="text-xs font-medium text-neutral-400">
                 {preset ? `${PATTERN_LABEL[preset.mode]} · ${preset.total}` : 'Custom'}
               </span>
             )}
           >
             <fieldset>
-              <legend className="text-sm font-medium text-slate-800 mb-2">1. What type of questions?</legend>
+              <legend className="text-sm font-medium text-neutral-800 mb-2">1. What type of questions?</legend>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="radiogroup">
                 {PAPER_MODES.map((item) => (
                   <button
@@ -415,7 +415,7 @@ export default function TestGenerator() {
             </fieldset>
 
             <fieldset className="mt-5">
-              <legend className="text-sm font-medium text-slate-800 mb-2">2. Total marks?</legend>
+              <legend className="text-sm font-medium text-neutral-800 mb-2">2. Total marks?</legend>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="radiogroup">
                 {MARK_SHORTCUTS.map((value) => (
                   <button
@@ -436,9 +436,9 @@ export default function TestGenerator() {
               type="button"
               onClick={() => setCustomOpen((open) => !open)}
               aria-expanded={customOpen}
-              className="mt-5 w-full flex items-center justify-between gap-3 h-11 px-3 rounded-xl bg-slate-50 ring-1 ring-slate-200 text-left"
+              className="mt-5 w-full flex items-center justify-between gap-3 h-11 px-3 rounded-xl bg-neutral-50 ring-1 ring-neutral-200 text-left"
             >
-              <span className="min-w-0 text-sm text-slate-600 truncate">
+              <span className="min-w-0 text-sm text-neutral-600 truncate">
                 {blueprint.map((section) => `${section.count} ${TYPE_META[section.type].label}`).join(' · ') || 'No sections'}
               </span>
               <span className="shrink-0 flex items-center gap-1 text-sm font-medium text-brand-700">
@@ -453,10 +453,10 @@ export default function TestGenerator() {
               {sections.map((section, index) => {
                 const meta = TYPE_META[section.type];
                 return (
-                  <div key={section.id} className="relative rounded-xl ring-1 ring-slate-200 bg-white pl-4 pr-3 py-3 overflow-hidden">
+                  <div key={section.id} className="relative rounded-xl ring-1 ring-neutral-200 bg-white pl-4 pr-3 py-3 overflow-hidden">
                     <span className={`absolute left-0 inset-y-0 w-1 ${meta.bar}`} />
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-bold text-slate-400">Section {LETTERS[index] || index + 1}</span>
+                      <span className="text-xs font-bold text-neutral-400">Section {LETTERS[index] || index + 1}</span>
                       <span className="relative">
                         <select
                           value={section.type}
@@ -472,14 +472,14 @@ export default function TestGenerator() {
                         </select>
                         <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 opacity-60" />
                       </span>
-                      <span className="ml-auto text-sm font-semibold text-slate-900 tabular-nums">
+                      <span className="ml-auto text-sm font-semibold text-neutral-900 tabular-nums">
                         {section.count * section.marksEach}
-                        <span className="text-xs font-normal text-slate-400"> marks</span>
+                        <span className="text-xs font-normal text-neutral-400"> marks</span>
                       </span>
                       <button
                         type="button"
                         onClick={() => removeSection(section.id)}
-                        className="h-8 w-8 -mr-1 rounded-lg text-slate-300 hover:text-rose-500 hover:bg-rose-50 grid place-items-center"
+                        className="h-8 w-8 -mr-1 rounded-lg text-neutral-300 hover:text-neutral-500 hover:bg-neutral-50 grid place-items-center"
                         aria-label={`Remove section ${LETTERS[index] || index + 1}`}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -493,7 +493,7 @@ export default function TestGenerator() {
                         max={MAX_QUESTIONS}
                         onChange={(count) => updateSection(section.id, { count })}
                       />
-                      <span className="pb-2.5 text-slate-300 text-sm">×</span>
+                      <span className="pb-2.5 text-neutral-300 text-sm">×</span>
                       <Stepper
                         label="Marks each"
                         value={section.marksEach}
@@ -520,7 +520,7 @@ export default function TestGenerator() {
             )}
 
             {(tooManyMarks || tooManyQuestions) && (
-              <p className="mt-3 text-sm text-rose-600 flex items-start gap-2">
+              <p className="mt-3 text-sm text-neutral-900 flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 {tooManyMarks
                   ? `${totalMarks} marks is over the ${MAX_MARKS}-mark limit.`
@@ -532,20 +532,20 @@ export default function TestGenerator() {
         </form>
       </main>
 
-      <div className="shrink-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200">
+      <div className="shrink-0 z-30 bg-white/95 backdrop-blur-md border-t border-neutral-200">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {error && (
-            <p className="mb-2 text-sm text-rose-600 flex items-start gap-2">
+            <p className="mb-2 text-sm text-neutral-900 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               {error}
             </p>
           )}
           <div className="flex items-center gap-3">
             <div className="min-w-0 flex-1">
-              <p className="text-lg font-semibold text-slate-900 tabular-nums leading-tight">
-                {totalMarks} <span className="text-sm font-medium text-slate-500">marks</span>
+              <p className="text-lg font-semibold text-neutral-900 tabular-nums leading-tight">
+                {totalMarks} <span className="text-sm font-medium text-neutral-500">marks</span>
               </p>
-              <p className="text-xs text-slate-500 leading-snug line-clamp-2">
+              <p className="text-xs text-neutral-500 leading-snug line-clamp-2">
                 {totalQuestions} questions · {blueprint.length} {blueprint.length === 1 ? 'section' : 'sections'} · {scopeLabel || 'No chapter'}
               </p>
             </div>
@@ -574,22 +574,22 @@ function ChapterRow({ on, onClick, number, label, strong }) {
       onClick={onClick}
       aria-pressed={on}
       className={`w-full min-h-12 px-3 py-2.5 flex items-start gap-3 text-left transition-colors ${
-        on ? 'bg-brand-50' : 'hover:bg-slate-50'
+        on ? 'bg-brand-50' : 'hover:bg-neutral-50'
       }`}
     >
       <span className={`mt-0.5 h-6 w-6 shrink-0 rounded-md grid place-items-center ${
-        on ? 'bg-brand-600 text-white' : 'ring-1 ring-slate-300 bg-white'
+        on ? 'bg-brand-600 text-white' : 'ring-1 ring-neutral-300 bg-white'
       }`}
       >
         {on && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
       </span>
       {number != null && (
-        <span className={`mt-1 w-6 shrink-0 text-xs tabular-nums text-right ${on ? 'text-brand-700 font-semibold' : 'text-slate-400'}`}>
+        <span className={`mt-1 w-6 shrink-0 text-xs tabular-nums text-right ${on ? 'text-brand-700 font-semibold' : 'text-neutral-400'}`}>
           {number}
         </span>
       )}
       <span className={`min-w-0 flex-1 text-sm leading-5 break-words ${
-        on ? 'text-brand-900 font-medium' : strong ? 'text-slate-900 font-medium' : 'text-slate-600'
+        on ? 'text-brand-900 font-medium' : strong ? 'text-neutral-900 font-medium' : 'text-neutral-600'
       }`}
       >
         {label}

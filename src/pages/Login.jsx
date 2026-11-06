@@ -7,7 +7,7 @@ import { Alert } from '../components/Alert';
 import { SetupModal } from '../components/SetupModal';
 import { isOpenAIConfigured } from '../services/openai';
 
-const fieldClass = 'w-full h-12 pl-11 pr-4 text-base bg-white border border-slate-300 rounded-lg hover:border-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100 placeholder:text-slate-400';
+const fieldClass = 'w-full h-12 pl-11 pr-4 text-base bg-white border border-neutral-300 rounded-lg hover:border-neutral-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100 placeholder:text-neutral-400';
 
 export default function Login() {
   const { user, signIn, signUp, isDemoMode } = useAuth();
@@ -60,17 +60,17 @@ export default function Login() {
           <div className="w-9 h-9 rounded-lg bg-brand-700 text-white grid place-items-center">
             <GraduationCap className="w-5 h-5" />
           </div>
-          <span className="font-semibold text-xl text-slate-900">EduBuddy</span>
+          <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
         </div>
 
         <div className="max-w-md">
-          <h1 className="font-semibold text-4xl text-slate-900 leading-tight">
+          <h1 className="font-semibold text-4xl text-neutral-900 leading-tight">
             Question papers for your class, ready to print.
           </h1>
-          <p className="mt-4 text-base text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base text-neutral-600 leading-relaxed">
             Pick a class, the chapters, and the marks. EduBuddy writes the questions, the worksheet, and the answer key.
           </p>
-          <ul className="mt-8 space-y-3 text-[15px] text-slate-700">
+          <ul className="mt-8 space-y-3 text-[15px] text-neutral-700">
             <li className="flex gap-3">
               <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-brand-600 shrink-0" />
               NCERT chapters for classes 6 to 12
@@ -86,14 +86,14 @@ export default function Login() {
           </ul>
         </div>
 
-        <p className="text-sm text-slate-500">Classes 6–12 · NCERT</p>
+        <p className="text-sm text-neutral-500">Classes 6–12 · NCERT</p>
       </section>
 
-      <section className="relative min-h-screen bg-white lg:border-l border-slate-200 flex items-center justify-center px-5 py-10">
+      <section className="relative min-h-screen bg-white lg:border-l border-neutral-200 flex items-center justify-center px-5 py-10">
         <button
           type="button"
           onClick={() => setSettingsOpen(true)}
-          className="absolute top-4 right-4 p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
           aria-label="Settings"
         >
           <Settings className="w-4 h-4" />
@@ -104,12 +104,12 @@ export default function Login() {
             <div className="w-9 h-9 rounded-lg bg-brand-700 text-white grid place-items-center">
               <GraduationCap className="w-5 h-5" />
             </div>
-            <span className="font-semibold text-xl text-slate-900">EduBuddy</span>
+            <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
           </div>
 
           {isAiSetupMissing && (
-            <div className="mb-6 flex items-start gap-2.5 p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900">
-              <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+            <div className="mb-6 flex items-start gap-2.5 p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900">
+              <AlertTriangle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
               <p>
                 An OpenAI key is needed to generate tests.{' '}
                 <button type="button" onClick={() => setSettingsOpen(true)} className="underline underline-offset-2 font-medium">
@@ -119,10 +119,10 @@ export default function Login() {
             </div>
           )}
 
-          <h2 className="font-semibold tracking-tight text-3xl text-slate-900">
+          <h2 className="font-semibold tracking-tight text-3xl text-neutral-900">
             {isSignUp ? 'Create an account' : 'Sign in'}
           </h2>
-          <p className="text-sm text-slate-400 mt-1 mb-6">
+          <p className="text-sm text-neutral-400 mt-1 mb-6">
             {isSignUp ? 'Your papers are saved to your account.' : 'Welcome back. Your papers are waiting.'}
           </p>
 
@@ -132,9 +132,9 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {isSignUp && (
               <label className="block">
-                <span className="block text-xs font-medium text-slate-500 mb-1.5">Name</span>
+                <span className="block text-xs font-medium text-neutral-500 mb-1.5">Name</span>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-4 w-4 h-4 text-slate-400" />
+                  <User className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
                   <input
                     type="text"
                     required
@@ -148,9 +148,9 @@ export default function Login() {
             )}
 
             <label className="block">
-              <span className="block text-xs font-medium text-slate-500 mb-1.5">Email</span>
+              <span className="block text-xs font-medium text-neutral-500 mb-1.5">Email</span>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-4 w-4 h-4 text-slate-400" />
+                <Mail className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
                 <input
                   type="email"
                   required
@@ -163,9 +163,9 @@ export default function Login() {
             </label>
 
             <label className="block">
-              <span className="block text-xs font-medium text-slate-500 mb-1.5">Password</span>
+              <span className="block text-xs font-medium text-neutral-500 mb-1.5">Password</span>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-4 w-4 h-4 text-slate-400" />
+                <Lock className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
                 <input
                   type="password"
                   required
@@ -186,7 +186,7 @@ export default function Login() {
           <button
             type="button"
             onClick={() => { setIsSignUp(!isSignUp); setError(''); setSuccess(''); }}
-            className="mt-6 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+            className="mt-6 text-sm text-neutral-500 hover:text-neutral-800 transition-colors"
           >
             {isSignUp ? 'Already have an account? Sign in' : 'New here? Create an account'}
           </button>

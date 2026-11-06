@@ -5,7 +5,7 @@ import { MathText } from './MathText';
 const WIDTH = 360;
 const HEIGHT = 230;
 const PAD = { left: 42, right: 14, top: 14, bottom: 28 };
-const COLORS = ['#1d4ed8', '#b45309', '#047857', '#7c3aed'];
+const COLORS = ['#1d4ed8', '#525252', '#0a0a0a', '#7c3aed'];
 
 function ticks(min, max, count = 4) {
   const step = (max - min) / count;

@@ -107,8 +107,8 @@ export default function StudyHub() {
   /* ── Locked placeholder for general room ─────── */
   const LockedTab = ({ label }) => (
     <div className="flex flex-col items-center justify-center py-24 text-center">
-      <p className="text-sm font-medium text-slate-700 mb-1">{label} is unavailable</p>
-      <p className="text-xs text-slate-400 max-w-xs">This feature requires a specific chapter session. Select a class, subject and chapter from the dashboard.</p>
+      <p className="text-sm font-medium text-neutral-700 mb-1">{label} is unavailable</p>
+      <p className="text-xs text-neutral-400 max-w-xs">This feature requires a specific chapter session. Select a class, subject and chapter from the dashboard.</p>
       <Button variant="secondary" size="sm" className="mt-5" onClick={() => navigate('/')}>Go to Dashboard</Button>
     </div>
   );
@@ -118,25 +118,25 @@ export default function StudyHub() {
     <div className="min-h-screen bg-[#f7f8fc] flex flex-col">
 
       {/* ── Top bar ─────────────────────────────── */}
-      <header className="h-14 bg-white border-b border-slate-200 flex items-center px-5 gap-4 sticky top-0 z-20">
+      <header className="h-14 bg-white border-b border-neutral-200 flex items-center px-5 gap-4 sticky top-0 z-20">
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-slate-700 transition-colors text-sm"
+          className="flex items-center gap-1.5 text-neutral-400 hover:text-neutral-700 transition-colors text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
         </button>
 
-        <div className="h-4 w-px bg-slate-200" />
+        <div className="h-4 w-px bg-neutral-200" />
 
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-slate-900 truncate">{activeSession.chapter_name}</p>
-          <p className="text-xs text-slate-400">{activeSession.class_name} · {activeSession.subject_name}</p>
+          <p className="text-sm font-semibold text-neutral-900 truncate">{activeSession.chapter_name}</p>
+          <p className="text-xs text-neutral-400">{activeSession.class_name} · {activeSession.subject_name}</p>
         </div>
       </header>
 
       {/* ── Tab bar ─────────────────────────────── */}
-      <nav className="bg-white border-b border-slate-200 px-5 overflow-x-auto scrollbar-none">
+      <nav className="bg-white border-b border-neutral-200 px-5 overflow-x-auto scrollbar-none">
         <div className="flex gap-0 min-w-max">
           {TABS.map(t => (
             <button
@@ -145,7 +145,7 @@ export default function StudyHub() {
               className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                 tab === t.id
                   ? 'border-brand-500 text-brand-600'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  : 'border-transparent text-neutral-500 hover:text-neutral-800'
               }`}
             >
               {t.label}
@@ -164,8 +164,8 @@ export default function StudyHub() {
             <div className="flex-1 overflow-y-auto space-y-3 pb-4">
               {chatMessages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full text-center gap-2">
-                  <p className="text-sm font-medium text-slate-700">Ask anything about this chapter</p>
-                  <p className="text-xs text-slate-400 max-w-xs">
+                  <p className="text-sm font-medium text-neutral-700">Ask anything about this chapter</p>
+                  <p className="text-xs text-neutral-400 max-w-xs">
                     {isGeneral ? 'Ask any general study question.' : `Questions are answered using ${activeSession.class_name} ${activeSession.subject_name} curriculum.`}
                   </p>
                   {/* starter chips */}
@@ -177,7 +177,7 @@ export default function StudyHub() {
                       <button
                         key={q}
                         onClick={() => send(q)}
-                        className="px-3 py-1.5 text-xs border border-slate-200 rounded-full text-slate-600 hover:border-brand-300 hover:text-brand-600 transition-colors bg-white"
+                        className="px-3 py-1.5 text-xs border border-neutral-200 rounded-full text-neutral-600 hover:border-brand-300 hover:text-brand-600 transition-colors bg-white"
                       >
                         {q}
                       </button>
@@ -191,7 +191,7 @@ export default function StudyHub() {
                   <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'bg-brand-500 text-white rounded-br-sm'
-                      : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm'
+                      : 'bg-white border border-neutral-200 text-neutral-800 rounded-bl-sm'
                   }`}>
                     <p className="whitespace-pre-line">{msg.content}</p>
                   </div>
@@ -200,9 +200,9 @@ export default function StudyHub() {
 
               {loadingContent.chat && (
                 <div className="flex justify-start">
-                  <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-2">
+                  <div className="bg-white border border-neutral-200 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-2">
                     <Spinner size="sm" />
-                    <span className="text-xs text-slate-400">Thinking…</span>
+                    <span className="text-xs text-neutral-400">Thinking…</span>
                   </div>
                 </div>
               )}
@@ -210,14 +210,14 @@ export default function StudyHub() {
             </div>
 
             {/* input bar */}
-            <div className="flex gap-2 pt-3 border-t border-slate-100">
+            <div className="flex gap-2 pt-3 border-t border-neutral-100">
               <input
                 type="text"
                 value={chatInput}
                 onChange={e => setChatInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && send()}
                 placeholder="Type a question…"
-                className="flex-1 h-10 px-4 text-sm bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition placeholder:text-slate-400"
+                className="flex-1 h-10 px-4 text-sm bg-white border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition placeholder:text-neutral-400"
               />
               <Button onClick={() => send()} variant="primary" size="md" disabled={!chatInput.trim() || loadingContent.chat}>
                 Send
@@ -250,7 +250,7 @@ export default function StudyHub() {
             {summaries && (
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-slate-900">Chapter Summary</h2>
+                  <h2 className="font-semibold text-neutral-900">Chapter Summary</h2>
                   <div className="flex gap-2">
                     <Button variant="secondary" size="sm" onClick={() => copyText(`${summaries.shortSummary}\n\n${summaries.detailedSummary}`)}>
                       {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -263,14 +263,14 @@ export default function StudyHub() {
                 </div>
 
                 <Block label="Short overview">
-                  <p className="text-sm text-slate-700 leading-relaxed">{summaries.shortSummary}</p>
+                  <p className="text-sm text-neutral-700 leading-relaxed">{summaries.shortSummary}</p>
                 </Block>
 
                 {summaries.bulletPoints?.length > 0 && (
                   <Block label="Key points">
                     <ul className="space-y-2">
                       {summaries.bulletPoints.map((p, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                        <li key={i} className="flex items-start gap-2 text-sm text-neutral-700">
                           <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
                           {p}
                         </li>
@@ -280,7 +280,7 @@ export default function StudyHub() {
                 )}
 
                 <Block label="Detailed summary">
-                  <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{summaries.detailedSummary}</p>
+                  <p className="text-sm text-neutral-700 leading-relaxed whitespace-pre-line">{summaries.detailedSummary}</p>
                 </Block>
               </div>
             )}
@@ -298,7 +298,7 @@ export default function StudyHub() {
             {notes && (
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-slate-900">Revision Notes</h2>
+                  <h2 className="font-semibold text-neutral-900">Revision Notes</h2>
                   <Button variant="secondary" size="sm" onClick={() => window.print()}>
                     <Printer className="w-3.5 h-3.5" /> Print
                   </Button>
@@ -308,8 +308,8 @@ export default function StudyHub() {
                     {sec.bullets?.length > 0 && (
                       <ul className="space-y-1.5 mb-3">
                         {sec.bullets.map((b, j) => (
-                          <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0" />
+                          <li key={j} className="flex items-start gap-2 text-sm text-neutral-700">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-neutral-300 shrink-0" />
                             {b}
                           </li>
                         ))}
@@ -317,19 +317,19 @@ export default function StudyHub() {
                     )}
                     {sec.keyConcepts?.length > 0 && (
                       <div className="mb-3">
-                        <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-1.5">Core Concepts</p>
+                        <p className="text-xs font-medium text-neutral-500 uppercase tracking-wide mb-1.5">Core Concepts</p>
                         {sec.keyConcepts.map((c, j) => (
-                          <p key={j} className="text-sm text-slate-700 mb-1">{c}</p>
+                          <p key={j} className="text-sm text-neutral-700 mb-1">{c}</p>
                         ))}
                       </div>
                     )}
                     {sec.definitions?.length > 0 && (
                       <div className="mb-3 space-y-2">
-                        <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Definitions</p>
+                        <p className="text-xs font-medium text-neutral-500 uppercase tracking-wide">Definitions</p>
                         {sec.definitions.map((d, j) => (
                           <div key={j} className="pl-3 border-l-2 border-brand-200">
-                            <p className="text-xs font-semibold text-slate-800">{d.term}</p>
-                            <p className="text-xs text-slate-600">{d.meaning}</p>
+                            <p className="text-xs font-semibold text-neutral-800">{d.term}</p>
+                            <p className="text-xs text-neutral-600">{d.meaning}</p>
                           </div>
                         ))}
                       </div>
@@ -337,7 +337,7 @@ export default function StudyHub() {
                     {sec.formulas?.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {sec.formulas.map((f, j) => (
-                          <code key={j} className="text-xs bg-slate-100 text-slate-800 px-2.5 py-1 rounded-md font-mono">{f}</code>
+                          <code key={j} className="text-xs bg-neutral-100 text-neutral-800 px-2.5 py-1 rounded-md font-mono">{f}</code>
                         ))}
                       </div>
                     )}
@@ -362,13 +362,13 @@ export default function StudyHub() {
             {flashcards?.length > 0 && (
               <div className="flex flex-col items-center gap-6">
                 {/* Progress */}
-                <div className="w-full flex items-center justify-between text-xs text-slate-400">
+                <div className="w-full flex items-center justify-between text-xs text-neutral-400">
                   <span>{cardIdx + 1} of {flashcards.length}</span>
-                  <button onClick={() => { setCardIdx(0); setFlipped(false); }} className="hover:text-slate-700 transition-colors">Reset</button>
+                  <button onClick={() => { setCardIdx(0); setFlipped(false); }} className="hover:text-neutral-700 transition-colors">Reset</button>
                 </div>
 
                 {/* Thin progress bar */}
-                <div className="w-full h-1 bg-slate-100 rounded-full">
+                <div className="w-full h-1 bg-neutral-100 rounded-full">
                   <div className="h-1 bg-brand-400 rounded-full transition-all" style={{ width: `${((cardIdx + 1) / flashcards.length) * 100}%` }} />
                 </div>
 
@@ -379,10 +379,10 @@ export default function StudyHub() {
                 >
                   <div className="flip-card-inner w-full h-full">
                     {/* Front */}
-                    <div className="flip-card-front bg-white border border-slate-200 rounded-2xl flex flex-col items-center justify-center p-8 text-center hover:border-brand-300 transition-colors">
-                      <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-4">Question</p>
-                      <p className="text-base font-medium text-slate-800 leading-snug">{flashcards[cardIdx].question}</p>
-                      <p className="text-xs text-slate-300 mt-6">Click to reveal answer</p>
+                    <div className="flip-card-front bg-white border border-neutral-200 rounded-2xl flex flex-col items-center justify-center p-8 text-center hover:border-brand-300 transition-colors">
+                      <p className="text-[10px] font-medium text-neutral-400 uppercase tracking-widest mb-4">Question</p>
+                      <p className="text-base font-medium text-neutral-800 leading-snug">{flashcards[cardIdx].question}</p>
+                      <p className="text-xs text-neutral-300 mt-6">Click to reveal answer</p>
                     </div>
                     {/* Back */}
                     <div className="flip-card-back bg-brand-500 rounded-2xl flex flex-col items-center justify-center p-8 text-center">
@@ -422,7 +422,7 @@ export default function StudyHub() {
             {quizzes && (
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-slate-900">Practice Quiz</h2>
+                  <h2 className="font-semibold text-neutral-900">Practice Quiz</h2>
                   {submitted && (
                     <span className="text-sm font-medium text-brand-600">
                       {score} / {quizzes.length} correct
@@ -436,14 +436,14 @@ export default function StudyHub() {
                     <div
                       key={i}
                       className={`bg-white border rounded-xl p-5 space-y-3 transition-colors ${
-                        !submitted ? 'border-slate-200'
-                          : correct ? 'border-emerald-200 bg-emerald-50/30'
-                          : 'border-rose-200 bg-rose-50/20'
+                        !submitted ? 'border-neutral-200'
+                          : correct ? 'border-neutral-200 bg-neutral-50/30'
+                          : 'border-neutral-200 bg-neutral-50/20'
                       }`}
                     >
                       <div className="flex items-start gap-2">
-                        <span className="text-xs font-medium text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded mt-0.5">{i + 1}</span>
-                        <p className="text-sm font-medium text-slate-800">{q.question}</p>
+                        <span className="text-xs font-medium text-neutral-400 bg-neutral-100 px-1.5 py-0.5 rounded mt-0.5">{i + 1}</span>
+                        <p className="text-sm font-medium text-neutral-800">{q.question}</p>
                       </div>
 
                       {/* MCQ / TF */}
@@ -452,12 +452,12 @@ export default function StudyHub() {
                           {q.options?.map((opt, j) => {
                             const selected = answers[i] === opt;
                             const isCorrectOpt = q.correctAnswer === opt;
-                            let cls = 'border-slate-200 text-slate-700';
+                            let cls = 'border-neutral-200 text-neutral-700';
                             if (selected) cls = 'border-brand-400 bg-brand-50 text-brand-700 font-medium';
                             if (submitted) {
-                              if (isCorrectOpt) cls = 'border-emerald-400 bg-emerald-50 text-emerald-800 font-medium';
-                              else if (selected) cls = 'border-rose-400 bg-rose-50 text-rose-700';
-                              else cls = 'border-slate-100 text-slate-300';
+                              if (isCorrectOpt) cls = 'border-neutral-400 bg-neutral-50 text-neutral-900 font-medium';
+                              else if (selected) cls = 'border-neutral-400 bg-neutral-50 text-neutral-900';
+                              else cls = 'border-neutral-100 text-neutral-300';
                             }
                             return (
                               <button
@@ -480,7 +480,7 @@ export default function StudyHub() {
                           value={answers[i] || ''}
                           onChange={e => setAnswers(a => ({ ...a, [i]: e.target.value }))}
                           placeholder="Type your answer…"
-                          className="ml-5 w-full max-w-sm h-9 px-3 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 transition"
+                          className="ml-5 w-full max-w-sm h-9 px-3 text-sm border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 transition"
                         />
                       )}
 
@@ -492,17 +492,17 @@ export default function StudyHub() {
                           value={answers[i] || ''}
                           onChange={e => setAnswers(a => ({ ...a, [i]: e.target.value }))}
                           placeholder="Write a brief answer…"
-                          className="ml-5 w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 transition resize-none"
+                          className="ml-5 w-full px-3 py-2 text-sm border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-400 transition resize-none"
                         />
                       )}
 
                       {/* Feedback */}
                       {submitted && (
-                        <div className="ml-5 pt-2 border-t border-slate-100 text-xs space-y-1">
-                          <p className={`font-medium ${correct ? 'text-emerald-600' : 'text-rose-600'}`}>
+                        <div className="ml-5 pt-2 border-t border-neutral-100 text-xs space-y-1">
+                          <p className={`font-medium ${correct ? 'text-neutral-900' : 'text-neutral-900'}`}>
                             {correct ? 'Correct' : 'Incorrect'} — {q.correctAnswer}
                           </p>
-                          <p className="text-slate-500">{q.explanation}</p>
+                          <p className="text-neutral-500">{q.explanation}</p>
                         </div>
                       )}
                     </div>
@@ -539,20 +539,20 @@ export default function StudyHub() {
             {examQuestions && (
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-slate-900">Exam Questions</h2>
+                  <h2 className="font-semibold text-neutral-900">Exam Questions</h2>
                   <Button variant="ghost" size="sm" onClick={() => generateMaterial('exams')}>
                     <RotateCcw className="w-3.5 h-3.5" /> Regenerate
                   </Button>
                 </div>
 
                 {/* Difficulty tabs */}
-                <div className="flex gap-1 bg-slate-100 p-1 rounded-lg w-fit">
+                <div className="flex gap-1 bg-neutral-100 p-1 rounded-lg w-fit">
                   {['easy', 'medium', 'hard'].map(d => (
                     <button
                       key={d}
                       onClick={() => { setDifficulty(d); setShowAns({}); }}
                       className={`px-4 py-1.5 text-xs font-medium rounded-md transition-colors capitalize ${
-                        difficulty === d ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                        difficulty === d ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-700'
                       }`}
                     >
                       {d}
@@ -562,22 +562,22 @@ export default function StudyHub() {
 
                 <div className="space-y-3">
                   {examQuestions[difficulty]?.map((q, i) => (
-                    <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2">
+                    <div key={i} className="bg-white border border-neutral-200 rounded-xl p-4 space-y-2">
                       <div className="flex items-start gap-2">
-                        <span className="text-xs font-medium text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded mt-0.5 shrink-0">{i + 1}</span>
-                        <p className="text-sm text-slate-800">{q.question}</p>
+                        <span className="text-xs font-medium text-neutral-400 bg-neutral-100 px-1.5 py-0.5 rounded mt-0.5 shrink-0">{i + 1}</span>
+                        <p className="text-sm text-neutral-800">{q.question}</p>
                       </div>
                       <div className="flex justify-end">
                         <button
                           onClick={() => setShowAns(s => ({ ...s, [i]: !s[i] }))}
-                          className="flex items-center gap-1 text-xs text-slate-400 hover:text-brand-600 transition-colors"
+                          className="flex items-center gap-1 text-xs text-neutral-400 hover:text-brand-600 transition-colors"
                         >
                           {showAns[i] ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                           {showAns[i] ? 'Hide answer' : 'Show answer'}
                         </button>
                       </div>
                       {showAns[i] && (
-                        <div className="ml-5 p-3 bg-slate-50 border border-slate-100 rounded-lg text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+                        <div className="ml-5 p-3 bg-neutral-50 border border-neutral-100 rounded-lg text-xs text-neutral-600 leading-relaxed whitespace-pre-line">
                           {q.answer}
                         </div>
                       )}
@@ -598,8 +598,8 @@ export default function StudyHub() {
 function Empty({ title, desc, action, onClick }) {
   return (
     <div className="flex flex-col items-center py-20 text-center gap-3">
-      <p className="text-sm font-medium text-slate-700">{title}</p>
-      <p className="text-xs text-slate-400 max-w-xs">{desc}</p>
+      <p className="text-sm font-medium text-neutral-700">{title}</p>
+      <p className="text-xs text-neutral-400 max-w-xs">{desc}</p>
       <Button variant="primary" size="md" className="mt-2" onClick={onClick}>{action}</Button>
     </div>
   );
@@ -607,8 +607,8 @@ function Empty({ title, desc, action, onClick }) {
 
 function Block({ label, children }) {
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-5">
-      <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-3">{label}</p>
+    <div className="bg-white border border-neutral-200 rounded-xl p-5">
+      <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-3">{label}</p>
       {children}
     </div>
   );

@@ -1,0 +1,36 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.1,
+  "scenes": [
+    {
+      "text": "Abhi bhi institute register aur Excel pe chala rahe ho?",
+      "file": "vo/hi/0.wav",
+      "seconds": 4.625
+    },
+    {
+      "text": "Poore batch ki attendance ek tap mein, aur kaun absent hai, turant pata.",
+      "file": "vo/hi/1.wav",
+      "seconds": 5.425
+    },
+    {
+      "text": "Pending fees track karo, aur har payment ki receipt print karo.",
+      "file": "vo/hi/2.wav",
+      "seconds": 4.525
+    },
+    {
+      "text": "Har enquiry ki follow-up date, ek bhi admission haath se nahi jaayega.",
+      "file": "vo/hi/3.wav",
+      "seconds": 5.3
+    },
+    {
+      "text": "Koi bhi subject, multiple chapters, answer key ke saath test, seconds mein.",
+      "file": "vo/hi/4.wav",
+      "seconds": 5.925
+    },
+    {
+      "text": "EduBuddy. Institute chalao, paperwork nahi.",
+      "file": "vo/hi/5.wav",
+      "seconds": 3.8
+    }
+  ]
+}

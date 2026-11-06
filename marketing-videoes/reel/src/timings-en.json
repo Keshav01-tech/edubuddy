@@ -1,0 +1,36 @@
+{
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "text": "Still running your coaching institute on registers and Excel?",
+      "file": "vo/en/0.wav",
+      "seconds": 3.8
+    },
+    {
+      "text": "Mark a whole batch's attendance in one tap, and see who's absent instantly.",
+      "file": "vo/en/1.wav",
+      "seconds": 4.9
+    },
+    {
+      "text": "Track pending fees, and print a receipt for every payment.",
+      "file": "vo/en/2.wav",
+      "seconds": 3.825
+    },
+    {
+      "text": "Give every enquiry a follow-up date, and never lose an admission.",
+      "file": "vo/en/3.wav",
+      "seconds": 4.325
+    },
+    {
+      "text": "Create a test from any subject and multiple chapters, with the answer key, in seconds.",
+      "file": "vo/en/4.wav",
+      "seconds": 5.6
+    },
+    {
+      "text": "EduBuddy. Run your institute, not paperwork.",
+      "file": "vo/en/5.wav",
+      "seconds": 3.25
+    }
+  ]
+}

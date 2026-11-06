@@ -18,14 +18,16 @@ import {
   Table2,
   LayoutList,
   Sparkles,
+  CalendarCheck, TrendingUp,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
+import { PageHeader, Panel, lastDays, shortDay, attendanceRate as rateFor } from '../components/ui';
 import { useClassroom, todayISO } from '../services/classroom';
 
 export { StudentForm, PdfImport } from './Students';
 
-const field = 'w-full h-10 px-3 text-sm bg-white rounded-xl ring-1 ring-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-slate-400';
+const field = 'w-full h-10 px-3 text-sm bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
 
 function formatDisplayDate(isoString) {
   if (!isoString) return '';
@@ -222,46 +224,37 @@ export default function Attendance() {
   const last7Days = getLastNDays(date, 7);
 
   return (
-    <div className="min-h-dvh bg-slate-50">
+    <div className="min-h-dvh app-canvas">
       <AppHeader
         nav
-        width="max-w-5xl"
         onSignOut={async () => {
           await signOut();
           navigate('/login');
         }}
       />
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8 pb-14">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         {/* Page Title & Navigation Bar */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
-                Attendance
-              </h1>
-              {isToday && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Today
-                </span>
-              )}
-            </div>
-            <p className="mt-0.5 text-xs sm:text-sm text-slate-500">
-              Track daily presence, view weekly registers, and notify parents on WhatsApp.
-            </p>
-          </div>
-
-          {/* View Mode Toggle (Daily vs Weekly Matrix) */}
+        <PageHeader
+          icon={CalendarCheck}
+          eyebrow="Institute"
+          title={<span className="inline-flex items-center gap-2.5">Attendance{isToday && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-50 text-neutral-900 ring-1 ring-neutral-200 align-middle">
+              <span className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse" />
+              Today
+            </span>
+          )}</span>}
+          subtitle="Mark today's roll call in a few taps, check the weekly register, and see each student's history."
+          actions={(
           <div className="flex items-center gap-2">
-            <div className="inline-flex p-1 bg-white ring-1 ring-slate-200 rounded-xl shadow-xs">
+            <div className="inline-flex p-1 bg-white ring-1 ring-neutral-200 rounded-xl shadow-xs">
               <button
                 type="button"
                 onClick={() => setViewMode('daily')}
                 className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-colors ${
                   viewMode === 'daily'
                     ? 'bg-brand-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 <LayoutList className="w-3.5 h-3.5" />
@@ -273,7 +266,7 @@ export default function Attendance() {
                 className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-colors ${
                   viewMode === 'register'
                     ? 'bg-brand-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 <Table2 className="w-3.5 h-3.5" />
@@ -283,16 +276,17 @@ export default function Attendance() {
 
             <Link
               to="/students"
-              className="hidden sm:inline-flex items-center gap-1 h-9 px-3 rounded-xl ring-1 ring-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors shadow-xs"
+              className="hidden sm:inline-flex items-center gap-1 h-9 px-3 rounded-xl ring-1 ring-neutral-200 bg-white text-xs font-medium text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs"
             >
-              <Users className="w-3.5 h-3.5 text-slate-400" />
+              <Users className="w-3.5 h-3.5 text-neutral-400" />
               Manage Students
             </Link>
           </div>
-        </div>
+          )}
+        />
 
         {/* Date Selector Banner */}
-        <section className="mb-6 bg-white rounded-2xl ring-1 ring-slate-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
+        <section className="mb-6 bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -300,7 +294,7 @@ export default function Attendance() {
                 setDate((d) => shiftDate(d, -1));
                 setNotice(null);
               }}
-              className="h-9 w-9 grid place-items-center rounded-xl ring-1 ring-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
+              className="h-9 w-9 grid place-items-center rounded-xl ring-1 ring-neutral-200 text-neutral-600 hover:bg-neutral-100 transition-colors"
               title="Previous Day"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -316,7 +310,7 @@ export default function Attendance() {
                   setDate(e.target.value || today);
                   setNotice(null);
                 }}
-                className="h-9 pl-9 pr-3 rounded-xl ring-1 ring-slate-200 text-xs sm:text-sm font-medium text-slate-800 bg-slate-50/50 hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer"
+                className="h-9 pl-9 pr-3 rounded-xl ring-1 ring-neutral-200 text-xs sm:text-sm font-medium text-neutral-800 bg-neutral-50/50 hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer"
               />
             </div>
 
@@ -327,7 +321,7 @@ export default function Attendance() {
                 setNotice(null);
               }}
               disabled={date >= today}
-              className="h-9 w-9 grid place-items-center rounded-xl ring-1 ring-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              className="h-9 w-9 grid place-items-center rounded-xl ring-1 ring-neutral-200 text-neutral-600 hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
               title="Next Day"
             >
               <ChevronRight className="w-4 h-4" />
@@ -348,19 +342,52 @@ export default function Attendance() {
           </div>
 
           <div className="text-right">
-            <span className="text-xs text-slate-400 block font-medium">Selected Date</span>
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-xs text-neutral-400 block font-medium">Selected Date</span>
+            <span className="text-sm font-semibold text-neutral-900">
               {formatDisplayDate(date)}
             </span>
           </div>
         </section>
 
+        {room.students.length > 0 && (
+          <Panel
+            className="mb-6"
+            title="Last 2 weeks"
+            subtitle="Tap a day to open its roll call"
+            icon={TrendingUp}
+            tone="emerald"
+          >
+            <div className="flex items-end gap-1.5 sm:gap-2 h-32">
+              {lastDays(14, today).filter((d) => new Date(`${d}T00:00:00`).getDay() !== 0).map((d) => {
+                const rate = rateFor(room.attendance[d]);
+                const selected = d === date;
+                return (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => { setDate(d); setNotice(null); }}
+                    className={`group flex-1 min-w-0 h-full flex flex-col items-center justify-end gap-1 rounded-lg pt-1 ${selected ? 'bg-brand-50 ring-1 ring-brand-200' : 'hover:bg-neutral-50'}`}
+                    title={`${shortDay(d)}: ${rate == null ? 'not marked' : `${rate}% present`}`}
+                  >
+                    <span className={`text-[10px] font-bold tabular-nums ${rate == null ? 'text-neutral-300' : rate < 75 ? 'text-neutral-900' : 'text-neutral-600'}`}>{rate == null ? '–' : `${rate}%`}</span>
+                    <span
+                      className={`w-full max-w-8 rounded-md ${rate == null ? 'bg-neutral-100' : rate < 75 ? 'bg-neutral-400' : 'bg-neutral-900'} ${selected ? 'ring-2 ring-brand-500 ring-offset-1' : ''}`}
+                      style={{ height: rate == null ? 6 : Math.max(6, rate * 0.7) }}
+                    />
+                    <span className={`text-[10px] font-medium ${selected ? 'text-brand-700' : 'text-neutral-400'}`}>{shortDay(d).split(' ')[0]}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </Panel>
+        )}
+
         {/* Empty State when no students exist */}
         {room.students.length === 0 ? (
-          <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 p-12 text-center shadow-card">
-            <Users className="w-12 h-12 mx-auto text-slate-300" />
-            <h2 className="mt-4 text-base font-semibold text-slate-900">No students enrolled yet</h2>
-            <p className="mt-1 text-sm text-slate-500 max-w-sm mx-auto">
+          <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-12 text-center shadow-card">
+            <Users className="w-12 h-12 mx-auto text-neutral-300" />
+            <h2 className="mt-4 text-base font-semibold text-neutral-900">No students enrolled yet</h2>
+            <p className="mt-1 text-sm text-neutral-500 max-w-sm mx-auto">
               Please add your students first to take attendance, mark batches, and track presence.
             </p>
             <Link
@@ -375,15 +402,15 @@ export default function Attendance() {
             {/* KPI Cards & Progress Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               {/* Total Students Card */}
-              <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 p-4 shadow-card">
+              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-slate-500">Total Enrolled</span>
-                  <div className="h-7 w-7 rounded-lg bg-slate-100 text-slate-600 grid place-items-center">
+                  <span className="text-xs font-medium text-neutral-500">Total Enrolled</span>
+                  <div className="h-7 w-7 rounded-lg bg-neutral-100 text-neutral-600 grid place-items-center">
                     <Users className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="mt-2 text-2xl font-bold text-slate-900">{totalCount}</div>
-                <div className="mt-0.5 text-[11px] text-slate-400">In selected scope</div>
+                <div className="mt-2 text-2xl font-bold text-neutral-900">{totalCount}</div>
+                <div className="mt-0.5 text-[11px] text-neutral-400">In selected scope</div>
               </div>
 
               {/* Present Students Card */}
@@ -392,23 +419,23 @@ export default function Attendance() {
                 onClick={() => setStatusFilter(statusFilter === 'P' ? 'all' : 'P')}
                 className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
                   statusFilter === 'P'
-                    ? 'bg-emerald-50/90 ring-emerald-300 shadow-md'
-                    : 'bg-white ring-slate-200/70 hover:ring-emerald-200'
+                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
+                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-emerald-700">Present</span>
-                  <div className="h-7 w-7 rounded-lg bg-emerald-100 text-emerald-700 grid place-items-center">
+                  <span className="text-xs font-medium text-neutral-900">Present</span>
+                  <div className="h-7 w-7 rounded-lg bg-neutral-100 text-neutral-900 grid place-items-center">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="mt-2 text-2xl font-bold text-emerald-700">
+                <div className="mt-2 text-2xl font-bold text-neutral-900">
                   {presentCount}{' '}
-                  <span className="text-xs font-semibold text-emerald-600">
+                  <span className="text-xs font-semibold text-neutral-900">
                     ({totalCount ? Math.round((presentCount / totalCount) * 100) : 0}%)
                   </span>
                 </div>
-                <div className="mt-0.5 text-[11px] text-emerald-600/80">Click to filter present</div>
+                <div className="mt-0.5 text-[11px] text-neutral-900/80">Click to filter present</div>
               </button>
 
               {/* Absent Students Card */}
@@ -417,23 +444,23 @@ export default function Attendance() {
                 onClick={() => setStatusFilter(statusFilter === 'A' ? 'all' : 'A')}
                 className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
                   statusFilter === 'A'
-                    ? 'bg-rose-50/90 ring-rose-300 shadow-md'
-                    : 'bg-white ring-slate-200/70 hover:ring-rose-200'
+                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
+                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-rose-700">Absent</span>
-                  <div className="h-7 w-7 rounded-lg bg-rose-100 text-rose-700 grid place-items-center">
+                  <span className="text-xs font-medium text-neutral-900">Absent</span>
+                  <div className="h-7 w-7 rounded-lg bg-neutral-100 text-neutral-900 grid place-items-center">
                     <XCircle className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="mt-2 text-2xl font-bold text-rose-700">
+                <div className="mt-2 text-2xl font-bold text-neutral-900">
                   {absentCount}{' '}
-                  <span className="text-xs font-semibold text-rose-600">
+                  <span className="text-xs font-semibold text-neutral-900">
                     ({totalCount ? Math.round((absentCount / totalCount) * 100) : 0}%)
                   </span>
                 </div>
-                <div className="mt-0.5 text-[11px] text-rose-600/80">Click to filter absent</div>
+                <div className="mt-0.5 text-[11px] text-neutral-900/80">Click to filter absent</div>
               </button>
 
               {/* Unmarked / Remaining Card */}
@@ -442,56 +469,56 @@ export default function Attendance() {
                 onClick={() => setStatusFilter(statusFilter === 'unmarked' ? 'all' : 'unmarked')}
                 className={`text-left rounded-2xl ring-1 p-4 shadow-card transition-all ${
                   statusFilter === 'unmarked'
-                    ? 'bg-amber-50/90 ring-amber-300 shadow-md'
-                    : 'bg-white ring-slate-200/70 hover:ring-amber-200'
+                    ? 'bg-neutral-50/90 ring-neutral-300 shadow-md'
+                    : 'bg-white ring-neutral-200/70 hover:ring-neutral-200'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-amber-700">Unmarked</span>
-                  <div className="h-7 w-7 rounded-lg bg-amber-100 text-amber-700 grid place-items-center">
+                  <span className="text-xs font-medium text-neutral-900">Unmarked</span>
+                  <div className="h-7 w-7 rounded-lg bg-neutral-100 text-neutral-900 grid place-items-center">
                     <Clock className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="mt-2 text-2xl font-bold text-amber-700">
+                <div className="mt-2 text-2xl font-bold text-neutral-900">
                   {unmarkedCount}
                 </div>
-                <div className="mt-0.5 text-[11px] text-amber-600/80">Pending confirmation</div>
+                <div className="mt-0.5 text-[11px] text-neutral-900/80">Pending confirmation</div>
               </button>
             </div>
 
             {/* Attendance Percentage Progress Bar */}
-            <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 p-4 shadow-card">
+            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card">
               <div className="flex items-center justify-between text-xs mb-2">
-                <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <span className="font-semibold text-neutral-700 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-brand-500" />
                   Daily Attendance Progress
                 </span>
-                <span className="font-mono font-medium text-slate-600">
+                <span className="font-mono font-medium text-neutral-600">
                   {presentCount} / {totalCount} students ({attendanceRate}%)
                 </span>
               </div>
-              <div className="h-2.5 rounded-full bg-slate-100 overflow-hidden flex" aria-hidden="true">
+              <div className="h-2.5 rounded-full bg-neutral-100 overflow-hidden flex" aria-hidden="true">
                 <div
-                  className="bg-emerald-500 transition-all duration-300"
+                  className="bg-neutral-900 transition-all duration-300"
                   style={{ width: `${totalCount ? (presentCount / totalCount) * 100 : 0}%` }}
                   title={`Present: ${presentCount}`}
                 />
                 <div
-                  className="bg-rose-500 transition-all duration-300"
+                  className="bg-neutral-900 transition-all duration-300"
                   style={{ width: `${totalCount ? (absentCount / totalCount) * 100 : 0}%` }}
                   title={`Absent: ${absentCount}`}
                 />
               </div>
-              <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
+              <div className="mt-2.5 flex items-center justify-between text-[11px] text-neutral-400">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex items-center gap-1 text-slate-600">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" /> {presentCount} Present
+                  <span className="inline-flex items-center gap-1 text-neutral-600">
+                    <span className="w-2 h-2 rounded-full bg-neutral-900" /> {presentCount} Present
                   </span>
-                  <span className="inline-flex items-center gap-1 text-slate-600">
-                    <span className="w-2 h-2 rounded-full bg-rose-500" /> {absentCount} Absent
+                  <span className="inline-flex items-center gap-1 text-neutral-600">
+                    <span className="w-2 h-2 rounded-full bg-neutral-900" /> {absentCount} Absent
                   </span>
-                  <span className="inline-flex items-center gap-1 text-slate-600">
-                    <span className="w-2 h-2 rounded-full bg-slate-200" /> {unmarkedCount} Unmarked
+                  <span className="inline-flex items-center gap-1 text-neutral-600">
+                    <span className="w-2 h-2 rounded-full bg-neutral-200" /> {unmarkedCount} Unmarked
                   </span>
                 </div>
                 <span>Target: 85%+</span>
@@ -503,26 +530,26 @@ export default function Attendance() {
               <div
                 className={`p-3.5 rounded-xl border flex items-start justify-between gap-3 text-xs sm:text-sm animate-fade-up ${
                   notice.type === 'error'
-                    ? 'bg-rose-50 border-rose-200 text-rose-800'
+                    ? 'bg-neutral-50 border-neutral-200 text-neutral-900'
                     : notice.type === 'success'
-                    ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                    : 'bg-blue-50 border-blue-200 text-blue-800'
+                    ? 'bg-neutral-50 border-neutral-200 text-neutral-900'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-900'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   {notice.type === 'error' ? (
-                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                    <AlertCircle className="w-4 h-4 shrink-0 text-neutral-900" />
                   ) : notice.type === 'success' ? (
-                    <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-neutral-900" />
                   ) : (
-                    <MessageCircle className="w-4 h-4 shrink-0 text-blue-600" />
+                    <MessageCircle className="w-4 h-4 shrink-0 text-neutral-900" />
                   )}
                   <span>{notice.message}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setNotice(null)}
-                  className="text-slate-400 hover:text-slate-600 p-0.5 rounded"
+                  className="text-neutral-400 hover:text-neutral-600 p-0.5 rounded"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -530,9 +557,9 @@ export default function Attendance() {
             )}
 
             {/* Class / Batch Filters Bar */}
-            <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 p-4 shadow-card space-y-3">
+            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                <span className="text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                   Select Class / Batch
                 </span>
                 <Link
@@ -564,14 +591,14 @@ export default function Attendance() {
                       }}
                       className={`h-8 shrink-0 px-3.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
                         selectedGroup === item.id
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          ? 'bg-neutral-900 text-white shadow-xs'
+                          : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                       }`}
                     >
                       {item.label}
                       <span
                         className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                          selectedGroup === item.id ? 'bg-slate-700 text-white' : 'bg-slate-200 text-slate-600'
+                          selectedGroup === item.id ? 'bg-neutral-700 text-white' : 'bg-neutral-200 text-neutral-600'
                         }`}
                       >
                         {count}
@@ -583,7 +610,7 @@ export default function Attendance() {
             </div>
 
             {/* Controls Bar: Bulk Actions & Search */}
-            <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
+            <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 p-4 shadow-card flex flex-wrap items-center justify-between gap-3">
               {/* Bulk Actions */}
               <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -592,7 +619,7 @@ export default function Attendance() {
                     room.markAll(date, inScopeStudents.map((s) => s.id), 'P');
                     setNotice({ type: 'success', message: `Marked all ${inScopeStudents.length} students Present.` });
                   }}
-                  className="h-9 px-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs transition-colors"
+                  className="h-9 px-3.5 rounded-xl bg-neutral-900 hover:bg-neutral-900 text-white text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs transition-colors"
                 >
                   <Check className="w-3.5 h-3.5" />
                   Mark All Present
@@ -604,7 +631,7 @@ export default function Attendance() {
                     room.markAll(date, inScopeStudents.map((s) => s.id), 'A');
                     setNotice({ type: 'info', message: `Marked all ${inScopeStudents.length} students Absent.` });
                   }}
-                  className="h-9 px-3.5 rounded-xl ring-1 ring-rose-200 text-rose-700 hover:bg-rose-50 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
+                  className="h-9 px-3.5 rounded-xl ring-1 ring-neutral-200 text-neutral-900 hover:bg-neutral-50 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
                   Mark All Absent
@@ -616,10 +643,10 @@ export default function Attendance() {
                     room.markAll(date, inScopeStudents.map((s) => s.id), null);
                     setNotice({ type: 'info', message: 'Reset all attendance marks for this day.' });
                   }}
-                  className="h-9 px-3 rounded-xl ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1 transition-colors"
+                  className="h-9 px-3 rounded-xl ring-1 ring-neutral-200 text-neutral-600 hover:bg-neutral-50 text-xs font-medium inline-flex items-center gap-1 transition-colors"
                   title="Clear marks for this class"
                 >
-                  <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+                  <RotateCcw className="w-3.5 h-3.5 text-neutral-400" />
                   Reset
                 </button>
 
@@ -628,7 +655,7 @@ export default function Attendance() {
                     type="button"
                     disabled={sendingWhatsApp}
                     onClick={() => notifyAbsentParents(absentStudents)}
-                    className="h-9 px-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 ring-1 ring-emerald-300 text-emerald-800 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                    className="h-9 px-3.5 rounded-xl bg-neutral-50 hover:bg-neutral-100 ring-1 ring-neutral-300 text-neutral-900 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors disabled:opacity-50"
                   >
                     <Send className="w-3.5 h-3.5" />
                     Notify {absentCount} Absent Parent{absentCount > 1 ? 's' : ''}
@@ -638,7 +665,7 @@ export default function Attendance() {
 
               {/* Instant Search Box */}
               <div className="relative min-w-[220px] flex-1 sm:flex-initial">
-                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                 <input
                   type="search"
                   value={searchQuery}
@@ -652,9 +679,9 @@ export default function Attendance() {
 
             {/* VIEW 1: DAILY ROLL CALL LIST / CARDS */}
             {viewMode === 'daily' && (
-              <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 shadow-card overflow-hidden">
+              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card overflow-hidden">
                 {/* Header row */}
-                <div className="px-4 py-3 bg-slate-50/80 border-b border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                <div className="px-4 py-3 bg-neutral-50/80 border-b border-neutral-200 flex items-center justify-between text-xs font-semibold text-neutral-500 uppercase tracking-wider">
                   <span>Student & History</span>
                   <div className="flex items-center gap-2">
                     {statusFilter !== 'all' && (
@@ -671,7 +698,7 @@ export default function Attendance() {
                 </div>
 
                 {displayedStudents.length === 0 ? (
-                  <div className="py-12 text-center text-sm text-slate-500">
+                  <div className="py-12 text-center text-sm text-neutral-500">
                     {searchTerm
                       ? `No students found matching "${searchTerm}".`
                       : statusFilter !== 'all'
@@ -679,7 +706,7 @@ export default function Attendance() {
                       : 'No students in this class or batch.'}
                   </div>
                 ) : (
-                  <ul className="divide-y divide-slate-100">
+                  <ul className="divide-y divide-neutral-100">
                     {displayedStudents.map((student) => {
                       const status = marks[student.id]; // 'P' | 'A' | undefined
                       const initial = student.name.trim().charAt(0).toUpperCase() || '?';
@@ -691,10 +718,10 @@ export default function Attendance() {
                           key={student.id}
                           className={`p-3.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 transition-colors ${
                             status === 'P'
-                              ? 'bg-emerald-50/40'
+                              ? 'bg-neutral-50/40'
                               : status === 'A'
-                              ? 'bg-rose-50/40'
-                              : 'hover:bg-slate-50/70'
+                              ? 'bg-neutral-50/40'
+                              : 'hover:bg-neutral-50/70'
                           }`}
                         >
                           {/* Student Details */}
@@ -702,10 +729,10 @@ export default function Attendance() {
                             <span
                               className={`h-10 w-10 shrink-0 rounded-full font-bold grid place-items-center text-xs transition-colors ${
                                 status === 'P'
-                                  ? 'bg-emerald-600 text-white ring-2 ring-emerald-200'
+                                  ? 'bg-neutral-900 text-white ring-2 ring-neutral-200'
                                   : status === 'A'
-                                  ? 'bg-rose-600 text-white ring-2 ring-rose-200'
-                                  : 'bg-slate-100 text-slate-600 ring-1 ring-slate-200'
+                                  ? 'bg-neutral-900 text-white ring-2 ring-neutral-200'
+                                  : 'bg-neutral-100 text-neutral-600 ring-1 ring-neutral-200'
                               }`}
                             >
                               {initial}
@@ -713,7 +740,7 @@ export default function Attendance() {
 
                             <div className="min-w-0">
                               <div className="flex items-center gap-2">
-                                <span className="font-semibold text-slate-900 text-sm truncate">
+                                <span className="font-semibold text-neutral-900 text-sm truncate">
                                   {student.name}
                                 </span>
                                 {student.section && (
@@ -723,7 +750,7 @@ export default function Attendance() {
                                 )}
                               </div>
 
-                              <div className="flex flex-wrap items-center gap-2 mt-0.5 text-xs text-slate-500">
+                              <div className="flex flex-wrap items-center gap-2 mt-0.5 text-xs text-neutral-500">
                                 <span>{student.className || 'No class'}</span>
                                 {stats.pct !== null && (
                                   <>
@@ -731,10 +758,10 @@ export default function Attendance() {
                                     <span
                                       className={`font-medium ${
                                         stats.pct >= 75
-                                          ? 'text-emerald-700'
+                                          ? 'text-neutral-900'
                                           : stats.pct >= 50
-                                          ? 'text-amber-700'
-                                          : 'text-rose-700'
+                                          ? 'text-neutral-900'
+                                          : 'text-neutral-900'
                                       }`}
                                     >
                                       {stats.pct}% rate ({stats.present}/{stats.total}d)
@@ -744,7 +771,7 @@ export default function Attendance() {
                                 {student.phone && (
                                   <>
                                     <span>·</span>
-                                    <span className="font-mono text-slate-600">{student.phone}</span>
+                                    <span className="font-mono text-neutral-600">{student.phone}</span>
                                   </>
                                 )}
                               </div>
@@ -759,7 +786,7 @@ export default function Attendance() {
                                 href={waLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-8 px-2.5 rounded-lg text-emerald-700 bg-emerald-100/70 hover:bg-emerald-200 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
+                                className="h-8 px-2.5 rounded-lg text-neutral-900 bg-neutral-100/70 hover:bg-neutral-200 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
                                 title={`Send WhatsApp message to ${student.name}'s parent`}
                               >
                                 <MessageCircle className="w-3.5 h-3.5" />
@@ -773,8 +800,8 @@ export default function Attendance() {
                               onClick={() => room.markAttendance(date, student.id, 'P')}
                               className={`h-9 px-3.5 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                                 status === 'P'
-                                  ? 'bg-emerald-600 text-white shadow-xs'
-                                  : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:text-emerald-700 hover:ring-emerald-300'
+                                  ? 'bg-neutral-900 text-white shadow-xs'
+                                  : 'bg-white text-neutral-600 ring-1 ring-neutral-200 hover:text-neutral-900 hover:ring-neutral-300'
                               }`}
                             >
                               <Check className="w-3.5 h-3.5" />
@@ -787,8 +814,8 @@ export default function Attendance() {
                               onClick={() => room.markAttendance(date, student.id, 'A')}
                               className={`h-9 px-3.5 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition-all ${
                                 status === 'A'
-                                  ? 'bg-rose-600 text-white shadow-xs'
-                                  : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:text-rose-700 hover:ring-rose-300'
+                                  ? 'bg-neutral-900 text-white shadow-xs'
+                                  : 'bg-white text-neutral-600 ring-1 ring-neutral-200 hover:text-neutral-900 hover:ring-neutral-300'
                               }`}
                             >
                               <X className="w-3.5 h-3.5" />
@@ -800,7 +827,7 @@ export default function Attendance() {
                               <button
                                 type="button"
                                 onClick={() => room.markAttendance(date, student.id, null)}
-                                className="h-9 w-9 grid place-items-center rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                className="h-9 w-9 grid place-items-center rounded-xl text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-colors"
                                 title="Clear mark"
                               >
                                 <RotateCcw className="w-3.5 h-3.5" />
@@ -817,27 +844,27 @@ export default function Attendance() {
 
             {/* VIEW 2: WEEKLY REGISTER MATRIX (Haziri Register) */}
             {viewMode === 'register' && (
-              <div className="bg-white rounded-2xl ring-1 ring-slate-200/70 shadow-card overflow-hidden">
-                <div className="p-4 bg-slate-50/80 border-b border-slate-200 flex items-center justify-between">
+              <div className="bg-white rounded-2xl ring-1 ring-neutral-200/70 shadow-card overflow-hidden">
+                <div className="p-4 bg-neutral-50/80 border-b border-neutral-200 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900">
+                    <h3 className="text-sm font-semibold text-neutral-900">
                       Weekly Register Matrix
                     </h3>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-neutral-500 mt-0.5">
                       7-day attendance register ending on {formatDisplayDate(date)}.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                  <div className="flex items-center gap-2 text-xs font-medium text-neutral-600">
                     <span className="inline-flex items-center gap-1">
-                      <span className="w-2.5 h-2.5 rounded bg-emerald-500 text-white text-[9px] font-bold grid place-items-center">P</span>
+                      <span className="w-2.5 h-2.5 rounded bg-neutral-900 text-white text-[9px] font-bold grid place-items-center">P</span>
                       Present
                     </span>
                     <span className="inline-flex items-center gap-1 ml-2">
-                      <span className="w-2.5 h-2.5 rounded bg-rose-500 text-white text-[9px] font-bold grid place-items-center">A</span>
+                      <span className="w-2.5 h-2.5 rounded bg-neutral-900 text-white text-[9px] font-bold grid place-items-center">A</span>
                       Absent
                     </span>
                     <span className="inline-flex items-center gap-1 ml-2">
-                      <span className="w-2.5 h-2.5 rounded bg-slate-200 text-slate-500 text-[9px] font-bold grid place-items-center">-</span>
+                      <span className="w-2.5 h-2.5 rounded bg-neutral-200 text-neutral-500 text-[9px] font-bold grid place-items-center">-</span>
                       Unmarked
                     </span>
                   </div>
@@ -846,8 +873,8 @@ export default function Attendance() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="bg-slate-50 border-b border-slate-200 font-semibold text-slate-600">
-                        <th className="py-3 px-4 sticky left-0 bg-slate-50 z-10">Student</th>
+                      <tr className="bg-neutral-50 border-b border-neutral-200 font-semibold text-neutral-600">
+                        <th className="py-3 px-4 sticky left-0 bg-neutral-50 z-10">Student</th>
                         <th className="py-3 px-2">Batch</th>
                         {last7Days.map((dayIso) => {
                           const isCur = dayIso === date;
@@ -859,7 +886,7 @@ export default function Attendance() {
                               }`}
                             >
                               <div>{formatDisplayDate(dayIso).split(',')[0]}</div>
-                              <div className="text-[10px] text-slate-400">
+                              <div className="text-[10px] text-neutral-400">
                                 {dayIso.slice(8, 10)} {dayIso.slice(5, 7)}
                               </div>
                             </th>
@@ -868,19 +895,19 @@ export default function Attendance() {
                         <th className="py-3 px-3 text-right">Attendance %</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-neutral-100">
                       {displayedStudents.map((student) => {
                         const stats = studentStats(student.id);
 
                         return (
-                          <tr key={student.id} className="hover:bg-slate-50/70">
+                          <tr key={student.id} className="hover:bg-neutral-50/70">
                             {/* Student Name */}
-                            <td className="py-2.5 px-4 font-semibold text-slate-900 whitespace-nowrap sticky left-0 bg-white">
+                            <td className="py-2.5 px-4 font-semibold text-neutral-900 whitespace-nowrap sticky left-0 bg-white">
                               {student.name}
                             </td>
 
                             {/* Batch */}
-                            <td className="py-2.5 px-2 text-slate-500 whitespace-nowrap">
+                            <td className="py-2.5 px-2 text-neutral-500 whitespace-nowrap">
                               {student.section || '-'}
                             </td>
 
@@ -901,7 +928,7 @@ export default function Attendance() {
                                     <button
                                       type="button"
                                       onClick={() => room.markAttendance(dayIso, student.id, 'A')}
-                                      className="w-6 h-6 mx-auto rounded bg-emerald-100 text-emerald-800 font-bold text-xs grid place-items-center hover:bg-emerald-200"
+                                      className="w-6 h-6 mx-auto rounded bg-neutral-100 text-neutral-900 font-bold text-xs grid place-items-center hover:bg-neutral-200"
                                       title={`${formatDisplayDate(dayIso)}: Present (Click to mark Absent)`}
                                     >
                                       P
@@ -910,7 +937,7 @@ export default function Attendance() {
                                     <button
                                       type="button"
                                       onClick={() => room.markAttendance(dayIso, student.id, null)}
-                                      className="w-6 h-6 mx-auto rounded bg-rose-100 text-rose-800 font-bold text-xs grid place-items-center hover:bg-rose-200"
+                                      className="w-6 h-6 mx-auto rounded bg-neutral-100 text-neutral-900 font-bold text-xs grid place-items-center hover:bg-neutral-200"
                                       title={`${formatDisplayDate(dayIso)}: Absent (Click to clear)`}
                                     >
                                       A
@@ -919,7 +946,7 @@ export default function Attendance() {
                                     <button
                                       type="button"
                                       onClick={() => room.markAttendance(dayIso, student.id, 'P')}
-                                      className="w-6 h-6 mx-auto rounded bg-slate-100 text-slate-400 font-medium text-xs grid place-items-center hover:bg-slate-200"
+                                      className="w-6 h-6 mx-auto rounded bg-neutral-100 text-neutral-400 font-medium text-xs grid place-items-center hover:bg-neutral-200"
                                       title={`${formatDisplayDate(dayIso)}: Unmarked (Click to mark Present)`}
                                     >
                                       -
@@ -935,16 +962,16 @@ export default function Attendance() {
                                 <span
                                   className={`font-bold px-2 py-0.5 rounded-full text-[11px] ${
                                     stats.pct >= 75
-                                      ? 'bg-emerald-50 text-emerald-700'
+                                      ? 'bg-neutral-50 text-neutral-900'
                                       : stats.pct >= 50
-                                      ? 'bg-amber-50 text-amber-700'
-                                      : 'bg-rose-50 text-rose-700'
+                                      ? 'bg-neutral-50 text-neutral-900'
+                                      : 'bg-neutral-50 text-neutral-900'
                                   }`}
                                 >
                                   {stats.pct}%
                                 </span>
                               ) : (
-                                <span className="text-slate-400 italic">No records</span>
+                                <span className="text-neutral-400 italic">No records</span>
                               )}
                             </td>
                           </tr>

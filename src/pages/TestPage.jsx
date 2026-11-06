@@ -252,14 +252,14 @@ export default function TestPage() {
   const sess = activeSession;
 
   return (
-    <div className="min-h-screen bg-stone-200/70">
+    <div className="min-h-screen bg-neutral-200/70">
       <div className="no-print">
         <AppHeader
           leading={(
             <button
               type="button"
               onClick={() => navigate('/tests')}
-              className="p-2 -ml-2 rounded-lg text-stone-400 hover:text-stone-800 hover:bg-stone-100 transition-colors"
+              className="p-2 -ml-2 rounded-lg text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors"
               aria-label="Back"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -272,12 +272,12 @@ export default function TestPage() {
 
       <main className="max-w-6xl mx-auto px-3 sm:px-6 pt-4 pb-16">
         {generateError && !generating && (
-          <div className="no-print mb-6 p-5 rounded-2xl border border-rose-200 bg-rose-50 max-w-2xl mx-auto">
-            <p className="text-sm text-rose-800">{generateError}</p>
+          <div className="no-print mb-6 p-5 rounded-2xl border border-neutral-200 bg-neutral-50 max-w-2xl mx-auto">
+            <p className="text-sm text-neutral-900">{generateError}</p>
             <button
               type="button"
               onClick={() => generateTest(activeSession)}
-              className="mt-3 text-sm font-medium text-stone-800 underline underline-offset-2"
+              className="mt-3 text-sm font-medium text-neutral-800 underline underline-offset-2"
             >
               Try again
             </button>
@@ -287,22 +287,22 @@ export default function TestPage() {
         {generating && (
           <div className="no-print flex flex-col items-center justify-center py-32 gap-3">
             <Spinner size="lg" />
-            <p className="text-sm text-stone-500">Reading the chapter and writing your paper…</p>
-            <p className="text-xs text-stone-400">Large textbooks can take a little longer</p>
+            <p className="text-sm text-neutral-500">Reading the chapter and writing your paper…</p>
+            <p className="text-xs text-neutral-400">Large textbooks can take a little longer</p>
           </div>
         )}
 
         {paper && !generating && (
           <>
             <div className="no-print mb-4 flex flex-wrap items-center gap-2">
-              <div className="flex flex-wrap p-1 bg-white rounded-xl ring-1 ring-stone-200 max-w-full">
+              <div className="flex flex-wrap p-1 bg-white rounded-xl ring-1 ring-neutral-200 max-w-full">
                 {FORMS.map((item) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => setForm(item.id)}
                     className={`h-9 px-2.5 sm:px-3 rounded-lg text-[13px] sm:text-sm font-medium transition-colors ${
-                      form === item.id ? 'bg-stone-900 text-white' : 'text-stone-500 hover:text-stone-800'
+                      form === item.id ? 'bg-neutral-900 text-white' : 'text-neutral-500 hover:text-neutral-800'
                     }`}
                   >
                     {item.label}
@@ -320,7 +320,7 @@ export default function TestPage() {
               <button
                 type="button"
                 onClick={() => generateTest(activeSession)}
-                className="h-11 px-3 rounded-xl bg-white ring-1 ring-stone-200 text-sm font-medium text-stone-600 hover:text-stone-900 flex items-center gap-1.5"
+                className="h-11 px-3 rounded-xl bg-white ring-1 ring-neutral-200 text-sm font-medium text-neutral-600 hover:text-neutral-900 flex items-center gap-1.5"
               >
                 <RotateCcw className="w-4 h-4" />
                 New paper
