@@ -1,36 +1,36 @@
 {
   "voice": "hf_alpha",
-  "speed": 1.1,
+  "speed": 1.0,
   "scenes": [
     {
-      "text": "Abhi bhi institute register aur Excel pe chala rahe ho?",
+      "text": "Bahut se teachers abhi bhi paper register, Excel aur WhatsApp chats pe institute chalate hain.",
       "file": "vo/hi/0.wav",
-      "seconds": 4.625
+      "seconds": 7.425
     },
     {
-      "text": "Poore batch ki attendance ek tap mein, aur kaun absent hai, turant pata.",
+      "text": "Attendance. Poori class ek do tap mein, aur parents ko usi din WhatsApp message.",
       "file": "vo/hi/1.wav",
-      "seconds": 5.425
+      "seconds": 6.525
     },
     {
-      "text": "Pending fees track karo, aur har payment ki receipt print karo.",
+      "text": "Fees. Har payment record karo, receipt print karo, aur dekho kisne diya, kisne nahi.",
       "file": "vo/hi/2.wav",
-      "seconds": 4.525
+      "seconds": 6.325
     },
     {
-      "text": "Har enquiry ki follow-up date, ek bhi admission haath se nahi jaayega.",
+      "text": "Admissions. Har call aur walk-in save karo, aur join hone tak follow-up karo. Koi parent nahi chhutega.",
       "file": "vo/hi/3.wav",
-      "seconds": 5.3
+      "seconds": 7.55
     },
     {
-      "text": "Koi bhi subject, multiple chapters, answer key ke saath test, seconds mein.",
+      "text": "Tests. Class 6 se 12 ka NCERT question paper, sirf paanch minute mein, answer key ke saath.",
       "file": "vo/hi/4.wav",
-      "seconds": 5.925
+      "seconds": 7.65
     },
     {
       "text": "EduBuddy. Institute chalao, paperwork nahi.",
       "file": "vo/hi/5.wav",
-      "seconds": 3.8
+      "seconds": 4.05
     }
   ]
 }

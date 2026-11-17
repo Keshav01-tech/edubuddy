@@ -1,36 +1,36 @@
 {
   "voice": "af_heart",
-  "speed": 1.05,
+  "speed": 1.0,
   "scenes": [
     {
-      "text": "Still running your coaching institute on registers and Excel?",
+      "text": "Many teachers still run their institute on paper registers, Excel sheets, and WhatsApp chats.",
       "file": "vo/en/0.wav",
-      "seconds": 3.8
+      "seconds": 5.95
     },
     {
-      "text": "Mark a whole batch's attendance in one tap, and see who's absent instantly.",
+      "text": "Attendance. Mark a whole class in a few taps, and send parents a WhatsApp message the same day.",
       "file": "vo/en/1.wav",
-      "seconds": 4.9
+      "seconds": 6.05
     },
     {
-      "text": "Track pending fees, and print a receipt for every payment.",
+      "text": "Fees. Record each payment, print a receipt, and see who has paid and who still owes.",
       "file": "vo/en/2.wav",
-      "seconds": 3.825
+      "seconds": 5.45
     },
     {
-      "text": "Give every enquiry a follow-up date, and never lose an admission.",
+      "text": "Admissions. Save every call and walk-in, and follow each one until they join. No parent is forgotten.",
       "file": "vo/en/3.wav",
-      "seconds": 4.325
+      "seconds": 6.725
     },
     {
-      "text": "Create a test from any subject and multiple chapters, with the answer key, in seconds.",
+      "text": "Tests. Make an NCERT question paper for classes 6 to 12 in about five minutes, with an answer key.",
       "file": "vo/en/4.wav",
-      "seconds": 5.6
+      "seconds": 7.475
     },
     {
       "text": "EduBuddy. Run your institute, not paperwork.",
       "file": "vo/en/5.wav",
-      "seconds": 3.25
+      "seconds": 3.3
     }
   ]
 }

@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X, Users, GraduationCap, LayoutDashboard,
-  Building2, Sparkles, Plus, ChevronDown, FolderOpen, CalendarDays, ArrowRight,
+  Building2, Sparkles, Plus, ChevronDown, FolderOpen, CalendarDays, ArrowRight, UserCog, Presentation, ScanLine, ConciergeBell,
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 import { useClassroom, todayISO } from '../services/classroom';
+import { useAuth } from '../context/AuthContext';
+import { describeAssignments } from '../services/teachers';
 
 const ICON_BUTTON = 'h-10 w-10 grid place-items-center rounded-xl text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400';
 
@@ -16,6 +17,8 @@ const PAGE_TITLES = {
   '/attendance': ['Attendance', 'Institute'],
   '/fees': ['Fees', 'Institute'],
   '/leads': ['Leads & inquiries', 'Institute'],
+  '/teachers': ['Teachers & staff', 'Institute'],
+  '/scan-receipt': ['Scan receipt', 'Front desk'],
   '/tests': ['Test generator', 'Teaching'],
   '/papers': ['My tests', 'Teaching'],
   '/profile': ['Institute profile', 'Account'],
@@ -37,16 +40,33 @@ function useNavBadges() {
 }
 
 function navGroups(b) {
+  const teacher = b.room.isTeacher;
+  if (b.room.isReceptionist) {
+    // The front desk: fees first, with receipt scanning, then students and inquiries.
+    return [{
+      label: 'Front desk',
+      items: [
+        { to: '/scan-receipt', label: 'Scan receipt', icon: ScanLine, badge: 'AI' },
+        { to: '/fees', label: 'Fees', icon: Wallet, count: b.owing || null, countTone: 'danger', countTitle: 'students with fees due' },
+        { to: '/students', label: 'Students', icon: Users, count: b.room.students.length || null, countTone: 'muted' },
+        { to: '/leads', label: 'Leads', icon: Inbox, count: b.due || null, countTone: 'warn', countTitle: 'follow-ups due' },
+      ],
+    }];
+  }
   return [
-    { label: 'Overview', items: [{ to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true }] },
+    // Teachers have no dashboard: their panel starts at their own classes.
+    ...(teacher ? [] : [{ label: 'Overview', items: [{ to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true }] }]),
     {
       label: 'Institute',
       items: [
         { to: '/students', label: 'Students', icon: Users, count: b.room.students.length || null, countTone: 'muted' },
-        { to: '/classes', label: 'Classes', icon: GraduationCap },
-        { to: '/attendance', label: 'Attendance', icon: CalendarCheck, count: b.room.students.length && b.unmarked ? b.unmarked : null, countTone: 'warn', countTitle: 'students not marked today' },
+        { to: '/classes', label: teacher ? 'My batches' : 'Batches', icon: GraduationCap },
+        // Attendance is taken by teachers only; the admin panel does not show it.
+        ...(teacher ? [{ to: '/attendance', label: 'Attendance', icon: CalendarCheck, count: b.room.students.length && b.unmarked ? b.unmarked : null, countTone: 'warn', countTitle: 'students not marked today' }] : []),
         { to: '/fees', label: 'Fees', icon: Wallet, count: b.owing || null, countTone: 'danger', countTitle: 'students with fees due' },
+        ...(teacher ? [] : [{ to: '/scan-receipt', label: 'Scan receipt', icon: ScanLine, badge: 'AI' }]),
         { to: '/leads', label: 'Leads', icon: Inbox, count: b.due || null, countTone: 'warn', countTitle: 'follow-ups due' },
+        ...(teacher ? [] : [{ to: '/teachers', label: 'Teachers', icon: UserCog, count: b.room.teachers.length || null, countTone: 'muted' }]),
       ],
     },
     {
@@ -79,13 +99,22 @@ export function BrandMark({ size = 'md', invert = false }) {
   );
 }
 
-function Brand({ institute }) {
+function Brand({ institute, logo, teacher, reception }) {
+  const name = institute?.trim();
   return (
-    <Link to="/dashboard" className="flex items-center gap-3 px-5 h-[4.5rem] shrink-0">
-      <span className="h-9 w-9 shrink-0 rounded-full grid place-items-center bg-gradient-to-br from-[#60c1e5] to-[#005a9c] text-[15px] font-black text-white">E</span>
+    <Link to={teacher ? '/classes' : reception ? '/scan-receipt' : '/dashboard'} className="flex items-center gap-3 px-5 h-[4.5rem] shrink-0">
+      {logo ? (
+        <img src={logo} alt="" className="h-9 w-9 shrink-0 rounded-xl object-contain bg-white" />
+      ) : (
+        <span className="h-9 w-9 shrink-0 rounded-full grid place-items-center bg-gradient-to-br from-[#60c1e5] to-[#005a9c] text-[15px] font-black text-white">
+          {(name || 'E').charAt(0).toUpperCase()}
+        </span>
+      )}
       <span className="leading-tight min-w-0">
-        <span className="block text-[15px] font-extrabold uppercase tracking-wide text-neutral-900">EduBuddy</span>
-        <span className="block text-[11px] font-medium text-neutral-500 truncate">{institute || 'Institute workspace'}</span>
+        <span className="block text-[15px] font-extrabold tracking-tight text-neutral-900 truncate">{name || 'EduBuddy'}</span>
+        <span className="block text-[11px] font-medium text-neutral-500 truncate">
+          {teacher ? 'Teacher panel' : reception ? 'Front desk' : name ? 'Powered by EduBuddy' : 'Institute workspace'}
+        </span>
       </span>
     </Link>
   );
@@ -114,16 +143,23 @@ function NavItem({ to, label, icon: Icon, end, badge, count, countTone, countTit
   );
 }
 
-function userName(user) {
-  return user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Teacher';
-}
-
-function Avatar({ user, className = 'h-9 w-9 text-[13px]', invert = false }) {
-  const initial = userName(user).trim().charAt(0).toUpperCase() || 'T';
+/** Sidebar card for a signed-in teacher: who they are and which classes they take. */
+function TeacherCard({ room }) {
+  const t = room.teacher;
+  const lines = describeAssignments(t);
   return (
-    <span className={`${className} shrink-0 rounded-full grid place-items-center font-bold ${invert ? 'bg-white text-neutral-950' : 'bg-neutral-950 text-white'}`}>
-      {initial}
-    </span>
+    <div className="mx-4 mb-4 rounded-3xl bg-[#1b365d] p-4 text-white">
+      <p className="flex items-center gap-2 text-[13px] font-semibold"><Presentation className="w-4 h-4" /> {t?.name || 'Teacher'}</p>
+      {t?.subject && <p className="mt-0.5 text-xs text-white/70">{t.subject}</p>}
+      <p className="mt-3 text-[10.5px] font-bold uppercase tracking-wider text-white/50">You teach</p>
+      {lines.length === 0 ? (
+        <p className="mt-1 text-xs text-white/70">No classes assigned yet. Ask your admin.</p>
+      ) : (
+        <ul className="mt-1.5 space-y-1">
+          {lines.map((line) => <li key={line} className="rounded-lg bg-white/10 px-2.5 py-1 text-xs">{line}</li>)}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -132,12 +168,18 @@ function SideNav({ onSignOut, onNavigate }) {
   const groups = navGroups(badges);
   return (
     <div className="flex flex-col h-full">
-      <Brand institute={badges.room.institute?.name} />
+      <Brand institute={badges.room.institute?.name} logo={badges.room.institute?.logo} teacher={badges.room.isTeacher} reception={badges.room.isReceptionist} />
       <nav className="flex-1 px-4 pt-2 overflow-y-auto" aria-label="Main">
         <div className="space-y-1">
           {groups.flatMap((group) => group.items).map((item) => <NavItem key={item.to} {...item} onNavigate={onNavigate} />)}
         </div>
       </nav>
+      {badges.room.isReceptionist ? (
+        <div className="mx-4 mb-4 rounded-3xl bg-[#1b365d] p-4 text-white">
+          <p className="flex items-center gap-2 text-[13px] font-semibold"><ConciergeBell className="w-4 h-4" /> Front desk</p>
+          <p className="mt-1 text-xs text-white/70">Scan a fee receipt, confirm the student, and the fee is updated.</p>
+        </div>
+      ) : badges.room.isTeacher ? <TeacherCard room={badges.room} /> : (
       <Link to="/tests" onClick={onNavigate} className="relative mx-4 mb-4 block overflow-hidden rounded-3xl bg-[#1b365d] p-4 text-center">
         <span aria-hidden className="pointer-events-none absolute -left-8 -top-10 h-28 w-28 rounded-full bg-white/10 blur-xl" />
         <span className="relative mb-2 flex justify-center -space-x-2">
@@ -149,11 +191,14 @@ function SideNav({ onSignOut, onNavigate }) {
         <span className="relative mt-1.5 block text-[12.5px] leading-snug text-white/70">AI test papers in a minute.</span>
         <span className="relative mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-white text-[13px] font-semibold text-neutral-900">Try it now <ArrowRight className="w-4 h-4" /></span>
       </Link>
+      )}
       <div className="px-4 py-3 border-t border-neutral-200/70">
         <div className="space-y-0.5">
-          <NavLink to="/profile" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
-            {({ isActive }) => (<><Building2 className={iconClass(isActive)} />Institute profile</>)}
-          </NavLink>
+          {!badges.room.isTeacher && !badges.room.isReceptionist && (
+            <NavLink to="/profile" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
+              {({ isActive }) => (<><Building2 className={iconClass(isActive)} />Institute profile</>)}
+            </NavLink>
+          )}
           <NavLink to="/settings" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
             {({ isActive }) => (<><Settings className={iconClass(isActive)} />Settings</>)}
           </NavLink>
@@ -169,15 +214,40 @@ function SideNav({ onSignOut, onNavigate }) {
   );
 }
 
+/** Whether changes have reached the database: Loading / Saving / Saved / Not saved (tap to retry). */
+export function SyncStatus({ compact = false }) {
+  const room = useClassroom();
+  const state = room.loading ? 'loading' : room.syncState;
+  if (compact && state !== 'error') return null;
+  const look = {
+    loading: ['Loading…', 'bg-white text-neutral-500', 'bg-neutral-300'],
+    saving: ['Saving…', 'bg-white text-neutral-600', 'bg-amber-400 animate-pulse'],
+    saved: ['Saved', 'bg-white text-neutral-600', 'bg-[#17784a]'],
+    error: ['Not saved · retry', 'bg-rose-50 text-rose-700 hover:bg-rose-100', 'bg-rose-500'],
+  }[state] || ['Saved', 'bg-white text-neutral-600', 'bg-[#17784a]'];
+  return (
+    <button
+      type="button"
+      onClick={state === 'error' ? room.retrySync : undefined}
+      title={state === 'error' ? room.syncError : 'Changes are saved to the database'}
+      className={`${compact ? 'h-9 px-3' : 'hidden md:inline-flex h-10 px-4'} inline-flex items-center gap-1.5 rounded-full text-xs font-medium ${look[1]} ${state === 'error' ? 'cursor-pointer' : 'cursor-default'}`}
+    >
+      <span className={`h-2 w-2 rounded-full ${look[2]}`} /> {look[0]}
+    </button>
+  );
+}
+
 const QUICK = [
-  { to: '/attendance', label: 'Mark attendance', hint: "Today's roll call", icon: CalendarCheck, tone: 'text-neutral-900 bg-neutral-50' },
+  { to: '/attendance', label: 'Mark attendance', hint: "Today's roll call", icon: CalendarCheck, tone: 'text-neutral-900 bg-neutral-50', only: ['teacher'] },
+  { to: '/scan-receipt', label: 'Scan a fee receipt', hint: 'Read it, confirm, record', icon: ScanLine, tone: 'text-brand-600 bg-brand-50', only: ['admin', 'receptionist'] },
   { to: '/students', label: 'Add student', hint: 'Enrol a new student', icon: Users, tone: 'text-brand-600 bg-brand-50' },
   { to: '/fees', label: 'Record fee payment', hint: 'And print a receipt', icon: Wallet, tone: 'text-neutral-900 bg-neutral-50' },
   { to: '/leads', label: 'New inquiry', hint: 'Save a call or walk-in', icon: Inbox, tone: 'text-neutral-900 bg-neutral-50' },
-  { to: '/tests', label: 'Create test paper', hint: 'From NCERT chapters', icon: FileText, tone: 'text-neutral-900 bg-neutral-50' },
+  { to: '/tests', label: 'Create test paper', hint: 'From NCERT chapters', icon: FileText, tone: 'text-neutral-900 bg-neutral-50', only: ['admin', 'teacher'] },
 ];
 
 function QuickMenu() {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
@@ -201,7 +271,7 @@ function QuickMenu() {
       {open && (
         <div className="absolute right-0 mt-2 w-72 rounded-3xl bg-white shadow-[0_24px_60px_-12px_rgba(0,0,0,0.3)] p-2 z-50 animate-fade-up">
           <p className="px-2.5 pt-1.5 pb-2 text-[11px] font-bold uppercase tracking-wider text-neutral-400">What do you want to do?</p>
-          {QUICK.map(({ to, label, hint, icon: Icon, tone }) => (
+          {QUICK.filter((q) => !q.only || q.only.includes(user?.role)).map(({ to, label, hint, icon: Icon, tone }) => (
             <Link key={to} to={to} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-xl px-2.5 py-2 hover:bg-neutral-50">
               <span className={`h-9 w-9 rounded-xl grid place-items-center ${tone}`}><Icon className="w-[18px] h-[18px]" /></span>
               <span className="min-w-0">
@@ -218,7 +288,6 @@ function QuickMenu() {
 
 function TopBar({ leading, title, subtitle }) {
   const { pathname } = useLocation();
-  const { user } = useAuth() || {};
   const [routeTitle] = PAGE_TITLES[pathname] || ['EduBuddy', ''];
   const date = new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
   return (
@@ -234,20 +303,17 @@ function TopBar({ leading, title, subtitle }) {
           <p className="truncate text-[1.35rem] font-medium tracking-tight text-neutral-900">{routeTitle}</p>
         )}
       </div>
+      <SyncStatus />
       <span className="hidden lg:inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-white text-xs font-medium text-neutral-700">
         <CalendarDays className="w-3.5 h-3.5 text-neutral-400" /> {date}
       </span>
       <QuickMenu />
-      {user && (
-        <Link to="/profile" className="rounded-full ring-2 ring-white shadow-sm" title={userName(user)}>
-          <Avatar user={user} />
-        </Link>
-      )}
     </div>
   );
 }
 
 export function AppHeader({ leading, title, subtitle, onSignOut, nav = false, topBar = true }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -298,9 +364,12 @@ export function AppHeader({ leading, title, subtitle, onSignOut, nav = false, to
           {leading}
           {!title && <BrandMark size="sm" />}
           <p className="min-w-0 flex-1 truncate text-[15px] font-bold tracking-tight">{title || PAGE_TITLES[pathname]?.[0] || 'EduBuddy'}</p>
-          <Link to="/attendance" className="h-9 px-3 rounded-xl bg-neutral-100 text-xs font-semibold inline-flex items-center gap-1.5" aria-label="Mark attendance">
-            <CalendarCheck className="w-4 h-4" /> Attendance
-          </Link>
+          <SyncStatus compact />
+          {user?.role === 'teacher' && (
+            <Link to="/attendance" className="h-9 px-3 rounded-xl bg-neutral-100 text-xs font-semibold inline-flex items-center gap-1.5" aria-label="Mark attendance">
+              <CalendarCheck className="w-4 h-4" /> Attendance
+            </Link>
+          )}
         </div>
       </header>
 

@@ -44,8 +44,9 @@ export default function SettingsPage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Account</p>
         <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">Settings</h1>
-        <p className="mt-1 text-sm text-neutral-500">Classes and sections.</p>
+        <p className="mt-1 text-sm text-neutral-500">{room.isTeacher ? 'Your account.' : 'Classes and sections.'}</p>
 
+        {!room.isTeacher && (
         <section className="mt-5 bg-white rounded-3xl shadow-card p-4 sm:p-5">
           <h2 className="text-[15px] font-semibold text-neutral-900">Classes and sections</h2>
           <form onSubmit={addClass} className="mt-3 flex gap-2">
@@ -110,6 +111,7 @@ export default function SettingsPage() {
             })}
           </ul>
         </section>
+        )}
 
         <section className="mt-4 bg-white rounded-3xl shadow-card p-4 sm:p-5 flex items-center gap-3">
           <div className="min-w-0 flex-1">

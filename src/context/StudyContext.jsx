@@ -1,13 +1,16 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
-import { supabase, isSupabaseConfigured } from '../services/supabase';
 import { generateTest as generateTestAI } from '../services/openai';
 import { sectionsFromLegacy, stampMarks } from '../data/paperBlueprint';
+import { callDb } from '../services/cloud';
 
 const StudyContext = createContext();
 
+// Test papers are stored in MongoDB (api/db.js papers.*), one document per paper with its questions
+// and the list of questions already asked, so a new paper on the same chapter does not repeat them.
 export const StudyProvider = ({ children }) => {
-  const { user, isDemoMode } = useAuth();
+  const { user } = useAuth();
+  const signedIn = !!user && user.role !== 'superadmin';
 
   const [sessions, setSessions]         = useState([]);
   const [activeSession, setActiveSession] = useState(null);
@@ -18,59 +21,36 @@ export const StudyProvider = ({ children }) => {
   const [questions, setQuestions]   = useState(null);
   const [generating, setGenerating] = useState(false);
   const [generateError, setGenerateError] = useState('');
+  // Questions of each paper, by paper id, as loaded from the database.
+  const questionsById = useRef(new Map());
 
-  const readMeta = (userId) => {
-    try {
-      return JSON.parse(localStorage.getItem(`edu_session_meta_${userId}`) || '{}');
-    } catch {
-      return {};
-    }
-  };
-
-  const writeMeta = (userId, meta) => {
-    localStorage.setItem(`edu_session_meta_${userId}`, JSON.stringify(meta));
-  };
-
-  const attachMeta = (userId, list) => {
-    const meta = readMeta(userId);
-    return (list || []).map((session) => (meta[session.id] ? { ...session, ...meta[session.id] } : session));
-  };
-
-  /* ── fetch all sessions ─────────────────────── */
+  /* ── fetch all papers ─────────────────────── */
   const fetchSessions = useCallback(async () => {
-    if (!user) { setSessions([]); return; }
+    questionsById.current = new Map();
+    if (!signedIn) { setSessions([]); return; }
     setLoadingSessions(true);
     try {
-      const useDb = !isDemoMode && isSupabaseConfigured();
-      if (useDb) {
-        const { data, error } = await supabase
-          .from('study_sessions')
-          .select('*')
-          .order('created_at', { ascending: false });
-        if (error) throw error;
-        setSessions(attachMeta(user.id, data || []));
-      } else {
-        const raw = localStorage.getItem(`edu_sessions_${user.id}`);
-        setSessions(attachMeta(user.id, raw ? JSON.parse(raw) : []));
-      }
+      const { papers } = await callDb('papers.list');
+      setSessions(papers.map(({ questions: qs, ...paper }) => {
+        if (Array.isArray(qs)) questionsById.current.set(paper.id, qs);
+        return paper;
+      }));
     } catch {
-      const raw = localStorage.getItem(`edu_sessions_${user.id}`);
-      setSessions(attachMeta(user.id, raw ? JSON.parse(raw) : []));
+      setSessions([]);
     } finally {
       setLoadingSessions(false);
     }
-  }, [user, isDemoMode]);
+  }, [signedIn, user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { fetchSessions(); }, [fetchSessions]);
 
-  /* ── create session ─────────────────────────── */
+  /* ── create paper ─────────────────────────── */
   const createSession = async (className, subjectName, chapterName, opts = {}) => {
-    if (!user) throw new Error('Not signed in.');
+    if (!signedIn) throw new Error('Not signed in.');
     setProcessingSession(true);
     try {
-      const id = `s-${Date.now()}`;
       const payload = {
-        id,
+        id: `s-${Date.now()}`,
         user_id: user.id,
         class_name: className,
         subject_name: subjectName,
@@ -84,82 +64,26 @@ export const StudyProvider = ({ children }) => {
         chapters: opts.chapters ?? null,
         created_at: new Date().toISOString(),
       };
-
-      const meta = readMeta(user.id);
-      meta[id] = {
-        blueprint: payload.blueprint,
-        total_marks: payload.total_marks,
-        paper_mode: payload.paper_mode,
-        question_types: payload.question_types,
-        chapters: payload.chapters,
-      };
-      writeMeta(user.id, meta);
-
-      let saved = false;
-      if (!isDemoMode && isSupabaseConfigured()) {
-        try {
-          const dbPayload = { ...payload };
-          delete dbPayload.blueprint;
-          delete dbPayload.total_marks;
-          delete dbPayload.paper_mode;
-          delete dbPayload.chapters;
-          const { data, error } = await supabase
-            .from('study_sessions')
-            .insert([dbPayload])
-            .select();
-          if (!error && data?.[0]) {
-            Object.assign(payload, data[0], {
-              blueprint: payload.blueprint,
-              total_marks: payload.total_marks,
-              paper_mode: payload.paper_mode,
-              question_types: payload.question_types,
-              chapters: payload.chapters,
-            });
-            saved = true;
-          }
-        } catch { /* fall through */ }
-      }
-
-      if (!saved) {
-        const raw = localStorage.getItem(`edu_sessions_${user.id}`);
-        const list = raw ? JSON.parse(raw) : [];
-        localStorage.setItem(`edu_sessions_${user.id}`, JSON.stringify([payload, ...list]));
-      }
-
-      setSessions(prev => [payload, ...prev.filter(s => s.id !== payload.id)]);
+      await callDb('papers.save', { paper: payload });
+      setSessions((prev) => [payload, ...prev.filter((s) => s.id !== payload.id)]);
       return payload;
     } finally {
       setProcessingSession(false);
     }
   };
 
-  /* ── delete session ─────────────────────────── */
+  /* ── delete paper ─────────────────────────── */
   const deleteSession = async (id) => {
-    try {
-      if (!isDemoMode && isSupabaseConfigured()) {
-        await supabase.from('study_sessions').delete().eq('id', id);
-      }
-    } catch { /* ignore */ }
-    const next = sessions.filter(s => s.id !== id);
-    setSessions(next);
-    localStorage.setItem(`edu_sessions_${user.id}`, JSON.stringify(next));
-    const meta = readMeta(user.id);
-    delete meta[id];
-    writeMeta(user.id, meta);
-    // clear cached questions
-    localStorage.removeItem(`edu_questions_${id}`);
-    localStorage.removeItem(`edu_asked_${id}`);
+    await callDb('papers.delete', { id });
+    questionsById.current.delete(id);
+    setSessions((prev) => prev.filter((s) => s.id !== id));
     if (activeSession?.id === id) { setActiveSession(null); setQuestions(null); }
   };
 
-  /* ── select / load session ──────────────────── */
+  /* ── select / load paper ──────────────────── */
   const selectSession = useCallback((sess) => {
     setActiveSession(sess);
-    setQuestions(null);
-    if (!sess) return;
-    // restore cached questions if any
-    const cached = localStorage.getItem(`edu_questions_${sess.id}`);
-    if (cached) setQuestions(JSON.parse(cached));
+    setQuestions(sess ? questionsById.current.get(sess.id) || null : null);
   }, []);
 
   /* ── generate test ──────────────────────────── */
@@ -173,15 +97,6 @@ export const StudyProvider = ({ children }) => {
       .join('|');
   };
 
-  const readChapterAsked = (userId) => {
-    try {
-      const data = JSON.parse(localStorage.getItem(`edu_chapter_asked_${userId}`) || '{}');
-      return data && typeof data === 'object' ? data : {};
-    } catch {
-      return {};
-    }
-  };
-
   const generateTest = async (session = activeSession) => {
     if (!session) return;
     setGenerating(true);
@@ -191,30 +106,14 @@ export const StudyProvider = ({ children }) => {
       const sections = session.blueprint?.length
         ? session.blueprint
         : sectionsFromLegacy(session.question_count ?? 10, session.question_types ?? ['mcq']);
-      let asked = [];
-      try {
-        const stored = JSON.parse(localStorage.getItem(`edu_asked_${session.id}`) || '[]');
-        if (Array.isArray(stored)) asked = stored;
-      } catch { /* ignore a bad cache */ }
       const scope = chapterScope(session);
-      const chapterMemory = user ? readChapterAsked(user.id) : {};
-      const fromThisChapter = Array.isArray(chapterMemory[scope]) ? chapterMemory[scope] : [];
-      const fromOtherPapers = sessions
-        .filter((item) => item.id !== session.id && chapterScope(item) === scope)
-        .flatMap((item) => {
-          try {
-            const paper = JSON.parse(localStorage.getItem(`edu_questions_${item.id}`) || '[]');
-            return Array.isArray(paper) ? paper.map((question) => question.question) : [];
-          } catch {
-            return [];
-          }
-        });
-      const currentPaper = activeSession?.id === session.id ? (questions || []) : [];
-      const avoid = [...new Set(
-        [...fromThisChapter, ...fromOtherPapers, ...asked, ...currentPaper.map((item) => item.question)]
-          .map((text) => String(text || '').trim())
-          .filter(Boolean)
-      )];
+      // Questions already used on this chapter: in this paper and in the user's other papers.
+      const sameChapter = sessions.filter((item) => chapterScope(item) === scope);
+      const asked = sameChapter.flatMap((item) => [
+        ...(Array.isArray(item.asked) ? item.asked : []),
+        ...(questionsById.current.get(item.id) || []).map((q) => q.question),
+      ]);
+      const avoid = [...new Set(asked.map((text) => String(text || '').trim()).filter(Boolean))].slice(-120);
       const qs = await generateTestAI(
         session.class_name,
         session.subject_name,
@@ -232,13 +131,11 @@ export const StudyProvider = ({ children }) => {
       const remembered = [...new Set(
         [...avoid, ...stamped.map((item) => item.question)].map((text) => String(text || '').trim()).filter(Boolean)
       )].slice(-120);
-      localStorage.setItem(`edu_asked_${session.id}`, JSON.stringify(remembered));
-      if (user) {
-        chapterMemory[scope] = remembered.slice(-80);
-        localStorage.setItem(`edu_chapter_asked_${user.id}`, JSON.stringify(chapterMemory));
-      }
+      const saved = { ...session, asked: remembered };
+      await callDb('papers.save', { paper: { ...saved, questions: stamped } });
+      questionsById.current.set(session.id, stamped);
+      setSessions((prev) => prev.map((s) => (s.id === session.id ? saved : s)));
       setQuestions(stamped);
-      localStorage.setItem(`edu_questions_${session.id}`, JSON.stringify(stamped));
     } catch (err) {
       setGenerateError(err.message || 'Could not generate this test.');
     } finally {

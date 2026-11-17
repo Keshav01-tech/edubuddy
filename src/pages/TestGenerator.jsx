@@ -56,7 +56,7 @@ function chip(on) {
 }
 
 const pillOn = (on) => `h-10 px-4 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-  on ? 'bg-[#ededed] text-neutral-900' : 'bg-[#f7f7f7] text-neutral-600 hover:bg-[#efefef] hover:text-neutral-900'
+  on ? 'bg-[#005a9c] text-white shadow-sm' : 'bg-white text-neutral-700 ring-1 ring-inset ring-neutral-200 hover:ring-neutral-400'
 }`;
 
 function Card({ step, title, hint, aside, children }) {

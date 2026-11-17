@@ -1,334 +1,607 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  GraduationCap, Plus, Trash2, Pencil, Users, Layers, ChevronDown, ChevronUp, X, Check, Sparkles, AlertCircle, CheckCircle2, ArrowRight,
+  Plus, Pencil, Trash2, X, Users, Clock, AlertCircle, ArrowRight, GraduationCap, UserPlus, DoorOpen, BookOpen, UserRound,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
-import { StatCard, Initials } from '../components/ui';
+import { Picker, Initials } from '../components/ui';
 import { useClassroom } from '../services/classroom';
+import { teachesBatch, describeDays, describeTime, WEEK_DAYS, inBatch } from '../services/teachers';
 
-const field = 'h-11 px-4 text-sm bg-white rounded-2xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#c4c4c4] placeholder:text-neutral-400';
-
-const SUGGESTED_CLASSES = ['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'];
-const SUGGESTED_BATCHES = ['Batch A', 'Batch B', 'Morning', 'Evening'];
-
-// Each class card gets its own pastel header, in the same palette as the dashboard.
-const TINTS = ['#60c1e5', '#d6d6d6', '#c4c4c4', '#ededed'];
-const SEGMENT = ['bg-neutral-900/80', 'bg-neutral-900/55', 'bg-neutral-900/35', 'bg-neutral-900/20'];
+const field = 'h-11 w-full px-3 text-base sm:text-sm bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
+const NEW_CLASS = '__new__';
+const DAY_PRESETS = [
+  ['Every day (Mon–Sat)', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']],
+  ['Mon–Fri', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']],
+  ['Mon, Wed, Fri', ['Mon', 'Wed', 'Fri']],
+  ['Tue, Thu, Sat', ['Tue', 'Thu', 'Sat']],
+];
 
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const batchLabel = (section) => (section ? `Batch ${section}` : 'Whole class');
+const minutes = (hhmm) => (/^\d{2}:\d{2}$/.test(hhmm || '') ? Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3)) : null);
+
+/** True when two batches meet on a shared day at overlapping times. */
+function overlaps(a, b) {
+  const as = minutes(a.start);
+  const bs = minutes(b.start);
+  if (as == null || bs == null) return false;
+  if (!(a.days || []).some((d) => (b.days || []).includes(d))) return false;
+  const ae = minutes(a.end) ?? as + 60;
+  const be = minutes(b.end) ?? bs + 60;
+  return as < be && bs < ae;
+}
+
+/** Every batch in the institute as one row. */
+function buildRows(room) {
+  return room.classes.flatMap((item) => (item.sections?.length ? item.sections : ['']).map((section) => {
+    const timing = item.timings?.[section] || {};
+    const students = room.students.filter((s) => inBatch(s, item.name, section));
+    const teachers = room.isTeacher
+      ? (room.teacher ? [room.teacher] : [])
+      : room.teachers.filter((t) => teachesBatch(t, item.name, section));
+    return {
+      key: `${item.id}|${section}`,
+      classItem: item,
+      className: item.name,
+      section,
+      timing,
+      subject: timing.subject || teachers[0]?.subject || '',
+      room: timing.room || '',
+      students,
+      teachers,
+    };
+  }));
+}
+
+/** Rows grouped by time slot, earliest first; batches without a time come last. */
+function groupByTime(rows) {
+  const groups = new Map();
+  rows.forEach((row) => {
+    const key = row.timing.start ? `${row.timing.start}-${row.timing.end || ''}` : 'none';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  });
+  return [...groups.entries()]
+    .sort(([a], [b]) => (a === 'none' ? 1 : b === 'none' ? -1 : a.localeCompare(b)))
+    .map(([key, list]) => ({
+      key,
+      label: key === 'none' ? 'No time set' : describeTime(list[0].timing),
+      rows: list.sort((x, y) => (x.room || 'zz').localeCompare(y.room || 'zz', undefined, { numeric: true })
+        || x.className.localeCompare(y.className, undefined, { numeric: true })),
+    }));
+}
+
+const Missing = ({ children }) => <span className="text-sm font-medium text-amber-700">{children}</span>;
+
+function BatchForm({ room, rows, initial, onClose }) {
+  const editing = !!initial;
+  const [classChoice, setClassChoice] = useState(initial?.className || room.classes[0]?.name || NEW_CLASS);
+  const [newClass, setNewClass] = useState('');
+  const [section, setSection] = useState(initial?.section || '');
+  const [teacherId, setTeacherId] = useState(initial?.teachers?.[0]?.id || '');
+  const [subject, setSubject] = useState(initial?.subject || '');
+  const [roomName, setRoomName] = useState(initial?.room || '');
+  const [days, setDays] = useState(initial?.timing?.days || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
+  const [start, setStart] = useState(initial?.timing?.start || '');
+  const [end, setEnd] = useState(initial?.timing?.end || '');
+
+  const className = classChoice === NEW_CLASS ? newClass.trim() : classChoice;
+  const existing = room.classes.find((c) => c.name.toLowerCase() === className.toLowerCase());
+  const nameTaken = !!section.trim() && existing?.sections?.some((s) => s.toLowerCase() === section.trim().toLowerCase())
+    && !(editing && initial.className === existing.name && initial.section.toLowerCase() === section.trim().toLowerCase());
+
+  // The same teacher or room cannot be in two batches at once.
+  const slot = { days, start, end };
+  const others = rows.filter((r) => r.key !== initial?.key && overlaps(slot, r.timing));
+  const teacherClash = teacherId && others.find((r) => r.teachers.some((t) => t.id === teacherId));
+  const roomClash = roomName.trim() && others.find((r) => r.room.toLowerCase() === roomName.trim().toLowerCase());
+  const badTime = start && end && minutes(end) <= minutes(start);
+  const ready = className && section.trim() && !nameTaken && !teacherClash && !roomClash && !badTime;
+  const where = (r) => `${r.className} · ${batchLabel(r.section)} (${describeTime(r.timing)})`;
+
+  const knownRooms = [...new Set(rows.map((r) => r.room).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const toggleDay = (day) => setDays((list) => (list.includes(day) ? list.filter((d) => d !== day) : [...list, day]));
+  const pickTeacher = (id) => {
+    setTeacherId(id);
+    const t = room.teachers.find((x) => x.id === id);
+    if (t?.subject && !subject.trim()) setSubject(t.subject);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!ready) return;
+    room.saveBatch({
+      className,
+      section: section.trim(),
+      teacherId,
+      subject,
+      room: roomName,
+      days,
+      start,
+      end,
+      original: editing ? { className: initial.className, section: initial.section } : null,
+    });
+    onClose();
+  };
+
+  const remove = () => {
+    const n = initial.students.length;
+    const note = n ? ` ${plural(n, 'student stays', 'students stay')} on the student list without a batch.` : '';
+    if (!confirm(`Delete ${initial.className} · ${batchLabel(initial.section)}?${note}`)) return;
+    if (initial.section) room.removeSection(initial.classItem.id, initial.section);
+    else room.removeClass(initial.classItem.id);
+    onClose();
+  };
+
+  const chip = (on) => `h-9 w-12 rounded-full text-sm font-medium transition-colors ${on ? 'bg-[#005a9c] text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`;
+  const label = 'mb-1 block text-xs font-semibold text-neutral-600';
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-900/40 sm:p-4" onClick={onClose}>
+      <form
+        role="dialog"
+        aria-modal="true"
+        aria-label={editing ? 'Edit batch' : 'New batch'}
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={submit}
+        className="w-full sm:max-w-lg max-h-[92dvh] overflow-y-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-xl p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]"
+      >
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="text-lg font-semibold text-neutral-900">{editing ? 'Edit batch' : 'New batch'}</h2>
+          <button type="button" onClick={onClose} className="h-10 w-10 -mr-2 grid place-items-center rounded-xl text-neutral-400 hover:bg-neutral-100" aria-label="Close"><X className="w-5 h-5" /></button>
+        </div>
+        <p className="mb-4 text-sm text-neutral-500">One group of students, one teacher, one subject, one time.</p>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <span className={label}>Class</span>
+              {editing ? (
+                <p className={`${field} flex items-center bg-neutral-50 text-neutral-700`}>{initial.className}</p>
+              ) : (
+                <Picker
+                  label="Class"
+                  value={classChoice}
+                  onChange={setClassChoice}
+                  options={[...room.classes.map((c) => ({ value: c.name, label: c.name })), { value: NEW_CLASS, label: '+ New class' }]}
+                />
+              )}
+            </div>
+            <label className="block">
+              <span className={label}>Batch name</span>
+              <input className={field} value={section} onChange={(e) => setSection(e.target.value)} placeholder="A Morning" required />
+            </label>
+          </div>
+          {!editing && classChoice === NEW_CLASS && (
+            <input className={field} value={newClass} onChange={(e) => setNewClass(e.target.value)} placeholder="New class name, e.g. Class 11" aria-label="New class name" autoFocus />
+          )}
+          {nameTaken && <p className="-mt-2 text-sm text-rose-600">{className} already has a batch called “{section.trim()}”.</p>}
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <span className={label}>Teacher</span>
+              {room.teachers.length === 0 ? (
+                <p className="text-sm text-neutral-500 pt-2"><Link to="/teachers" className="font-semibold text-[#005a9c] hover:underline">Add a teacher</Link> first.</p>
+              ) : (
+                <Picker
+                  label="Teacher"
+                  placeholder="Choose teacher"
+                  value={teacherId}
+                  onChange={pickTeacher}
+                  options={[{ value: '', label: 'No teacher yet' }, ...room.teachers.map((t) => ({ value: t.id, label: t.subject ? `${t.name} (${t.subject})` : t.name }))]}
+                />
+              )}
+            </div>
+            <label className="block">
+              <span className={label}>Subject</span>
+              <input className={field} value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="Science" />
+            </label>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <label className="block"><span className={label}>Starts</span>
+              <input type="time" className={field} value={start} onChange={(e) => setStart(e.target.value)} /></label>
+            <label className="block"><span className={label}>Ends</span>
+              <input type="time" className={field} value={end} onChange={(e) => setEnd(e.target.value)} /></label>
+            <label className="block"><span className={label}>Room</span>
+              <input className={field} value={roomName} onChange={(e) => setRoomName(e.target.value)} placeholder="Room 1" list="known-rooms" />
+              <datalist id="known-rooms">{knownRooms.map((r) => <option key={r} value={r} />)}</datalist>
+            </label>
+          </div>
+          {badTime && <p className="-mt-2 text-sm text-rose-600">The end time must be after the start time.</p>}
+
+          <div>
+            <span className="mb-1.5 block text-xs font-semibold text-neutral-600">Days</span>
+            <div className="flex flex-wrap gap-1.5">
+              {WEEK_DAYS.map((day) => (
+                <button key={day} type="button" aria-pressed={days.includes(day)} onClick={() => toggleDay(day)} className={chip(days.includes(day))}>{day}</button>
+              ))}
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {DAY_PRESETS.map(([text, list]) => (
+                <button key={text} type="button" onClick={() => setDays(list)} className="h-7 px-2.5 rounded-full ring-1 ring-neutral-200 text-xs text-neutral-600 hover:bg-neutral-50">{text}</button>
+              ))}
+            </div>
+          </div>
+
+          {(teacherClash || roomClash) && (
+            <div className="rounded-xl bg-rose-50 ring-1 ring-rose-200 px-3 py-2.5 text-sm text-rose-800 space-y-1" role="alert">
+              {teacherClash && <p><strong>{teacherClash.teachers.find((t) => t.id === teacherId)?.name}</strong> already teaches {where(teacherClash)} at this time.</p>}
+              {roomClash && <p><strong>{roomClash.room}</strong> is already used by {where(roomClash)} at this time.</p>}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 flex items-center gap-2">
+          {editing && (
+            <button type="button" onClick={remove} className="h-11 px-4 rounded-xl text-sm font-medium text-rose-700 hover:bg-rose-50 inline-flex items-center gap-1.5">
+              <Trash2 className="w-4 h-4" /> Delete
+            </button>
+          )}
+          <button type="button" onClick={onClose} className="ml-auto h-11 px-4 rounded-xl text-sm font-medium text-neutral-600 hover:bg-neutral-100">Cancel</button>
+          <button type="submit" disabled={!ready} className="h-11 px-5 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold disabled:opacity-40">
+            {editing ? 'Save batch' : 'Create batch'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+// One soft colour per class, so the same class reads the same everywhere on the page.
+const CLASS_COLORS = [
+  { bg: '#e8f2fb', fg: '#005a9c' },
+  { bg: '#e6f5ee', fg: '#17784a' },
+  { bg: '#efeafb', fg: '#5b3fa8' },
+  { bg: '#fdf0e1', fg: '#b35c0a' },
+  { bg: '#fde8ee', fg: '#b0284f' },
+  { bg: '#e3f3f5', fg: '#0e7180' },
+];
+
+function ClassTag({ row, color }) {
+  return (
+    <span className="inline-flex items-center gap-2 min-w-0">
+      <span className="h-8 min-w-8 px-2 rounded-lg grid place-items-center text-xs font-bold tabular-nums" style={{ background: color.bg, color: color.fg }}>
+        {row.className.replace(/^Class\s*/i, '')}{row.section ? `·${row.section}` : ''}
+      </span>
+      <span className="min-w-0 leading-tight">
+        <span className="block font-semibold text-neutral-900 truncate">{row.className}</span>
+        <span className="block text-xs text-neutral-500 truncate">{batchLabel(row.section)}</span>
+      </span>
+    </span>
+  );
+}
+
+/** Rooms across the day: one column per room, one block per batch, placed by its time. */
+function RoomSchedule({ rows, colorFor, onOpen }) {
+  const timed = rows.filter((r) => minutes(r.timing.start) != null);
+  if (!timed.length) return <p className="text-sm text-neutral-500">Set batch times to see the room plan.</p>;
+  const rooms = [...new Set(timed.map((r) => r.room || 'No room'))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const endOf = (r) => minutes(r.timing.end) ?? minutes(r.timing.start) + 60;
+  const first = Math.floor(Math.min(...timed.map((r) => minutes(r.timing.start))) / 60);
+  const last = Math.ceil(Math.max(...timed.map(endOf)) / 60);
+  const hourPx = 34;
+  const hours = Array.from({ length: last - first + 1 }, (_, i) => first + i);
+  const hourLabel = (h) => `${h % 12 || 12}${h >= 12 ? 'p' : 'a'}`;
+
+  return (
+    <div className="flex text-[11px]">
+      <div className="w-8 shrink-0 relative" style={{ height: 24 + (last - first) * hourPx }}>
+        {hours.map((h) => (
+          <span key={h} className="absolute left-0 -translate-y-1/2 text-neutral-400 tabular-nums leading-none" style={{ top: 24 + (h - first) * hourPx }}>{hourLabel(h)}</span>
+        ))}
+      </div>
+      <div className="flex-1 grid gap-1.5" style={{ gridTemplateColumns: `repeat(${rooms.length}, minmax(0, 1fr))` }}>
+        {rooms.map((roomName) => (
+          <div key={roomName} className="min-w-0">
+            <p className="h-6 text-center font-semibold text-neutral-600 truncate">{roomName}</p>
+            <div className="relative rounded-lg bg-neutral-50" style={{ height: (last - first) * hourPx }}>
+              {hours.slice(1, -1).map((h) => <div key={h} className="absolute inset-x-0 border-t border-dashed border-neutral-200" style={{ top: (h - first) * hourPx }} />)}
+              {timed.filter((r) => (r.room || 'No room') === roomName).map((r) => {
+                const top = ((minutes(r.timing.start) - first * 60) / 60) * hourPx;
+                const height = Math.max(((endOf(r) - minutes(r.timing.start)) / 60) * hourPx - 2, 18);
+                const c = colorFor(r.className);
+                return (
+                  <button
+                    key={r.key}
+                    type="button"
+                    onClick={() => onOpen?.(r)}
+                    title={`${r.className} · ${batchLabel(r.section)} — ${r.subject || 'No subject'} — ${describeTime(r.timing)}`}
+                    className="absolute inset-x-0.5 rounded-md px-1.5 py-0.5 text-left overflow-hidden hover:brightness-95 transition"
+                    style={{ top, height, background: c.bg, color: c.fg, borderLeft: `3px solid ${c.fg}` }}
+                  >
+                    <span className="block font-bold leading-tight truncate">{r.className.replace(/^Class\s*/i, '')}{r.section ? `·${r.section}` : ''}</span>
+                    {height > 30 && <span className="block leading-tight truncate opacity-80">{r.subject}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** How many batches and hours a week each teacher has. */
+function TeacherLoad({ teachers, rows }) {
+  const load = teachers.map((t) => {
+    const mine = rows.filter((r) => r.teachers.some((x) => x.id === t.id));
+    const weekly = mine.reduce((sum, r) => {
+      const s = minutes(r.timing.start);
+      if (s == null) return sum;
+      const e = minutes(r.timing.end) ?? s + 60;
+      return sum + ((e - s) / 60) * (r.timing.days || []).length;
+    }, 0);
+    return { t, batches: mine.length, weekly };
+  }).sort((a, b) => b.weekly - a.weekly || b.batches - a.batches);
+  const max = Math.max(1, ...load.map((l) => l.weekly));
+  if (!load.length) return <p className="text-sm text-neutral-500"><Link to="/teachers" className="font-semibold text-[#005a9c] hover:underline">Add teachers</Link> to see their load.</p>;
+  return (
+    <ul className="space-y-3">
+      {load.map(({ t, batches, weekly }) => (
+        <li key={t.id} className="flex items-center gap-3">
+          <Initials name={t.name} className="h-8 w-8 text-[11px] shrink-0" />
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="text-sm font-medium text-neutral-900 truncate">{t.name}</p>
+              <p className="text-xs text-neutral-500 tabular-nums shrink-0">{batches ? `${plural(batches, 'batch', 'batches')} · ${+weekly.toFixed(1)} h/wk` : 'Free'}</p>
+            </div>
+            <div className="mt-1 h-1.5 rounded-full bg-neutral-100 overflow-hidden">
+              <div className="h-full rounded-full bg-[#005a9c]" style={{ width: `${(weekly / max) * 100}%`, opacity: batches ? 1 : 0 }} />
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Classes() {
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const room = useClassroom();
-  const createRef = useRef(null);
+  const teacherView = room.isTeacher;
+  const [form, setForm] = useState(null); // null closed, 'new', or a row being edited
+  const [classFilter, setClassFilter] = useState('all');
 
-  const [newClassName, setNewClassName] = useState('');
-  const [editingClassId, setEditingClassId] = useState(null);
-  const [editClassName, setEditClassName] = useState('');
-  const [batchDraft, setBatchDraft] = useState({});
-  const [expandedRoster, setExpandedRoster] = useState({});
+  const allRows = buildRows(room);
+  const rows = classFilter === 'all' ? allRows : allRows.filter((r) => r.className === classFilter);
+  const slots = groupByTime(rows);
+  const noTeacher = allRows.filter((r) => !r.teachers.length).length;
+  const noTiming = allRows.filter((r) => !r.timing.start).length;
+  const placed = new Set(allRows.flatMap((r) => r.students.map((s) => s.id)));
+  const unplaced = room.students.filter((s) => !placed.has(s.id));
+  const roomsUsed = new Set(allRows.map((r) => r.room).filter(Boolean));
+  const busyTeachers = new Set(allRows.flatMap((r) => r.teachers.map((t) => t.id)));
+  const colorFor = (className) => CLASS_COLORS[Math.max(0, room.classes.findIndex((c) => c.name === className)) % CLASS_COLORS.length];
+  const teacherName = (row) => (row.teachers.length ? (teacherView ? 'You' : row.teachers.map((t) => t.name).join(', ')) : null);
+  const attention = noTeacher + noTiming + (unplaced.length ? 1 : 0);
 
-  const totalBatches = room.classes.reduce((sum, item) => sum + (item.sections?.length || 0), 0);
-  const sectionsOf = (name) => room.classes.find((c) => c.name === name)?.sections || [];
-  const unplaced = room.students.filter((s) => {
-    if (!s.className || !room.classes.some((c) => c.name === s.className)) return true;
-    return sectionsOf(s.className).length > 0 && !s.section;
-  });
-
-  const focusCreate = () => {
-    createRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    createRef.current?.focus();
-  };
-
-  const handleCreateClass = (e) => {
-    e?.preventDefault();
-    const clean = newClassName.trim();
-    if (!clean) return;
-    room.addClass(clean);
-    setNewClassName('');
-  };
-
-  const handleAddBatch = (classId, batchName) => {
-    const clean = String(batchName || '').trim();
-    if (!clean) return;
-    room.addSection(classId, clean);
-    setBatchDraft((prev) => ({ ...prev, [classId]: '' }));
-  };
-
-  const startEditClass = (item) => { setEditingClassId(item.id); setEditClassName(item.name); };
-  const saveEditClass = (id) => {
-    if (editClassName.trim()) room.updateClass(id, editClassName.trim());
-    setEditingClassId(null);
-    setEditClassName('');
-  };
-
-  const handleRemoveClass = (item) => {
-    const count = room.students.filter((s) => s.className === item.name).length;
-    const warning = count ? ` Warning: ${count} ${count === 1 ? 'student is' : 'students are'} enrolled in this class.` : '';
-    if (confirm(`Are you sure you want to delete ${item.name}?${warning}`)) room.removeClass(item.id);
-  };
-
-  const handleRemoveBatch = (classId, className, batchName) => {
-    const count = room.students.filter((s) => s.className === className && (s.section || '') === batchName).length;
-    const warning = count ? ` ${count} ${count === 1 ? 'student has' : 'students have'} this batch assigned.` : '';
-    if (confirm(`Remove batch "${batchName}" from ${className}?${warning}`)) room.removeSection(classId, batchName);
-  };
-
-  const toggleRoster = (classId) => setExpandedRoster((prev) => ({ ...prev, [classId]: !prev[classId] }));
-
-  const freeSuggestions = SUGGESTED_CLASSES.filter((c) => !room.classes.some((item) => item.name.toLowerCase() === c.toLowerCase()));
+  const stats = teacherView
+    ? [
+      { label: 'My batches', value: allRows.length, icon: GraduationCap },
+      { label: 'Students', value: placed.size, icon: Users },
+    ]
+    : [
+      { label: 'Batches', value: allRows.length, hint: `${room.classes.length} classes`, icon: GraduationCap },
+      { label: 'Students', value: placed.size, hint: unplaced.length ? `${unplaced.length} not in a batch` : 'all in a batch', warn: unplaced.length > 0, icon: Users },
+      { label: 'Teachers', value: busyTeachers.size, hint: `of ${room.teachers.length} teaching`, icon: UserRound },
+      { label: 'Rooms', value: roomsUsed.size, hint: 'in use', icon: DoorOpen },
+    ];
 
   return (
     <div className="min-h-dvh app-canvas">
       <AppHeader nav onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
-      <main className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <p className="max-w-2xl text-sm text-neutral-600">
-            Create classes, then add batches.
-          </p>
-          <button
-            type="button"
-            onClick={focusCreate}
-            className="h-11 px-5 rounded-2xl bg-[#005a9c] text-white text-sm font-medium inline-flex items-center gap-2 hover:brightness-95 transition"
-          >
-            <Plus className="w-4 h-4" /> Create class
-          </button>
+      <main className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-14">
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-medium tracking-tight text-neutral-900">{teacherView ? 'My batches' : 'Batches'}</h1>
+            <p className="mt-0.5 text-sm text-neutral-500">
+              {teacherView ? 'Your batches, by time. Add students to any of them.' : 'Who teaches what, when and where. One batch = one teacher, one subject, one time.'}
+            </p>
+          </div>
+          {!teacherView && (
+            <button type="button" onClick={() => setForm('new')}
+              className="h-11 px-4 shrink-0 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d] shadow-sm">
+              <Plus className="w-4 h-4" /> New batch
+            </button>
+          )}
+          {teacherView && allRows.length > 0 && (
+            <Link to="/students" className="h-11 px-4 shrink-0 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d] shadow-sm">
+              <UserPlus className="w-4 h-4" /> Add student
+            </Link>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 items-start">
-          {/* ───────── left: summary + classes ───────── */}
-          <div className="min-w-0 space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <StatCard label="Classes" value={room.classes.length} icon={GraduationCap} tone="rose" hint={room.classes.length ? 'Active' : 'Create your first class'} />
-              <StatCard label="Batches" value={totalBatches} icon={Layers} tone="amber" hint={totalBatches ? `${(totalBatches / Math.max(room.classes.length, 1)).toFixed(1)} per class` : 'No batches yet'} />
-              <StatCard
-                label="Students enrolled" value={room.students.length} icon={Users} tone="emerald"
-                hint={unplaced.length ? `${unplaced.length} not placed yet` : room.students.length ? 'Everyone is placed' : 'No students yet'}
-                hintTone={unplaced.length ? 'rose' : undefined}
-                to="/students"
-              />
+        {allRows.length === 0 && (
+          <section className="bg-white rounded-3xl p-8 sm:p-12 text-center shadow-card">
+            <span className="mx-auto h-16 w-16 rounded-full grid place-items-center bg-[#f1f1f1] text-[#005a9c]"><GraduationCap className="w-7 h-7" /></span>
+            {teacherView ? (
+              <>
+                <h2 className="mt-4 text-lg font-medium text-neutral-900">No batches assigned to you yet</h2>
+                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">Only your institute admin can create batches. Ask them to give you one.</p>
+              </>
+            ) : (
+              <>
+                <h2 className="mt-4 text-lg font-medium text-neutral-900">No batches yet</h2>
+                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">A batch is one group of students taught one subject by one teacher at a fixed time, e.g. Class 10 · A Morning · Science · 9:30 AM.</p>
+                <button type="button" onClick={() => setForm('new')} className="mt-5 h-11 px-5 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d]">
+                  <Plus className="w-4 h-4" /> Create first batch
+                </button>
+              </>
+            )}
+          </section>
+        )}
+
+        {allRows.length > 0 && (
+          <>
+            {/* Summary */}
+            <div className={`grid gap-2 sm:gap-3 mb-5 sm:mb-6 ${stats.length === 4 ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2'}`}>
+              {stats.map(({ label, value, hint, warn, icon: Icon }) => (
+                <div key={label} className="min-w-0 rounded-2xl bg-white p-3 sm:p-4 shadow-card">
+                  <div className="flex items-center justify-between gap-1">
+                    <p className="text-xs sm:text-[13px] font-semibold text-neutral-500 truncate">{label}</p>
+                    <span className="h-7 w-7 shrink-0 rounded-full grid place-items-center bg-[#eef7fc] text-[#005a9c]"><Icon className="w-3.5 h-3.5" /></span>
+                  </div>
+                  <p className="mt-1 text-xl sm:text-2xl font-bold tracking-tight tabular-nums text-neutral-900">{value}</p>
+                  {hint && <p className={`text-[11px] sm:text-xs truncate ${warn ? 'font-semibold text-amber-700' : 'text-neutral-500'}`}>{hint}</p>}
+                </div>
+              ))}
             </div>
 
-            {room.classes.length === 0 && (
-              <section className="bg-white rounded-3xl p-8 sm:p-12 text-center shadow-card">
-                <span className="mx-auto h-16 w-16 rounded-full grid place-items-center bg-[#f1f1f1] text-[#005a9c]">
-                  <GraduationCap className="w-7 h-7" />
-                </span>
-                <h2 className="mt-4 text-lg font-medium text-neutral-900">No classes created yet</h2>
-                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">
-                  Add a class, then its batches.
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center gap-2">
-                  {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map((name) => (
-                    <button key={name} type="button" onClick={() => room.addClass(name)}
-                      className="h-10 px-4 rounded-full bg-[#f8f8f8] hover:bg-[#f1f1f1] text-sm font-medium text-[#005a9c] transition-colors">
-                      + {name}
-                    </button>
+            <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_400px] gap-6 items-start">
+              {/* Timetable */}
+              <section className="bg-white rounded-3xl shadow-card overflow-hidden min-w-0">
+                <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 py-3.5 border-b border-neutral-100">
+                  <h2 className="text-base font-semibold text-neutral-900 inline-flex items-center gap-2"><Clock className="w-4 h-4 text-[#005a9c]" /> Timetable</h2>
+                  {room.classes.length > 1 && (
+                    <div className="w-full sm:w-52">
+                      <Picker
+                        size="sm"
+                        label="Show class"
+                        value={classFilter}
+                        onChange={setClassFilter}
+                        options={[{ value: 'all', label: 'All classes' }, ...room.classes.map((c) => ({ value: c.name, label: c.name }))]}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {rows.length === 0 && <p className="px-5 py-12 text-center text-sm text-neutral-500">No batches in this class.</p>}
+
+                {/* Desktop: time on the left, batches running at that time beside it */}
+                <table className="hidden md:table w-full text-left">
+                  <thead className="bg-neutral-50/70">
+                    <tr className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+                      <th className="pl-5 pr-3 py-2.5 w-40">Time</th>
+                      <th className="px-3 py-2.5">Class · Batch</th>
+                      <th className="px-3 py-2.5">Subject</th>
+                      <th className="px-3 py-2.5">Teacher</th>
+                      <th className="px-3 py-2.5">Room</th>
+                      <th className="px-3 py-2.5 text-right">Students</th>
+                      {!teacherView && <th className="pr-4 py-2.5 w-12"><span className="sr-only">Edit</span></th>}
+                    </tr>
+                  </thead>
+                  {slots.map((slot) => (
+                    <tbody key={slot.key} className="border-t border-neutral-100">
+                      {slot.rows.map((row, i) => (
+                        <tr key={row.key} className="group hover:bg-[#f8fafc]">
+                          {i === 0 && (
+                            <td rowSpan={slot.rows.length} className="pl-5 pr-3 py-3.5 align-top border-r border-neutral-100 bg-white">
+                              {slot.key === 'none' ? (
+                                <span className="text-sm font-semibold text-amber-700">No time set</span>
+                              ) : (
+                                <>
+                                  <p className="text-sm font-semibold text-neutral-900 whitespace-nowrap">{slot.label}</p>
+                                  <p className="text-xs text-neutral-500">{describeDays(row.timing.days || []) || '—'}</p>
+                                  {slot.rows.length > 1 && <p className="mt-1.5 inline-flex rounded-full bg-[#eef7fc] px-2 py-0.5 text-[11px] font-medium text-[#005a9c]">{slot.rows.length} at once</p>}
+                                </>
+                              )}
+                            </td>
+                          )}
+                          <td className="px-3 py-3"><ClassTag row={row} color={colorFor(row.className)} /></td>
+                          <td className="px-3 py-3 text-sm">
+                            {row.subject ? <span className="inline-flex items-center gap-1.5 text-neutral-900"><BookOpen className="w-3.5 h-3.5 text-neutral-400" />{row.subject}</span> : <Missing>No subject</Missing>}
+                          </td>
+                          <td className="px-3 py-3 text-sm">
+                            {teacherName(row) ? (
+                              <span className="inline-flex items-center gap-2 min-w-0">
+                                <Initials name={row.teachers[0].name} className="h-7 w-7 text-[10px] shrink-0" />
+                                <span className="text-neutral-900 truncate">{teacherName(row)}</span>
+                              </span>
+                            ) : <Missing>No teacher</Missing>}
+                          </td>
+                          <td className="px-3 py-3 text-sm">
+                            {row.room ? <span className="inline-flex items-center gap-1 whitespace-nowrap rounded-md bg-neutral-100 px-2 py-0.5 text-neutral-700"><DoorOpen className="w-3.5 h-3.5 text-neutral-400" />{row.room}</span> : <span className="text-neutral-400">—</span>}
+                          </td>
+                          <td className="px-3 py-3 text-sm text-right tabular-nums">
+                            <span className="font-semibold text-neutral-900">{row.students.length}</span>
+                          </td>
+                          {!teacherView && (
+                            <td className="pr-4 py-2 text-right">
+                              <button type="button" onClick={() => setForm(row)} aria-label={`Edit ${row.className} ${batchLabel(row.section)}`}
+                                className="h-9 w-9 inline-grid place-items-center rounded-lg text-neutral-400 opacity-60 group-hover:opacity-100 hover:bg-white hover:text-neutral-900 hover:shadow-sm transition">
+                                <Pencil className="w-4 h-4" />
+                              </button>
+                            </td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  ))}
+                </table>
+
+                {/* Phone: same time slots, one card per batch */}
+                <div className="md:hidden">
+                  {slots.map((slot) => (
+                    <div key={slot.key}>
+                      <p className="px-4 py-2 bg-[#f6f8fa] text-sm font-semibold text-neutral-900 inline-flex w-full items-center gap-2">
+                        <Clock className={`w-4 h-4 ${slot.key === 'none' ? 'text-amber-600' : 'text-[#005a9c]'}`} /> {slot.label}
+                      </p>
+                      <ul className="divide-y divide-neutral-100">
+                        {slot.rows.map((row) => (
+                          <li key={row.key} className="px-4 py-3">
+                            <div className="flex items-center justify-between gap-2">
+                              <ClassTag row={row} color={colorFor(row.className)} />
+                              {!teacherView && (
+                                <button type="button" onClick={() => setForm(row)} aria-label={`Edit ${row.className} ${batchLabel(row.section)}`}
+                                  className="h-9 w-9 shrink-0 -mr-2 grid place-items-center rounded-lg text-neutral-500 hover:bg-neutral-100"><Pencil className="w-4 h-4" /></button>
+                              )}
+                            </div>
+                            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-sm">
+                              <span className="flex items-center gap-1.5 min-w-0"><BookOpen className="w-3.5 h-3.5 shrink-0 text-neutral-400" /><span className="truncate">{row.subject || <Missing>No subject</Missing>}</span></span>
+                              <span className="flex items-center gap-1.5 min-w-0"><UserRound className="w-3.5 h-3.5 shrink-0 text-neutral-400" /><span className="truncate">{teacherName(row) || <Missing>No teacher</Missing>}</span></span>
+                              <span className="flex items-center gap-1.5 min-w-0 text-neutral-600"><DoorOpen className="w-3.5 h-3.5 shrink-0 text-neutral-400" /><span className="truncate">{row.room || '—'} · {describeDays(row.timing.days || []) || '—'}</span></span>
+                              <span className="flex items-center gap-1.5 text-neutral-600"><Users className="w-3.5 h-3.5 shrink-0 text-neutral-400" />{plural(row.students.length, 'student', 'students')}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
                 </div>
               </section>
-            )}
 
-            {room.classes.length > 0 && (
-              <div className="grid grid-cols-1 2xl:grid-cols-2 gap-5 items-start">
-                {room.classes.map((item, idx) => {
-                  const classStudents = room.students.filter((s) => s.className === item.name);
-                  const isEditing = editingClassId === item.id;
-                  const isRosterOpen = !!expandedRoster[item.id];
-                  const sections = item.sections || [];
-                  const counts = sections.map((b) => classStudents.filter((s) => (s.section || '') === b).length);
-                  const unassigned = classStudents.length - counts.reduce((a, b) => a + b, 0);
-                  const tint = TINTS[idx % TINTS.length];
+              {/* Right rail */}
+              <aside className="space-y-5 xl:sticky xl:top-24">
+                {!teacherView && attention > 0 && (
+                  <section className="rounded-3xl bg-amber-50 ring-1 ring-amber-200 p-5">
+                    <h2 className="text-sm font-semibold text-amber-900 inline-flex items-center gap-2"><AlertCircle className="w-4 h-4" /> Needs attention</h2>
+                    <ul className="mt-2.5 space-y-1.5 text-sm text-amber-900">
+                      {noTeacher > 0 && <li>{plural(noTeacher, 'batch has', 'batches have')} no teacher</li>}
+                      {noTiming > 0 && <li>{plural(noTiming, 'batch has', 'batches have')} no time</li>}
+                      {unplaced.length > 0 && (
+                        <li><Link to="/students" className="inline-flex items-center gap-1 font-medium hover:underline">{plural(unplaced.length, 'student is', 'students are')} not in a batch <ArrowRight className="w-3.5 h-3.5" /></Link></li>
+                      )}
+                    </ul>
+                  </section>
+                )}
 
-                  return (
-                    <article key={item.id} className="bg-white rounded-3xl shadow-card overflow-hidden transition-shadow hover:shadow-lift">
-                      {/* tinted header */}
-                      <div className="p-5" style={{ background: tint }}>
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex items-center gap-3 min-w-0 flex-1">
-                            <span className="h-11 w-11 shrink-0 rounded-full bg-white grid place-items-center text-neutral-900">
-                              <GraduationCap className="w-5 h-5" />
-                            </span>
-                            {isEditing ? (
-                              <div className="flex items-center gap-2 flex-1 max-w-xs">
-                                <input className={`${field} h-10 flex-1 min-w-0`} value={editClassName} onChange={(e) => setEditClassName(e.target.value)}
-                                  onKeyDown={(e) => { if (e.key === 'Enter') saveEditClass(item.id); if (e.key === 'Escape') setEditingClassId(null); }} autoFocus />
-                                <button type="button" onClick={() => saveEditClass(item.id)} aria-label="Save name" className="h-10 w-10 shrink-0 rounded-full bg-white grid place-items-center text-neutral-900 hover:shadow-md"><Check className="w-4 h-4" /></button>
-                                <button type="button" onClick={() => setEditingClassId(null)} aria-label="Cancel" className="h-10 w-10 shrink-0 rounded-full bg-white/60 grid place-items-center text-neutral-700 hover:bg-white"><X className="w-4 h-4" /></button>
-                              </div>
-                            ) : (
-                              <div className="min-w-0">
-                                <h2 className="text-lg font-medium text-neutral-900 truncate">{item.name}</h2>
-                                <p className="text-xs text-neutral-700">{plural(sections.length, 'batch', 'batches')}</p>
-                              </div>
-                            )}
-                          </div>
-                          {!isEditing && (
-                            <div className="flex items-center gap-1.5 shrink-0">
-                              <button type="button" onClick={() => startEditClass(item)} aria-label={`Rename ${item.name}`} className="h-9 w-9 rounded-full bg-white/70 hover:bg-white grid place-items-center text-neutral-800 transition-colors"><Pencil className="w-4 h-4" /></button>
-                              <button type="button" onClick={() => handleRemoveClass(item)} aria-label={`Delete ${item.name}`} className="h-9 w-9 rounded-full bg-white/70 hover:bg-white grid place-items-center text-neutral-800 transition-colors"><Trash2 className="w-4 h-4" /></button>
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="mt-5 flex items-end justify-between gap-3">
-                          <div>
-                            <p className="text-[2rem] leading-none font-medium tracking-tight text-neutral-900 tabular-nums">{classStudents.length}</p>
-                            <p className="mt-1 text-xs text-neutral-700">{classStudents.length === 1 ? 'student enrolled' : 'students enrolled'}</p>
-                          </div>
-                          {classStudents.length > 0 && (
-                            <div className="flex items-center -space-x-2">
-                              {classStudents.slice(0, 4).map((s) => <Initials key={s.id} name={s.name} className="h-8 w-8 text-[11px] ring-2 ring-white" />)}
-                              {classStudents.length > 4 && <span className="h-8 w-8 rounded-full bg-white grid place-items-center text-[11px] font-semibold text-neutral-700 ring-2 ring-white">+{classStudents.length - 4}</span>}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* distribution across batches */}
-                        <div className="mt-4 h-2 rounded-full bg-white/50 overflow-hidden flex" aria-hidden="true">
-                          {counts.map((c, i) => c > 0 && (
-                            <div key={sections[i]} className={SEGMENT[i % SEGMENT.length]} style={{ width: `${(c / classStudents.length) * 100}%` }} title={`${sections[i]}: ${c}`} />
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* body */}
-                      <div className="p-5">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-                            <Layers className="w-3.5 h-3.5" /> Batches
-                          </h3>
-                          {unassigned > 0 && sections.length > 0 && (
-                            <span className="text-[11px] font-medium text-neutral-800 bg-[#f4f4f4] rounded-full px-2.5 py-0.5">{unassigned} without batch</span>
-                          )}
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                          {sections.map((batch, i) => (
-                            <div key={batch} className="inline-flex items-center gap-2 bg-[#f7f7f7] rounded-full pl-3 pr-1.5 py-1.5 text-sm text-neutral-900">
-                              <span className={`h-2 w-2 rounded-full ${SEGMENT[i % SEGMENT.length]}`} />
-                              <span className="font-medium">{batch}</span>
-                              <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-0.5 tabular-nums">{counts[i]}</span>
-                              <button type="button" onClick={() => handleRemoveBatch(item.id, item.name, batch)} aria-label={`Remove batch ${batch}`}
-                                className="h-5 w-5 grid place-items-center rounded-full text-neutral-400 hover:text-neutral-900 hover:bg-white transition-colors">
-                                <X className="w-3 h-3" />
-                              </button>
-                            </div>
-                          ))}
-                          {sections.length === 0 && <p className="text-sm text-neutral-500 py-1">No batches yet.</p>}
-                        </div>
-
-                        <form onSubmit={(e) => { e.preventDefault(); handleAddBatch(item.id, batchDraft[item.id]); }} className="mt-4 flex items-center gap-2">
-                          <input className={`${field} h-10 flex-1 min-w-0`} placeholder="New batch name" value={batchDraft[item.id] || ''}
-                            onChange={(e) => setBatchDraft((prev) => ({ ...prev, [item.id]: e.target.value }))} aria-label={`New batch for ${item.name}`} />
-                          <button type="submit" disabled={!(batchDraft[item.id] || '').trim()}
-                            className="h-10 px-4 rounded-2xl bg-[#ededed] hover:brightness-95 text-neutral-900 text-sm font-medium inline-flex items-center gap-1.5 disabled:opacity-40 transition">
-                            <Plus className="w-4 h-4" /> Add
-                          </button>
-                        </form>
-
-                        {SUGGESTED_BATCHES.some((b) => !sections.includes(b)) && (
-                          <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                            <span className="text-xs text-neutral-400 mr-0.5">Quick add</span>
-                            {SUGGESTED_BATCHES.filter((b) => !sections.includes(b)).map((suggested) => (
-                              <button key={suggested} type="button" onClick={() => handleAddBatch(item.id, suggested)}
-                                className="h-7 px-3 rounded-full bg-white ring-1 ring-neutral-200 hover:bg-[#f8f8f8] hover:ring-[#dedede] text-neutral-700 text-xs font-medium transition-colors">
-                                + {suggested}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-
-                        {classStudents.length > 0 && (
-                          <>
-                            <button type="button" onClick={() => toggleRoster(item.id)} aria-expanded={isRosterOpen}
-                              className="mt-5 w-full h-10 rounded-2xl bg-[#f7f7f7] hover:bg-[#efefef] text-sm font-medium text-neutral-800 inline-flex items-center justify-center gap-2 transition-colors">
-                              <Users className="w-4 h-4" />
-                              {isRosterOpen ? 'Hide students' : `View ${plural(classStudents.length, 'student', 'students')}`}
-                              {isRosterOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                            </button>
-
-                            {isRosterOpen && (
-                              <div className="mt-3 animate-fade-up">
-                                <ul className="divide-y divide-neutral-100 rounded-2xl border border-neutral-200 max-h-60 overflow-y-auto">
-                                  {classStudents.map((student) => (
-                                    <li key={student.id} className="px-3 py-2.5 flex items-center justify-between gap-3 text-sm">
-                                      <span className="flex items-center gap-2.5 min-w-0">
-                                        <Initials name={student.name} className="h-8 w-8 text-[11px]" />
-                                        <span className="font-medium text-neutral-900 truncate">{student.name}</span>
-                                      </span>
-                                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${student.section ? 'bg-[#f1f1f1] text-[#005a9c]' : 'bg-neutral-100 text-neutral-500'}`}>
-                                        {student.section || 'No batch'}
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ul>
-                                <Link to="/students" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-[#005a9c] hover:underline">
-                                  Manage in Students <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* ───────── right rail ───────── */}
-          <aside className="space-y-5 xl:sticky xl:top-24">
-            <section className="bg-white rounded-3xl shadow-card p-5">
-              <h2 className="text-base font-medium text-neutral-800">Add a class</h2>
-                            <form onSubmit={handleCreateClass} className="mt-4 space-y-3">
-                <input ref={createRef} className={`${field} w-full`} value={newClassName} onChange={(e) => setNewClassName(e.target.value)}
-                  placeholder="e.g. Class 10 or Class 12 Science" aria-label="New class name" />
-                <button type="submit" disabled={!newClassName.trim()}
-                  className="w-full h-11 rounded-2xl bg-[#005a9c] text-white text-sm font-medium inline-flex items-center justify-center gap-2 hover:brightness-95 disabled:opacity-40 transition">
-                  <Plus className="w-4 h-4" /> Create class
-                </button>
-              </form>
-
-              {freeSuggestions.length > 0 && (
-                <div className="mt-5">
-                  <p className="mb-2 text-xs font-medium text-neutral-500 inline-flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> One-tap suggestions</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {freeSuggestions.map((preset) => (
-                      <button key={preset} type="button" onClick={() => room.addClass(preset)}
-                        className="h-8 px-3 rounded-full bg-[#f8f8f8] hover:bg-[#f1f1f1] text-[#005a9c] text-xs font-medium transition-colors">
-                        + {preset}
-                      </button>
-                    ))}
+                <section className="bg-white rounded-3xl shadow-card p-5">
+                  <div className="mb-3 flex items-baseline justify-between gap-2">
+                    <h2 className="text-base font-semibold text-neutral-900 inline-flex items-center gap-2"><DoorOpen className="w-4 h-4 text-[#005a9c]" /> Room plan</h2>
+                    <span className="text-xs text-neutral-400">{teacherView ? 'tap a batch' : 'click a batch to edit'}</span>
                   </div>
-                </div>
-              )}
-            </section>
+                  <RoomSchedule rows={rows} colorFor={colorFor} onOpen={teacherView ? null : setForm} />
+                </section>
 
-            {room.students.length > 0 && (
-              unplaced.length > 0 ? (
-                <Link to="/students" className="block rounded-3xl bg-[#d6d6d6] p-5 hover:brightness-95 transition">
-                  <span className="h-9 w-9 rounded-full bg-white grid place-items-center text-neutral-900"><AlertCircle className="w-[18px] h-[18px]" /></span>
-                  <p className="mt-3 text-base font-medium text-neutral-900">{plural(unplaced.length, 'student needs', 'students need')} a class or batch</p>
-                  <p className="mt-1 text-sm text-neutral-800/80">Needed for attendance and fees.</p>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900">Assign in Students <ArrowRight className="w-4 h-4" /></span>
-                </Link>
-              ) : (
-                <div className="rounded-3xl bg-[#dff3e7] p-5">
-                  <span className="h-9 w-9 rounded-full bg-white grid place-items-center text-[#005a9c]"><CheckCircle2 className="w-[18px] h-[18px]" /></span>
-                  <p className="mt-3 text-base font-medium text-neutral-900">All students are placed</p>
-                  <p className="mt-1 text-sm text-neutral-700">Every student has a class.</p>
-                </div>
-              )
-            )}
-          </aside>
-        </div>
+                {!teacherView && (
+                  <section className="bg-white rounded-3xl shadow-card p-5">
+                    <h2 className="mb-3.5 text-base font-semibold text-neutral-900 inline-flex items-center gap-2"><UserRound className="w-4 h-4 text-[#005a9c]" /> Teacher load</h2>
+                    <TeacherLoad teachers={room.teachers} rows={allRows} />
+                  </section>
+                )}
+              </aside>
+            </div>
+          </>
+        )}
       </main>
+
+      {form && <BatchForm room={room} rows={allRows} initial={form === 'new' ? null : form} onClose={() => setForm(null)} />}
     </div>
   );
 }

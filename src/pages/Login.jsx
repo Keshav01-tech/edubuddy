@@ -1,51 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, GraduationCap, ArrowRight, Settings, AlertTriangle, Info } from 'lucide-react';
+import { Mail, Lock, GraduationCap, ArrowRight, Settings, AlertTriangle, Presentation, ShieldCheck, ConciergeBell } from 'lucide-react';
 import { Button } from '../components/Button';
 import { Alert } from '../components/Alert';
 import { SetupModal } from '../components/SetupModal';
 import { isOpenAIConfigured } from '../services/openai';
+import { homeFor } from '../services/roles';
 
 const fieldClass = 'w-full h-12 pl-11 pr-4 text-base bg-white border border-neutral-300 rounded-lg hover:border-neutral-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100 placeholder:text-neutral-400';
 
+
 export default function Login() {
-  const { user, signIn, signUp, isDemoMode } = useAuth();
+  const { user, signIn, signInAsTeacher, signInAsReceptionist, signInAsSuperAdmin, backend } = useAuth();
   const navigate = useNavigate();
 
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [role, setRole] = useState('admin');
+  const isTeacherLogin = role === 'teacher';
+  const isDeskLogin = role === 'receptionist';
+  const usesEmail = isTeacherLogin || isDeskLogin;
+  const isSuperLogin = role === 'super';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isAiSetupMissing, setIsAiSetupMissing] = useState(false);
 
   useEffect(() => {
-    if (user) navigate('/dashboard');
+    if (user) navigate(homeFor(user));
     setIsAiSetupMissing(!isOpenAIConfigured());
   }, [user, navigate]);
+
+  const switchRole = (next) => {
+    setRole(next);
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        const { error: signUpErr } = await signUp(email, password, fullName);
-        if (signUpErr) throw signUpErr;
-        setSuccess('Account created. Sign in below.');
-        setIsSignUp(false);
-      } else {
-        const { error: signInErr } = await signIn(email, password);
-        if (signInErr) throw signInErr;
-        navigate('/dashboard');
-      }
+      const attempt = isSuperLogin ? signInAsSuperAdmin : isTeacherLogin ? signInAsTeacher : isDeskLogin ? signInAsReceptionist : signIn;
+      const { data, error: signInErr } = await attempt(email, password);
+      if (signInErr) throw signInErr;
+      navigate(homeFor(data?.user));
     } catch (err) {
       setError(err.message || 'Something went wrong. Try again.');
     } finally {
@@ -119,44 +121,45 @@ export default function Login() {
             </div>
           )}
 
+          {!isSuperLogin && (
+          <div role="tablist" aria-label="Sign in as" className="mb-6 grid grid-cols-3 gap-1 rounded-xl bg-neutral-100 p-1">
+            {[['admin', 'Admin', GraduationCap], ['teacher', 'Teacher', Presentation], ['receptionist', 'Front desk', ConciergeBell]].map(([id, label, Icon]) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={role === id}
+                onClick={() => switchRole(id)}
+                className={`h-10 rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors ${role === id ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-800'}`}
+              >
+                <Icon className="w-4 h-4" /> {label}
+              </button>
+            ))}
+          </div>
+          )}
+
           <h2 className="font-semibold tracking-tight text-3xl text-neutral-900">
-            {isSignUp ? 'Create an account' : 'Sign in'}
+            {isSuperLogin ? 'Super admin' : isTeacherLogin ? 'Teacher sign in' : isDeskLogin ? 'Front desk sign in' : 'Admin sign in'}
           </h2>
           <p className="text-sm text-neutral-400 mt-1 mb-6">
-            {isSignUp ? 'Your papers are saved to your account.' : 'Welcome back. Your papers are waiting.'}
+            {isSuperLogin ? 'Create and manage institute admin accounts.' : isTeacherLogin ? 'See the classes you teach: students, attendance and fees.' : isDeskLogin ? 'Record fees, scan receipts and add students.' : 'Use the login ID and password from your super admin.'}
           </p>
 
           {error && <Alert type="error" message={error} className="mb-4" onClose={() => setError('')} />}
-          {success && <Alert type="success" message={success} className="mb-4" onClose={() => setSuccess('')} />}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {isSignUp && (
-              <label className="block">
-                <span className="block text-xs font-medium text-neutral-500 mb-1.5">Name</span>
-                <div className="relative">
-                  <User className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
-                  <input
-                    type="text"
-                    required
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Your name"
-                    className={fieldClass}
-                  />
-                </div>
-              </label>
-            )}
-
             <label className="block">
-              <span className="block text-xs font-medium text-neutral-500 mb-1.5">Email</span>
+              <span className="block text-xs font-medium text-neutral-500 mb-1.5">{usesEmail ? 'Email' : 'Login ID'}</span>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
                 <input
-                  type="email"
+                  type={usesEmail ? 'email' : 'text'}
                   required
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@school.com"
+                  placeholder={usesEmail ? 'you@school.com' : 'Your login ID'}
                   className={fieldClass}
                 />
               </div>
@@ -178,25 +181,26 @@ export default function Login() {
             </label>
 
             <Button type="submit" variant="primary" className="w-full h-11 mt-2" disabled={loading}>
-              {loading ? 'Please wait…' : isSignUp ? 'Create account' : 'Sign in'}
+              {loading ? 'Please wait…' : 'Sign in'}
               {!loading && <ArrowRight className="w-4 h-4" />}
             </Button>
           </form>
 
+          {backend === 'offline' && (
+            <p className="mt-6 rounded-lg bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700">
+              The database is not reachable, so nobody can sign in right now. Check MONGODB_URI on the server and try again.
+            </p>
+          )}
+          {!isSuperLogin && <p className="mt-6 text-sm text-neutral-500">{usesEmail ? 'No account? Ask your institute admin to add you.' : 'No account? Ask your super admin to create one.'}</p>}
+
           <button
             type="button"
-            onClick={() => { setIsSignUp(!isSignUp); setError(''); setSuccess(''); }}
-            className="mt-6 text-sm text-neutral-500 hover:text-neutral-800 transition-colors"
+            onClick={() => switchRole(isSuperLogin ? 'admin' : 'super')}
+            className="mt-8 inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-neutral-700"
           >
-            {isSignUp ? 'Already have an account? Sign in' : 'New here? Create an account'}
+            <ShieldCheck className="w-3.5 h-3.5" />
+            {isSuperLogin ? 'Back to institute sign in' : 'Super admin sign in'}
           </button>
-
-          {isDemoMode && (
-            <div className="mt-8 flex items-start gap-2.5 p-3.5 bg-brand-50 border border-brand-100 rounded-xl text-xs text-brand-900 leading-relaxed">
-              <Info className="w-4 h-4 shrink-0 mt-0.5" />
-              <p>Demo mode: use any email and password.</p>
-            </div>
-          )}
         </div>
       </section>
 

@@ -1,8 +1,13 @@
-// Sends a fixed absence message on WhatsApp through Twilio.
+// Sends fixed WhatsApp messages through Twilio: absence alerts to parents and visit invites to inquiries.
 // Credentials stay in server env: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM.
-// Optional TWILIO_CONTENT_SID uses an approved WhatsApp template (variables {{1}} name, {{2}} date).
+// Optional approved WhatsApp templates:
+//   TWILIO_CONTENT_SID        absence ({{1}} name, {{2}} date)
+//   TWILIO_INVITE_CONTENT_SID invite  ({{1}} name, {{2}} institute)
 
-const MAX_MESSAGES = 40;
+import { readToken, bearer } from './_lib/auth.js';
+
+// One click never sends more than this many messages.
+export const MAX_MESSAGES = 40;
 
 export function whatsAppAddress(phone) {
   let digits = String(phone || '').replace(/[^\d]/g, '');
@@ -23,8 +28,14 @@ function cleanDate(value) {
   return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-export function absenceText(name, dateLabel) {
-  return `${name} is not attending today (${dateLabel}).`;
+export function absenceText(name, dateLabel, subject = '') {
+  return subject
+    ? `${name} is not attending today's ${subject} class (${dateLabel}).`
+    : `${name} is not attending today (${dateLabel}).`;
+}
+
+export function inviteText(name, institute) {
+  return `Hi ${name}, thank you for your inquiry. ${institute || 'We'} would love to invite you for a visit to see our classes. Reply to this message to pick a time.`;
 }
 
 export function explainTwilioError(message) {
@@ -35,40 +46,34 @@ export function explainTwilioError(message) {
   return text || 'Twilio could not send the message.';
 }
 
-export async function sendAbsences(list, date, env = process.env) {
+function twilioConfig(env) {
   const sid = env.TWILIO_ACCOUNT_SID || '';
   const token = env.TWILIO_AUTH_TOKEN || '';
   const fromRaw = env.TWILIO_WHATSAPP_FROM || '';
-  const dateLabel = cleanDate(date);
-  if (!dateLabel) return { ok: false, error: 'Pick a valid date.' };
-  if (!sid || !token || !fromRaw) return { ok: false, configured: false };
-
+  if (!sid || !token || !fromRaw) return null;
   const from = fromRaw.startsWith('whatsapp:')
     ? fromRaw
     : `whatsapp:+${fromRaw.replace(/[^\d]/g, '')}`;
-  const auth = Buffer.from(`${sid}:${token}`).toString('base64');
+  return { sid, from, auth: Buffer.from(`${sid}:${token}`).toString('base64') };
+}
+
+// buildParams(name) returns the Body or ContentSid fields for one recipient.
+async function sendEach(list, config, buildParams, missingPhone) {
   const sent = [];
   const failed = [];
-
   for (const item of list.slice(0, MAX_MESSAGES)) {
     const name = cleanName(item?.name);
     const to = whatsAppAddress(item?.phone);
     if (!name || !to) {
-      failed.push({ name: name || 'Student', error: 'Add a valid parent WhatsApp number.' });
+      failed.push({ name: name || 'Contact', error: missingPhone });
       continue;
     }
-    const params = new URLSearchParams({ From: from, To: to });
-    if (env.TWILIO_CONTENT_SID) {
-      params.set('ContentSid', env.TWILIO_CONTENT_SID);
-      params.set('ContentVariables', JSON.stringify({ 1: name, 2: dateLabel }));
-    } else {
-      params.set('Body', absenceText(name, dateLabel));
-    }
+    const params = new URLSearchParams({ From: config.from, To: to, ...buildParams(name) });
     try {
-      const upstream = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`, {
+      const upstream = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${config.sid}/Messages.json`, {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${auth}`,
+          Authorization: `Basic ${config.auth}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: params,
@@ -80,13 +85,41 @@ export async function sendAbsences(list, date, env = process.env) {
       failed.push({ name, error: 'Could not reach Twilio.' });
     }
   }
-
   return { ok: true, configured: true, sent, failed };
+}
+
+export async function sendAbsences(list, date, env = process.env, subject = '') {
+  const dateLabel = cleanDate(date);
+  if (!dateLabel) return { ok: false, error: 'Pick a valid date.' };
+  const config = twilioConfig(env);
+  if (!config) return { ok: false, configured: false };
+  return sendEach(list, config, (name) => (env.TWILIO_CONTENT_SID
+    ? { ContentSid: env.TWILIO_CONTENT_SID, ContentVariables: JSON.stringify({ 1: name, 2: dateLabel }) }
+    : { Body: absenceText(name, dateLabel, cleanName(subject)) }), 'Add a valid parent WhatsApp number.');
+}
+
+export async function sendInvites(list, institute, env = process.env) {
+  const config = twilioConfig(env);
+  if (!config) return { ok: false, configured: false };
+  const place = cleanName(institute);
+  return sendEach(list, config, (name) => (env.TWILIO_INVITE_CONTENT_SID
+    ? { ContentSid: env.TWILIO_INVITE_CONTENT_SID, ContentVariables: JSON.stringify({ 1: name, 2: place || 'our institute' }) }
+    : { Body: inviteText(name, place) }), 'Add a valid WhatsApp number.');
+}
+
+/** Only signed-in admins and teachers may send messages from the institute's Twilio number. */
+export function allowedToSend(req) {
+  const session = readToken(bearer(req));
+  return !!session && ['admin', 'teacher'].includes(session.role);
 }
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+  if (!allowedToSend(req)) {
+    res.status(401).json({ error: 'Please sign in again.' });
     return;
   }
   let body = req.body || {};
@@ -98,11 +131,21 @@ export default async function handler(req, res) {
       return;
     }
   }
-  const students = Array.isArray(body.students) ? body.students : [];
+  if (body.kind === 'invite') {
+    const leads = Array.isArray(body.leads) ? body.leads.slice(0, MAX_MESSAGES) : [];
+    if (!leads.length) {
+      res.status(400).json({ error: 'No inquiries to invite.' });
+      return;
+    }
+    const result = await sendInvites(leads, body.institute);
+    res.status(result.error ? 400 : 200).json(result);
+    return;
+  }
+  const students = Array.isArray(body.students) ? body.students.slice(0, MAX_MESSAGES) : [];
   if (!students.length) {
     res.status(400).json({ error: 'No students to notify.' });
     return;
   }
-  const result = await sendAbsences(students, body.date);
+  const result = await sendAbsences(students, body.date, process.env, body.subject);
   res.status(result.error ? 400 : 200).json(result);
 }

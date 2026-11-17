@@ -1,7 +1,7 @@
 # caption (Roman Hinglish) || speech (Devanagari, what Kokoro reads)
-Abhi bhi institute register aur Excel pe chala rahe ho? || अभी भी इंस्टिट्यूट रजिस्टर और एक्सेल पे चला रहे हो?
-Poore batch ki attendance ek tap mein, aur kaun absent hai, turant pata. || पूरे बैच की अटेंडेंस एक टैप में, और कौन ऐबसेंट है, तुरंत पता।
-Pending fees track karo, aur har payment ki receipt print karo. || पेंडिंग फ़ीस ट्रैक करो, और हर पेमेंट की रिसीट प्रिंट करो।
-Har enquiry ki follow-up date, ek bhi admission haath se nahi jaayega. || हर इन्क्वायरी की फ़ॉलो-अप डेट, एक भी एडमिशन हाथ से नहीं जाएगा।
-Koi bhi subject, multiple chapters, answer key ke saath test, seconds mein. || कोई भी सब्जेक्ट, मल्टिपल चैप्टर्स, आंसर की के साथ टेस्ट, सेकंड्स में।
+Bahut se teachers abhi bhi paper register, Excel aur WhatsApp chats pe institute chalate hain. || बहुत से टीचर्स अभी भी पेपर रजिस्टर, एक्सेल और व्हाट्सएप चैट्स पे इंस्टिट्यूट चलाते हैं।
+Attendance. Poori class ek do tap mein, aur parents ko usi din WhatsApp message. || अटेंडेंस। पूरी क्लास एक दो टैप में, और पेरेंट्स को उसी दिन व्हाट्सएप मैसेज।
+Fees. Har payment record karo, receipt print karo, aur dekho kisne diya, kisne nahi. || फ़ीस। हर पेमेंट रिकॉर्ड करो, रिसीट प्रिंट करो, और देखो किसने दिया, किसने नहीं।
+Admissions. Har call aur walk-in save karo, aur join hone tak follow-up karo. Koi parent nahi chhutega. || एडमिशन। हर कॉल और वॉक-इन सेव करो, और जॉइन होने तक फ़ॉलो-अप करो। कोई पेरेंट नहीं छूटेगा।
+Tests. Class 6 se 12 ka NCERT question paper, sirf paanch minute mein, answer key ke saath. || टेस्ट। क्लास छह से बारह का एनसीईआरटी क्वेश्चन पेपर, सिर्फ़ पाँच मिनट में, आंसर की के साथ।
 EduBuddy. Institute chalao, paperwork nahi. || एडू बडी। इंस्टिट्यूट चलाओ, पेपरवर्क नहीं।

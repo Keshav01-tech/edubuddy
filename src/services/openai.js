@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { getToken } from './cloud';
 import { sectionsFromLegacy, totalOf, questionCount, stampMarks } from '../data/paperBlueprint';
 import { findLibraryChapter } from '../data/textbooks';
 import { withNeededFigures } from '../components/plotMath';
@@ -6,7 +6,8 @@ import { questionHasRenderableMath, mcqAnswerMatches } from '../components/examM
 import { pdfText } from './pdfText';
 
 export const getOpenAIConfig = () => {
-  const envKey = import.meta.env.VITE_OPENAI_API_KEY;
+  // Only on the local dev server: a production build must never contain the key (it goes through /api/openai instead).
+  const envKey = import.meta.env.DEV ? import.meta.env.VITE_OPENAI_API_KEY : '';
   const hasEnv = envKey && envKey !== 'your_openai_api_key' && envKey !== '';
   if (hasEnv) return { key: envKey, isEnv: true };
   const localKey = localStorage.getItem('edu_openai_key');
@@ -180,17 +181,10 @@ const questionsFromResponse = (data) => {
   throw new Error('Could not parse AI response. Please try again.');
 };
 
+// The hosted /api/openai route only answers signed-in users of this app.
 const hostedAuth = async () => {
-  if (!supabase) return {};
-  const first = await supabase.auth.getSession();
-  let session = first.data.session;
-  const expiresAt = (session?.expires_at || 0) * 1000;
-  if (session && expiresAt && expiresAt < Date.now() + 60_000) {
-    const refreshed = await supabase.auth.refreshSession();
-    session = refreshed.data.session || session;
-  }
-  if (!session?.access_token) return {};
-  return { Authorization: `Bearer ${session.access_token}` };
+  const token = getToken();
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 const respond = async (key, instructions, prompt, count, temperature, visual) => {

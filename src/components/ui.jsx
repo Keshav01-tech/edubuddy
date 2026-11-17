@@ -1,9 +1,124 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Check, ChevronDown, X } from 'lucide-react';
 
 /* Shared building blocks for the logged-in app: one look for headers, stat cards, panels and charts.
    Charts are plain SVG so they print, scale and need no extra dependency. */
+
+/** One-tap choice chips. The picked one is solid blue with a tick so it is easy to see.
+    options: [{ value, label, count? }]. wrap=false keeps them in one swipeable row. */
+export function Chips({ options, value, onChange, label, wrap = true, className = '' }) {
+  return (
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className={`flex gap-2 ${wrap ? 'flex-wrap' : '-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-1'} ${className}`}
+    >
+      {options.map((o) => {
+        const on = o.value === value;
+        return (
+          <button
+            key={o.value}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            onClick={() => onChange(o.value)}
+            className={`h-10 shrink-0 px-4 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 whitespace-nowrap transition-colors ${
+              on
+                ? 'bg-[#005a9c] text-white shadow-sm'
+                : 'bg-white text-neutral-700 ring-1 ring-inset ring-neutral-200 hover:ring-neutral-400'
+            }`}
+          >
+            {on && <Check className="w-4 h-4" strokeWidth={2.6} />}
+            {o.label}
+            {o.count != null && (
+              <span className={`min-w-5 h-5 px-1.5 rounded-full text-[11px] grid place-items-center ${on ? 'bg-white/25' : 'bg-neutral-100 text-neutral-500'}`}>
+                {o.count}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Dropdown button: shows the current choice; tap to open a list (bottom sheet on phones).
+    options: [{ value, label, count? }]. countLabel names what count counts, e.g. "students". */
+export function Picker({ options, value, onChange, label, placeholder = 'Select', countLabel = '', size = 'md', className = '' }) {
+  const [open, setOpen] = useState(false);
+  const current = options.find((o) => o.value === value);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const esc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', esc);
+    return () => document.removeEventListener('keydown', esc);
+  }, [open]);
+
+  const countText = (o) => (o.count == null ? '' : `${o.count}${countLabel ? ` ${countLabel}` : ''}`);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={label}
+        className={`${size === 'sm'
+          ? 'h-8 pl-3 pr-2 rounded-full inline-flex max-w-full text-xs'
+          : 'w-full h-12 pl-4 pr-3 rounded-xl flex text-[15px]'} bg-white ring-1 ring-neutral-200 hover:ring-neutral-400 items-center gap-1.5 text-left transition-shadow ${className}`}
+      >
+        <span className={`min-w-0 ${size === 'sm' ? '' : 'flex-1'} truncate font-semibold ${current ? 'text-neutral-900' : 'text-neutral-400'}`}>
+          {current ? current.label : placeholder}
+        </span>
+        {current && current.count != null && (
+          <span className="shrink-0 text-neutral-500">· {countText(current)}</span>
+        )}
+        <ChevronDown className={`${size === 'sm' ? 'w-4 h-4' : 'w-5 h-5'} shrink-0 text-neutral-500`} />
+      </button>
+
+      {open && (
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-neutral-900/40 sm:p-4" onClick={() => setOpen(false)}>
+          <div
+            role="dialog"
+            aria-label={label}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full sm:max-w-sm max-h-[75dvh] flex flex-col bg-white rounded-t-2xl sm:rounded-2xl shadow-xl pb-[env(safe-area-inset-bottom)]"
+          >
+            <div className="flex items-center justify-between px-5 pt-4 pb-2">
+              <p className="text-base font-semibold text-neutral-900">{label}</p>
+              <button type="button" onClick={() => setOpen(false)} className="h-10 w-10 -mr-2 grid place-items-center rounded-xl text-neutral-400 hover:bg-neutral-100" aria-label="Close">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <ul role="listbox" aria-label={label} className="overflow-y-auto px-2 pb-3">
+              {options.map((o) => {
+                const on = o.value === value;
+                return (
+                  <li key={o.value}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={on}
+                      onClick={() => { onChange(o.value); setOpen(false); }}
+                      className={`w-full h-12 px-3 rounded-xl flex items-center gap-3 text-left ${on ? 'bg-[#eef7fc]' : 'hover:bg-neutral-50'}`}
+                    >
+                      <span className={`flex-1 min-w-0 truncate text-[15px] ${on ? 'font-semibold text-[#005a9c]' : 'font-medium text-neutral-800'}`}>{o.label}</span>
+                      {o.count != null && <span className="shrink-0 text-sm text-neutral-500">{countText(o)}</span>}
+                      <span className="w-5 shrink-0">{on && <Check className="w-5 h-5 text-[#005a9c]" strokeWidth={2.6} />}</span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 
 export const TONES = {
   brand:   { solid: '#005a9c', soft: 'bg-[#eef7fc]', text: 'text-[#005a9c]', ring: 'ring-neutral-200', icon: 'bg-white text-[#005a9c]', card: '#ececec' },

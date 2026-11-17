@@ -18,7 +18,7 @@ const Hi: React.FC<{ children: React.ReactNode }> = ({ children }) => <span styl
 
 export const COPY: Record<'en' | 'hi', Copy> = {
   en: {
-    hook: { q: <>Still running your<br />institute on…</>, items: ['Registers', 'Excel sheets', 'Fee diaries'], a: <>There's a <Hi>smarter</Hi> way.</> },
+    hook: { q: <>Still running your<br />institute on…</>, items: ['Paper registers', 'Excel sheets', 'WhatsApp chats'], a: <>There's a <Hi>smarter</Hi> way.</> },
     attendance: <>Attendance<br />in <Hi>one tap</Hi>.</>,
     fees: <>Every payment,<br /><Hi>on record</Hi>.</>,
     leads: <>No enquiry<br /><Hi>forgotten</Hi>.</>,

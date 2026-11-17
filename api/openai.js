@@ -1,8 +1,17 @@
+import { readToken, bearer } from './_lib/auth.js';
+
 export const config = { maxDuration: 60 };
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: { message: 'Method not allowed' } });
+    return;
+  }
+
+  // Only signed-in admins and teachers may spend the institute's OpenAI credit.
+  const session = readToken(bearer(req));
+  if (!session || !['admin', 'teacher'].includes(session.role)) {
+    res.status(401).json({ error: { message: 'Please sign in again.' } });
     return;
   }
 

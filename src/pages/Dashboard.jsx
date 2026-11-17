@@ -1,26 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Search, Bell, Plus, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, ChevronDown,
-  Trash2, Pencil, ArrowRight, CheckCircle2, CalendarCheck, Wallet, Phone, Users, GraduationCap, Building2,
+  Search, Bell, Plus, ArrowUp, ArrowDown, ChevronRight, ChevronDown,
+  Trash2, Pencil, ArrowRight, CheckCircle2, Wallet, Phone, Users, GraduationCap, Building2,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { AppHeader } from '../components/AppHeader';
+import { AppHeader, SyncStatus } from '../components/AppHeader';
 import { useClassroom, todayISO, formatMoney } from '../services/classroom';
-import { attendanceRate, compactMoney } from '../components/ui';
+import { describeStudentBatches } from '../services/teachers';
+import { StudentBatches } from '../components/StudentBatches';
+import { compactMoney, lastMonths } from '../components/ui';
+import GrowthChart from '../components/GrowthChart';
 
 /* ───────────── palette (taken from the reference design) ───────────── */
 const PINK = '#1b365d';
 const YELLOW = '#ececec';
 const BLUE = '#f6f6f6';
 const LILAC = '#d4d4d8';
-
-const CHIP = {
-  blue: 'bg-neutral-100 text-neutral-900 ring-1 ring-inset ring-neutral-200',
-  yellow: 'bg-neutral-200 text-neutral-900',
-  pink: 'bg-[#005a9c] text-white',
-  lilac: 'bg-[#1b365d] text-white',
-};
 
 const AVATAR = [['#1f1f1f', '#ffffff'], ['#e5e5e5', '#171717'], ['#525252', '#ffffff'], ['#f0f0f0', '#171717']];
 const avatarColors = (name) => {
@@ -36,14 +32,9 @@ const LEAD_STAGES = [
   { id: 'joined', label: 'Joined', color: '#005a9c', text: '#005a9c' },
 ];
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const SLOTS = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'];
-
 /* ───────────── date helpers ───────────── */
 const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
-const startOfWeek = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; };
 const monthsAgo = (n) => { const x = new Date(); x.setMonth(x.getMonth() - n); return x; };
 
 /* ───────────── small pieces ───────────── */
@@ -64,149 +55,149 @@ function Pill({ dir = 'flat', children }) {
   );
 }
 
-function StatTile({ to, label, value, bg, pill, dark }) {
+function StatTile({ to, label, short, icon: Icon, value, bg, pill, dark }) {
   return (
-    <div className={`rounded-3xl p-5 sm:p-6 min-h-[168px] flex flex-col justify-between min-w-0 ${dark ? '' : 'ring-1 ring-inset ring-neutral-200'}`} style={{ background: bg }}>
-      <div className="flex items-start justify-between gap-2">
-        <p className={`text-[15px] font-medium ${dark ? 'text-white/70' : 'text-neutral-800'}`}>{label}</p>
-        <Link to={to} aria-label={`Open ${label}`} className={`h-8 w-11 shrink-0 rounded-full grid place-items-center transition-shadow hover:shadow-md ${dark ? 'bg-white/15' : 'bg-white'}`}>
-          <span className="flex gap-[3px]">{[0, 1, 2].map((i) => <span key={i} className={`h-[3.5px] w-[3.5px] rounded-full ${dark ? 'bg-white' : 'bg-neutral-900'}`} />)}</span>
-        </Link>
+    <Link
+      to={to}
+      aria-label={`Open ${label}`}
+      className={`rounded-2xl sm:rounded-3xl p-3 sm:p-6 min-h-[104px] sm:min-h-[168px] flex flex-col justify-between min-w-0 transition-transform active:scale-[0.97] ${dark ? '' : 'ring-1 ring-inset ring-neutral-200'}`}
+      style={{ background: bg }}
+    >
+      <div className="flex items-center justify-between gap-1">
+        <p className={`text-xs sm:text-[15px] font-medium truncate ${dark ? 'text-white/75' : 'text-neutral-700'}`}>
+          <span className="sm:hidden">{short || label}</span>
+          <span className="hidden sm:inline">{label}</span>
+        </p>
+        {Icon && (
+          <span className={`h-7 w-7 sm:h-8 sm:w-8 shrink-0 rounded-full grid place-items-center ${dark ? 'bg-white/15 text-white' : 'bg-white text-neutral-900'}`}>
+            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          </span>
+        )}
       </div>
       <div className="min-w-0">
-        <p className={`text-[2.3rem] xl:text-[2.6rem] leading-none font-medium tracking-tight tabular-nums truncate ${dark ? 'text-white' : 'text-neutral-900'}`}>{value}</p>
-        <div className={`mt-5 flex items-center gap-2.5 text-sm ${dark ? 'text-white/60' : 'text-neutral-700'}`}>
+        <p className={`text-xl sm:text-[2.3rem] xl:text-[2.6rem] leading-none font-semibold sm:font-medium tracking-tight tabular-nums truncate ${dark ? 'text-white' : 'text-neutral-900'}`}>{value}</p>
+        <div className={`hidden sm:flex mt-5 items-center gap-2.5 text-sm ${dark ? 'text-white/60' : 'text-neutral-700'}`}>
           Last 7 Days {pill}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
-/* ───────────── calendar ───────────── */
-function TimeGrid({ days, eventsFor, todayStr }) {
-  const cols = `64px repeat(${days.length}, minmax(0, 1fr))`;
+function QuickActions({ className = '' }) {
+  const base = 'h-12 sm:h-14 px-3 sm:px-4 rounded-2xl flex items-center justify-center sm:justify-between gap-1.5 text-sm sm:text-[15px] font-medium transition';
   return (
-    <div className="overflow-x-auto">
-      <div className={`rounded-2xl border border-neutral-200 overflow-hidden ${days.length > 1 ? 'min-w-[640px]' : ''}`}>
-        <div className="grid border-b border-neutral-200 text-[13px] font-medium text-neutral-800" style={{ gridTemplateColumns: cols }}>
-          <div className="px-3 py-2.5">Time</div>
-          {days.map((d) => (
-            <div key={iso(d)} className={`px-3 py-2.5 text-center border-l border-neutral-200 ${iso(d) === todayStr ? 'text-[#005a9c] font-bold' : ''}`}>
-              {DOW[(d.getDay() + 6) % 7]} <span className="font-normal text-neutral-400">{d.getDate()}</span>
-            </div>
-          ))}
-        </div>
-        {SLOTS.map((slot) => (
-          <div key={slot} className="grid border-b border-neutral-200 last:border-b-0" style={{ gridTemplateColumns: cols }}>
-            <div className="px-3 h-11 flex items-center text-[13px] font-medium text-neutral-800">{slot}</div>
-            {days.map((d) => {
-              const ds = iso(d);
-              const weekend = d.getDay() === 0 || d.getDay() === 6;
-              const evs = eventsFor(ds).filter((e) => e.slot === slot);
-              return (
-                <div key={ds} className={`h-11 p-1 border-l border-neutral-200 min-w-0 ${weekend ? 'bg-neutral-200/60' : ds === todayStr ? 'bg-[#eef7fc]' : ''}`}>
-                  {evs.map((e) => (
-                    <Link key={e.id} to={e.to} title={e.label} className={`block truncate rounded-md px-2 py-1 text-xs font-medium ${CHIP[e.tone]}`}>{e.label}</Link>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+    <div className={`grid grid-cols-3 xl:grid-cols-2 gap-2 sm:gap-3 ${className}`}>
+      <Link to="/students" className={`${base} text-white bg-[#005a9c] hover:bg-[#1b365d]`}>
+        <Plus className="w-4 h-4 sm:hidden" />Student<Plus className="hidden sm:block w-5 h-5" />
+      </Link>
+      <Link to="/fees" className={`${base} text-neutral-900 bg-white ring-1 ring-neutral-200 hover:bg-neutral-50`}>
+        <Plus className="w-4 h-4 sm:hidden" />Fee<Plus className="hidden sm:block w-5 h-5" />
+      </Link>
+      <Link to="/leads?new=1" className={`${base} xl:col-span-2 text-neutral-900 bg-white ring-1 ring-neutral-200 hover:bg-neutral-50`}>
+        <Plus className="w-4 h-4 sm:hidden" />Inquiry<Plus className="hidden sm:block w-5 h-5" />
+      </Link>
     </div>
   );
 }
 
-function MonthGrid({ anchor, eventsFor, todayStr }) {
-  const y = anchor.getFullYear();
-  const m = anchor.getMonth();
-  const first = new Date(y, m, 1);
-  const lead = (first.getDay() + 6) % 7;
-  const weeks = Math.ceil((lead + new Date(y, m + 1, 0).getDate()) / 7);
-  const cells = Array.from({ length: weeks * 7 }, (_, i) => addDays(startOfWeek(first), i));
+/* ───────────── growth: fees and enquiries over time ───────────── */
+const monthTitle = (key) => new Date(`${key}-01T00:00:00`).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+const sum = (list) => list.reduce((total, v) => total + v, 0);
+
+/** Percentage change from the first half of a series to the second half, or null when there is no baseline. */
+function halfGrowth(values) {
+  const mid = Math.floor(values.length / 2);
+  const before = sum(values.slice(0, mid));
+  const after = sum(values.slice(values.length - mid));
+  return before > 0 ? Math.round(((after - before) / before) * 100) : null;
+}
+
+function GrowthPanel({ title, big, caption, series, color, format, integer }) {
+  const change = halfGrowth(series.map((d) => d.value));
+  const half = Math.floor(series.length / 2);
+  const up = change != null && change >= 0;
   return (
-    <div className="overflow-x-auto">
-      <div className="min-w-[640px] rounded-2xl border border-neutral-200 overflow-hidden">
-        <div className="grid grid-cols-7 border-b border-neutral-200 text-[13px] font-medium text-neutral-800">
-          {DOW.map((d, i) => <div key={d} className={`px-3 py-2.5 ${i ? 'border-l border-neutral-200' : ''}`}>{d}</div>)}
+    <div className="min-w-0 rounded-2xl border border-neutral-200 p-4 sm:p-5">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-neutral-600">{title}</p>
+          <p className="mt-1 text-[1.9rem] leading-none font-medium tracking-tight tabular-nums text-neutral-900">{big}</p>
+          <p className="mt-1.5 text-xs text-neutral-500">{caption}</p>
         </div>
-        <div className="grid grid-cols-7">
-          {cells.map((d, i) => {
-            const ds = iso(d);
-            const inMonth = d.getMonth() === m;
-            const weekend = d.getDay() === 0 || d.getDay() === 6;
-            const evs = eventsFor(ds);
-            return (
-              <div key={ds} className={`min-h-[84px] p-1.5 border-neutral-200 ${i % 7 ? 'border-l' : ''} ${i >= 7 ? 'border-t' : ''} ${weekend ? 'bg-neutral-200/50' : ''}`}>
-                <p className={`mb-1 text-xs font-medium ${ds === todayStr ? 'inline-grid h-5 w-5 place-items-center rounded-full bg-neutral-900 text-white' : inMonth ? 'text-neutral-700' : 'text-neutral-300'}`}>{d.getDate()}</p>
-                <div className="space-y-1">
-                  {inMonth && evs.slice(0, 2).map((e) => (
-                    <Link key={e.id} to={e.to} title={e.label} className={`block truncate rounded px-1.5 py-0.5 text-[11px] font-medium ${CHIP[e.tone]}`}>{e.label}</Link>
-                  ))}
-                  {inMonth && evs.length > 2 && <p className="px-1 text-[11px] text-neutral-400">+{evs.length - 2} more</p>}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {change != null && (
+          <span
+            title={`Last ${half} months compared with the ${half} before`}
+            className={`shrink-0 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[13px] font-medium ${up ? 'bg-[#e6f4ea] text-[#17653a]' : 'bg-[#fdeaea] text-[#a42a2a]'}`}
+          >
+            {up ? <ArrowUp className="w-3.5 h-3.5" strokeWidth={2.4} /> : <ArrowDown className="w-3.5 h-3.5" strokeWidth={2.4} />}
+            {Math.abs(change)}%
+          </span>
+        )}
       </div>
+      <GrowthChart data={series} color={color} format={format} ariaLabel={`${title} by month`} partialLast integer={integer} />
+      {change != null && <p className="mt-1 text-[11px] text-neutral-400">Last {half} months vs the {half} before. The dotted part is this month so far.</p>}
     </div>
   );
 }
 
-function CalendarCard({ eventsFor, todayStr }) {
-  const [view, setView] = useState('week');
-  const [anchor, setAnchor] = useState(() => new Date());
+function GrowthCard({ payments, leads }) {
+  const [months, setMonths] = useState(12);
+  const span = lastMonths(months);
 
-  const shift = (dir) => setAnchor((a) => {
-    const d = new Date(a);
-    if (view === 'day') d.setDate(d.getDate() + dir);
-    else if (view === 'week') d.setDate(d.getDate() + 7 * dir);
-    else if (view === 'month') { d.setDate(1); d.setMonth(d.getMonth() + dir); } else d.setFullYear(d.getFullYear() + dir);
-    return d;
-  });
+  const fees = span.map(({ key, label }) => ({
+    label,
+    title: monthTitle(key),
+    value: sum(payments.filter((p) => (p.date || '').startsWith(key)).map((p) => p.amount || 0)),
+  }));
+  const enquiries = span.map(({ key, label }) => ({
+    label,
+    title: monthTitle(key),
+    value: leads.filter((l) => (l.createdAt || '').startsWith(key)).length,
+  }));
 
-  const label = view === 'year' ? String(anchor.getFullYear()) : `${MONTHS[anchor.getMonth()]}, ${anchor.getFullYear()}`;
-  const weekStart = startOfWeek(anchor);
-  const days = view === 'day' ? [anchor] : Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
-
+  const thisMonth = span.length - 1;
   return (
     <section className="rounded-3xl bg-white p-5 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-      <header className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <h2 className="text-lg font-medium text-neutral-800">Calendar</h2>
-        <div className="flex items-center gap-1">
-          <button type="button" onClick={() => shift(-1)} aria-label="Previous" className="h-8 w-8 grid place-items-center rounded-lg text-neutral-500 hover:bg-neutral-100"><ChevronLeft className="w-4 h-4" /></button>
-          <button type="button" onClick={() => setAnchor(new Date())} title="Jump to today" className="px-1 text-sm font-semibold text-neutral-800 hover:text-[#005a9c]">{label}</button>
-          <button type="button" onClick={() => shift(1)} aria-label="Next" className="h-8 w-8 grid place-items-center rounded-lg text-neutral-500 hover:bg-neutral-100"><ChevronRight className="w-4 h-4" /></button>
+      <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-medium text-neutral-800">Institute growth</h2>
+          <p className="text-sm text-neutral-500">Fees collected and new enquiries, month by month.</p>
         </div>
-        <div className="ml-auto flex items-center gap-1 text-sm text-neutral-500">
-          {['day', 'week', 'month', 'year'].map((v) => (
-            <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v}
-              className={`h-8 px-3 rounded-lg capitalize transition-colors ${view === v ? 'bg-neutral-100 font-medium text-neutral-900' : 'hover:text-neutral-900'}`}>{v}</button>
+        <div className="flex items-center gap-1 text-sm text-neutral-500" role="group" aria-label="Period">
+          {[6, 12].map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => setMonths(n)}
+              aria-pressed={months === n}
+              className={`h-8 px-3 rounded-lg transition-colors ${months === n ? 'bg-neutral-100 font-medium text-neutral-900' : 'hover:text-neutral-900'}`}
+            >
+              {n} months
+            </button>
           ))}
         </div>
       </header>
 
-      {(view === 'week' || view === 'day') && <TimeGrid days={days} eventsFor={eventsFor} todayStr={todayStr} />}
-      {view === 'month' && <MonthGrid anchor={anchor} eventsFor={eventsFor} todayStr={todayStr} />}
-      {view === 'year' && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {MONTHS.map((name, i) => (
-            <button key={name} type="button" onClick={() => { setAnchor(new Date(anchor.getFullYear(), i, 1)); setView('month'); }}
-              className={`h-20 rounded-2xl border text-sm font-medium transition-colors hover:bg-neutral-50 ${i === new Date().getMonth() && anchor.getFullYear() === new Date().getFullYear() ? 'border-[#005a9c] bg-[#005a9c] text-white' : 'border-neutral-200 text-neutral-700'}`}>
-              {name}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-neutral-500">
-        {[['blue', 'Roll call'], ['yellow', 'Follow-up calls'], ['pink', 'Fees due'], ['lilac', 'Payments']].map(([tone, name]) => (
-          <span key={name} className="inline-flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${CHIP[tone].split(' ')[0]}`} />{name}</span>
-        ))}
-      </p>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <GrowthPanel
+          title="Fees collected"
+          big={compactMoney(sum(fees.map((d) => d.value)))}
+          caption={`${compactMoney(fees[thisMonth].value)} so far this month`}
+          series={fees}
+          color="#005a9c"
+          format={compactMoney}
+        />
+        <GrowthPanel
+          title="New enquiries"
+          big={String(sum(enquiries.map((d) => d.value)))}
+          caption={`${enquiries[thisMonth].value} so far this month`}
+          series={enquiries}
+          color="#1f9d6b"
+          format={(v) => String(Math.round(v))}
+          integer
+        />
+      </div>
     </section>
   );
 }
@@ -279,7 +270,7 @@ function Notifications({ items }) {
 
 /* ───────────── page ───────────── */
 export default function Dashboard() {
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
   const room = useClassroom();
 
@@ -290,15 +281,6 @@ export default function Dashboard() {
   const today = todayISO();
   const weekAgo = iso(addDays(new Date(), -6));
   const totalStudents = room.students.length;
-
-  /* attendance */
-  const todayMarks = room.attendance[today] || {};
-  const ids = room.students.map((s) => s.id);
-  const attendancePercent = attendanceRate(todayMarks, ids);
-  const unmarkedCount = room.students.filter((s) => !todayMarks[s.id]).length;
-  const prevRates = Array.from({ length: 7 }, (_, i) => attendanceRate(room.attendance[iso(addDays(new Date(), -(i + 1)))], ids)).filter((v) => v != null);
-  const prevAvg = prevRates.length ? prevRates.reduce((a, b) => a + b, 0) / prevRates.length : null;
-  const attDelta = attendancePercent != null && prevAvg != null ? Math.round(attendancePercent - prevAvg) : null;
 
   /* fees */
   const totalFeesExpected = room.students.reduce((sum, s) => sum + (s.fee || 0), 0);
@@ -320,9 +302,7 @@ export default function Dashboard() {
   const addedThisWeek = room.students.filter((s) => (s.createdAt || '') >= weekAgo).length;
 
   /* header bits */
-  const teacherName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Teacher';
   const todo = [
-    totalStudents > 0 && unmarkedCount > 0 && { to: '/attendance', icon: CalendarCheck, text: `Mark attendance for ${unmarkedCount} student${unmarkedCount > 1 ? 's' : ''}` },
     overdue.length > 0 && { to: '/fees', icon: Wallet, text: `${overdue.length} fee${overdue.length > 1 ? 's' : ''} past due date` },
     followUpsDue.length > 0 && { to: '/leads', icon: Phone, text: `Call ${followUpsDue.length} inquir${followUpsDue.length > 1 ? 'ies' : 'y'} today` },
   ].filter(Boolean);
@@ -331,30 +311,15 @@ export default function Dashboard() {
     { done: !!room.institute?.name, label: 'Institute details', to: '/profile', icon: Building2 },
     { done: room.classes.length > 0, label: 'Classes & batches', to: '/classes', icon: GraduationCap },
     { done: totalStudents > 0, label: 'Add students', to: '/students', icon: Users },
-    { done: Object.keys(room.attendance).length > 0, label: 'Mark attendance', to: '/attendance', icon: CalendarCheck },
+    { done: room.teachers.length > 0, label: 'Add teachers', to: '/teachers', icon: Users },
   ];
   const setupDone = setup.filter((s) => s.done).length;
-
-  /* calendar events: one chip per kind per day */
-  const eventsFor = (dateISO) => {
-    const out = [];
-    const marks = room.attendance[dateISO];
-    const vals = marks ? Object.values(marks).filter(Boolean) : [];
-    if (vals.length) out.push({ id: 'att', slot: '09:30', tone: 'blue', label: `Roll call ${vals.filter((v) => v === 'P').length}/${vals.length}`, to: '/attendance' });
-    const calls = activeLeads.filter((l) => l.followUp === dateISO);
-    if (calls.length) out.push({ id: 'call', slot: '10:30', tone: 'yellow', label: calls.length === 1 ? `Call ${calls[0].name}` : `${calls.length} follow-up calls`, to: '/leads' });
-    const dues = studentsOwing.filter((s) => s.feeDate === dateISO);
-    if (dues.length) out.push({ id: 'due', slot: '11:00', tone: 'pink', label: dues.length === 1 ? `${dues[0].name} fee due` : `${dues.length} fees due`, to: '/fees' });
-    const pays = room.payments.filter((p) => p.date === dateISO);
-    if (pays.length) out.push({ id: 'pay', slot: '11:30', tone: 'lilac', label: `${pays.length} payment${pays.length > 1 ? 's' : ''} · ${compactMoney(pays.reduce((s, p) => s + (p.amount || 0), 0))}`, to: '/fees' });
-    return out;
-  };
 
   /* recently added students (newest first; older records without a date keep class order) */
   const q = query.trim().toLowerCase();
   const byNewest = [...room.students].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
   const rows = (q
-    ? byNewest.filter((s) => `${s.name} ${s.phone || ''} ${s.className || ''} ${s.section || ''}`.toLowerCase().includes(q)).slice(0, 8)
+    ? byNewest.filter((s) => `${s.name} ${s.phone || ''} ${describeStudentBatches(s, room.classes)}`.toLowerCase().includes(q)).slice(0, 8)
     : byNewest.slice(0, 5));
   const rowIds = rows.map((s) => s.id);
   const allPicked = rows.length > 0 && rowIds.every((id) => picked.has(id));
@@ -366,9 +331,12 @@ export default function Dashboard() {
     setPicked(new Set());
   };
 
-  const statusOf = (s) => (todayMarks[s.id] === 'P' ? { label: 'Present', dot: 'bg-neutral-900', tone: 'bg-neutral-900 text-white' }
-    : todayMarks[s.id] === 'A' ? { label: 'Absent', dot: 'bg-white ring-1 ring-neutral-900', tone: 'bg-white text-neutral-900 ring-1 ring-inset ring-neutral-300' }
-      : { label: 'Not marked', dot: 'bg-neutral-300', tone: 'bg-neutral-100 text-neutral-500' });
+  // Attendance belongs to teachers, so the admin's list shows when each student joined.
+  const statusOf = (s) => ({
+    label: s.createdAt ? new Date(`${s.createdAt}T00:00:00`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '—',
+    dot: 'bg-[#005a9c]',
+    tone: 'bg-neutral-100 text-neutral-700',
+  });
 
   /* recent activity from real records */
   const nameOf = (id) => room.students.find((s) => s.id === id)?.name || 'A student';
@@ -406,22 +374,20 @@ export default function Dashboard() {
                 className="h-12 w-full rounded-full bg-white/80 pl-12 pr-4 text-[15px] text-neutral-900 placeholder:text-neutral-500 outline-none"
               />
             </label>
+            <SyncStatus />
             <Notifications items={todo} />
-            <Link to="/profile" title={teacherName} className="h-12 w-12 shrink-0 rounded-full bg-neutral-900 text-white grid place-items-center text-base font-semibold ring-2 ring-white shadow-sm">
-              {teacherName.trim().charAt(0).toUpperCase()}
-            </Link>
           </div>
         </div>
 
         {setupDone < setup.length && (
-          <section className="mb-6 rounded-3xl p-5 sm:p-6" style={{ background: YELLOW }}>
+          <section className="mb-5 sm:mb-6 rounded-3xl p-4 sm:p-6" style={{ background: YELLOW }}>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-lg font-medium text-neutral-900">Get started</h2>
               <span className="text-sm font-medium text-neutral-800/80">{setupDone} of {setup.length} done</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-3">
               {setup.map(({ done, label, to, icon: Icon }, i) => (
-                <Link key={to} to={to} className={`rounded-2xl p-3.5 flex items-center gap-3 transition ${done ? 'bg-white/40 text-neutral-700' : 'bg-white text-neutral-900 hover:-translate-y-0.5'}`}>
+                <Link key={to} to={to} className={`rounded-2xl p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 transition ${done ? 'bg-white/40 text-neutral-700' : 'bg-white text-neutral-900 hover:-translate-y-0.5'}`}>
                   <span className="h-9 w-9 shrink-0 rounded-full grid place-items-center" style={{ background: done ? 'rgba(255,255,255,0.6)' : BLUE }}>
                     {done ? <CheckCircle2 className="w-5 h-5 text-[#005a9c]" /> : <Icon className="w-[18px] h-[18px]" />}
                   </span>
@@ -434,28 +400,26 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 items-start">
           {/* left column */}
-          <div className="space-y-6 min-w-0">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="space-y-4 sm:space-y-6 min-w-0">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
               <StatTile
-                to="/students" label="Total Students" value={totalStudents.toLocaleString('en-IN')} bg={PINK} dark
+                to="/students" label="Total Students" short="Students" icon={Users} value={totalStudents.toLocaleString('en-IN')} bg={PINK} dark
                 pill={<Pill dir={addedThisWeek ? 'up' : 'flat'}>{addedThisWeek ? `+${addedThisWeek}` : '0 new'}</Pill>}
               />
               <StatTile
-                to="/fees" label="Fees Pending" value={pendingText} bg={YELLOW}
+                to="/fees" label="Fees Pending" short="Fees due" icon={Wallet} value={pendingText} bg={YELLOW}
                 pill={<Pill dir={collectedWeek ? 'up' : 'flat'}>{collectedWeek ? `${compactMoney(collectedWeek)} paid` : 'No payments'}</Pill>}
-              />
-              <StatTile
-                to="/attendance" label="Today's Attendance" value={attendancePercent != null ? `${attendancePercent}%` : '—'} bg={BLUE}
-                pill={attDelta == null ? <Pill>{attendancePercent == null ? 'Not marked' : 'No history'}</Pill> : <Pill dir={attDelta > 0 ? 'up' : attDelta < 0 ? 'down' : 'flat'}>{Math.abs(attDelta)}%</Pill>}
               />
             </div>
 
-            <CalendarCard eventsFor={eventsFor} todayStr={today} />
+            <QuickActions className="xl:hidden" />
+
+            <GrowthCard payments={room.payments} leads={room.leads} />
 
             {/* recently added students */}
             <section className="rounded-3xl bg-white p-5 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
               <header className="mb-4 flex items-center justify-between gap-3">
-                <h2 className="text-lg font-medium text-neutral-800">{q ? `Results for “${query.trim()}”` : 'Recently Added Student'}</h2>
+                <h2 className="text-lg font-medium text-neutral-800">{q ? `Results for “${query.trim()}”` : 'New students'}</h2>
                 <div className="flex items-center gap-3">
                   {picked.size > 0 && (
                     <button type="button" onClick={() => removeStudents([...picked], `${picked.size} selected student${picked.size > 1 ? 's' : ''}`)}
@@ -473,13 +437,29 @@ export default function Dashboard() {
                   {!q && <Link to="/students" className="mt-3 inline-flex h-10 items-center rounded-full bg-[#005a9c] px-5 text-sm font-medium text-white transition hover:bg-[#1b365d]">Add your first student</Link>}
                 </div>
               ) : (
-                <div className="overflow-x-auto rounded-2xl border border-neutral-200">
+                <>
+                <ul className="sm:hidden divide-y divide-neutral-100 -mx-1">
+                  {rows.map((s) => {
+                    const st = statusOf(s);
+                    return (
+                      <li key={s.id} className="flex items-center gap-3 px-1 py-2.5">
+                        <Avatar name={s.name} className="h-10 w-10 text-xs" />
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-neutral-900 truncate">{s.name}</p>
+                          <p className="text-xs text-neutral-500 truncate">{describeStudentBatches(s, room.classes) || '—'}</p>
+                        </div>
+                        <span className={`shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium ${st.tone}`}>{st.label}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="hidden sm:block overflow-x-auto rounded-2xl border border-neutral-200">
                   <table className="w-full min-w-[640px] text-sm">
                     <thead>
                       <tr className="bg-neutral-50/70 text-left text-[13px] font-medium text-neutral-600">
                         <th className="w-14 px-4 py-3"><input type="checkbox" checked={allPicked} onChange={toggleAll} aria-label="Select all" className="h-5 w-5 rounded-md accent-neutral-900" /></th>
                         <th className="px-3 py-3">Name</th>
-                        <th className="px-3 py-3">Status today</th>
+                        <th className="px-3 py-3">Joined</th>
                         <th className="px-3 py-3">Phone</th>
                         <th className="px-3 py-3">Class</th>
                         <th className="px-3 py-3 w-24" />
@@ -496,7 +476,7 @@ export default function Dashboard() {
                                 <Avatar name={s.name} className="h-11 w-11 text-sm" />
                                 <div className="min-w-0">
                                   <p className="font-medium text-neutral-900 truncate">{s.name}</p>
-                                  <p className="text-[13px] text-neutral-500 truncate">{s.section ? `Batch ${s.section}` : s.className || '—'}</p>
+                                  <StudentBatches student={s} classes={room.classes} className="mt-0.5" />
                                 </div>
                               </div>
                             </td>
@@ -519,6 +499,7 @@ export default function Dashboard() {
                     </tbody>
                   </table>
                 </div>
+                </>
               )}
             </section>
           </div>
@@ -526,19 +507,9 @@ export default function Dashboard() {
           {/* right column */}
           <aside className="space-y-6 min-w-0">
             <section className="rounded-3xl bg-white/80 p-4 sm:p-5">
-              <div className="grid grid-cols-2 gap-3">
-                <Link to="/students" className="h-14 px-4 rounded-2xl flex items-center justify-between text-[15px] font-medium text-white bg-[#005a9c] hover:bg-[#1b365d] transition">
-                  Add Student <Plus className="w-5 h-5" />
-                </Link>
-                <Link to="/fees" className="h-14 px-4 rounded-2xl flex items-center justify-between text-[15px] font-medium text-neutral-900 bg-white ring-1 ring-neutral-200 hover:bg-neutral-50 transition">
-                  Record Fee <Plus className="w-5 h-5" />
-                </Link>
-                <Link to="/leads" className="col-span-2 h-14 px-4 rounded-2xl flex items-center justify-center gap-3 text-[15px] font-medium text-neutral-900 bg-white ring-1 ring-neutral-200 hover:bg-neutral-50 transition">
-                  New Inquiry <Plus className="w-5 h-5" />
-                </Link>
-              </div>
+              <QuickActions className="hidden xl:grid mb-7" />
 
-              <h2 className="mt-7 mb-4 text-lg font-medium text-neutral-700">Recent Activity</h2>
+              <h2 className="mb-4 text-lg font-medium text-neutral-700">Recent Activity</h2>
               {activity.length === 0 ? (
                 <p className="text-sm text-neutral-500">No activity yet.</p>
               ) : (

@@ -1,124 +1,83 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase, isSupabaseConfigured } from '../services/supabase';
+import { cloudEnabled, callDb, getToken, setToken } from '../services/cloud';
+import { resetClassroomStores } from '../services/classroom';
 
 const AuthContext = createContext();
+
+// Keys older versions used to keep accounts and institute data in the browser. Everything lives in
+// MongoDB now, so they are removed on start-up and never read.
+const LEGACY_KEY = /^edu_(classroom_|admin_accounts$|admin_session$|super_session$|teacher_session$|demo_user$|owner_password$|sessions_|questions_|asked_|chapter_asked_|session_meta_)/;
+function forgetLegacyStorage() {
+  try {
+    Object.keys(localStorage).filter((key) => LEGACY_KEY.test(key)).forEach((key) => localStorage.removeItem(key));
+  } catch { /* storage blocked: nothing to remove */ }
+}
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isDemoMode, setIsDemoMode] = useState(false);
+  // 'checking' while asking the server, 'cloud' when MongoDB is reachable, 'offline' when it is not.
+  const [backend, setBackend] = useState('checking');
 
   useEffect(() => {
-    // Check configuration status dynamically
-    const configured = isSupabaseConfigured();
-    
-    if (!configured) {
-      setIsDemoMode(true);
-      const savedUser = localStorage.getItem('edu_demo_user');
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
-      } else {
-        setUser(null);
+    let cancelled = false;
+    let timer;
+    forgetLegacyStorage();
+    const run = async () => {
+      const ready = await cloudEnabled();
+      if (cancelled) return;
+      if (!ready) {
+        setBackend('offline');
+        setLoading(false);
+        timer = setTimeout(run, 5000); // keep asking; sign-in opens as soon as the server is back
+        return;
       }
-      setLoading(false);
-      return;
-    }
-
-    setIsDemoMode(false);
-    
-    // Retrieve initial session from Supabase
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    }).catch(err => {
-      console.error('Supabase getSession error, entering fallback demo mode:', err);
-      setIsDemoMode(true);
-      setLoading(false);
-    });
-
-    // Listen to Auth State Changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => {
-      if (subscription) subscription.unsubscribe();
+      setBackend('cloud');
+      if (getToken()) {
+        try {
+          const { user: fresh } = await callDb('me');
+          if (!cancelled) setUser(fresh);
+        } catch (err) {
+          // Only a refused session signs out; a network blip keeps the token for the next visit.
+          if (err.status === 401) setToken('');
+        }
+      }
+      if (!cancelled) setLoading(false);
     };
+    run();
+    return () => { cancelled = true; clearTimeout(timer); };
   }, []);
 
-  // Login handler
-  const signIn = async (email, password) => {
-    if (isDemoMode) {
-      const mockUser = {
-        id: 'demo-student-uuid',
-        email: email,
-        user_metadata: { full_name: 'Demo Student' },
-        email_confirmed_at: new Date().toISOString()
-      };
-      setUser(mockUser);
-      localStorage.setItem('edu_demo_user', JSON.stringify(mockUser));
-      return { data: { user: mockUser }, error: null };
+  const signInAs = async (role, loginId, password) => {
+    if (!(await cloudEnabled())) {
+      return { data: null, error: new Error('The database is not reachable. Try again in a moment.') };
     }
-    
     try {
-      const result = await supabase.auth.signInWithPassword({ email, password });
-      return result;
+      const { token, user: nextUser } = await callDb('login', { role, loginId, password });
+      setToken(token);
+      resetClassroomStores();
+      setBackend('cloud');
+      setUser(nextUser);
+      return { data: { user: nextUser }, error: null };
     } catch (err) {
-      return { data: null, error: err };
+      return { data: null, error: new Error(err.message) };
     }
   };
 
-  // Sign up handler
-  const signUp = async (email, password, fullName) => {
-    if (isDemoMode) {
-      const mockUser = {
-        id: 'demo-student-uuid',
-        email: email,
-        user_metadata: { full_name: fullName || 'Demo Student' },
-        email_confirmed_at: new Date().toISOString()
-      };
-      setUser(mockUser);
-      localStorage.setItem('edu_demo_user', JSON.stringify(mockUser));
-      return { data: { user: mockUser }, error: null };
-    }
-    
-    try {
-      const result = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-          }
-        }
-      });
-      return result;
-    } catch (err) {
-      return { data: null, error: err };
-    }
-  };
+  const signIn = (loginId, password) => signInAs('admin', loginId, password);
+  const signInAsTeacher = (email, password) => signInAs('teacher', email, password);
+  const signInAsReceptionist = (email, password) => signInAs('receptionist', email, password);
+  const signInAsSuperAdmin = (loginId, password) => signInAs('superadmin', loginId, password);
 
-  // Sign out handler
   const signOut = async () => {
-    if (isDemoMode) {
-      setUser(null);
-      localStorage.removeItem('edu_demo_user');
-      return { error: null };
-    }
-    
-    try {
-      const result = await supabase.auth.signOut();
-      setUser(null);
-      return result;
-    } catch (err) {
-      setUser(null);
-      return { error: err };
-    }
+    resetClassroomStores(); // sends anything still waiting before the token goes
+    setToken('');
+    setUser(null);
+    return { error: null };
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isDemoMode, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isDemoMode: false, backend, signIn, signInAsTeacher, signInAsReceptionist, signInAsSuperAdmin, signOut }}>
       {children}
     </AuthContext.Provider>
   );

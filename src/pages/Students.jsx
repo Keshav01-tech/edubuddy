@@ -18,15 +18,25 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
 import { useClassroom, formatMoney, formatDate } from '../services/classroom';
+import { Picker } from '../components/ui';
 import { studentsFromPdf } from '../services/studentPdf';
+import { batchOptions, studentBatches, timingsOverlap, describeTime, describeDays, inBatch, studentBatchDetails } from '../services/teachers';
+import { StudentBatches } from '../components/StudentBatches';
 
 const field = 'w-full h-11 px-3 text-base bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
 
-export function StudentForm({ initial, onSave, onCancel, classes = [] }) {
+// A student sits in one class and may join several of its batches (one per subject or time).
+// With lockBatches (teachers), only existing batches the teacher takes can be ticked, and the class stays fixed when editing.
+export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false }) {
+  const startClass = initial?.className || classes[0]?.name || '';
+  const firstBatches = (name) => {
+    const item = classes.find((c) => c.name === name);
+    return lockBatches && item?.sections?.length === 1 ? [item.sections[0]] : [];
+  };
   const [form, setForm] = useState({
     name: initial?.name || '',
-    className: initial?.className || classes[0]?.name || '',
-    section: initial?.section || '',
+    className: startClass,
+    batches: initial ? studentBatches(initial) : firstBatches(startClass),
     phone: initial?.phone || '',
     fee: initial?.fee ?? '',
     feeDate: initial?.feeDate || '',
@@ -34,23 +44,38 @@ export function StudentForm({ initial, onSave, onCancel, classes = [] }) {
 
   const chosen = classes.find((item) => item.name === form.className);
   const sections = chosen?.sections || [];
+  const timingOf = (sec) => chosen?.timings?.[sec] || {};
   const set = (key) => (event) => setForm((current) => ({ ...current, [key]: event.target.value }));
+  // A teacher editing sees only their own batches; others the student attends are kept as they are.
+  const shown = form.batches.filter((b) => sections.includes(b));
+  const clashWith = (sec) => shown.find((other) => other !== sec && timingsOverlap(timingOf(sec), timingOf(other)));
+  const subjects = shown.map((b) => timingOf(b).subject).filter(Boolean);
+  const repeatedSubject = subjects.find((sub, i) => subjects.indexOf(sub) !== i);
+  const needsBatch = lockBatches && sections.length > 0 && shown.length === 0;
+
+  const toggle = (sec) => setForm((current) => ({
+    ...current,
+    batches: current.batches.includes(sec) ? current.batches.filter((b) => b !== sec) : [...current.batches, sec],
+  }));
 
   const submit = (event) => {
     event.preventDefault();
-    if (!form.name.trim()) return;
+    if (!form.name.trim() || needsBatch) return;
+    if (lockBatches && !chosen) return;
     onSave({
       name: form.name.trim(),
       className: form.className.trim(),
-      section: form.section.trim(),
+      batches: form.batches,
       phone: form.phone.trim(),
       fee: Number(form.fee) || 0,
       feeDate: form.feeDate,
     });
     if (!initial) {
-      setForm({ name: '', className: form.className, section: '', phone: '', fee: form.fee, feeDate: '' });
+      setForm({ name: '', className: form.className, batches: firstBatches(form.className), phone: '', fee: form.fee, feeDate: '' });
     }
   };
+
+  const classLocked = lockBatches && !!initial;
 
   return (
     <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -67,59 +92,65 @@ export function StudentForm({ initial, onSave, onCancel, classes = [] }) {
         />
       </label>
 
-      <label className="block">
-        <span className="mb-1 block text-xs font-medium text-neutral-600">Class</span>
-        {classes.length > 0 ? (
-          <select
-            className={field}
+      <div className="sm:col-span-2">
+        <span className="mb-1.5 block text-xs font-semibold text-neutral-700">Class{lockBatches ? ' *' : ''}</span>
+        {classLocked ? (
+          <p className={`${field} flex items-center bg-neutral-50 text-neutral-700`}>{form.className}</p>
+        ) : classes.length > 0 ? (
+          <Picker
+            label="Choose class"
+            placeholder="Choose a class"
             value={form.className}
-            aria-label="Class"
-            onChange={(event) => {
-              const name = event.target.value;
-              const next = classes.find((item) => item.name === name);
-              setForm((current) => ({ ...current, className: name, section: next?.sections?.[0] || '' }));
-            }}
-          >
-            {!classes.some((item) => item.name === form.className) && form.className && (
-              <option value={form.className}>{form.className}</option>
-            )}
-            {classes.map((item) => (
-              <option key={item.id} value={item.name}>{item.name}</option>
-            ))}
-          </select>
-        ) : (
-          <input
-            className={field}
-            placeholder="e.g. Class 10"
-            value={form.className}
-            onChange={set('className')}
-            aria-label="Class"
+            onChange={(name) => setForm((current) => ({ ...current, className: name, batches: firstBatches(name) }))}
+            options={[
+              ...(form.className && !classes.some((item) => item.name === form.className) ? [{ value: form.className, label: form.className }] : []),
+              ...classes.map((item) => ({ value: item.name, label: item.name })),
+            ]}
           />
+        ) : lockBatches ? (
+          <p className="text-sm text-neutral-500">No batch is assigned to you yet. Ask your admin to add you to a batch.</p>
+        ) : (
+          <input className={field} placeholder="e.g. Class 10" value={form.className} onChange={set('className')} aria-label="Class" />
         )}
-      </label>
+      </div>
 
-      <label className="block">
-        <span className="mb-1 block text-xs font-medium text-neutral-600">Batch</span>
-        {sections.length > 0 ? (
-          <select className={field} value={form.section} aria-label="Batch" onChange={set('section')}>
-            <option value="">Select a batch</option>
-            {form.section && !sections.includes(form.section) && (
-              <option value={form.section}>{form.section}</option>
-            )}
-            {sections.map((name) => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
-        ) : (
-          <input
-            className={field}
-            placeholder="e.g. Batch A, Morning"
-            value={form.section}
-            onChange={set('section')}
-            aria-label="Batch"
-          />
-        )}
-      </label>
+      {chosen && (
+        <div className="sm:col-span-2">
+          <span className="mb-1.5 block text-xs font-semibold text-neutral-700">
+            Batches{lockBatches ? ' *' : ''} <span className="font-normal text-neutral-400">· tick every batch this student attends</span>
+          </span>
+          {sections.length === 0 ? (
+            <p className="text-sm text-neutral-500">{chosen.name} has no batches yet.{!lockBatches && ' Create them on the Batches page.'}</p>
+          ) : (
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {sections.map((sec) => {
+                const t = timingOf(sec);
+                const on = form.batches.includes(sec);
+                const clash = !on && shown.find((other) => timingsOverlap(t, timingOf(other)));
+                return (
+                  <li key={sec}>
+                    <label className={`flex items-start gap-2.5 rounded-xl px-3 py-2.5 ring-1 transition-colors ${
+                      clash ? 'opacity-50 cursor-not-allowed ring-neutral-200' : on ? 'cursor-pointer ring-[#005a9c] bg-[#eef6fc]' : 'cursor-pointer ring-neutral-200 hover:bg-neutral-50'
+                    }`}>
+                      <input type="checkbox" checked={on} disabled={!!clash} onChange={() => toggle(sec)} className="mt-0.5 h-4 w-4 accent-[#005a9c]" />
+                      <span className="min-w-0 leading-tight">
+                        <span className="block text-sm font-semibold text-neutral-900">Batch {sec}{t.subject ? ` · ${t.subject}` : ''}</span>
+                        <span className="block text-xs text-neutral-500">
+                          {[describeTime(t), describeDays(t.days || []), t.room].filter(Boolean).join(' · ') || 'No time set'}
+                        </span>
+                        {clash && <span className="block text-xs text-rose-600">Same time as Batch {clash}</span>}
+                      </span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          {clashWith && shown.some((b) => clashWith(b)) && <p className="mt-1.5 text-xs text-rose-600">Two ticked batches meet at the same time.</p>}
+          {repeatedSubject && <p className="mt-1.5 text-xs text-amber-700">{repeatedSubject} is ticked twice. Usually a student needs only one batch per subject.</p>}
+          {needsBatch && <p className="mt-1.5 text-xs text-rose-600">Tick at least one batch.</p>}
+        </div>
+      )}
 
       <label className="block">
         <span className="mb-1 block text-xs font-medium text-neutral-600">Parent WhatsApp</span>
@@ -177,7 +208,9 @@ export function StudentForm({ initial, onSave, onCancel, classes = [] }) {
   );
 }
 
-export function PdfImport({ onAdd, onClose }) {
+// With `batches` (teachers), every imported student goes into the batch picked here.
+export function PdfImport({ onAdd, onClose, batches = null }) {
+  const [target, setTarget] = useState(batches?.[0]?.value || '');
   const inputRef = useRef(null);
   const [found, setFound] = useState(null);
   const [picked, setPicked] = useState([]);
@@ -281,6 +314,12 @@ export function PdfImport({ onAdd, onClose }) {
               </li>
             ))}
           </ul>
+          {batches && (
+            <div className="mt-3">
+              <span className="mb-1.5 block text-xs font-semibold text-neutral-700">Add them to</span>
+              <Picker label="Batch for imported students" value={target} onChange={setTarget} options={batches} />
+            </div>
+          )}
           <div className="mt-3 flex gap-2 justify-end">
             <button
               type="button"
@@ -291,9 +330,10 @@ export function PdfImport({ onAdd, onClose }) {
             </button>
             <button
               type="button"
-              disabled={!picked.length}
+              disabled={!picked.length || (batches && !target)}
               onClick={() => {
-                onAdd(picked.map((index) => found[index]));
+                const [className, section = ''] = target.split('||');
+                onAdd(picked.map((index) => (batches ? { ...found[index], className, batches: section ? [section] : [] } : found[index])));
                 setFound(null);
                 if (onClose) onClose();
               }}
@@ -314,7 +354,10 @@ export default function Students() {
   const room = useClassroom();
 
   const [query, setQuery] = useState('');
-  const [selectedClass, setSelectedClass] = useState('all');
+  // Three linked filters: class, then subject, then batch. Each narrows the next one's choices.
+  const [classFilter, setClassFilter] = useState('all');
+  const [subjectFilter, setSubjectFilter] = useState('all');
+  const [batchFilter, setBatchFilter] = useState('all');
   const [showAddForm, setShowAddForm] = useState(false);
   const [showPdfImport, setShowPdfImport] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
@@ -328,28 +371,32 @@ export default function Students() {
   // Reset to page 1 whenever filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [query, selectedClass]);
+  }, [query, classFilter, subjectFilter, batchFilter]);
 
-  // Class & Section/Batch groups
+  // Every batch, with its class and subject, e.g. Class 10 · A · Science.
   const groups = room.classes.flatMap((item) => (
     (item.sections?.length ? item.sections : ['']).map((section) => ({
       id: `${item.name}||${section}`,
       className: item.name,
       section,
-      label: section ? `${item.name}-${section}` : item.name,
+      subject: item.timings?.[section]?.subject || '',
     }))
   ));
+  const countIn = (list) => room.students.filter((st) => list.some((g) => inBatch(st, g.className, g.section))).length;
+  const inClass = groups.filter((g) => classFilter === 'all' || g.className === classFilter);
+  const subjects = [...new Set(inClass.map((g) => g.subject).filter(Boolean))].sort();
+  const inSubject = inClass.filter((g) => subjectFilter === 'all' || g.subject === subjectFilter);
+  const activeBatches = inSubject.filter((g) => batchFilter === 'all' || g.id === batchFilter);
+  const filtering = classFilter !== 'all' || subjectFilter !== 'all' || batchFilter !== 'all';
+  const pickClass = (value) => { setClassFilter(value); setSubjectFilter('all'); setBatchFilter('all'); };
+  const pickSubject = (value) => { setSubjectFilter(value); setBatchFilter('all'); };
 
   const filteredStudents = room.students.filter((student) => {
-    if (selectedClass !== 'all') {
-      const activeGroup = groups.find((g) => g.id === selectedClass);
-      if (activeGroup) {
-        if (student.className !== activeGroup.className) return false;
-        if ((student.section || '') !== (activeGroup.section || '')) return false;
-      }
-    }
+    if (classFilter !== 'all' && student.className !== classFilter) return false;
+    if ((subjectFilter !== 'all' || batchFilter !== 'all') && !activeBatches.some((g) => inBatch(student, g.className, g.section))) return false;
     if (!term) return true;
-    return [student.name, student.className, student.section, student.phone]
+    const batchText = studentBatchDetails(student, room.classes).map((b) => `${b.section} ${b.subject}`).join(' ');
+    return [student.name, student.className, batchText, student.phone]
       .filter(Boolean)
       .join(' ')
       .toLowerCase()
@@ -399,6 +446,13 @@ export default function Students() {
             <p className="mt-1 text-sm text-neutral-500">
               Every student in one place: contact, batch, fee and attendance. {room.students.length} {room.students.length === 1 ? 'student enrolled' : 'students enrolled'}.
             </p>
+            {room.backend === 'cloud' && room.syncState === 'saving' && <p className="mt-1 text-xs font-medium text-neutral-500">Saving to the database…</p>}
+            {room.backend === 'cloud' && room.syncState === 'error' && (
+              <p className="mt-1 text-xs font-medium text-rose-600">
+                Not saved to the database. {room.syncError}{' '}
+                <button type="button" onClick={room.retrySync} className="underline">Try again</button>
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -468,6 +522,7 @@ export default function Students() {
               }}
               onCancel={() => setShowAddForm(false)}
               classes={room.classes}
+              lockBatches={room.isTeacher}
             />
           </section>
         )}
@@ -477,6 +532,7 @@ export default function Students() {
           <div className="mb-5 animate-fade-up">
             <PdfImport
               onAdd={(students) => students.forEach((student) => room.addStudent({ phone: '', ...student }))}
+              batches={room.isTeacher ? batchOptions(room.classes) : null}
               onClose={() => setShowPdfImport(false)}
             />
           </div>
@@ -520,48 +576,72 @@ export default function Students() {
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search by name, class, batch or phone…"
+                  placeholder="Search by name, class, batch, subject or phone…"
                   aria-label="Search students"
                   className={`${field} pl-9`}
                 />
               </div>
 
               {groups.length > 0 && (
-                <div className="flex gap-1.5 overflow-x-auto pb-0.5" role="radiogroup" aria-label="Filter by class">
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={selectedClass === 'all'}
-                    onClick={() => setSelectedClass('all')}
-                    className={`h-8 shrink-0 px-3 rounded-full text-xs font-medium transition-colors ${
-                      selectedClass === 'all'
-                        ? 'bg-[#ededed] text-neutral-900'
-                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                    }`}
-                  >
-                    All classes ({room.students.length})
-                  </button>
-                  {groups.map((item) => {
-                    const count = room.students.filter(
-                      (s) => s.className === item.className && (s.section || '') === (item.section || '')
-                    ).length;
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        role="radio"
-                        aria-checked={selectedClass === item.id}
-                        onClick={() => setSelectedClass(item.id)}
-                        className={`h-8 shrink-0 px-3 rounded-full text-xs font-medium transition-colors ${
-                          selectedClass === item.id
-                            ? 'bg-[#ededed] text-neutral-900'
-                            : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                        }`}
-                      >
-                        {item.label} ({count})
-                      </button>
-                    );
-                  })}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                  <div>
+                    <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">1 · Class</span>
+                    <Picker
+                      label="Filter by class"
+                      countLabel="students"
+                      value={classFilter}
+                      onChange={pickClass}
+                      options={[
+                        { value: 'all', label: 'All classes', count: room.students.length },
+                        ...room.classes.map((item) => ({
+                          value: item.name,
+                          label: item.name,
+                          count: room.students.filter((st) => st.className === item.name).length,
+                        })),
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">2 · Subject</span>
+                    <Picker
+                      label="Filter by subject"
+                      countLabel="students"
+                      value={subjectFilter}
+                      onChange={pickSubject}
+                      options={[
+                        { value: 'all', label: 'All subjects', count: countIn(inClass) },
+                        ...subjects.map((subject) => ({
+                          value: subject,
+                          label: subject,
+                          count: countIn(inClass.filter((g) => g.subject === subject)),
+                        })),
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">3 · Batch</span>
+                    <Picker
+                      label="Filter by batch"
+                      countLabel="students"
+                      value={batchFilter}
+                      onChange={setBatchFilter}
+                      options={[
+                        { value: 'all', label: 'All batches', count: countIn(inSubject) },
+                        ...inSubject.map((g) => ({
+                          value: g.id,
+                          // The class is already chosen, so only show it when it is not.
+                          label: [classFilter === 'all' && g.className, g.section ? `Batch ${g.section}` : 'Whole class', subjectFilter === 'all' && g.subject].filter(Boolean).join(' · '),
+                          count: countIn([g]),
+                        })),
+                      ]}
+                    />
+                  </div>
+                </div>
+              )}
+              {filtering && (
+                <div className="flex items-center justify-between gap-2 text-xs text-neutral-500">
+                  <span>{filteredStudents.length} {filteredStudents.length === 1 ? 'student' : 'students'} match</span>
+                  <button type="button" onClick={() => pickClass('all')} className="font-semibold text-[#005a9c] hover:underline">Clear filters</button>
                 </div>
               )}
             </div>
@@ -574,7 +654,7 @@ export default function Students() {
                     <tr className="bg-neutral-50/80 border-b border-neutral-200 text-xs font-semibold text-neutral-500 uppercase tracking-wider">
                       <th className="py-3 px-4">Student</th>
                       <th className="py-3 px-3">Class</th>
-                      <th className="py-3 px-3">Batch</th>
+                      <th className="py-3 px-3">Batches · Subject</th>
                       <th className="py-3 px-3">Contact</th>
                       <th className="py-3 px-3">Total Fee</th>
                       <th className="py-3 px-3">Attendance</th>
@@ -613,14 +693,8 @@ export default function Students() {
                             </td>
 
                             {/* Batch */}
-                            <td className="py-3.5 px-3 whitespace-nowrap">
-                              {student.section ? (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100">
-                                  {student.section}
-                                </span>
-                              ) : (
-                                <span className="text-neutral-400 text-xs italic">No batch</span>
-                              )}
+                            <td className="py-3.5 px-3 min-w-44">
+                              <StudentBatches student={student} classes={room.classes} />
                             </td>
 
                             {/* Contact & WhatsApp */}
@@ -704,14 +778,14 @@ export default function Students() {
                                 >
                                   <Pencil className="w-3.5 h-3.5" />
                                 </button>
-                                <button
+                                {!room.isReceptionist && <button
                                   type="button"
                                   onClick={() => remove(student)}
                                   className="h-8 w-8 grid place-items-center rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
                                   title={`Delete ${student.name}`}
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
-                                </button>
+                                </button>}
                               </div>
                             </td>
                           </tr>
@@ -823,6 +897,7 @@ export default function Students() {
               <StudentForm
                 initial={editingStudent}
                 classes={room.classes}
+                lockBatches={room.isTeacher}
                 onSave={(patch) => {
                   room.updateStudent(editingStudent.id, patch);
                   setEditingStudent(null);
