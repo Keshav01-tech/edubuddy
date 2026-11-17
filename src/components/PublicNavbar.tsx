@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Wordmark } from './Logo';
 import './PublicNavbar.css';
 
 export default function PublicNavbar() {
@@ -51,7 +52,7 @@ export default function PublicNavbar() {
       <div className="ref-nav-inner">
         {/* Brand Logo */}
         <Link to="/" className="ref-brand" aria-label="EduBuddy Home">
-          <img src="/logo.png" alt="EduBuddy" className="ref-brand-img-logo" />
+          <Wordmark markClass="h-8 w-8 rounded-lg" textClass="text-[1.15rem]" />
         </Link>
 
         {/* Center / Desktop Links */}

@@ -7,6 +7,7 @@ import {
 import { useClassroom, todayISO } from '../services/classroom';
 import { useAuth } from '../context/AuthContext';
 import { describeAssignments } from '../services/teachers';
+import { LogoMark } from './Logo';
 
 const ICON_BUTTON = 'h-10 w-10 grid place-items-center rounded-xl text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400';
 
@@ -90,13 +91,9 @@ const itemClass = (isActive) => `group relative flex items-center gap-3 h-10 px-
 }`;
 const iconClass = (isActive) => `w-[18px] h-[18px] shrink-0 transition-colors ${isActive ? 'text-neutral-900' : 'text-neutral-600 group-hover:text-neutral-900'}`;
 
-export function BrandMark({ size = 'md', invert = false }) {
-  const box = size === 'sm' ? 'h-7 w-7 text-xs rounded-lg' : 'h-9 w-9 text-sm rounded-xl';
-  return (
-    <span className={`${box} grid place-items-center font-black tracking-tight ${invert ? 'bg-white text-neutral-950' : 'bg-neutral-950 text-white'}`}>
-      E
-    </span>
-  );
+export function BrandMark({ size = 'md' }) {
+  const box = size === 'sm' ? 'h-7 w-7 rounded-lg' : size === 'lg' ? 'h-11 w-11 rounded-2xl' : 'h-9 w-9 rounded-xl';
+  return <LogoMark className={box} />;
 }
 
 function Brand({ institute, logo, teacher, reception }) {
@@ -105,10 +102,12 @@ function Brand({ institute, logo, teacher, reception }) {
     <Link to={teacher ? '/classes' : reception ? '/scan-receipt' : '/dashboard'} className="flex items-center gap-3 px-5 h-[4.5rem] shrink-0">
       {logo ? (
         <img src={logo} alt="" className="h-9 w-9 shrink-0 rounded-xl object-contain bg-white" />
-      ) : (
+      ) : name ? (
         <span className="h-9 w-9 shrink-0 rounded-full grid place-items-center bg-gradient-to-br from-[#60c1e5] to-[#005a9c] text-[15px] font-black text-white">
-          {(name || 'E').charAt(0).toUpperCase()}
+          {name.charAt(0).toUpperCase()}
         </span>
+      ) : (
+        <LogoMark className="h-9 w-9 rounded-xl" />
       )}
       <span className="leading-tight min-w-0">
         <span className="block text-[15px] font-extrabold tracking-tight text-neutral-900 truncate">{name || 'EduBuddy'}</span>
@@ -180,7 +179,7 @@ function SideNav({ onSignOut, onNavigate }) {
           <p className="mt-1 text-xs text-white/70">Scan a fee receipt, confirm the student, and the fee is updated.</p>
         </div>
       ) : badges.room.isTeacher ? <TeacherCard room={badges.room} /> : (
-      <Link to="/tests" onClick={onNavigate} className="relative mx-4 mb-4 block overflow-hidden rounded-3xl bg-[#1b365d] p-4 text-center">
+      <Link to="/tests" onClick={onNavigate} className="relative mx-4 mb-4 hidden md:block overflow-hidden rounded-3xl bg-[#1b365d] p-4 text-center">
         <span aria-hidden className="pointer-events-none absolute -left-8 -top-10 h-28 w-28 rounded-full bg-white/10 blur-xl" />
         <span className="relative mb-2 flex justify-center -space-x-2">
           {[[FileText, '#a3a3a3'], [Users, '#e5e5e5'], [GraduationCap, '#737373'], [Wallet, '#ffffff']].map(([Icon, bg], i) => (

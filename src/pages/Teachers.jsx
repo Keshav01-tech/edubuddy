@@ -118,7 +118,7 @@ export default function Teachers() {
     <div className="min-h-dvh app-canvas">
       <AppHeader nav onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
-      <main className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-14">
+      <main className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-14">
         <div className="mb-4 flex items-center justify-between gap-3">
           <h1 className="text-2xl font-medium tracking-tight text-neutral-900">Teachers</h1>
           <button type="button" onClick={() => setForm({})}

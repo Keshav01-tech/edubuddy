@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight, Check, Menu, X, Plus, MessageCircle, Receipt, FileText, Users, ShieldCheck, Sparkles,
-  Phone, Wallet, Zap, GraduationCap, CalendarCheck, Inbox, Send, BookOpen, Lock, TrendingUp, Mail, MapPin,
+  Phone, Wallet, Zap, CalendarCheck, Inbox, Send, BookOpen, Lock, TrendingUp, Mail, MapPin, PhoneCall, Bot, Mic,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { LogoMark } from '../components/Logo';
 
 /* ───────────────────────── content ───────────────────────── */
 const WA_DEMO = 'https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20a%20demo';
@@ -30,6 +31,7 @@ const FAQS = [
   { q: 'Is there any risk of our institute WhatsApp number getting banned?', a: 'No. It uses the official Meta WhatsApp Business Cloud API.' },
   { q: 'How does the NCERT Test Paper generator work?', a: 'Pick a Class 6–12 chapter. Get a board-pattern paper with marking key in about 30 seconds.' },
   { q: 'Can my staff or teachers see my fee collections and financial data?', a: 'No. Teachers can only mark attendance and enter marks. Fees and contacts stay with the Director.' },
+  { q: 'How does the AI fee calling agent work?', a: 'When a fee crosses its due date, the agent calls the parent, reminds them politely in Hindi or English, sends the UPI link on WhatsApp and saves their reply. You choose which batches it calls and when.' },
   { q: 'How does fee collection and UPI QR work?', a: 'Parents pay by UPI (GPay, PhonePe, Paytm). Money goes straight to your bank, 0% commission.' },
   { q: 'How do I get started, and is there a free trial?', a: 'Yes. 14-day free trial, no credit card. Setup takes under 15 minutes.' },
 ];
@@ -76,10 +78,8 @@ function SectionHead({ title, sub }) {
 function Logo({ className = '' }) {
   return (
     <Link to="/" className={`inline-flex items-center gap-2.5 ${className}`} aria-label="EduBuddy home">
-      <span className="grid h-8 w-8 place-items-center rounded-[10px] bg-gradient-to-br from-[#60c1e5] to-[#005a9c] shadow-[0_4px_10px_-3px_rgba(0,90,156,0.6)]">
-        <GraduationCap className="h-4 w-4 text-white" />
-      </span>
-      <span className="text-lg font-bold tracking-tight text-neutral-900">EduBuddy</span>
+      <LogoMark className="h-8 w-8 rounded-[10px] shadow-[0_4px_10px_-3px_rgba(27,43,77,0.5)]" />
+      <span className="text-lg font-bold tracking-tight text-neutral-900">edubuddy<span className="text-[#4d90e4]">.ai</span></span>
     </Link>
   );
 }
@@ -346,6 +346,12 @@ const FEATURES = [
     points: ['Har call aur walk-in saved', 'Follow-up reminder on the day', 'Conversion graph every month'],
     badge: 'No inquiry forgotten', demo: LeadsDemo,
   },
+  {
+    icon: PhoneCall, kicker: 'Step 5 · Fees pending', title: 'AI Fee Calling Agent',
+    text: 'When a fee is overdue, an AI voice agent calls the parent, reminds them politely and saves what they promised.',
+    points: ['Calls every pending parent on its own', 'Hindi aur English mein polite baat', 'Promise saved, UPI link sent on WhatsApp'],
+    badge: 'No awkward fee calls', demo: CallDemo,
+  },
 ];
 
 function Features() {
@@ -381,7 +387,7 @@ function Features() {
 
   return (
     <section id="features" className="mx-auto max-w-5xl px-5 pb-20 sm:pb-28">
-      <SectionHead title={<>Your teaching day, <Accent>sorted</Accent></>} sub="Attendance, fees, test papers and admissions — all in one app." />
+      <SectionHead title={<>Your teaching day, <Accent>sorted</Accent></>} sub="Attendance, fees, test papers, admissions and fee calls — all in one app." />
 
       <div className="relative mt-12">
         {FEATURES.map((feature, i) => {
@@ -830,6 +836,87 @@ function LeadsDemo() {
   );
 }
 
+/* ── 5. AI fee calls ── */
+const CALL_LINES = [
+  { who: 'ai', text: 'Namaste! This is Bright Future Institute. Aarav’s November fee of ₹4,500 is pending.' },
+  { who: 'parent', text: 'Haan ji, Friday tak kar denge.' },
+  { who: 'ai', text: 'Thank you! I’ve sent the UPI link on WhatsApp.' },
+];
+const CALL_QUEUE = [
+  ['Rohit Gupta', 'Diya · ₹3,000', 'Paid after call', 'bg-[#dff3e7] text-emerald-700'],
+  ['Neha Jain', 'Kabir · ₹4,500', 'Queued', 'bg-neutral-100 text-neutral-500'],
+];
+
+function CallDemo() {
+  const [ref, inView] = useInView(0.3);
+  const reduce = useReducedMotion();
+  const step = useStep(CALL_LINES.length + 3, 1300, inView && !reduce);
+  const s = reduce ? CALL_LINES.length + 2 : step;
+  const connected = s >= 1;
+  const lines = Math.max(0, Math.min(CALL_LINES.length, s - 1));
+  const done = s >= CALL_LINES.length + 2;
+  const secs = connected ? Math.min(s, CALL_LINES.length + 1) * 9 + 4 : 0;
+
+  return (
+    <div ref={ref} className="rounded-xl border border-neutral-200 bg-white p-3.5 shadow-sm">
+      <div className="flex items-center justify-between">
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-900"><Bot className="h-3.5 w-3.5 text-[#005a9c]" /> AI fee calls · Today</p>
+        <span className="rounded-md bg-[#eef7fc] px-2 py-0.5 text-[10px] font-semibold text-[#005a9c]">4 pending</span>
+      </div>
+
+      {/* live call */}
+      <div className="mt-3 flex items-center gap-2.5 rounded-xl bg-gradient-to-b from-[#005a9c] to-[#1b365d] p-2.5 text-white shadow-sm">
+        <span className="relative grid h-9 w-9 shrink-0 place-items-center">
+          {!connected && !reduce && <span className="absolute inset-0 animate-ping rounded-full bg-white/30" />}
+          <span className="relative grid h-9 w-9 place-items-center rounded-full bg-white/15 text-xs font-bold">SS</span>
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[11px] font-semibold">Mrs. Sunita Sharma</span>
+          <span className="block truncate text-[9px] text-white/70">Aarav · Class 10 · ₹4,500 due</span>
+        </span>
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-white/15 px-2 py-1 text-[9px] font-semibold tabular-nums">
+          {connected ? <><Mic className="h-3 w-3" /> 0:{String(secs).padStart(2, '0')}</> : <><PhoneCall className="h-3 w-3" /> Calling…</>}
+        </span>
+      </div>
+
+      {/* transcript */}
+      <ul className="mt-2.5 min-h-[116px] space-y-1.5">
+        {CALL_LINES.map((line, i) => (
+          <li
+            key={line.text}
+            className={`flex transition-all duration-500 ${line.who === 'ai' ? 'justify-start' : 'justify-end'} ${i < lines ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'}`}
+          >
+            <span className={`max-w-[85%] rounded-xl px-2.5 py-1.5 text-[10px] leading-snug ${line.who === 'ai' ? 'rounded-tl-sm bg-[#eef7fc] text-neutral-800' : 'rounded-tr-sm bg-[#e7f6ec] text-neutral-800'}`}>
+              {line.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      {/* outcome */}
+      <p className={`flex items-center gap-2 rounded-lg bg-[#f6f9fc] px-2.5 py-2 text-[10px] font-medium text-neutral-600 transition-all duration-500 ${done ? 'opacity-100' : 'opacity-40'}`}>
+        <Check className="h-3.5 w-3.5 shrink-0 text-emerald-600" strokeWidth={3} />
+        {done ? 'Promise to pay · Fri, 21 Nov' : 'Waiting for reply…'}
+        <span className="ml-auto inline-flex shrink-0 items-center gap-1 rounded-md bg-[#dff3e7] px-2 py-1 text-[9px] font-semibold text-emerald-700">
+          <MessageCircle className="h-3 w-3" /> UPI link
+        </span>
+      </p>
+
+      {/* queue */}
+      <ul className="mt-2.5 space-y-1 border-t border-neutral-100 pt-2.5">
+        {CALL_QUEUE.map(([name, who, status, tone]) => (
+          <li key={name} className="flex items-center gap-2 px-1">
+            <Phone className="h-3 w-3 shrink-0 text-neutral-400" />
+            <span className="text-[10px] font-semibold text-neutral-700">{name}</span>
+            <span className="truncate text-[9px] text-neutral-400">{who}</span>
+            <span className={`ml-auto shrink-0 rounded-md px-1.5 py-0.5 text-[9px] font-semibold ${tone}`}>{status}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /* ───────────────────────── parent updates / receipts / roles ───────────────────────── */
 function Integrations() {
   return (
@@ -1011,10 +1098,8 @@ function Footer() {
         <div className="grid gap-10 pt-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <Link to="/" className="inline-flex items-center gap-2.5" aria-label="EduBuddy home">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-[#60c1e5] to-[#a0e0ef] shadow-[0_6px_16px_-6px_rgba(96,193,229,0.9)]">
-                <GraduationCap className="h-4 w-4 text-[#12294a]" />
-              </span>
-              <span className="text-lg font-bold tracking-tight text-white">EduBuddy</span>
+              <LogoMark className="h-9 w-9 rounded-xl ring-1 ring-white/15" />
+              <span className="text-lg font-bold tracking-tight text-white">edubuddy<span className="text-[#4d90e4]">.ai</span></span>
             </Link>
             <p className="mt-5 max-w-xs text-base leading-relaxed text-white/60">
               Haziri, fees and test papers handled, so your day goes back to teaching.

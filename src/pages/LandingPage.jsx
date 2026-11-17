@@ -18,6 +18,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { LogoMark } from '../components/Logo';
 
 export default function LandingPage() {
   const { user, signIn } = useAuth();
@@ -90,13 +91,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-700 text-white grid place-items-center shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform">
-              <GraduationCap className="w-6 h-6" />
-            </div>
+            <LogoMark className="w-10 h-10 rounded-xl shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform" />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-xl tracking-tight text-slate-900">
-                  Edu<span className="text-brand-600">Buddy</span>
+                  edubuddy<span className="text-[#4d90e4]">.ai</span>
                 </span>
                 <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-brand-50 text-brand-700 border border-brand-200 uppercase tracking-wider">
                   Institute OS

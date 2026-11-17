@@ -198,23 +198,23 @@ export default function Attendance() {
           </div>
         ) : (
           <>
-            {/* Batch tabs, in the order they meet. Scrolls sideways on a phone. */}
-            <div role="tablist" aria-label="Batches" className="mb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-2 overflow-x-auto pb-1">
+            {/* Batch tabs. On a phone they wrap under each other instead of sliding sideways. */}
+            <div role="tablist" aria-label="Batches" className="mb-4 flex flex-wrap gap-2">
               {groups.map((g) => {
                 const on = g.id === activeGroup.id;
                 const count = room.students.filter((s) => inBatch(s, g.className, g.section)).length;
                 const away = absentIn(g);
                 return (
                   <button key={g.id} type="button" role="tab" aria-selected={on} onClick={() => pickBatch(g.id)}
-                    className={`shrink-0 min-w-36 lg:min-w-44 text-left rounded-2xl px-3.5 py-2.5 transition-colors ${on ? 'bg-[#005a9c] text-white shadow-sm' : 'bg-white text-neutral-900 shadow-card hover:bg-neutral-50'}`}>
+                    className={`min-w-0 max-w-full sm:min-w-36 lg:min-w-44 text-left rounded-2xl px-3.5 py-2.5 transition-colors ${on ? 'bg-[#005a9c] text-white shadow-sm' : 'bg-white text-neutral-900 shadow-card hover:bg-neutral-50'}`}>
                     <span className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-bold whitespace-nowrap">
+                      <span className="text-sm font-bold truncate">
                         {shortName(g)}
                         {g.timing.subject && <span className={`font-medium ${on ? 'text-white/85' : 'text-neutral-600'}`}> · {g.timing.subject}</span>}
                       </span>
                       <span className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${on ? 'bg-white/20' : 'bg-neutral-100 text-neutral-600'}`}>{count}</span>
                     </span>
-                    <span className={`mt-0.5 flex items-center justify-between gap-2 text-xs whitespace-nowrap ${on ? 'text-white/75' : 'text-neutral-500'}`}>
+                    <span className={`mt-0.5 flex items-center justify-between gap-2 text-xs ${on ? 'text-white/75' : 'text-neutral-500'}`}>
                       <span>{[describeTime(g.timing), g.timing.room].filter(Boolean).join(' · ') || 'No time set'}</span>
                       {away > 0 && <span className={`hidden lg:inline font-semibold ${on ? 'text-white' : 'text-rose-600'}`}>{away} absent</span>}
                     </span>

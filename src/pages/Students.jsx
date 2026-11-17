@@ -437,13 +437,13 @@ export default function Students() {
         onSignOut={async () => { await signOut(); navigate('/login'); }}
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
+      <main className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         {/* Title & Top Actions */}
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Institute</p>
             <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">Students</h1>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500 hidden sm:block">
               Every student in one place: contact, batch, fee and attendance. {room.students.length} {room.students.length === 1 ? 'student enrolled' : 'students enrolled'}.
             </p>
             {room.backend === 'cloud' && room.syncState === 'saving' && <p className="mt-1 text-xs font-medium text-neutral-500">Saving to the database…</p>}
@@ -490,7 +490,7 @@ export default function Students() {
             ['Missing phone number', noPhone, noPhone ? 'add for quick calls' : 'all added', noPhone ? 'text-neutral-900' : 'text-neutral-900'],
           ];
           return (
-            <div className="mb-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="mb-5 hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-3">
               {tiles.map(([label, value, hint, tone]) => (
                 <div key={label} className="bg-white rounded-3xl shadow-card px-4 py-3.5">
                   <p className="text-xs font-semibold text-neutral-500">{label}</p>
@@ -584,7 +584,23 @@ export default function Students() {
 
               {groups.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-                  <div>
+                  <div className="sm:hidden">
+                    <Picker
+                      label="Filter by class"
+                      countLabel="students"
+                      value={classFilter}
+                      onChange={pickClass}
+                      options={[
+                        { value: 'all', label: 'All classes', count: room.students.length },
+                        ...room.classes.map((item) => ({
+                          value: item.name,
+                          label: item.name,
+                          count: room.students.filter((st) => st.className === item.name).length,
+                        })),
+                      ]}
+                    />
+                  </div>
+                  <div className="hidden sm:block">
                     <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">1 · Class</span>
                     <Picker
                       label="Filter by class"
@@ -601,7 +617,7 @@ export default function Students() {
                       ]}
                     />
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">2 · Subject</span>
                     <Picker
                       label="Filter by subject"
@@ -618,7 +634,7 @@ export default function Students() {
                       ]}
                     />
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">3 · Batch</span>
                     <Picker
                       label="Filter by batch"
@@ -648,7 +664,32 @@ export default function Students() {
 
             {/* Table Container */}
             <div className="bg-white rounded-3xl shadow-card overflow-hidden">
-              <div className="overflow-x-auto">
+              <ul className="md:hidden divide-y divide-neutral-100">
+                {paginatedStudents.length === 0 ? (
+                  <li className="py-12 text-center text-sm text-neutral-500">No matches.</li>
+                ) : paginatedStudents.map((student) => (
+                  <li key={student.id} className="flex items-center gap-3 px-4 py-3">
+                    <span className="h-9 w-9 shrink-0 rounded-full bg-brand-100 text-brand-700 font-bold grid place-items-center text-xs">
+                      {student.name.trim().charAt(0).toUpperCase() || '?'}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-neutral-900 truncate">{student.name}</p>
+                      <p className="text-xs text-neutral-500 truncate">
+                        {[student.className, student.phone, student.fee ? formatMoney(student.fee) : null].filter(Boolean).join(' · ') || 'No class yet'}
+                      </p>
+                    </div>
+                    <button type="button" onClick={() => setEditingStudent(student)} className="h-9 w-9 shrink-0 grid place-items-center rounded-lg text-neutral-400 hover:bg-neutral-100" aria-label={`Edit ${student.name}`}>
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    {!room.isReceptionist && (
+                      <button type="button" onClick={() => remove(student)} className="h-9 w-9 shrink-0 grid place-items-center rounded-lg text-neutral-400 hover:bg-neutral-100" aria-label={`Delete ${student.name}`}>
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
                     <tr className="bg-neutral-50/80 border-b border-neutral-200 text-xs font-semibold text-neutral-500 uppercase tracking-wider">

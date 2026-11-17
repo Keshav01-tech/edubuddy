@@ -7,6 +7,7 @@ import { Alert } from '../components/Alert';
 import { SetupModal } from '../components/SetupModal';
 import { isOpenAIConfigured } from '../services/openai';
 import { homeFor } from '../services/roles';
+import { Wordmark } from '../components/Logo';
 
 const fieldClass = 'w-full h-12 pl-11 pr-4 text-base bg-white border border-neutral-300 rounded-lg hover:border-neutral-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100 placeholder:text-neutral-400';
 
@@ -58,12 +59,7 @@ export default function Login() {
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[1.05fr_0.95fr] dash-canvas">
       <section className="hidden lg:flex flex-col justify-between px-14 py-14">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#60c1e5] to-[#9ccdf0] text-neutral-900 grid place-items-center">
-            <GraduationCap className="w-5 h-5" />
-          </div>
-          <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
-        </div>
+        <Wordmark markClass="h-10 w-10 rounded-2xl" textClass="text-2xl" />
 
         <div className="max-w-md">
           <h1 className="font-semibold text-4xl text-neutral-900 leading-tight">
@@ -102,12 +98,7 @@ export default function Login() {
         </button>
 
         <div className="w-full max-w-sm">
-          <div className="lg:hidden flex items-center gap-2.5 mb-8">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#60c1e5] to-[#9ccdf0] text-neutral-900 grid place-items-center">
-              <GraduationCap className="w-5 h-5" />
-            </div>
-            <span className="font-semibold text-xl text-neutral-900">EduBuddy</span>
-          </div>
+          <Wordmark className="lg:hidden mb-8" markClass="h-9 w-9 rounded-xl" textClass="text-xl" />
 
           {isAiSetupMissing && (
             <div className="mb-6 flex items-start gap-2.5 p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900">

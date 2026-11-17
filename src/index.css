@@ -66,6 +66,13 @@ body {
 
 ::selection { background: #9ccdf0; color: #1a1a1a; }
 
+@media (max-width: 767px) {
+  html:has([data-app-sidebar]),
+  body:has([data-app-sidebar]) {
+    overflow-x: clip;
+  }
+}
+
 @media (min-width: 768px) {
   body:has([data-app-sidebar]) {
     padding-left: 15.5rem;

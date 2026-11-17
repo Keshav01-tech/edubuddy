@@ -358,7 +358,7 @@ export default function Dashboard() {
     <div className="min-h-dvh bg-[#f4f4f5]">
       <AppHeader nav topBar={false} onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
-      <main className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 pb-12">
+      <main className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 pb-12">
         {/* top bar */}
         <div className="mb-6 flex items-center gap-3">
           <h1 className="hidden md:block text-[1.75rem] font-medium tracking-tight text-neutral-900">Dashboard</h1>

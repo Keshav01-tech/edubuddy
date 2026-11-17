@@ -195,9 +195,10 @@ export default function Leads() {
       && (sourceFilter === 'all' || lead.source === sourceFilter)
       && matchesSearch;
   }).sort((a, b) => {
-    const rank = (lead) => (openLead(lead) && lead.followUp && lead.followUp <= today ? 0 : openLead(lead) ? 1 : 2);
-    return rank(a) - rank(b)
-      || (a.followUp || '9999').localeCompare(b.followUp || '9999')
+    // Newest inquiry first — a lead added today sits on top. Decided
+    // inquiries (joined / not joining) sink below the active pipeline.
+    const open = (lead) => (openLead(lead) ? 0 : 1);
+    return open(a) - open(b)
       || (b.createdAt || '').localeCompare(a.createdAt || '');
   });
 
@@ -238,7 +239,7 @@ export default function Leads() {
     <div className="min-h-dvh app-canvas">
       <AppHeader nav onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
+      <main className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Institute</p>
@@ -282,7 +283,7 @@ export default function Leads() {
         )}
 
         {room.leads.length > 0 && (
-          <div className="mb-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="mb-5 hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-3">
             {tiles.map(([label, value, hint]) => (
               <div key={label} className="bg-white rounded-3xl shadow-card px-4 py-3.5">
                 <p className="text-xs font-semibold text-neutral-500">{label}</p>
@@ -322,7 +323,7 @@ export default function Leads() {
                     ]}
                   />
                 </div>
-                <div>
+                <div className="hidden sm:block">
                   <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Came from</span>
                   <Picker
                     label="Filter inquiries by source"
@@ -345,7 +346,31 @@ export default function Leads() {
 
             {/* Table */}
             <div className="bg-white rounded-3xl shadow-card overflow-hidden">
-              <div className="overflow-x-auto">
+              <ul className="md:hidden divide-y divide-neutral-100">
+                {pageRows.length === 0 ? (
+                  <li className="py-12 text-center text-sm text-neutral-500">No inquiries in this view.</li>
+                ) : pageRows.map((lead) => {
+                  const current = STATUSES.find((s) => s.id === (lead.status || 'new')) || STATUSES[0];
+                  return (
+                    <li key={lead.id} className="flex items-center gap-3 px-4 py-3">
+                      <span className="h-9 w-9 shrink-0 rounded-full bg-brand-100 text-brand-700 font-bold grid place-items-center text-xs">{lead.name.trim().charAt(0).toUpperCase() || '?'}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-neutral-900 truncate">{lead.name}</p>
+                        <p className="text-xs text-neutral-500 truncate">{[classLabel(lead.className), lead.phone, current.label].filter(Boolean).join(' · ')}</p>
+                      </div>
+                      {lead.phone && (
+                        <a href={`tel:${lead.phone}`} className="h-9 w-9 shrink-0 grid place-items-center rounded-lg text-neutral-500 hover:bg-neutral-100" aria-label={`Call ${lead.name}`}>
+                          <Phone className="w-4 h-4" />
+                        </a>
+                      )}
+                      <button type="button" onClick={() => { if (confirm(`Delete the inquiry from ${lead.name}?`)) room.deleteLead(lead.id); }} className="h-9 w-9 shrink-0 grid place-items-center rounded-lg text-neutral-400 hover:bg-neutral-100" aria-label={`Delete ${lead.name}`}>
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
                     <tr className="bg-neutral-50/80 border-b border-neutral-200 text-xs font-semibold text-neutral-500 uppercase tracking-wider">
