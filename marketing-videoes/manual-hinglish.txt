@@ -1,0 +1,11 @@
+# Vertical "manual work vs EduBuddy". Lines: intro, before/after pairs (attendance, fees, AI fee calls, inquiries), outro.
+Manual kaam ya EduBuddy? Fark dekhiye. || मैनुअल काम या एडू बडी? फ़र्क देखिए।
+Pehle har absent student ke ghar, ek ek call. || पहले हर ऐब्सेंट स्टूडेंट के घर, एक एक कॉल।
+Ab do tap, aur parents ko WhatsApp. || अब दो टैप, और पेरेंट्स को व्हाट्सएप।
+Pehle calculator se hisaab, aur haath se receipt. || पहले कैलकुलेटर से हिसाब, और हाथ से रिसीट।
+Ab record karo, receipt turant ready. || अब रिकॉर्ड करो, रिसीट तुरंत रेडी।
+Pehle pending fees ke liye, poora din phone pe. || पहले पेंडिंग फ़ीस के लिए, पूरा दिन फ़ोन पे।
+Ab AI agent khud har parent ko call karta hai, aur report deta hai. || अब एआई एजेंट खुद हर पेरेंट को कॉल करता है, और रिपोर्ट देता है।
+Pehle inquiry kaagaz pe, follow-up bhool gaye. || पहले इंक्वायरी कागज़ पे, फ़ॉलो-अप भूल गए।
+Ab har inquiry save, follow-up date ke saath. || अब हर इंक्वायरी सेव, फ़ॉलो-अप डेट के साथ।
+EduBuddy. Kaam kam, growth zyada. Free demo book karein. || एडू बडी। काम कम, ग्रोथ ज़्यादा। फ़्री डेमो बुक करें।

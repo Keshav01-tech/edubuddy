@@ -1,0 +1,55 @@
+{
+  "voice": "af_heart",
+  "speed": 1.15,
+  "scenes": [
+    {
+      "text": "Month-end fee closing takes most institutes three days. Watch this.",
+      "file": "vo/s4/0.wav",
+      "seconds": 4.325,
+      "start": 0.261,
+      "end": 4.018
+    },
+    {
+      "text": "Step one. AI calls every parent with pending fees.",
+      "file": "vo/s4/1.wav",
+      "seconds": 3.55,
+      "start": 0.22,
+      "end": 3.243
+    },
+    {
+      "text": "Step two. Payments come in. One tap saves each receipt, or snap a photo.",
+      "file": "vo/s4/2.wav",
+      "seconds": 4.7,
+      "start": 0.223,
+      "end": 4.371
+    },
+    {
+      "text": "Step three. Your fee report, by class.",
+      "file": "vo/s4/3.wav",
+      "seconds": 2.575,
+      "start": 0.219,
+      "end": 2.277
+    },
+    {
+      "text": "Bonus. Monthly attendance report, and PYQ PDFs for students.",
+      "file": "vo/s4/4.wav",
+      "seconds": 4.725,
+      "start": 0.26,
+      "end": 4.402
+    },
+    {
+      "text": "And every enquiry gets a follow-up, so next month brings more admissions.",
+      "file": "vo/s4/5.wav",
+      "seconds": 4.55,
+      "start": 0.263,
+      "end": 4.229
+    },
+    {
+      "text": "Twenty-nine seconds. Book your free demo.",
+      "file": "vo/s4/6.wav",
+      "seconds": 2.725,
+      "start": 0.229,
+      "end": 2.349
+    }
+  ]
+}

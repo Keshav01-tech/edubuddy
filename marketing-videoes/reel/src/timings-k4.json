@@ -1,0 +1,62 @@
+{
+  "voice": "af_heart",
+  "speed": 1.0,
+  "scenes": [
+    {
+      "text": "[q] How many admission enquiries / did you get *last month?*",
+      "file": "vo/k4/0.wav",
+      "seconds": 3.55,
+      "start": 0.271,
+      "end": 3.024
+    },
+    {
+      "text": "[q] How many did you / *follow up?*",
+      "file": "vo/k4/1.wav",
+      "seconds": 2.025,
+      "start": 0.262,
+      "end": 1.664
+    },
+    {
+      "text": "[pain] Every enquiry you forget / joins the institute / *down the road.*",
+      "file": "vo/k4/2.wav",
+      "seconds": 3.925,
+      "start": 0.278,
+      "end": 3.495
+    },
+    {
+      "text": "[pain] Not because they teach *better.*",
+      "file": "vo/k4/3.wav",
+      "seconds": 2.125,
+      "start": 0.264,
+      "end": 1.734
+    },
+    {
+      "text": "[pain] Because they / *called back.*",
+      "file": "vo/k4/4.wav",
+      "seconds": 1.9,
+      "start": 0.293,
+      "end": 1.546
+    },
+    {
+      "text": "[solve] *EduBuddy* tells you / who to call, / and *when.*",
+      "file": "vo/k4/5.wav",
+      "seconds": 2.7,
+      "start": 0.279,
+      "end": 2.287
+    },
+    {
+      "text": "[solve] Every enquiry. / Every *follow-up.*",
+      "file": "vo/k4/6.wav",
+      "seconds": 2.65,
+      "start": 0.289,
+      "end": 2.289
+    },
+    {
+      "text": "[cta] Fill your *batches.*",
+      "file": "vo/k4/7.wav",
+      "seconds": 2.6,
+      "start": 0.294,
+      "end": 2.196
+    }
+  ]
+}

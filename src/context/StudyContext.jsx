@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
-import { generateTest as generateTestAI } from '../services/openai';
 import { sectionsFromLegacy, stampMarks } from '../data/paperBlueprint';
 import { callDb } from '../services/cloud';
 
@@ -10,7 +9,7 @@ const StudyContext = createContext();
 // and the list of questions already asked, so a new paper on the same chapter does not repeat them.
 export const StudyProvider = ({ children }) => {
   const { user } = useAuth();
-  const signedIn = !!user && user.role !== 'superadmin';
+  const signedIn = !!user && user.role !== 'superadmin' && user.role !== 'parent';
 
   const [sessions, setSessions]         = useState([]);
   const [activeSession, setActiveSession] = useState(null);
@@ -62,6 +61,8 @@ export const StudyProvider = ({ children }) => {
         paper_mode: opts.mode ?? (opts.types?.length > 1 ? 'mixed' : opts.types?.[0] ?? 'mcq'),
         blueprint: opts.blueprint ?? null,
         chapters: opts.chapters ?? null,
+        // Paper language: 'en' English only, 'hi' Hindi only, 'bi' bilingual (Hindi under each English line).
+        language: opts.language ?? 'en',
         created_at: new Date().toISOString(),
       };
       await callDb('papers.save', { paper: payload });
@@ -114,6 +115,9 @@ export const StudyProvider = ({ children }) => {
         ...(questionsById.current.get(item.id) || []).map((q) => q.question),
       ]);
       const avoid = [...new Set(asked.map((text) => String(text || '').trim()).filter(Boolean))].slice(-120);
+      // Loaded only when a test is made: it pulls in the PDF and maths libraries,
+      // which would otherwise slow down every page, including the landing page.
+      const { generateTest: generateTestAI, translatePaperToHindi } = await import('../services/openai');
       const qs = await generateTestAI(
         session.class_name,
         session.subject_name,
@@ -127,7 +131,9 @@ export const StudyProvider = ({ children }) => {
           avoid,
         }
       );
-      const stamped = stampMarks(qs, sections);
+      let stamped = stampMarks(qs, sections);
+      // A Hindi or bilingual paper: the English paper is written first, then translated question by question.
+      if (session.language === 'hi' || session.language === 'bi') stamped = await translatePaperToHindi(stamped);
       const remembered = [...new Set(
         [...avoid, ...stamped.map((item) => item.question)].map((text) => String(text || '').trim()).filter(Boolean)
       )].slice(-120);
@@ -143,12 +149,40 @@ export const StudyProvider = ({ children }) => {
     }
   };
 
+  /* ── change a paper's language ─────────────── */
+  // An English paper already made can be turned into Hindi or bilingual: the questions are translated once and kept.
+  const [translating, setTranslating] = useState(false);
+  const setPaperLanguage = async (session, language) => {
+    if (!session) return;
+    const current = questionsById.current.get(session.id) || (activeSession?.id === session.id ? questions : null);
+    setGenerateError('');
+    let next = current;
+    if (current?.length && language !== 'en' && current.some((q) => !q.hi)) {
+      setTranslating(true);
+      try {
+        const { translatePaperToHindi } = await import('../services/openai');
+        next = await translatePaperToHindi(current);
+      } catch (err) {
+        setGenerateError(err.message || 'Could not translate this paper.');
+        setTranslating(false);
+        return;
+      }
+      setTranslating(false);
+    }
+    const saved = { ...session, language };
+    await callDb('papers.save', { paper: next ? { ...saved, questions: next } : saved });
+    if (next) questionsById.current.set(session.id, next);
+    setSessions((prev) => prev.map((s) => (s.id === session.id ? saved : s)));
+    if (activeSession?.id === session.id) { setActiveSession(saved); if (next) setQuestions(next); }
+  };
+
   return (
     <StudyContext.Provider value={{
       sessions, loadingSessions, processingSession,
       activeSession, selectSession,
       questions, generating, generateError,
       createSession, deleteSession, generateTest,
+      setPaperLanguage, translating,
     }}>
       {children}
     </StudyContext.Provider>

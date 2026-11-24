@@ -1,3 +1,4 @@
 .venv/
 reel/node_modules/
 reel/out/
+capture/tmp/

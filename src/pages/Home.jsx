@@ -1,75 +1,67 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  ArrowRight, Check, Menu, X, Plus, MessageCircle, Receipt, FileText, Users, ShieldCheck, Sparkles,
-  Phone, Wallet, Zap, CalendarCheck, Inbox, Send, BookOpen, Lock, TrendingUp, Mail, MapPin, PhoneCall, Bot, Mic,
+  ArrowRight, Check, Menu, X, MessageCircle, Receipt, FileText, ShieldCheck,
+  Phone, Zap, CalendarCheck, Inbox, Send, Lock, TrendingUp, Mail, MapPin, PhoneCall, Bot, Mic, Wallet, ChevronDown,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { LogoMark } from '../components/Logo';
+import { ContactSection } from '../components/DemoForm';
 
 /* ───────────────────────── content ───────────────────────── */
 const WA_DEMO = 'https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20a%20demo';
-const WA_START = 'https://wa.me/919876543210?text=Hi%20EduBuddy%2C%20I%20run%20a%20coaching%20center%20and%20want%20to%20automate%20it.';
+// Every "start free trial" button leads to the free-trial form (on the home page and on /contact).
+const DEMO_HREF = '#contact';
 
 const NAV = [
-  { href: '#home', label: 'Home' },
+  { href: '#problems', label: 'Why EduBuddy' },
   { href: '#features', label: 'Features' },
+  { href: '#compare', label: 'Before & after' },
   { href: '#faq', label: 'FAQ' },
 ];
 
-const STATS = [
-  { value: '98%', label: 'Parents read your update, because it lands on WhatsApp' },
-  { value: '15s', label: 'Your whole batch marked present or absent' },
-  { value: '30s', label: 'A board-pattern question paper on your desk' },
-  { value: '0%', label: 'Commission on fees — it all stays with you' },
+const PROBLEMS = [
+  { icon: Receipt, problem: 'Parents pay fees late and you keep calling them.', fix: 'EduBuddy sends polite fee reminders on WhatsApp, with a UPI link to pay.' },
+  { icon: CalendarCheck, problem: 'Attendance is on paper. Parents don’t know when a child skips class.', fix: 'Mark attendance in 15 seconds. Parents of absent students get a WhatsApp message.' },
+  { icon: FileText, problem: 'Making one test paper takes your whole evening.', fix: 'Pick an NCERT chapter and get a ready paper with answers in 30 seconds.' },
+  { icon: Inbox, problem: 'Inquiries are written on slips and forgotten.', fix: 'Every call and walk-in is saved, with a reminder on the day to follow up.' },
+];
+
+const COMPARE = [
+  ['Attendance', 'Paper register, 10 minutes a batch', '15 seconds on your phone'],
+  ['Fee collection', 'Calling parents again and again', 'Automatic WhatsApp reminders with UPI link'],
+  ['Fee receipts', 'Handwritten receipt book', 'Receipt with your logo, sent on WhatsApp'],
+  ['Test papers', '2–3 hours of typing', 'Ready in 30 seconds, with answers'],
+  ['Parent updates', 'Parents hear only at PTM', 'Report on WhatsApp every week'],
+  ['New admissions', 'Inquiries on paper slips', 'Every inquiry saved, with follow-up reminders'],
 ];
 
 const FAQS = [
-  { q: 'Who is EduBuddy for?', a: 'Coaching institutes, tuition centers and private tutors for Class 6–12, JEE, NEET or Foundation, from 30 to 2,000 students.' },
-  { q: 'How is this different from old coaching ERP apps?', a: 'No heavy apps to download. Attendance, reports and fee reminders go to parents on WhatsApp.' },
-  { q: 'Does it send WhatsApp messages without my permission?', a: 'No. Messages are prepared automatically, but only sent after your 1-tap approval.' },
-  { q: 'Is there any risk of our institute WhatsApp number getting banned?', a: 'No. It uses the official Meta WhatsApp Business Cloud API.' },
-  { q: 'How does the NCERT Test Paper generator work?', a: 'Pick a Class 6–12 chapter. Get a board-pattern paper with marking key in about 30 seconds.' },
-  { q: 'Can my staff or teachers see my fee collections and financial data?', a: 'No. Teachers can only mark attendance and enter marks. Fees and contacts stay with the Director.' },
-  { q: 'How does the AI fee calling agent work?', a: 'When a fee crosses its due date, the agent calls the parent, reminds them politely in Hindi or English, sends the UPI link on WhatsApp and saves their reply. You choose which batches it calls and when.' },
-  { q: 'How does fee collection and UPI QR work?', a: 'Parents pay by UPI (GPay, PhonePe, Paytm). Money goes straight to your bank, 0% commission.' },
-  { q: 'How do I get started, and is there a free trial?', a: 'Yes. 14-day free trial, no credit card. Setup takes under 15 minutes.' },
+  { q: 'Is the free trial really free?', a: 'Yes. You get every feature free for 14 days. You don’t need a card or any payment to start.' },
+  { q: 'Do I need a computer?', a: 'No. EduBuddy works on any smartphone. You can also open it on a laptop if you like.' },
+  { q: 'Do parents need to install an app?', a: 'No. Parents get attendance, fee and test updates on WhatsApp, which they already use.' },
+  { q: 'My teachers are not good with technology. Will they manage?', a: 'Yes. Teachers only tap Present or Absent and enter marks. Most of them learn it on the first day.' },
+  { q: 'Can my teachers see my fee collection?', a: 'No. Teachers see only attendance and marks. Fees and parents’ phone numbers stay with you.' },
+  { q: 'How do parents pay fees?', a: 'By UPI: GPay, PhonePe or Paytm. The money goes straight to your bank account. We take 0% commission.' },
+  { q: 'Will WhatsApp messages go out without my permission?', a: 'No. EduBuddy prepares the messages, but they are sent only after you approve them.' },
+  { q: 'Can my WhatsApp number get banned?', a: 'No. EduBuddy uses the official WhatsApp Business API from Meta.' },
 ];
 
 /* ───────────────────────── helpers ───────────────────────── */
-function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useRef(null);
-  const [on, setOn] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    if (!('IntersectionObserver' in window)) { setOn(true); return undefined; }
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setOn(true); io.disconnect(); }
-    }, { threshold: 0.12 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-700 ease-out motion-reduce:transition-none ${on ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${className}`}
-    >
-      {children}
-    </div>
-  );
+/** Content is shown as soon as the page loads: no fade-in on scroll. */
+function Reveal({ children, className = '' }) {
+  return <div className={className}>{children}</div>;
 }
 
-const Accent = ({ children }) => <span className="text-[#005a9c]">{children}</span>;
+const Accent = ({ children }) => <span className="text-[#2457d6]">{children}</span>;
 
-const darkBtn = 'inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-[#005a9c] to-[#1b365d] px-6 h-12 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_18px_-8px_rgba(0,0,0,0.55)] transition hover:brightness-110 active:scale-[0.98]';
-const lightBtn = 'inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 h-12 text-sm font-semibold text-neutral-900 ring-1 ring-neutral-200 shadow-sm transition hover:bg-neutral-50 active:scale-[0.98]';
+const darkBtn = 'inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-[#2457d6] to-[#16306b] px-6 h-12 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_18px_-8px_rgba(0,0,0,0.55)] transition hover:-translate-y-px hover:brightness-110 active:translate-y-0 active:scale-[0.98]';
+const lightBtn = 'inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 h-12 text-sm font-semibold text-[#0b1b36] ring-1 ring-neutral-200 shadow-sm transition hover:-translate-y-px hover:bg-neutral-50 active:translate-y-0 active:scale-[0.98]';
 
 function SectionHead({ title, sub }) {
   return (
     <Reveal className="mx-auto max-w-2xl text-center">
-      <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.1]">{title}</h2>
+      <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0b1b36] leading-[1.1]">{title}</h2>
       {sub && <p className="mt-4 text-base text-neutral-500 leading-relaxed">{sub}</p>}
     </Reveal>
   );
@@ -79,14 +71,16 @@ function Logo({ className = '' }) {
   return (
     <Link to="/" className={`inline-flex items-center gap-2.5 ${className}`} aria-label="EduBuddy home">
       <LogoMark className="h-8 w-8 rounded-[10px] shadow-[0_4px_10px_-3px_rgba(27,43,77,0.5)]" />
-      <span className="text-lg font-bold tracking-tight text-neutral-900">edubuddy<span className="text-[#4d90e4]">.ai</span></span>
+      <span className="text-lg font-bold tracking-tight text-[#0b1b36]">edubuddy<span className="text-[#4d90e4]">.ai</span></span>
     </Link>
   );
 }
 
 /* ───────────────────────── navbar ───────────────────────── */
-function Navbar({ onStart }) {
+/** `base` is '' on the home page and '/' on other pages, so section links still reach the home page. */
+export function Navbar({ base = '' }) {
   const [scrolled, setScrolled] = useState(false);
+  const href = (item) => (item.local ? item.href : `${base}${item.href}`);
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -105,24 +99,27 @@ function Navbar({ onStart }) {
       >
         <Logo />
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-800" aria-label="Primary">
-          {NAV.map((item) => <a key={item.href} href={item.href} className="hover:text-[#005a9c] transition-colors">{item.label}</a>)}
+          {NAV.map((item) => <a key={item.href} href={href(item)} className="hover:text-[#2457d6] transition-colors">{item.label}</a>)}
         </nav>
         <div className="hidden md:flex items-center gap-2">
-          <Link to="/login" className="h-9 px-4 grid place-items-center rounded-lg bg-white text-sm font-semibold text-neutral-900 ring-1 ring-neutral-200 hover:bg-neutral-50 transition">Login</Link>
-          <button type="button" onClick={onStart} className="h-9 px-4 rounded-lg bg-gradient-to-b from-[#005a9c] to-[#1b365d] text-sm font-semibold text-white hover:brightness-110 transition">Sign up</button>
+          <Link to="/login" className="h-9 px-4 grid place-items-center rounded-lg bg-white text-sm font-semibold text-[#0b1b36] ring-1 ring-neutral-200 hover:bg-neutral-50 transition">Login</Link>
+          <a href={DEMO_HREF} className="h-9 px-4 grid place-items-center rounded-lg bg-gradient-to-b from-[#2457d6] to-[#16306b] text-sm font-semibold text-white hover:brightness-110 transition">Start free trial</a>
         </div>
-        <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Toggle menu" className="md:hidden h-10 w-10 grid place-items-center rounded-full text-neutral-900 hover:bg-neutral-100">
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <a href={DEMO_HREF} className="h-9 px-3.5 grid place-items-center rounded-full bg-gradient-to-b from-[#2457d6] to-[#16306b] text-[13px] font-semibold text-white">Free trial</a>
+          <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Toggle menu" className="h-10 w-10 grid place-items-center rounded-full text-[#0b1b36] hover:bg-neutral-100">
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
       {open && (
-        <div className="md:hidden mx-auto mt-2 max-w-sm rounded-3xl bg-white p-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] animate-fade-up">
+        <div className="md:hidden mx-auto mt-2 max-w-sm rounded-2xl bg-white p-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] animate-fade-up">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-sm font-medium text-neutral-800 hover:bg-neutral-50">{item.label}</a>
+            <a key={item.href} href={href(item)} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-sm font-medium text-neutral-800 hover:bg-neutral-50">{item.label}</a>
           ))}
           <div className="mt-2 grid grid-cols-2 gap-2">
             <Link to="/login" className={`${lightBtn} h-11`}>Login</Link>
-            <button type="button" onClick={onStart} className={`${darkBtn} h-11`}>Sign up</button>
+            <a href={DEMO_HREF} onClick={() => setOpen(false)} className={`${darkBtn} h-11 px-3`}>Free trial</a>
           </div>
         </div>
       )}
@@ -142,20 +139,20 @@ function PhoneMockup() {
         </div>
 
         <div className="mt-4 space-y-3">
-          <div className="rounded-2xl bg-[#d9f2f9] p-3.5 text-[#1b365d]">
+          <div className="rounded-2xl bg-[#dfe8ff] p-3.5 text-[#16306b]">
             <div className="flex items-start justify-between"><p className="text-sm font-medium">Class 10 Foundation</p><span className="text-neutral-400">···</span></div>
             <p className="text-xs opacity-70">9:00 AM · Batch A</p>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
-                {['#60c1e5', '#d4ecf7', '#a0e0ef'].map((c, i) => <span key={c} className="h-7 w-7 rounded-full ring-2 ring-[#d9f2f9] grid place-items-center text-[10px] font-bold text-neutral-800" style={{ background: c }}>{['K', 'A', 'R'][i]}</span>)}
-                <span className="h-7 w-7 rounded-full bg-white/80 ring-2 ring-[#d9f2f9] grid place-items-center text-[10px] font-semibold">+39</span>
+                {['#6c9cff', '#dce6ff', '#b5cbff'].map((c, i) => <span key={c} className="h-7 w-7 rounded-full ring-2 ring-[#dfe8ff] grid place-items-center text-[10px] font-bold text-neutral-800" style={{ background: c }}>{['K', 'A', 'R'][i]}</span>)}
+                <span className="h-7 w-7 rounded-full bg-white/80 ring-2 ring-[#dfe8ff] grid place-items-center text-[10px] font-semibold">+39</span>
               </div>
-              <span className="rounded-full bg-[#bfe6f4] px-3 py-1 text-xs font-medium">140 present</span>
+              <span className="rounded-full bg-[#c9d9ff] px-3 py-1 text-xs font-medium">140 present</span>
             </div>
             <p className="mt-2 text-[11px] opacity-70">2 parents alerted on WhatsApp</p>
           </div>
 
-          <div className="rounded-2xl bg-[#e4f3fb] p-3.5 text-[#1b365d]">
+          <div className="rounded-2xl bg-[#e9effe] p-3.5 text-[#16306b]">
             <div className="flex items-start justify-between"><p className="text-sm font-medium">NCERT Science Unit Test</p><span className="text-neutral-400">···</span></div>
             <p className="text-xs opacity-70">20 marks · Light: Reflection</p>
             <div className="mt-3 flex items-center justify-between">
@@ -164,7 +161,7 @@ function PhoneMockup() {
             </div>
           </div>
 
-          <div className="rounded-2xl bg-[#cfe9f5] p-3.5 text-[#1b365d]">
+          <div className="rounded-2xl bg-[#d5e2ff] p-3.5 text-[#16306b]">
             <div className="flex items-start justify-between"><p className="text-sm font-medium">Fee receipt sent</p><span className="text-neutral-400">···</span></div>
             <p className="text-xs opacity-70">Aman Verma · UPI QR</p>
             <p className="mt-2 text-lg font-bold">₹1,200 <span className="text-xs font-medium opacity-70">received</span></p>
@@ -175,47 +172,100 @@ function PhoneMockup() {
   );
 }
 
+const HERO_POINTS = [
+  [Receipt, 'Fee reminders go to parents on their own'],
+  [CalendarCheck, 'Attendance in 15 seconds, absent alerts on WhatsApp'],
+  [FileText, 'NCERT test papers ready in 30 seconds'],
+];
+
+/** A small "live" notification that floats around the phone in the hero. */
+function HeroToast({ icon: Icon, tone, title, text, className, delay }) {
+  return (
+    <div
+      aria-hidden
+      className={`absolute z-10 hidden sm:flex items-center gap-2.5 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-[0_18px_40px_-16px_rgba(16,24,40,0.45)] ring-1 ring-black/5 backdrop-blur animate-fade-up ${className}`}
+      style={{ animationDelay: delay, animationDuration: '0.6s' }}
+    >
+      <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${tone}`}><Icon className="h-[18px] w-[18px]" /></span>
+      <span className="leading-tight">
+        <span className="block text-[13px] font-bold text-[#0b1b36]">{title}</span>
+        <span className="block text-[11px] text-neutral-500">{text}</span>
+      </span>
+    </div>
+  );
+}
+
 function Hero({ onStart }) {
   return (
-    <section id="home" className="relative overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3.5rem] bg-gradient-to-b from-white via-[#eef9fc] to-[#60c1e5]">
-      <svg aria-hidden className="pointer-events-none absolute left-1/2 top-[38%] -translate-x-1/2" width="1500" height="1500" viewBox="0 0 1500 1500" fill="none">
-        {[540, 680, 820].map((r) => <circle key={r} cx="750" cy="750" r={r} stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" />)}
-      </svg>
+    <section id="home" className="relative overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3.5rem] bg-gradient-to-b from-white via-[#f1f5ff] to-[#dbe6ff]">
+      <div aria-hidden className="pointer-events-none absolute -right-40 top-10 h-[34rem] w-[34rem] rounded-full bg-[#6c9cff]/25 blur-[110px]" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:radial-gradient(#c7d6f5_1px,transparent_1px)] [background-size:26px_26px] [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
 
-      <div className="relative mx-auto max-w-4xl px-5 pt-32 sm:pt-40 text-center">
-        <h1 className="text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-900">
-          You teach. <Accent>We do the rest.</Accent>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-sm sm:text-base leading-relaxed text-neutral-600">
-          Haziri, fees, test papers and parent updates — off your plate, in one app.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <button type="button" onClick={onStart} className={darkBtn}>Get Started <ArrowRight className="h-4 w-4" /></button>
-          <a href={WA_DEMO} target="_blank" rel="noopener noreferrer" className={lightBtn}><MessageCircle className="h-4 w-4" /> WhatsApp demo</a>
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-0 sm:pt-36 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:pb-6">
+        {/* copy */}
+        <div className="flex flex-col items-center text-center animate-fade-up [animation-duration:0.6s] lg:items-start lg:pb-12 lg:text-left">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-neutral-700 shadow-sm ring-1 ring-neutral-200">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" /> Made for coaching institutes & tuition centres
+          </span>
+          <h1 className="mt-4 text-[2.3rem] leading-[1.06] sm:text-6xl font-extrabold tracking-tight text-[#0b1b36]">
+            Run your institute <Accent>from your phone</Accent>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] sm:text-lg leading-relaxed text-neutral-600 lg:mx-0">
+            Fees on time, attendance without registers, and parents updated on WhatsApp. One simple app for everything.
+          </p>
+
+          <ul className="order-last mx-auto mt-8 w-full max-w-md space-y-3 text-left lg:order-none lg:mx-0 lg:mt-7">
+            {HERO_POINTS.map(([Icon, text]) => (
+              <li key={text} className="flex items-center gap-3 text-[15px] font-medium text-neutral-800">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-[#2457d6] shadow-sm ring-1 ring-neutral-200"><Icon className="h-4 w-4" /></span>
+                {text}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-7 flex w-full flex-col items-center gap-3 lg:mt-8 sm:flex-row sm:justify-center lg:justify-start">
+            <a href={DEMO_HREF} className={`${darkBtn} w-full sm:w-auto h-13 px-7 py-3.5 text-[15px]`}>Start 14-day free trial <ArrowRight className="h-4 w-4" /></a>
+            <button type="button" onClick={onStart} className={`${lightBtn} w-full sm:w-auto`}>Try the live app</button>
+          </div>
+          <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-neutral-500 lg:justify-start">
+            {['No card needed', 'We set it up for you', 'Works on any phone'].map((t) => (
+              <span key={t} className="inline-flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-600" strokeWidth={3} /> {t}</span>
+            ))}
+          </p>
         </div>
-        <p className="mt-3 text-xs text-neutral-500">No credit card required · Free 14-day trial</p>
-      </div>
 
-      <div className="relative mt-12 h-[330px] sm:h-[400px] overflow-hidden px-4">
-        <PhoneMockup />
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#60c1e5]/60 to-transparent" />
+        {/* product */}
+        <div className="relative mx-auto h-[360px] w-full max-w-[460px] sm:h-[470px]">
+          <div className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(to_bottom,black_78%,transparent)]">
+            <PhoneMockup />
+          </div>
+          <HeroToast icon={Wallet} tone="bg-[#dff3e7] text-emerald-700" title="₹4,500 received" text="Aarav’s fee · paid by UPI" className="-left-6 top-16 lg:-left-16" delay="0.35s" />
+          <HeroToast icon={MessageCircle} tone="bg-[#eef3ff] text-[#2457d6]" title="Absent alert sent" text="Diya’s parent informed on WhatsApp" className="-right-4 top-48 lg:-right-12" delay="0.5s" />
+          <HeroToast icon={FileText} tone="bg-[#fff4e0] text-amber-700" title="Test paper ready" text="Class 10 Science · 30 sec" className="-left-2 bottom-16 lg:-left-10" delay="0.65s" />
+        </div>
       </div>
     </section>
   );
 }
 
-/* ───────────────────────── trusted + stats ───────────────────────── */
-function Stats() {
+/* ───────────────────────── problems we solve ───────────────────────── */
+function Problems() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:pt-28 sm:pb-28">
-      <SectionHead title={<>Less paperwork, <Accent>more teaching</Accent></>} sub="What teachers notice in the first week." />
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {STATS.map((s, i) => (
-          <Reveal key={s.value} delay={i * 80}>
-            <div className="h-full rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm [background-image:linear-gradient(#f4f4f5_1px,transparent_1px),linear-gradient(90deg,#f4f4f5_1px,transparent_1px)] [background-size:22px_22px]">
-              <p className="text-4xl font-extrabold tracking-tight text-neutral-900">{s.value}</p>
-              <p className="mt-3 text-sm leading-snug text-neutral-500">{s.label}</p>
-            </div>
+    <section id="problems" className="scroll-mt-24 mx-auto max-w-6xl px-5 pt-14 pb-14 sm:pt-28 sm:pb-28">
+      <SectionHead title={<>Sound <Accent>familiar?</Accent></>} sub="The daily headaches of running an institute, and how EduBuddy takes them away." />
+      <div className="mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4">
+        {PROBLEMS.map(({ icon: Icon, problem, fix }, i) => (
+          <Reveal key={problem} delay={i * 80}>
+            <article className="h-full rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition sm:p-6 hover:shadow-[0_20px_40px_-24px_rgba(16,24,40,0.35)]">
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-rose-50 text-rose-500"><X className="h-4 w-4" strokeWidth={2.5} /></span>
+                <p className="text-base font-semibold leading-snug text-[#0b1b36] sm:text-[17px]">{problem}</p>
+              </div>
+              <div className="mt-4 flex items-start gap-3 rounded-2xl bg-[#f3f6fe] p-3.5 sm:mt-5 sm:p-4">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#2457d6] text-white"><Icon className="h-3.5 w-3.5" /></span>
+                <p className="text-sm leading-relaxed text-neutral-700">{fix}</p>
+              </div>
+            </article>
           </Reveal>
         ))}
       </div>
@@ -280,136 +330,95 @@ function useCountUp(target, run, duration = 1400) {
 
 const inr = (n) => `₹${n.toLocaleString('en-IN')}`;
 
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    if (!window.matchMedia) return undefined;
-    const mq = window.matchMedia('(min-width: 768px)');
-    const on = () => setIsDesktop(mq.matches);
-    on();
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return isDesktop;
-}
-
 function FeatureCard({ icon: Icon, kicker, title, text, points, badge, children }) {
   return (
-    <article className="grid items-center gap-7 rounded-[1.75rem] border border-neutral-200 bg-white p-6 shadow-[0_24px_60px_-34px_rgba(16,24,40,0.6)] sm:p-8 md:min-h-[26rem] md:grid-cols-2">
+    <article className="grid h-full content-start items-center gap-5 rounded-2xl border border-neutral-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(16,24,40,0.55)] sm:gap-7 sm:p-8 md:content-center md:shadow-[0_24px_60px_-34px_rgba(16,24,40,0.6)] md:min-h-[26rem] md:grid-cols-2">
       <div>
-        <span className="inline-flex items-center gap-2 rounded-full bg-[#eef7fc] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#005a9c]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#eef3ff] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#2457d6]">
           <Icon className="h-3.5 w-3.5" /> {kicker}
         </span>
-        <h3 className="mt-4 text-2xl font-extrabold tracking-tight text-neutral-900 sm:text-3xl">{title}</h3>
+        <h3 className="mt-4 text-2xl font-extrabold tracking-tight text-[#0b1b36] sm:text-3xl">{title}</h3>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-500">{text}</p>
         <ul className="mt-5 space-y-2.5">
           {points.map((point) => (
             <li key={point} className="flex items-start gap-2.5 text-sm text-neutral-700">
-              <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-[#dff2fa]"><Check className="h-2.5 w-2.5 text-[#005a9c]" strokeWidth={3} /></span>
+              <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-[#e3ebff]"><Check className="h-2.5 w-2.5 text-[#2457d6]" strokeWidth={3} /></span>
               {point}
             </li>
           ))}
         </ul>
         {badge && (
-          <p className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#eef7fc] to-[#dff2fa] px-3 py-1.5 text-xs font-semibold text-[#005a9c]">
+          <p className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#eef3ff] to-[#e3ebff] px-3 py-1.5 text-xs font-semibold text-[#2457d6]">
             <Zap className="h-3.5 w-3.5" /> {badge}
           </p>
         )}
       </div>
-      <div className="rounded-2xl border border-neutral-200/70 bg-[#f6f9fc] p-4">{children}</div>
+      <div className="rounded-2xl border border-neutral-200/70 bg-[#f6f8fd] p-4">{children}</div>
     </article>
   );
 }
 
 const FEATURES = [
   {
-    icon: CalendarCheck, kicker: 'Step 1 · Every morning', title: 'Attendance',
-    text: 'Open the batch, tap P or A, done. Parents of absent students get a WhatsApp alert on their own.',
-    points: ['Whole batch marked in 15 seconds', 'Absent ka alert parents ko apne aap', 'Monthly register builds itself'],
-    badge: 'No paper register', demo: AttendanceDemo,
+    icon: CalendarCheck, kicker: 'Every morning', title: 'Attendance in 15 seconds', tab: 'Attendance',
+    text: 'Open the batch and tap Present or Absent. Parents of absent students get a WhatsApp message on their own.',
+    points: ['No paper register', 'Parents know the same day', 'Monthly report made for you'],
+    badge: 'Works on any phone', demo: AttendanceDemo,
   },
   {
-    icon: Receipt, kicker: 'Step 2 · Fee day', title: 'Fee Tracking',
-    text: 'Paid, pending and overdue on one screen, so you never have to open an Excel sheet again.',
-    points: ['Doughnut view of paid vs pending', 'Receipt with your logo and a UPI link', 'Reminders go out with one tap'],
-    badge: '0% platform commission', demo: FeesDemo,
+    icon: Receipt, kicker: 'Fee day', title: 'Know who has paid', tab: 'Fees',
+    text: 'Paid, pending and late fees on one screen. No Excel sheet, no receipt book.',
+    points: ['Reminders sent with one tap', 'Receipt with your logo and UPI link', 'Money goes straight to your bank'],
+    badge: '0% commission on fees', demo: FeesDemo,
   },
   {
-    icon: FileText, kicker: 'Step 3 · Test time', title: 'NCERT Test Maker',
-    text: 'Pick the chapter, set the marks. A board-pattern paper, worksheet and answer key come out together.',
-    points: ['NCERT chapters, Class 6 to 12', 'Marking key made for you', 'Print it or send it on WhatsApp'],
-    badge: 'Paper ready in 30 seconds', demo: PaperDemo,
+    icon: FileText, kicker: 'Test time', title: 'Test papers in 30 seconds', tab: 'Test papers',
+    text: 'Pick a chapter and the marks. You get a board-pattern paper and the answer key together.',
+    points: ['NCERT chapters, Class 6 to 12', 'Answer key made for you', 'Print it or send it on WhatsApp'],
+    badge: 'Save hours every week', demo: PaperDemo,
   },
   {
-    icon: Inbox, kicker: 'Step 4 · New admissions', title: 'Admission Leads',
-    text: 'Every call and walk-in in one funnel, so you can see how many inquiries actually join.',
-    points: ['Har call aur walk-in saved', 'Follow-up reminder on the day', 'Conversion graph every month'],
-    badge: 'No inquiry forgotten', demo: LeadsDemo,
+    icon: Inbox, kicker: 'New admissions', title: 'Never lose an inquiry', tab: 'Admissions',
+    text: 'Every call and walk-in is saved in one place, so you can see how many actually join.',
+    points: ['Every inquiry saved', 'Reminder on the follow-up day', 'See how many join each month'],
+    badge: 'More admissions', demo: LeadsDemo,
   },
   {
-    icon: PhoneCall, kicker: 'Step 5 · Fees pending', title: 'AI Fee Calling Agent',
-    text: 'When a fee is overdue, an AI voice agent calls the parent, reminds them politely and saves what they promised.',
-    points: ['Calls every pending parent on its own', 'Hindi aur English mein polite baat', 'Promise saved, UPI link sent on WhatsApp'],
+    icon: PhoneCall, kicker: 'Late fees', title: 'AI calls parents for you', tab: 'AI fee calls',
+    text: 'When a fee is late, an AI voice assistant calls the parent, reminds them politely and notes when they will pay.',
+    points: ['Calls every parent with pending fees', 'Speaks politely in Hindi or English', 'Sends the UPI link on WhatsApp'],
     badge: 'No awkward fee calls', demo: CallDemo,
   },
 ];
 
 function Features() {
-  const isDesktop = useIsDesktop();
-  const reduce = useReducedMotion();
-  const refs = useRef([]);
-  const [prog, setProg] = useState(() => FEATURES.map(() => 0));
-
-  useEffect(() => {
-    if (!isDesktop || reduce) { setProg(FEATURES.map(() => 0)); return undefined; }
-    let raf = 0;
-    const measure = () => {
-      raf = 0;
-      setProg(refs.current.map((el, i) => {
-        const nextEl = refs.current[i + 1];
-        if (!el || !nextEl) return 0;
-        const height = el.offsetHeight || 1;
-        const top = el.getBoundingClientRect().top;
-        const nextTop = nextEl.getBoundingClientRect().top;
-        return Math.min(1, Math.max(0, (top + height - nextTop) / height));
-      }));
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
-    measure();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [isDesktop, reduce]);
-
+  const [active, setActive] = useState(0);
+  const feature = FEATURES[active];
+  const Demo = feature.demo;
   return (
-    <section id="features" className="mx-auto max-w-5xl px-5 pb-20 sm:pb-28">
-      <SectionHead title={<>Your teaching day, <Accent>sorted</Accent></>} sub="Attendance, fees, test papers, admissions and fee calls — all in one app." />
+    <section id="features" className="scroll-mt-24 mx-auto max-w-6xl px-5 pb-14 sm:pb-28">
+      <SectionHead title={<>Everything your institute needs, <Accent>in one app</Accent></>} sub="Simple enough for every teacher. Works on any phone." />
 
-      <div className="relative mt-12">
-        {FEATURES.map((feature, i) => {
-          const Demo = feature.demo;
-          const p = isDesktop && !reduce ? prog[i] || 0 : 0;
-          return (
-            <div
-              key={feature.title}
-              ref={(el) => { refs.current[i] = el; }}
-              className="mb-6 md:sticky md:mb-8"
-              style={{
-                top: isDesktop ? `${90 + i * 10}px` : undefined,
-                zIndex: i + 1,
-                transform: p ? `translateY(${-p * 14}px) scale(${1 - p * 0.05})` : undefined,
-                opacity: 1 - p * 0.3,
-                willChange: isDesktop ? 'transform' : undefined,
-              }}
-            >
-              <FeatureCard {...feature}><Demo /></FeatureCard>
-            </div>
-          );
-        })}
+      <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-[15rem_1fr] lg:gap-8">
+        <div role="tablist" aria-label="Features" className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0">
+          {FEATURES.map((item, i) => {
+            const on = i === active;
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.title} type="button" role="tab" aria-selected={on} onClick={() => setActive(i)}
+                className={`flex h-11 shrink-0 items-center gap-2.5 rounded-xl px-4 text-left text-sm font-semibold transition active:scale-[0.98] lg:h-12 ${on
+                  ? 'bg-[#0b1b36] text-white shadow-sm'
+                  : 'bg-white text-neutral-700 ring-1 ring-neutral-200 hover:-translate-y-px hover:text-[#0b1b36] hover:ring-neutral-300'}`}
+              >
+                <Icon className={`h-4 w-4 shrink-0 ${on ? 'text-[#a9c2ff]' : 'text-[#2457d6]'}`} /> {item.tab}
+              </button>
+            );
+          })}
+        </div>
+        <div role="tabpanel" key={active} className="animate-fade-up">
+          <FeatureCard {...feature}><Demo /></FeatureCard>
+        </div>
       </div>
     </section>
   );
@@ -429,7 +438,7 @@ function AttendanceDemo() {
     <div ref={ref}>
       <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-bold text-neutral-900">Class 10 · Batch A</p>
+          <p className="text-xs font-bold text-[#0b1b36]">Class 10 · Batch A</p>
           <span className="rounded-md bg-neutral-100 px-2 py-0.5 text-[10px] font-medium text-neutral-500">Today</span>
         </div>
         <ul className="mt-2.5 space-y-1">
@@ -437,15 +446,15 @@ function AttendanceDemo() {
             const marked = i < done;
             const isActive = i === active;
             return (
-              <li key={name} className={`flex items-center gap-2 rounded-lg px-1.5 py-1 transition-colors duration-300 ${isActive ? 'bg-[#eef7fc]' : ''}`}>
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#e3f6fb] text-[10px] font-bold text-[#005a9c]">{initial}</span>
+              <li key={name} className={`flex items-center gap-2 rounded-lg px-1.5 py-1 transition-colors duration-300 ${isActive ? 'bg-[#eef3ff]' : ''}`}>
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#e8efff] text-[10px] font-bold text-[#2457d6]">{initial}</span>
                 <span className="flex-1 truncate text-[11px] font-medium text-neutral-700">{name}</span>
                 {['p', 'a'].map((tone) => {
                   const on = marked && status === tone;
                   return (
                     <span key={tone} className="relative grid h-5 w-5 place-items-center">
                       {isActive && status === tone && (
-                        <span className="absolute inset-0 animate-ping rounded-md bg-[#60c1e5]/40" />
+                        <span className="absolute inset-0 animate-ping rounded-md bg-[#6c9cff]/40" />
                       )}
                       <span className={`relative grid h-5 w-5 place-items-center rounded-md text-[10px] font-bold transition-all duration-300 ${
                         on
@@ -461,7 +470,7 @@ function AttendanceDemo() {
         </ul>
       </div>
       <div className="mt-3 flex items-center gap-2">
-        <span className="relative flex-1 overflow-hidden rounded-lg bg-gradient-to-b from-[#005a9c] to-[#1b365d] px-3 py-2 text-center text-[11px] font-semibold text-white shadow-sm">
+        <span className="relative flex-1 overflow-hidden rounded-lg bg-gradient-to-b from-[#2457d6] to-[#16306b] px-3 py-2 text-center text-[11px] font-semibold text-white shadow-sm">
           <span className="absolute inset-y-0 left-0 bg-white/15 transition-all duration-500" style={{ width: `${(done / ROLL.length) * 100}%` }} />
           <span className="relative">Save haziri</span>
         </span>
@@ -477,8 +486,8 @@ function AttendanceDemo() {
 
 /* ── 2. fees ── */
 const FEE_SLICES = [
-  { label: 'Paid', students: 38, amount: '₹2,48,500', color: '#005a9c' },
-  { label: 'Pending', students: 7, amount: '₹14,000', color: '#60c1e5' },
+  { label: 'Paid', students: 38, amount: '₹2,48,500', color: '#2457d6' },
+  { label: 'Pending', students: 7, amount: '₹14,000', color: '#6c9cff' },
   { label: 'Overdue', students: 3, amount: '₹7,000', color: '#ef7d91' },
 ];
 const FEE_TOTAL = FEE_SLICES.reduce((sum, s) => sum + s.students, 0);
@@ -498,11 +507,11 @@ function FeesDemo() {
   return (
     <div ref={ref} className="rounded-xl border border-neutral-200 bg-white p-3.5 shadow-sm">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold text-neutral-900">Fee dashboard · November</p>
-        <span className="rounded-md bg-[#eef7fc] px-2 py-0.5 text-[10px] font-semibold text-[#005a9c]">48 students</span>
+        <p className="text-xs font-bold text-[#0b1b36]">Fee dashboard · November</p>
+        <span className="rounded-md bg-[#eef3ff] px-2 py-0.5 text-[10px] font-semibold text-[#2457d6]">48 students</span>
       </div>
 
-      <p className="mt-2 text-xl font-extrabold tracking-tight text-neutral-900 tabular-nums">{inr(shown)}</p>
+      <p className="mt-2 text-xl font-extrabold tracking-tight text-[#0b1b36] tabular-nums">{inr(shown)}</p>
       <p className="text-[9px] font-medium text-neutral-400">collected out of ₹2,69,500</p>
 
       {/* donut + legend */}
@@ -526,7 +535,7 @@ function FeesDemo() {
             })}
           </svg>
           <span className="absolute inset-0 grid place-content-center text-center">
-            <span className="block text-base font-extrabold leading-none text-neutral-900 tabular-nums">{reduce ? 79 : paidPct}%</span>
+            <span className="block text-base font-extrabold leading-none text-[#0b1b36] tabular-nums">{reduce ? 79 : paidPct}%</span>
             <span className="mt-0.5 block text-[8px] font-medium text-neutral-400">fees paid</span>
           </span>
         </div>
@@ -537,7 +546,7 @@ function FeesDemo() {
               <i className="h-2 w-2 shrink-0 rounded-full" style={{ background: s.color }} />
               <span className="flex-1 text-[10px] font-semibold text-neutral-700">{s.label}</span>
               <span className="text-[9px] text-neutral-400">{s.students}</span>
-              <span className="w-[62px] text-right text-[10px] font-bold text-neutral-900 tabular-nums">{s.amount}</span>
+              <span className="w-[62px] text-right text-[10px] font-bold text-[#0b1b36] tabular-nums">{s.amount}</span>
             </li>
           ))}
         </ul>
@@ -553,7 +562,7 @@ function FeesDemo() {
           {FEE_MONTHS.map(([m, h], i) => (
             <span
               key={m}
-              className={`flex-1 rounded-t-[3px] transition-[height] duration-700 ease-out ${i === FEE_MONTHS.length - 1 ? 'bg-gradient-to-t from-[#005a9c] to-[#60c1e5]' : 'bg-[#cfe9f5]'}`}
+              className={`flex-1 rounded-t-[3px] transition-[height] duration-700 ease-out ${i === FEE_MONTHS.length - 1 ? 'bg-gradient-to-t from-[#2457d6] to-[#6c9cff]' : 'bg-[#d5e2ff]'}`}
               style={{ height: run ? `${h}%` : '2%', transitionDelay: `${i * 90}ms` }}
             />
           ))}
@@ -566,10 +575,10 @@ function FeesDemo() {
       </div>
 
       {/* reminder row */}
-      <p className="mt-3 flex items-center gap-2 rounded-lg bg-[#f6f9fc] px-2.5 py-2 text-[10px] font-medium text-neutral-600">
-        <MessageCircle className="h-3.5 w-3.5 shrink-0 text-[#005a9c]" />
+      <p className="mt-3 flex items-center gap-2 rounded-lg bg-[#f6f8fd] px-2.5 py-2 text-[10px] font-medium text-neutral-600">
+        <MessageCircle className="h-3.5 w-3.5 shrink-0 text-[#2457d6]" />
         10 reminders ready with a UPI link
-        <span className="ml-auto shrink-0 rounded-md bg-[#005a9c] px-2 py-1 text-[9px] font-semibold text-white">Send</span>
+        <span className="ml-auto shrink-0 rounded-md bg-[#2457d6] px-2 py-1 text-[9px] font-semibold text-white">Send</span>
       </p>
     </div>
   );
@@ -594,7 +603,7 @@ function PaperDemo() {
         <span aria-hidden className="absolute inset-x-5 -top-2 h-8 rounded-t-xl border border-b-0 border-neutral-200 bg-white/60" />
         <span aria-hidden className="absolute inset-x-3 -top-1 h-6 rounded-t-xl border border-b-0 border-neutral-200 bg-white/80" />
         <div className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white px-4 pt-3.5 pb-8 font-serif shadow-sm">
-          <p className="text-center text-[11px] font-bold uppercase tracking-wide text-neutral-900">Sharma Science Academy</p>
+          <p className="text-center text-[11px] font-bold uppercase tracking-wide text-[#0b1b36]">Sharma Science Academy</p>
           <p className="mt-0.5 text-center text-[9px] text-neutral-500">Unit Test · Class 10 · Science</p>
           <p className="text-center text-[9px] text-neutral-500">Ch 6 — Life Processes</p>
           <div className="mt-2 flex items-center justify-between border-y border-neutral-200 py-1 text-[9px] font-semibold text-neutral-600">
@@ -624,7 +633,7 @@ function PaperDemo() {
         </div>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-semibold">
-        <span className="inline-flex items-center gap-1 rounded-lg bg-[#005a9c] px-2.5 py-1.5 text-white shadow-sm"><FileText className="h-3 w-3" /> Question paper</span>
+        <span className="inline-flex items-center gap-1 rounded-lg bg-[#2457d6] px-2.5 py-1.5 text-white shadow-sm"><FileText className="h-3 w-3" /> Question paper</span>
         <span className="rounded-lg border border-neutral-200 bg-white px-2.5 py-1.5 text-neutral-500">Worksheet</span>
         <span className="rounded-lg border border-neutral-200 bg-white px-2.5 py-1.5 text-neutral-500">Answer key</span>
       </div>
@@ -634,7 +643,7 @@ function PaperDemo() {
 
 /* ── 4. leads ── */
 const STAGES = ['New', 'Contacted', 'Visit', 'Joined'];
-const FUNNEL = [['New inquiries', 28, 100, '#a0e0ef'], ['Contacted', 19, 68, '#60c1e5'], ['Visited', 11, 39, '#2f9fd4'], ['Joined', 7, 25, '#005a9c']];
+const FUNNEL = [['New inquiries', 28, 100, '#b5cbff'], ['Contacted', 19, 68, '#6c9cff'], ['Visited', 11, 39, '#2f9fd4'], ['Joined', 7, 25, '#2457d6']];
 const LEAD_TREND = [['Jun', 14], ['Jul', 18], ['Aug', 16], ['Sep', 22], ['Oct', 24], ['Nov', 28]];
 
 const CH_W = 300;
@@ -680,12 +689,12 @@ function LeadsDemo() {
   return (
     <div ref={ref} className="rounded-xl border border-neutral-200 bg-white p-3.5 shadow-sm">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold text-neutral-900">Admissions · November</p>
-        <span className="rounded-md bg-[#eef7fc] px-2 py-0.5 text-[10px] font-semibold text-[#005a9c]">28 inquiries</span>
+        <p className="text-xs font-bold text-[#0b1b36]">Admissions · November</p>
+        <span className="rounded-md bg-[#eef3ff] px-2 py-0.5 text-[10px] font-semibold text-[#2457d6]">28 inquiries</span>
       </div>
 
       <div className="mt-2 flex items-end gap-2">
-        <p className="text-xl font-extrabold tracking-tight text-neutral-900 tabular-nums">{reduce ? 7 : joined} joined</p>
+        <p className="text-xl font-extrabold tracking-tight text-[#0b1b36] tabular-nums">{reduce ? 7 : joined} joined</p>
         <p className="inline-flex items-center gap-1 pb-1 text-[9px] font-semibold text-emerald-600"><TrendingUp className="h-3 w-3" /> +2 vs Oct</p>
       </div>
 
@@ -695,13 +704,13 @@ function LeadsDemo() {
           <svg viewBox="0 0 70 70" className="h-full w-full -rotate-90">
             <circle cx="35" cy="35" r={RING_R} fill="none" stroke="#edf2f7" strokeWidth="7" />
             <circle
-              cx="35" cy="35" r={RING_R} fill="none" stroke="#005a9c" strokeWidth="7" strokeLinecap="round"
+              cx="35" cy="35" r={RING_R} fill="none" stroke="#2457d6" strokeWidth="7" strokeLinecap="round"
               strokeDasharray={RING_C} strokeDashoffset={run ? RING_C * 0.75 : RING_C}
               style={{ transition: reduce ? 'none' : 'stroke-dashoffset 1200ms cubic-bezier(0.22,1,0.36,1)' }}
             />
           </svg>
           <span className="absolute inset-0 grid place-content-center text-center">
-            <span className="block text-base font-extrabold leading-none text-neutral-900 tabular-nums">{reduce ? 25 : conv}%</span>
+            <span className="block text-base font-extrabold leading-none text-[#0b1b36] tabular-nums">{reduce ? 25 : conv}%</span>
             <span className="mt-0.5 block text-[8px] font-medium text-neutral-400">convert</span>
           </span>
         </div>
@@ -720,7 +729,7 @@ function LeadsDemo() {
                   }}
                 />
               </span>
-              <span className="w-4 shrink-0 text-right text-[10px] font-bold text-neutral-900 tabular-nums">{count}</span>
+              <span className="w-4 shrink-0 text-right text-[10px] font-bold text-[#0b1b36] tabular-nums">{count}</span>
             </li>
           ))}
         </ul>
@@ -737,8 +746,8 @@ function LeadsDemo() {
           <svg viewBox={`0 0 ${CH_W} ${CH_H}`} preserveAspectRatio="none" className="h-full w-full">
             <defs>
               <linearGradient id="ebLeadFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#60c1e5" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#60c1e5" stopOpacity="0" />
+                <stop offset="0%" stopColor="#6c9cff" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#6c9cff" stopOpacity="0" />
               </linearGradient>
             </defs>
             {[0, 0.5, 1].map((t) => {
@@ -750,7 +759,7 @@ function LeadsDemo() {
               style={{ opacity: run ? 1 : 0, transition: reduce ? 'none' : 'opacity 800ms ease-out 700ms' }}
             />
             <path
-              d={TREND_LINE} fill="none" stroke="#005a9c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              d={TREND_LINE} fill="none" stroke="#2457d6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
               vectorEffect="non-scaling-stroke" pathLength="1"
               strokeDasharray="1" strokeDashoffset={run ? 0 : 1}
               style={{ transition: reduce ? 'none' : 'stroke-dashoffset 1500ms cubic-bezier(0.37,0,0.2,1) 250ms' }}
@@ -763,7 +772,7 @@ function LeadsDemo() {
             return (
               <span
                 key={LEAD_TREND[i][0]}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#005a9c] bg-white ${last ? 'h-2.5 w-2.5 bg-[#005a9c]' : 'h-2 w-2'}`}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#2457d6] bg-white ${last ? 'h-2.5 w-2.5 bg-[#2457d6]' : 'h-2 w-2'}`}
                 style={{
                   left: `${(x / CH_W) * 100}%`,
                   top: `${(y / CH_H) * 100}%`,
@@ -776,7 +785,7 @@ function LeadsDemo() {
           })}
           {/* value chip on the last point */}
           <span
-            className="absolute -translate-x-1/2 rounded-md bg-[#005a9c] px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm"
+            className="absolute -translate-x-1/2 rounded-md bg-[#2457d6] px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm"
             style={{
               left: `${(TREND_PTS[TREND_PTS.length - 1][0] / CH_W) * 100}%`,
               top: `${(TREND_PTS[TREND_PTS.length - 1][1] / CH_H) * 100}%`,
@@ -791,7 +800,7 @@ function LeadsDemo() {
 
         <div className="mt-1 flex" style={{ paddingLeft: `${(CH_PX / CH_W) * 100}%`, paddingRight: `${(CH_PX / CH_W) * 100}%` }}>
           {LEAD_TREND.map(([m], i) => (
-            <span key={m} className={`flex-1 text-[8px] font-medium ${i === LEAD_TREND.length - 1 ? 'text-[#005a9c]' : 'text-neutral-400'} ${i === 0 ? 'text-left' : i === LEAD_TREND.length - 1 ? 'text-right' : 'text-center'}`}>{m}</span>
+            <span key={m} className={`flex-1 text-[8px] font-medium ${i === LEAD_TREND.length - 1 ? 'text-[#2457d6]' : 'text-neutral-400'} ${i === 0 ? 'text-left' : i === LEAD_TREND.length - 1 ? 'text-right' : 'text-center'}`}>{m}</span>
           ))}
         </div>
       </div>
@@ -800,20 +809,20 @@ function LeadsDemo() {
       <div className="mt-3 rounded-xl border border-neutral-200 bg-[#f9fbfd] p-2.5">
         <div className="flex items-start justify-between gap-2">
           <span className="min-w-0">
-            <span className="block truncate text-[11px] font-bold text-neutral-900">Rohit Sharma · Class 11 Sci</span>
+            <span className="block truncate text-[11px] font-bold text-[#0b1b36]">Rohit Sharma · Class 11 Sci</span>
             <span className="block truncate text-[9px] text-neutral-400">Walk-in on 2 Nov · Tonk Road</span>
           </span>
-          <span className="shrink-0 rounded-full bg-[#dff2fa] px-2 py-0.5 text-[9px] font-semibold text-[#005a9c]">Visit planned</span>
+          <span className="shrink-0 rounded-full bg-[#e3ebff] px-2 py-0.5 text-[9px] font-semibold text-[#2457d6]">Visit planned</span>
         </div>
         <div className="mt-2.5 flex items-center">
           {STAGES.map((stage, i) => (
             <React.Fragment key={stage}>
               <span className={`h-2.5 w-2.5 shrink-0 rounded-full ring-2 transition-all duration-500 ${
-                i <= filled ? 'scale-100 bg-[#005a9c] ring-[#cfe9f5]' : 'scale-90 bg-neutral-200 ring-white'}`}
+                i <= filled ? 'scale-100 bg-[#2457d6] ring-[#d5e2ff]' : 'scale-90 bg-neutral-200 ring-white'}`}
               />
               {i < STAGES.length - 1 && (
                 <span className="relative h-0.5 flex-1 bg-neutral-200">
-                  <span className="absolute inset-y-0 left-0 bg-[#005a9c] transition-all duration-500" style={{ width: i < filled ? '100%' : '0%' }} />
+                  <span className="absolute inset-y-0 left-0 bg-[#2457d6] transition-all duration-500" style={{ width: i < filled ? '100%' : '0%' }} />
                 </span>
               )}
             </React.Fragment>
@@ -821,15 +830,15 @@ function LeadsDemo() {
         </div>
         <div className="mt-1.5 flex justify-between text-[9px] font-medium">
           {STAGES.map((stage, i) => (
-            <span key={stage} className={`transition-colors duration-500 ${i <= filled ? 'text-[#005a9c]' : 'text-neutral-400'}`}>{stage}</span>
+            <span key={stage} className={`transition-colors duration-500 ${i <= filled ? 'text-[#2457d6]' : 'text-neutral-400'}`}>{stage}</span>
           ))}
         </div>
         <div className="mt-2.5 flex items-center gap-2">
           <p className="flex flex-1 items-center gap-1.5 rounded-lg bg-white px-2 py-1.5 text-[10px] font-medium text-neutral-600">
-            <CalendarCheck className="h-3 w-3 text-[#005a9c]" /> Follow-up today, 4:30 PM
+            <CalendarCheck className="h-3 w-3 text-[#2457d6]" /> Follow-up today, 4:30 PM
           </p>
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#dff3e7] text-emerald-700"><MessageCircle className="h-3.5 w-3.5" /></span>
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#eef7fc] text-[#005a9c]"><Phone className="h-3.5 w-3.5" /></span>
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#eef3ff] text-[#2457d6]"><Phone className="h-3.5 w-3.5" /></span>
         </div>
       </div>
     </div>
@@ -860,12 +869,12 @@ function CallDemo() {
   return (
     <div ref={ref} className="rounded-xl border border-neutral-200 bg-white p-3.5 shadow-sm">
       <div className="flex items-center justify-between">
-        <p className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-900"><Bot className="h-3.5 w-3.5 text-[#005a9c]" /> AI fee calls · Today</p>
-        <span className="rounded-md bg-[#eef7fc] px-2 py-0.5 text-[10px] font-semibold text-[#005a9c]">4 pending</span>
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1b36]"><Bot className="h-3.5 w-3.5 text-[#2457d6]" /> AI fee calls · Today</p>
+        <span className="rounded-md bg-[#eef3ff] px-2 py-0.5 text-[10px] font-semibold text-[#2457d6]">4 pending</span>
       </div>
 
       {/* live call */}
-      <div className="mt-3 flex items-center gap-2.5 rounded-xl bg-gradient-to-b from-[#005a9c] to-[#1b365d] p-2.5 text-white shadow-sm">
+      <div className="mt-3 flex items-center gap-2.5 rounded-xl bg-gradient-to-b from-[#2457d6] to-[#16306b] p-2.5 text-white shadow-sm">
         <span className="relative grid h-9 w-9 shrink-0 place-items-center">
           {!connected && !reduce && <span className="absolute inset-0 animate-ping rounded-full bg-white/30" />}
           <span className="relative grid h-9 w-9 place-items-center rounded-full bg-white/15 text-xs font-bold">SS</span>
@@ -886,7 +895,7 @@ function CallDemo() {
             key={line.text}
             className={`flex transition-all duration-500 ${line.who === 'ai' ? 'justify-start' : 'justify-end'} ${i < lines ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'}`}
           >
-            <span className={`max-w-[85%] rounded-xl px-2.5 py-1.5 text-[10px] leading-snug ${line.who === 'ai' ? 'rounded-tl-sm bg-[#eef7fc] text-neutral-800' : 'rounded-tr-sm bg-[#e7f6ec] text-neutral-800'}`}>
+            <span className={`max-w-[85%] rounded-xl px-2.5 py-1.5 text-[10px] leading-snug ${line.who === 'ai' ? 'rounded-tl-sm bg-[#eef3ff] text-neutral-800' : 'rounded-tr-sm bg-[#e7f6ec] text-neutral-800'}`}>
               {line.text}
             </span>
           </li>
@@ -894,7 +903,7 @@ function CallDemo() {
       </ul>
 
       {/* outcome */}
-      <p className={`flex items-center gap-2 rounded-lg bg-[#f6f9fc] px-2.5 py-2 text-[10px] font-medium text-neutral-600 transition-all duration-500 ${done ? 'opacity-100' : 'opacity-40'}`}>
+      <p className={`flex items-center gap-2 rounded-lg bg-[#f6f8fd] px-2.5 py-2 text-[10px] font-medium text-neutral-600 transition-all duration-500 ${done ? 'opacity-100' : 'opacity-40'}`}>
         <Check className="h-3.5 w-3.5 shrink-0 text-emerald-600" strokeWidth={3} />
         {done ? 'Promise to pay · Fri, 21 Nov' : 'Waiting for reply…'}
         <span className="ml-auto inline-flex shrink-0 items-center gap-1 rounded-md bg-[#dff3e7] px-2 py-1 text-[9px] font-semibold text-emerald-700">
@@ -920,65 +929,64 @@ function CallDemo() {
 /* ───────────────────────── parent updates / receipts / roles ───────────────────────── */
 function Integrations() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-20 sm:pb-28">
-      <SectionHead title={<>Parents updated, <Accent>without typing</Accent></>} sub="EduBuddy writes the message, you just tap approve." />
+    <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-28">
+      <SectionHead title={<>Parents stay informed. <Accent>You don’t type a word.</Accent></>} sub="EduBuddy writes the WhatsApp message. You check it and tap send." />
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
         <Reveal>
-          <article className="h-full rounded-3xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
+          <article className="h-full rounded-2xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
             <div className="rounded-2xl bg-white p-4 h-72 overflow-hidden">
               <p className="rounded-xl bg-neutral-100 px-3 py-2 text-xs text-neutral-400 line-through decoration-neutral-300">URGENT: Fee due and absent warning</p>
-              <p className="mt-1 text-[10px] text-neutral-400">A typical automated SMS, muted by most parents</p>
               <div className="mt-4 rounded-2xl rounded-tl-sm bg-[#e7f6ec] p-3 text-xs leading-relaxed text-neutral-800">
                 <p className="font-semibold">Namaste Mrs. Anita Verma!</p>
                 <p className="mt-1">Kartik’s weekly haziri is 100% and he ranked #2 in the NCERT Science unit test.</p>
                 <p className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-white px-2 py-1 text-[11px] font-medium"><FileText className="h-3 w-3" /> Kartik_Class10_Scorecard.pdf</p>
               </div>
-              <span className="mt-3 ml-auto block w-fit rounded-full bg-[#a0e0ef] px-3 py-1 text-xs font-medium text-neutral-900">Approve &amp; send</span>
+              <span className="mt-3 ml-auto block w-fit rounded-full bg-[#b5cbff] px-3 py-1 text-xs font-medium text-[#0b1b36]">Approve &amp; send</span>
             </div>
-            <h3 className="mt-5 px-2 text-lg font-semibold text-neutral-900">Updates parents read</h3>
+            <h3 className="mt-5 px-2 text-lg font-semibold text-[#0b1b36]">Updates parents read</h3>
             <p className="mt-1.5 px-2 pb-2 text-sm leading-relaxed text-neutral-500">Sent on WhatsApp only after you approve.</p>
           </article>
         </Reveal>
 
-        <Reveal delay={100}>
-          <article className="h-full rounded-3xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
+        <Reveal>
+          <article className="h-full rounded-2xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
             <div className="rounded-2xl bg-white p-4 h-72 overflow-hidden text-center">
-              <p className="text-4xl font-extrabold tracking-tight text-neutral-900">₹42,000</p>
+              <p className="text-4xl font-extrabold tracking-tight text-[#0b1b36]">₹42,000</p>
               <p className="text-xs text-neutral-400">Total amount paid</p>
-              <div className="mx-auto mt-5 w-full max-w-[220px] rounded-2xl bg-gradient-to-br from-[#005a9c] to-[#1b365d] p-4 text-left text-white shadow-xl">
+              <div className="mx-auto mt-5 w-full max-w-[220px] rounded-2xl bg-gradient-to-br from-[#2457d6] to-[#16306b] p-4 text-left text-white shadow-xl">
                 <div className="flex items-center justify-between"><span className="h-5 w-8 rounded bg-white/25" /><Receipt className="h-4 w-4 opacity-70" /></div>
                 <p className="mt-5 text-[11px] tracking-widest opacity-80">BRIGHT FUTURE INSTITUTE</p>
                 <p className="mt-1 text-xs opacity-70">GST Tax Invoice · BFIT/2026/1048</p>
                 <p className="mt-3 text-[11px] opacity-70">Paid via UPI QR</p>
               </div>
             </div>
-            <h3 className="mt-5 px-2 text-lg font-semibold text-neutral-900">GST fee receipts</h3>
+            <h3 className="mt-5 px-2 text-lg font-semibold text-[#0b1b36]">GST fee receipts</h3>
             <p className="mt-1.5 px-2 pb-2 text-sm leading-relaxed text-neutral-500">Your logo and UPI link. Share as PDF in one tap.</p>
           </article>
         </Reveal>
 
-        <Reveal delay={200}>
-          <article className="h-full rounded-3xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
+        <Reveal>
+          <article className="h-full rounded-2xl border border-neutral-200 bg-[#f8f9fb] p-4 shadow-sm">
             <div className="rounded-2xl bg-white p-4 h-72 overflow-hidden">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-[#005a9c]">+ Invite</span>
+                <span className="text-sm font-medium text-[#2457d6]">+ Invite</span>
                 <div className="flex -space-x-2">
-                  {['#60c1e5', '#d4ecf7', '#a0e0ef', '#9ccdf0'].map((c) => <span key={c} className="h-8 w-8 rounded-full ring-2 ring-white" style={{ background: c }} />)}
+                  {['#6c9cff', '#dce6ff', '#b5cbff', '#a9c2ff'].map((c) => <span key={c} className="h-8 w-8 rounded-full ring-2 ring-white" style={{ background: c }} />)}
                   <span className="grid h-8 w-8 place-items-center rounded-full bg-neutral-100 text-[10px] font-semibold ring-2 ring-white">+2</span>
                 </div>
               </div>
               <div className="mt-4 rounded-2xl border border-neutral-200 bg-white p-3.5 shadow-md">
-                <span className="rounded-md bg-[#e3f6fb] px-2 py-0.5 text-[11px] font-medium text-[#1b365d]">Teacher</span>
-                <p className="mt-2 text-sm font-medium text-neutral-900">Can mark attendance and enter test marks</p>
+                <span className="rounded-md bg-[#e8efff] px-2 py-0.5 text-[11px] font-medium text-[#16306b]">Teacher</span>
+                <p className="mt-2 text-sm font-medium text-[#0b1b36]">Can mark attendance and enter test marks</p>
                 <p className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-neutral-100 px-2 py-1 text-[11px] text-neutral-600"><Lock className="h-3 w-3" /> Fees &amp; GST hidden</p>
               </div>
               <div className="mt-3 rounded-2xl border border-neutral-200 bg-white p-3.5 shadow-sm">
                 <span className="rounded-md bg-[#dff3e7] px-2 py-0.5 text-[11px] font-medium text-emerald-800">Director</span>
-                <p className="mt-2 text-sm font-medium text-neutral-900">Full access to ledger and contacts</p>
+                <p className="mt-2 text-sm font-medium text-[#0b1b36]">Full access to ledger and contacts</p>
               </div>
             </div>
-            <h3 className="mt-5 px-2 text-lg font-semibold text-neutral-900">What your staff can see</h3>
+            <h3 className="mt-5 px-2 text-lg font-semibold text-[#0b1b36]">What your staff can see</h3>
             <p className="mt-1.5 px-2 pb-2 text-sm leading-relaxed text-neutral-500">Teachers see only what they need.</p>
           </article>
         </Reveal>
@@ -987,38 +995,56 @@ function Integrations() {
   );
 }
 
-/* ───────────────────────── why directors love it ───────────────────────── */
-function Love({ onStart }) {
-  const bubbles = [
-    { s: 96, x: '8%', y: '4%', d: '0s' }, { s: 140, x: '48%', y: '0%', d: '1.2s' }, { s: 84, x: '82%', y: '14%', d: '2s' },
-    { s: 110, x: '22%', y: '52%', d: '0.6s' }, { s: 70, x: '70%', y: '56%', d: '1.8s' }, { s: 120, x: '44%', y: '74%', d: '2.4s' },
-  ];
+/* ───────────────────────── before & after ───────────────────────── */
+function Compare() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-20 sm:pb-28">
-      <div className="grid items-center gap-10 lg:grid-cols-2">
-        <Reveal>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900"><Accent>Teachers</Accent> love us</h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-neutral-500">No registers, no Excel, no chasing parents for fees.</p>
-          <ul className="mt-6 space-y-3 text-sm text-neutral-700">
-            {['No more paper registers or Excel', '98% WhatsApp open rate', 'Fees go straight to your bank'].map((t) => (
-              <li key={t} className="flex items-center gap-3"><span className="grid h-5 w-5 place-items-center rounded-full bg-[#dff2fa]"><Check className="h-3 w-3 text-[#005a9c]" strokeWidth={3} /></span>{t}</li>
+    <section id="compare" className="scroll-mt-24 mx-auto max-w-5xl px-5 pb-14 sm:pb-28">
+      <SectionHead title={<>Before and after <Accent>EduBuddy</Accent></>} sub="What changes from the first week." />
+      <Reveal className="mt-12">
+        <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_60px_-34px_rgba(16,24,40,0.5)]">
+          <div className="hidden grid-cols-[1fr_1.2fr_1.2fr] border-b border-neutral-200 bg-neutral-50 text-xs font-bold uppercase tracking-wider sm:grid">
+            <span className="px-6 py-4 text-neutral-400">Work</span>
+            <span className="px-6 py-4 text-rose-500">Without EduBuddy</span>
+            <span className="bg-[#eef3ff] px-6 py-4 text-[#2457d6]">With EduBuddy</span>
+          </div>
+          <ul className="divide-y divide-neutral-100">
+            {COMPARE.map(([work, before, after]) => (
+              <li key={work} className="grid gap-2 px-5 py-4 sm:grid-cols-[1fr_1.2fr_1.2fr] sm:gap-0 sm:p-0">
+                <span className="text-[15px] font-bold text-[#0b1b36] sm:px-6 sm:py-5">{work}</span>
+                <span className="flex items-start gap-2 text-sm text-neutral-500 sm:px-6 sm:py-5">
+                  <X className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" strokeWidth={2.5} /> {before}
+                </span>
+                <span className="flex items-start gap-2 text-sm font-medium text-neutral-800 sm:bg-[#f5f8ff] sm:px-6 sm:py-5">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#2457d6]" strokeWidth={3} /> {after}
+                </span>
+              </li>
             ))}
           </ul>
-          <button type="button" onClick={onStart} className={`${darkBtn} mt-8`}>Get Started</button>
-        </Reveal>
-
-        <div className="relative h-[380px] sm:h-[440px]" aria-hidden>
-          {bubbles.map((b, i) => (
-            <span key={i} className="absolute rounded-full bg-gradient-to-br from-neutral-100 to-neutral-300 shadow-[inset_0_-6px_12px_rgba(0,0,0,0.05),0_20px_30px_-18px_rgba(0,0,0,0.3)] float-soft"
-              style={{ width: b.s, height: b.s, left: b.x, top: b.y, animationDelay: b.d }} />
-          ))}
-          {[[MessageCircle, '30%', '30%'], [Receipt, '62%', '40%'], [FileText, '14%', '72%']].map(([Icon, x, y], i) => (
-            <span key={i} className="absolute grid h-14 w-14 place-items-center rounded-2xl bg-white shadow-xl float-soft" style={{ left: x, top: y, animationDelay: `${i * 0.9}s` }}>
-              <Icon className="h-6 w-6 text-[#005a9c]" />
-            </span>
-          ))}
         </div>
-      </div>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ───────────────────────── free trial banner ───────────────────────── */
+function TrialBanner() {
+  return (
+    <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-28">
+      <Reveal>
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#2457d6] to-[#0b1b36] px-6 py-12 text-center sm:px-12 sm:py-16">
+          <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[34rem] -translate-x-1/2 rounded-full bg-[#6c9cff] opacity-30 blur-[90px]" />
+          <p className="relative text-xs font-bold uppercase tracking-[0.16em] text-[#ffc46b]">14-day free trial</p>
+          <h2 className="relative mx-auto mt-3 max-w-3xl text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.1] text-balance">
+            Try it free. Pay only if you love it.
+          </h2>
+          <p className="relative mx-auto mt-4 max-w-lg text-base text-white/70">
+            We set up your batches and students for you. No card, no commitment.
+          </p>
+          <a href={DEMO_HREF} className="relative mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-white px-7 text-[15px] font-semibold text-[#0b1b36] shadow-[0_12px_30px_-12px_rgba(0,0,0,0.6)] transition hover:bg-[#e8efff] active:scale-[0.98]">
+            Start free trial <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -1027,71 +1053,87 @@ function Love({ onStart }) {
 function Faq() {
   const [open, setOpen] = useState(0);
   return (
-    <section id="faq" className="mx-auto max-w-3xl px-5 pb-20 sm:pb-28">
-      <SectionHead title={<><Accent>FAQ</Accent></>} sub="What teachers ask before they switch." />
-      <Reveal className="mt-10">
-        <div className="space-y-3 rounded-[2rem] bg-neutral-200/80 p-3 sm:p-4">
-          {FAQS.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={item.q} className="rounded-2xl bg-white shadow-[0_4px_10px_-4px_rgba(0,0,0,0.15)]">
-                <button type="button" onClick={() => setOpen(isOpen ? -1 : i)} aria-expanded={isOpen} className="flex w-full items-center gap-3 px-5 py-4 text-left">
-                  <Plus className={`h-4 w-4 shrink-0 text-[#005a9c] transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} />
-                  <span className="text-[15px] font-medium text-neutral-900">{item.q}</span>
-                </button>
-                <div className={`grid transition-all duration-300 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                  <div className="overflow-hidden"><p className="px-5 pb-5 pl-12 text-sm leading-relaxed text-neutral-500">{item.a}</p></div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
-/* ───────────────────────── final CTA + footer ───────────────────────── */
-function Cta({ onStart }) {
-  const floaters = [
-    [ShieldCheck, 'left-[4%] top-[6%]'], [Phone, 'right-[4%] top-[8%]'], [Sparkles, 'left-[16%] bottom-[10%]'],
-    [Send, 'left-1/2 bottom-[2%] -translate-x-1/2'], [Wallet, 'right-[14%] bottom-[8%]'],
-  ];
-  return (
-    <section className="relative mx-auto max-w-6xl px-5 pb-24 sm:pb-32">
-      <div className="relative px-2 py-24 sm:py-32 text-center">
-        {floaters.map(([Icon, pos], i) => (
-          <span key={i} aria-hidden className={`absolute hidden md:grid h-16 w-16 place-items-center rounded-full bg-white shadow-[0_12px_30px_-10px_rgba(0,0,0,0.25)] float-soft ${pos}`} style={{ animationDelay: `${i * 0.7}s` }}>
-            <Icon className="h-6 w-6 text-neutral-900" />
-          </span>
-        ))}
+    <section id="faq" className="scroll-mt-24 mx-auto max-w-6xl px-5 pb-14 sm:pb-28">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
         <Reveal>
-          <h2 className="mx-auto max-w-3xl text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.1]">
-            Less admin, <Accent>more teaching</Accent>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#2457d6]">FAQ</p>
+          <h2 className="mt-3 text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0b1b36] leading-[1.1]">
+            Questions owners <Accent>ask us</Accent>
           </h2>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <button type="button" onClick={onStart} className={darkBtn}>Get Started <ArrowRight className="h-4 w-4" /></button>
-            <a href={WA_START} target="_blank" rel="noopener noreferrer" className={lightBtn}><MessageCircle className="h-4 w-4" /> Start free on WhatsApp</a>
+          <p className="mt-4 max-w-sm text-base text-neutral-500">Simple answers before you start your free trial.</p>
+          <div className="mt-8 hidden rounded-2xl border border-neutral-200 bg-[#f6f8fd] p-5 lg:block">
+            <p className="font-semibold text-[#0b1b36]">Still have a question?</p>
+            <p className="mt-1 text-sm text-neutral-500">Talk to us on WhatsApp. We reply quickly.</p>
+            <a href={WA_DEMO} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex h-10 items-center gap-2 rounded-lg bg-[#25d366] px-4 text-sm font-semibold text-white transition hover:brightness-105">
+              <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+            </a>
           </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="divide-y divide-neutral-200 border-y border-neutral-200">
+            {FAQS.map((item, i) => {
+              const isOpen = open === i;
+              return (
+                <div key={item.q}>
+                  <button type="button" onClick={() => setOpen(isOpen ? -1 : i)} aria-expanded={isOpen} className="group flex w-full items-center justify-between gap-6 py-5 text-left">
+                    <span className={`text-base sm:text-[17px] font-semibold transition-colors ${isOpen ? 'text-[#2457d6]' : 'text-[#0b1b36] group-hover:text-[#2457d6]'}`}>{item.q}</span>
+                    <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-300 ${isOpen ? 'rotate-180 bg-[#2457d6] text-white' : 'bg-neutral-100 text-neutral-500 group-hover:bg-[#eef3ff]'}`}>
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                  </button>
+                  <div className={`grid transition-all duration-300 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden"><p className="max-w-2xl pb-5 pr-12 text-[15px] leading-relaxed text-neutral-600">{item.a}</p></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <a href={WA_DEMO} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#2457d6] lg:hidden">
+            <MessageCircle className="h-4 w-4" /> Still have a question? WhatsApp us
+          </a>
         </Reveal>
       </div>
     </section>
   );
 }
 
-function Footer() {
-  const link = 'inline-flex items-center gap-1.5 text-sm text-white/55 transition hover:text-white';
-  const head = 'mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[#60c1e5]';
+/* ───────────────────────── sticky phone CTA + footer ───────────────────────── */
+/** On phones, a "Book free demo" bar follows the visitor until the form is on screen. */
+export function StickyDemoBar() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const form = document.getElementById('contact');
+    let formVisible = false;
+    const update = () => setShow(window.scrollY > 500 && !formVisible);
+    const io = form && 'IntersectionObserver' in window
+      ? new IntersectionObserver(([entry]) => { formVisible = entry.isIntersecting; update(); }, { threshold: 0.05 })
+      : null;
+    if (io) io.observe(form);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => { window.removeEventListener('scroll', update); if (io) io.disconnect(); };
+  }, []);
   return (
-    <footer className="relative mt-6 overflow-hidden rounded-t-[2.5rem] bg-[#12294a] px-5 pt-14 pb-8 sm:rounded-t-[3rem]">
+    <div className={`fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 bg-gradient-to-t from-white via-white/95 to-white/0 transition-all duration-300 md:hidden ${show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-full opacity-0'}`}>
+      <a href={DEMO_HREF} className={`${darkBtn} w-full`}>Start 14-day free trial <ArrowRight className="h-4 w-4" /></a>
+    </div>
+  );
+}
+
+export function Footer({ base = '' }) {
+  const link = 'inline-flex items-center gap-1.5 text-sm text-white/55 transition hover:text-white';
+  const head = 'mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[#6c9cff]';
+  return (
+    <footer className="relative mt-6 overflow-hidden rounded-t-[2.5rem] bg-[#0b1b36] px-5 pt-14 pb-8 sm:rounded-t-[3rem]">
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:44px_44px]" />
-      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[36rem] -translate-x-1/2 rounded-full bg-[#60c1e5] opacity-25 blur-[90px]" />
+      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[36rem] -translate-x-1/2 rounded-full bg-[#6c9cff] opacity-25 blur-[90px]" />
 
       <div className="relative mx-auto max-w-6xl">
         {/* trust strip */}
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-white/10 pb-8 text-xs font-medium text-white/60">
           {[[Zap, '14-day free trial'], [ShieldCheck, 'No credit card'], [CalendarCheck, 'Set up in 15 minutes'], [MessageCircle, 'Support on WhatsApp']].map(([Icon, label]) => (
-            <li key={label} className="inline-flex items-center gap-2"><Icon className="h-3.5 w-3.5 text-[#60c1e5]" /> {label}</li>
+            <li key={label} className="inline-flex items-center gap-2"><Icon className="h-3.5 w-3.5 text-[#6c9cff]" /> {label}</li>
           ))}
         </ul>
 
@@ -1105,18 +1147,18 @@ function Footer() {
               Haziri, fees and test papers handled, so your day goes back to teaching.
             </p>
             <a
-              href={WA_DEMO} target="_blank" rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 h-11 text-sm font-semibold text-[#12294a] shadow-[0_10px_24px_-12px_rgba(0,0,0,0.8)] transition hover:bg-[#e3f6fb] active:scale-[0.98]"
+              href={DEMO_HREF}
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 h-11 text-sm font-semibold text-[#0b1b36] shadow-[0_10px_24px_-12px_rgba(0,0,0,0.8)] transition hover:bg-[#e8efff] active:scale-[0.98]"
             >
-              <MessageCircle className="h-4 w-4" /> Book a demo
+              <Send className="h-4 w-4" /> Start free trial
             </a>
           </div>
 
           <div>
             <p className={head}>Product</p>
             <ul className="space-y-3">
-              <li><a href="#features" className={link}>Features</a></li>
-              <li><a href="#faq" className={link}>FAQ</a></li>
+              <li><a href={`${base}#features`} className={link}>Features</a></li>
+              <li><a href={`${base}#faq`} className={link}>FAQ</a></li>
               <li><Link to="/dashboard" className={link}>Dashboard</Link></li>
               <li><Link to="/login" className={link}>Log in</Link></li>
             </ul>
@@ -1125,10 +1167,10 @@ function Footer() {
           <div>
             <p className={head}>For teachers</p>
             <ul className="space-y-3">
-              <li><a href="#features" className={link}>Attendance</a></li>
-              <li><a href="#features" className={link}>Fee tracking</a></li>
-              <li><a href="#features" className={link}>Test maker</a></li>
-              <li><a href="#features" className={link}>Admission leads</a></li>
+              <li><a href={`${base}#features`} className={link}>Attendance</a></li>
+              <li><a href={`${base}#features`} className={link}>Fee tracking</a></li>
+              <li><a href={`${base}#features`} className={link}>Test maker</a></li>
+              <li><a href={`${base}#features`} className={link}>Admission leads</a></li>
             </ul>
           </div>
 
@@ -1137,7 +1179,7 @@ function Footer() {
             <ul className="space-y-3">
               <li><a href={WA_DEMO} target="_blank" rel="noopener noreferrer" className={link}><MessageCircle className="h-3.5 w-3.5" /> WhatsApp helpline</a></li>
               <li><a href="mailto:hello@edubuddy.ai" className={link}><Mail className="h-3.5 w-3.5" /> hello@edubuddy.ai</a></li>
-              <li><Link to="/contact" className={link}><Send className="h-3.5 w-3.5" /> Contact form</Link></li>
+              <li><a href={DEMO_HREF} className={link}><Send className="h-3.5 w-3.5" /> Contact form</a></li>
               <li><span className="inline-flex items-center gap-1.5 text-sm text-white/40"><MapPin className="h-3.5 w-3.5" /> Jaipur, Rajasthan</span></li>
             </ul>
           </div>
@@ -1168,18 +1210,20 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-dvh bg-white text-neutral-900 antialiased">
-      <Navbar onStart={handleStart} />
+    <div className="min-h-dvh bg-white text-[#0b1b36] antialiased">
+      <Navbar />
       <main>
         <Hero onStart={handleStart} />
-        <Stats />
+        <Problems />
         <Features />
         <Integrations />
-        <Love onStart={handleStart} />
+        <Compare />
+        <TrialBanner />
         <Faq />
-        <Cta onStart={handleStart} />
+        <ContactSection id="contact" source="home page" onTryDemo={handleStart} className="pb-24 sm:pb-32" />
       </main>
       <Footer />
+      <StickyDemoBar />
     </div>
   );
 }

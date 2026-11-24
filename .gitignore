@@ -30,3 +30,8 @@ dist-ssr
 
 .vercel
 .env*
+
+# Local tool caches and browser profiles (not part of the app)
+.taste-skill/
+.claude/
+skills-lock.json

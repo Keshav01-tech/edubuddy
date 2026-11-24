@@ -9,6 +9,8 @@ import { Spinner } from '../components/Spinner';
 import { SetupModal } from '../components/SetupModal';
 import { AppHeader } from '../components/AppHeader';
 import { isOpenAIConfigured } from '../services/openai';
+import { useClassroom } from '../services/classroom';
+import { sameClass } from '../services/teachers';
 import { ncertSyllabus, streamsFor, subjectsFor, chaptersFor, hasTextbook, chapterScopeLabel } from '../data/ncertData';
 import {
   MARKS,
@@ -58,6 +60,12 @@ function chip(on) {
 const pillOn = (on) => `h-10 px-4 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
   on ? 'bg-[#005a9c] text-white shadow-sm' : 'bg-white text-neutral-700 ring-1 ring-inset ring-neutral-200 hover:ring-neutral-400'
 }`;
+
+const PAPER_LANGUAGES = [
+  { id: 'en', label: 'English', hint: 'English only' },
+  { id: 'hi', label: 'हिंदी', hint: 'केवल हिंदी' },
+  { id: 'bi', label: 'Bilingual', hint: 'English + हिंदी नीचे' },
+];
 
 function Card({ step, title, hint, aside, children }) {
   return (
@@ -120,6 +128,13 @@ export default function TestGenerator() {
   const { signOut } = useAuth();
   const { sessions, processingSession, createSession } = useStudy();
   const navigate = useNavigate();
+  const room = useClassroom();
+
+  // A teacher makes papers only for the classes they teach. A class name with no syllabus match
+  // (such as "Foundation") cannot be narrowed down, so that teacher keeps the full list.
+  const taught = classes.filter((name) => room.classes.some((c) => sameClass(c.name, name)));
+  const classChoices = !room.isTeacher ? classes : taught.length ? taught : room.classes.length ? classes : [];
+  const noClass = room.isTeacher && !room.loading && classChoices.length === 0;
 
   const [cls, setCls] = useState(classes[4] ?? classes[0]);
   const [stream, setStream] = useState('Science');
@@ -134,9 +149,16 @@ export default function TestGenerator() {
 
   const [error, setError] = useState('');
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // English only, Hindi only, or bilingual (Hindi under each English line).
+  const [language, setLanguage] = useState('en');
 
   const streamNames = streamsFor(cls);
   const subjectNames = subjectsFor(cls, stream);
+
+  const choicesKey = classChoices.join('|');
+  useEffect(() => {
+    if (classChoices.length && !classChoices.includes(cls)) setCls(classChoices[0]);
+  }, [choicesKey, cls]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const names = subjectsFor(cls, stream);
@@ -207,6 +229,7 @@ export default function TestGenerator() {
   const handleCreate = async (e) => {
     e.preventDefault();
     setError('');
+    if (room.isTeacher && !classChoices.includes(cls)) return setError('Ask your admin to assign you a class first.');
     if (!picked.length) return setError('Choose at least one chapter.');
     if (!blueprint.length) return setError('Add at least one section.');
     if (tooManyMarks) return setError(`Keep the paper at ${MAX_MARKS} marks or less.`);
@@ -224,6 +247,7 @@ export default function TestGenerator() {
         totalMarks,
         count: totalQuestions,
         chapters: picked,
+        language,
       });
       navigate(`/test?id=${session.id}`);
     } catch (err) {
@@ -275,12 +299,13 @@ export default function TestGenerator() {
           <Card step="1" title="Class & subject" hint="Choose class and subject.">
             <p className="text-xs font-medium text-neutral-500 mb-2">Class</p>
             <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Class">
-              {classes.map((name) => (
+              {classChoices.map((name) => (
                 <button key={name} type="button" role="radio" aria-checked={cls === name} onClick={() => setCls(name)} className={pillOn(cls === name)}>
                   {name.replace(/^Class\s*/i, 'Class ')}
                 </button>
               ))}
             </div>
+            {noClass && <p className="mt-2 text-sm text-rose-700" role="alert">Ask your admin to assign you a class first.</p>}
 
             {streamNames.length > 0 && (
               <>
@@ -528,6 +553,26 @@ export default function TestGenerator() {
                   : `${totalQuestions} questions is over the ${MAX_QUESTIONS}-question limit.`}
               </p>
             )}
+          </Card>
+
+          <Card step="4" title="Paper language" hint="For Hindi-medium batches. The paper is written in English, then translated.">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup" aria-label="Paper language">
+              {PAPER_LANGUAGES.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={language === item.id}
+                  onClick={() => setLanguage(item.id)}
+                  className={`text-left rounded-2xl px-4 py-3 ring-1 transition-colors ${
+                    language === item.id ? 'ring-2 ring-[#005a9c] bg-[#eef6fc]' : 'ring-neutral-200 hover:bg-neutral-50'
+                  }`}
+                >
+                  <span className="block text-sm font-semibold text-neutral-900">{item.label}</span>
+                  <span className="block text-xs text-neutral-500" lang={item.id === 'en' ? 'en' : 'hi'}>{item.hint}</span>
+                </button>
+              ))}
+            </div>
           </Card>
 
         </form>

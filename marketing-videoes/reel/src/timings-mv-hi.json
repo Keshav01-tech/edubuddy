@@ -1,0 +1,76 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.22,
+  "scenes": [
+    {
+      "text": "Manual kaam ya EduBuddy? Fark dekhiye.",
+      "file": "vo/mv-hi/0.wav",
+      "seconds": 3.275,
+      "start": 0.414,
+      "end": 2.935
+    },
+    {
+      "text": "Pehle har absent student ke ghar, ek ek call.",
+      "file": "vo/mv-hi/1.wav",
+      "seconds": 3.725,
+      "start": 0.379,
+      "end": 3.361
+    },
+    {
+      "text": "Ab do tap, aur parents ko WhatsApp.",
+      "file": "vo/mv-hi/2.wav",
+      "seconds": 2.875,
+      "start": 0.384,
+      "end": 2.561
+    },
+    {
+      "text": "Pehle calculator se hisaab, aur haath se receipt.",
+      "file": "vo/mv-hi/3.wav",
+      "seconds": 3.9,
+      "start": 0.382,
+      "end": 3.516
+    },
+    {
+      "text": "Ab record karo, receipt turant ready.",
+      "file": "vo/mv-hi/4.wav",
+      "seconds": 3.0,
+      "start": 0.388,
+      "end": 2.652
+    },
+    {
+      "text": "Pehle pending fees ke liye, poora din phone pe.",
+      "file": "vo/mv-hi/5.wav",
+      "seconds": 3.325,
+      "start": 0.378,
+      "end": 2.961
+    },
+    {
+      "text": "Ab AI agent khud har parent ko call karta hai, aur report deta hai.",
+      "file": "vo/mv-hi/6.wav",
+      "seconds": 5.0,
+      "start": 0.393,
+      "end": 4.626
+    },
+    {
+      "text": "Pehle inquiry kaagaz pe, follow-up bhool gaye.",
+      "file": "vo/mv-hi/7.wav",
+      "seconds": 3.5,
+      "start": 0.381,
+      "end": 3.153
+    },
+    {
+      "text": "Ab har inquiry save, follow-up date ke saath.",
+      "file": "vo/mv-hi/8.wav",
+      "seconds": 3.425,
+      "start": 0.388,
+      "end": 3.104
+    },
+    {
+      "text": "EduBuddy. Kaam kam, growth zyada. Free demo book karein.",
+      "file": "vo/mv-hi/9.wav",
+      "seconds": 3.9,
+      "start": 0.409,
+      "end": 3.554
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "voice": "af_heart",
+  "speed": 1.12,
+  "scenes": [
+    {
+      "text": "Run a coaching institute?",
+      "file": "vo/ad-en/0.wav",
+      "seconds": 1.95,
+      "start": 0.262,
+      "end": 1.61
+    },
+    {
+      "text": "Attendance in just two taps.",
+      "file": "vo/ad-en/1.wav",
+      "seconds": 2.025,
+      "start": 0.231,
+      "end": 1.702
+    },
+    {
+      "text": "Record fees, get the receipt instantly.",
+      "file": "vo/ad-en/2.wav",
+      "seconds": 2.8,
+      "start": 0.263,
+      "end": 2.429
+    },
+    {
+      "text": "Follow up on every inquiry, on time.",
+      "file": "vo/ad-en/3.wav",
+      "seconds": 2.55,
+      "start": 0.251,
+      "end": 2.152
+    },
+    {
+      "text": "Your whole institute, on one screen.",
+      "file": "vo/ad-en/4.wav",
+      "seconds": 2.375,
+      "start": 0.257,
+      "end": 1.992
+    },
+    {
+      "text": "EduBuddy. Book your free demo today.",
+      "file": "vo/ad-en/5.wav",
+      "seconds": 2.6,
+      "start": 0.26,
+      "end": 2.217
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useStudy } from '../context/StudyContext';
-import { ArrowLeft, Printer, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ClipboardList, Printer, RotateCcw } from 'lucide-react';
 import { Spinner } from '../components/Spinner';
 import { AppHeader } from '../components/AppHeader';
 import { sessionKind, stampMarks } from '../data/paperBlueprint';
@@ -16,7 +16,53 @@ const SECTION = {
   long: 'Long answer questions',
 };
 
+// The paper's own words in Hindi, for Hindi-medium papers (bilingual papers show both).
+const SHEET_HI = {
+  'Multiple choice questions': 'बहुविकल्पीय प्रश्न',
+  'Short answer questions': 'लघु उत्तरीय प्रश्न',
+  'Long answer questions': 'दीर्घ उत्तरीय प्रश्न',
+  Test: 'परीक्षा',
+  Worksheet: 'अभ्यास पत्र',
+  'Answer key': 'उत्तर कुंजी',
+  'Answer key. Not for students.': 'उत्तर कुंजी। छात्रों के लिए नहीं।',
+  'Tick one option for each multiple choice question. Write the other answers on the lines.': 'प्रत्येक बहुविकल्पीय प्रश्न में एक विकल्प पर सही का निशान लगाएँ। अन्य उत्तर रेखाओं पर लिखें।',
+  'Attempt all questions.': 'सभी प्रश्न अनिवार्य हैं।',
+  Section: 'खंड',
+  Time: 'समय',
+  Answer: 'उत्तर',
+  'Model answer': 'आदर्श उत्तर',
+  Name: 'नाम',
+  Class: 'कक्षा',
+  Date: 'दिनांक',
+  'Max. Marks': 'पूर्णांक',
+  Marks: 'अंक',
+};
+
+/** A label in the paper's language: English, Hindi, or both ("English / हिंदी"). */
+const sheetWord = (lang, text) => (lang === 'hi' ? SHEET_HI[text] || text : lang === 'bi' && SHEET_HI[text] ? `${text} / ${SHEET_HI[text]}` : text);
+
+/** One piece of a question (stem, option, answer) in the paper's language. Bilingual puts the Hindi under the English. */
+function Bi({ lang, en, hi }) {
+  if (lang === 'hi') return <MathText text={hi || en} />;
+  if (lang === 'bi' && hi) {
+    return (
+      <span className="bi">
+        <MathText text={en} />
+        <span className="bi-hi" lang="hi"><MathText text={hi} /></span>
+      </span>
+    );
+  }
+  return <MathText text={en} />;
+}
+
 const LETTERS = ['A', 'B', 'C', 'D'];
+
+// The paper's language. Switching an English paper to Hindi translates it once and keeps both.
+const PAPER_LANGS = [
+  { id: 'en', label: 'English' },
+  { id: 'hi', label: 'हिंदी' },
+  { id: 'bi', label: 'Both' },
+];
 
 const FORMS = [
   { id: 'questions', label: 'Question paper' },
@@ -64,15 +110,16 @@ function groupsOf(paper) {
   return groups;
 }
 
-function McqOptions({ question, worksheet }) {
+function McqOptions({ question, worksheet, lang = 'en' }) {
   const options = question.options || [];
+  const hiOptions = question.hi?.options || [];
   return (
-    <ol className="mcq">
+    <ol className={`mcq${lang === 'bi' ? ' mcq-bi' : ''}`}>
       {options.map((option, index) => (
         <li key={`${index}-${option}`}>
           {worksheet && <span className="tick" aria-hidden="true" />}
           <span className="opt-letter">({LETTERS[index] || index + 1})</span>
-          <MathText text={option} />
+          <Bi lang={lang} en={option} hi={hiOptions[index]} />
         </li>
       ))}
     </ol>
@@ -131,20 +178,26 @@ export function TestSheet({ form, session, paper, variant = 'screen' }) {
   const answers = form === 'answers';
   const total = paper.reduce((sum, question) => sum + (Number(question.marks) || 1), 0);
   const math = isMathematics(session?.subject_name);
-  const title = answers ? 'Answer key' : worksheet ? 'Worksheet' : 'Test';
+  // Paper language: English, Hindi, or bilingual. Questions without a Hindi version fall back to English.
+  const lang = ['hi', 'bi'].includes(session?.language) ? session.language : 'en';
+  const w = (text) => sheetWord(lang, text);
+  const title = w(answers ? 'Answer key' : worksheet ? 'Worksheet' : 'Test');
   const showSections = groups.length > 1;
+  const heading = marksHeading(shown, session?.total_marks || total);
+  const headingText = lang === 'en' ? heading : heading.replace(/^Max\. Marks|^Marks/, (m) => w(m));
 
   return (
     <article
       ref={sheetRef}
       data-exam-sheet={variant}
-      className={`sheet ${variant === 'a4' ? 'sheet-a4' : 'sheet-screen'}${math ? ' sheet-exam' : ''}`}
+      lang={lang === 'hi' ? 'hi' : 'en'}
+      className={`sheet ${variant === 'a4' ? 'sheet-a4' : 'sheet-screen'}${math ? ' sheet-exam' : ''}${lang !== 'en' ? ' sheet-hindi' : ''}`}
     >
       <header className="exam-head">
         <div className="exam-top">
-          <span>Time: {formatDuration(session?.total_marks || total)}</span>
+          <span>{w('Time')}: {formatDuration(session?.total_marks || total)}</span>
           <span className="exam-title">{title}</span>
-          <span>{marksHeading(shown, session?.total_marks || total)}</span>
+          <span>{headingText}</span>
         </div>
         <p className="exam-class">{session?.class_name}{session?.subject_name ? ` · ${session.subject_name}` : ''}</p>
         <h1 className="exam-chapter">{session?.chapter_name || 'Test'}</h1>
@@ -152,19 +205,19 @@ export function TestSheet({ form, session, paper, variant = 'screen' }) {
 
       {worksheet && (
         <div className="sheet-blanks">
-          <span>Name ______________________________</span>
-          <span>Class __________</span>
-          <span>Date ____________</span>
+          <span>{w('Name')} ______________________________</span>
+          <span>{w('Class')} __________</span>
+          <span>{w('Date')} ____________</span>
         </div>
       )}
 
       {(answers || worksheet || showSections) && (
         <p className="sheet-note">
-          {answers
+          {w(answers
             ? 'Answer key. Not for students.'
             : worksheet
               ? 'Tick one option for each multiple choice question. Write the other answers on the lines.'
-              : 'Attempt all questions.'}
+              : 'Attempt all questions.')}
         </p>
       )}
 
@@ -176,8 +229,8 @@ export function TestSheet({ form, session, paper, variant = 'screen' }) {
           {showSections && (
             <>
               <h2>
-                Section {LETTERS[groupIndex] || groupIndex + 1}
-                <span> — {SECTION[group.type] || group.type}</span>
+                {w('Section')} {LETTERS[groupIndex] || groupIndex + 1}
+                <span> — {w(SECTION[group.type] || group.type)}</span>
               </h2>
               {sameMarks && (
                 <p className="section-total">
@@ -193,18 +246,18 @@ export function TestSheet({ form, session, paper, variant = 'screen' }) {
               <div key={number} className={`q${lines > 10 ? ' allow-break' : ''}`}>
                 <div className="q-row">
                   <span className="q-no">{math ? `Q.${number}` : `${number}.`}</span>
-                  <div className="q-text"><MathText text={question.question} /></div>
+                  <div className="q-text"><Bi lang={lang} en={question.question} hi={question.hi?.question} /></div>
                   <span className="q-marks">[{question.marks}]</span>
                 </div>
                 <GraphFigure figure={question.figure} />
                 {question.type === 'mcq' && !answers && (
-                  <McqOptions question={question} worksheet={worksheet} />
+                  <McqOptions question={question} worksheet={worksheet} lang={lang} />
                 )}
                 {lines > 0 && <RuledLines count={lines} />}
                 {answers && (
                   <div className="key">
-                    <p><strong>{question.type === 'mcq' ? 'Answer' : 'Model answer'}: </strong><MathText text={question.correctAnswer} /></p>
-                    {question.explanation && <p className="key-why"><MathText text={question.explanation} /></p>}
+                    <p><strong>{w(question.type === 'mcq' ? 'Answer' : 'Model answer')}: </strong><Bi lang={lang} en={question.correctAnswer} hi={question.hi?.correctAnswer} /></p>
+                    {question.explanation && <p className="key-why"><Bi lang={lang} en={question.explanation} hi={question.hi?.explanation} /></p>}
                   </div>
                 )}
               </div>
@@ -218,7 +271,7 @@ export function TestSheet({ form, session, paper, variant = 'screen' }) {
 }
 
 export default function TestPage() {
-  const { sessions, activeSession, selectSession, questions, generating, generateError, generateTest } = useStudy();
+  const { sessions, activeSession, selectSession, questions, generating, generateError, generateTest, setPaperLanguage, translating } = useStudy();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const id = searchParams.get('id');
@@ -287,7 +340,9 @@ export default function TestPage() {
         {generating && (
           <div className="no-print flex flex-col items-center justify-center py-32 gap-3">
             <Spinner size="lg" />
-            <p className="text-sm text-neutral-500">Reading the chapter and writing your paper…</p>
+            <p className="text-sm text-neutral-500">
+              {sess?.language === 'hi' || sess?.language === 'bi' ? 'Writing your paper, then translating it into Hindi…' : 'Reading the chapter and writing your paper…'}
+            </p>
             <p className="text-xs text-neutral-400">Large textbooks can take a little longer</p>
           </div>
         )}
@@ -309,6 +364,24 @@ export default function TestPage() {
                   </button>
                 ))}
               </div>
+              <div className="flex p-1 bg-white rounded-xl ring-1 ring-neutral-200" role="radiogroup" aria-label="Paper language">
+                {PAPER_LANGS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={(sess?.language || 'en') === item.id}
+                    disabled={translating}
+                    onClick={() => setPaperLanguage(sess, item.id)}
+                    className={`h-9 px-2.5 sm:px-3 rounded-lg text-[13px] sm:text-sm font-medium transition-colors disabled:opacity-60 ${
+                      (sess?.language || 'en') === item.id ? 'bg-[#ededed] text-neutral-900' : 'text-neutral-500 hover:text-neutral-800'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+              {translating && <span className="inline-flex items-center gap-2 text-sm text-neutral-600"><Spinner size="sm" /> Translating into Hindi…</span>}
               <button
                 type="button"
                 onClick={() => { void printExam(); }}
@@ -316,6 +389,14 @@ export default function TestPage() {
               >
                 <Printer className="w-4 h-4" />
                 Print
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(`/marks?paper=${encodeURIComponent(sess.id)}`)}
+                className="h-11 px-4 rounded-xl bg-white ring-1 ring-neutral-200 text-sm font-semibold text-[#005a9c] hover:bg-[#eef3ff] flex items-center gap-2"
+              >
+                <ClipboardList className="w-4 h-4" />
+                Enter marks
               </button>
               <button
                 type="button"

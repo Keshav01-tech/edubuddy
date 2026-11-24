@@ -1,0 +1,55 @@
+{
+  "voice": "af_heart",
+  "speed": 1.0,
+  "scenes": [
+    {
+      "text": "[q] How much fee is pending / in your institute / *right now?*",
+      "file": "vo/k2/0.wav",
+      "seconds": 3.15,
+      "start": 0.266,
+      "end": 2.719
+    },
+    {
+      "text": "[q] Not roughly. / *Exactly.*",
+      "file": "vo/k2/1.wav",
+      "seconds": 2.25,
+      "start": 0.274,
+      "end": 1.848
+    },
+    {
+      "text": "[pain] It's in a register. / A receipt book. / *Your memory.*",
+      "file": "vo/k2/2.wav",
+      "seconds": 3.325,
+      "start": 0.272,
+      "end": 2.92
+    },
+    {
+      "text": "[pain] And every month / it stays unpaid, / it *eats your profit.*",
+      "file": "vo/k2/3.wav",
+      "seconds": 3.675,
+      "start": 0.295,
+      "end": 3.297
+    },
+    {
+      "text": "[solve] *EduBuddy* shows every rupee. / Paid. Pending. *Overdue.*",
+      "file": "vo/k2/4.wav",
+      "seconds": 4.425,
+      "start": 0.276,
+      "end": 3.973
+    },
+    {
+      "text": "[solve] Receipts in *one tap.* / Records from *a photo.*",
+      "file": "vo/k2/5.wav",
+      "seconds": 3.325,
+      "start": 0.28,
+      "end": 2.948
+    },
+    {
+      "text": "[cta] Know your numbers. / *Grow your institute.*",
+      "file": "vo/k2/6.wav",
+      "seconds": 3.925,
+      "start": 0.287,
+      "end": 3.496
+    }
+  ]
+}

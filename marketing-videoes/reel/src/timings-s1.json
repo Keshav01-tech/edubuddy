@@ -1,0 +1,62 @@
+{
+  "voice": "af_heart",
+  "speed": 1.12,
+  "scenes": [
+    {
+      "text": "Your institute isn't short on students. It's short on collected fees.",
+      "file": "vo/s1/0.wav",
+      "seconds": 4.375,
+      "start": 0.267,
+      "end": 4.009
+    },
+    {
+      "text": "Every month, you chase parents one by one. Half of them say, next week.",
+      "file": "vo/s1/1.wav",
+      "seconds": 4.5,
+      "start": 0.244,
+      "end": 4.157
+    },
+    {
+      "text": "EduBuddy calls every parent with pending fees for you. Automatically.",
+      "file": "vo/s1/2.wav",
+      "seconds": 4.475,
+      "start": 0.263,
+      "end": 4.104
+    },
+    {
+      "text": "Payment comes in? One tap saves the receipt.",
+      "file": "vo/s1/3.wav",
+      "seconds": 3.025,
+      "start": 0.242,
+      "end": 2.67
+    },
+    {
+      "text": "Paper receipt? Snap a photo, and the record updates itself.",
+      "file": "vo/s1/4.wav",
+      "seconds": 4.1,
+      "start": 0.24,
+      "end": 3.771
+    },
+    {
+      "text": "Your fee report shows who paid, who's late, and what's still due.",
+      "file": "vo/s1/5.wav",
+      "seconds": 3.55,
+      "start": 0.257,
+      "end": 3.171
+    },
+    {
+      "text": "Plus attendance reports, enquiries, and PYQ PDFs, in one app.",
+      "file": "vo/s1/6.wav",
+      "seconds": 4.75,
+      "start": 0.242,
+      "end": 4.411
+    },
+    {
+      "text": "Collect more. Chase less. Book your free demo.",
+      "file": "vo/s1/7.wav",
+      "seconds": 3.0,
+      "start": 0.229,
+      "end": 2.623
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "voice": "af_heart",
+  "speed": 1.15,
+  "scenes": [
+    {
+      "text": "Run an institute? Three tips to save time every day.",
+      "file": "vo/tips-en/0.wav",
+      "seconds": 3.55,
+      "start": 0.26,
+      "end": 3.176
+    },
+    {
+      "text": "One. Message all absent students' parents at once.",
+      "file": "vo/tips-en/1.wav",
+      "seconds": 3.1,
+      "start": 0.266,
+      "end": 2.786
+    },
+    {
+      "text": "Two. Make the receipt the moment you collect fees.",
+      "file": "vo/tips-en/2.wav",
+      "seconds": 2.95,
+      "start": 0.238,
+      "end": 2.634
+    },
+    {
+      "text": "Three. Give every inquiry a follow-up date.",
+      "file": "vo/tips-en/3.wav",
+      "seconds": 2.75,
+      "start": 0.258,
+      "end": 2.447
+    },
+    {
+      "text": "Less paperwork, more teaching.",
+      "file": "vo/tips-en/4.wav",
+      "seconds": 2.0,
+      "start": 0.247,
+      "end": 1.669
+    }
+  ]
+}

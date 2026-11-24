@@ -1,0 +1,55 @@
+{
+  "voice": "af_heart",
+  "speed": 1.1,
+  "scenes": [
+    {
+      "text": "It's 9 PM. Your classes ended at 7. You're still working.",
+      "file": "vo/s2/0.wav",
+      "seconds": 4.425,
+      "start": 0.26,
+      "end": 4.032
+    },
+    {
+      "text": "Fee calls. Handwritten receipts. Attendance registers. Enquiry notes. Every night.",
+      "file": "vo/s2/1.wav",
+      "seconds": 5.425,
+      "start": 0.299,
+      "end": 4.977
+    },
+    {
+      "text": "What if all of that finished by itself?",
+      "file": "vo/s2/2.wav",
+      "seconds": 2.325,
+      "start": 0.264,
+      "end": 1.983
+    },
+    {
+      "text": "EduBuddy calls parents with pending fees, and sends you a report.",
+      "file": "vo/s2/3.wav",
+      "seconds": 4.2,
+      "start": 0.263,
+      "end": 3.836
+    },
+    {
+      "text": "Receipts save in one tap, or straight from a photo.",
+      "file": "vo/s2/4.wav",
+      "seconds": 3.225,
+      "start": 0.266,
+      "end": 2.846
+    },
+    {
+      "text": "Attendance reports build themselves. Every enquiry gets a follow-up.",
+      "file": "vo/s2/5.wav",
+      "seconds": 4.425,
+      "start": 0.239,
+      "end": 4.085
+    },
+    {
+      "text": "Run your institute, not your evenings. Book a free demo.",
+      "file": "vo/s2/6.wav",
+      "seconds": 3.5,
+      "start": 0.268,
+      "end": 3.123
+    }
+  ]
+}

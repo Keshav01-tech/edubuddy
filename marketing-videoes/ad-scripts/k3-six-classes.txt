@@ -1,0 +1,9 @@
+# Kinetic ad 3 "Six classes" (attendance and parent trust)
+[q] What happens when a parent finds out / their child *missed 6 classes?* || What happens when a parent finds out their child missed six classes?
+[q] At the *end* / of the month. || At the end of the month.
+[pain] They don't blame / *the child.* || They don't blame the child.
+[pain] They blame / *your institute.* || They blame your institute.
+[pain] And next year, / they *don't come back.* || And next year, they don't come back.
+[solve] *EduBuddy* tracks attendance / every single day. || EduBuddy tracks attendance, every single day.
+[solve] Monthly reports, / ready in *one click.* || Monthly reports, ready in one click.
+[cta] Keep parents' *trust.* / Keep your *students.* || Keep parents' trust. Keep your students. Book a free demo.

@@ -1,0 +1,10 @@
+# Kinetic ad 1 "Next week" (fees). Format: [type] caption with *highlight* and " / " line breaks || speech
+[q] How many parents said / *"next week"* / this month? || How many parents said, next week, this month?
+[q] And how many / *actually paid?* || And how many actually paid?
+[pain] You teach / *all day.* || You teach all day.
+[pain] Then chase fees / *all night.* || Then chase fees all night.
+[pain] Call after call. / Reminder after reminder. || Call after call. Reminder after reminder.
+[pain] It's *your* money. / So why does it feel / like *begging?* || It's your money. So why does it feel like begging?
+[solve] *EduBuddy* calls every parent / with pending fees. / For you. || EduBuddy calls every parent with pending fees. For you.
+[solve] You just see / *who paid.* || You just see who paid.
+[cta] Stop chasing. / *Start collecting.* || Stop chasing. Start collecting. Book a free demo.

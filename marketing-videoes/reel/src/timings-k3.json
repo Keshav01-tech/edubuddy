@@ -1,0 +1,62 @@
+{
+  "voice": "af_heart",
+  "speed": 1.0,
+  "scenes": [
+    {
+      "text": "[q] What happens when a parent finds out / their child *missed 6 classes?*",
+      "file": "vo/k3/0.wav",
+      "seconds": 4.05,
+      "start": 0.284,
+      "end": 3.643
+    },
+    {
+      "text": "[q] At the *end* / of the month.",
+      "file": "vo/k3/1.wav",
+      "seconds": 1.775,
+      "start": 0.256,
+      "end": 1.433
+    },
+    {
+      "text": "[pain] They don't blame / *the child.*",
+      "file": "vo/k3/2.wav",
+      "seconds": 1.925,
+      "start": 0.273,
+      "end": 1.56
+    },
+    {
+      "text": "[pain] They blame / *your institute.*",
+      "file": "vo/k3/3.wav",
+      "seconds": 1.95,
+      "start": 0.294,
+      "end": 1.592
+    },
+    {
+      "text": "[pain] And next year, / they *don't come back.*",
+      "file": "vo/k3/4.wav",
+      "seconds": 2.45,
+      "start": 0.288,
+      "end": 2.096
+    },
+    {
+      "text": "[solve] *EduBuddy* tracks attendance / every single day.",
+      "file": "vo/k3/5.wav",
+      "seconds": 3.45,
+      "start": 0.281,
+      "end": 3.033
+    },
+    {
+      "text": "[solve] Monthly reports, / ready in *one click.*",
+      "file": "vo/k3/6.wav",
+      "seconds": 2.85,
+      "start": 0.29,
+      "end": 2.471
+    },
+    {
+      "text": "[cta] Keep parents' *trust.* / Keep your *students.*",
+      "file": "vo/k3/7.wav",
+      "seconds": 3.925,
+      "start": 0.267,
+      "end": 3.528
+    }
+  ]
+}

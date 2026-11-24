@@ -1,0 +1,61 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.12,
+  "scenes": [
+    {
+      "text": "Har coaching institute ki kahani ek jaisi hai. Attendance ka register, fees ka register, aur admissions ki diary.",
+      "file": "vo/story-hi/0.wav",
+      "seconds": 8.1
+    },
+    {
+      "text": "Aur phir ek din... register hi gum ho gaya.",
+      "file": "vo/story-hi/1.wav",
+      "seconds": 3.5
+    },
+    {
+      "text": "Ab kisne fees di, kisne nahi? Kaun kitne din absent tha? Kuch pata nahi. Bas tension aur sir dard.",
+      "file": "vo/story-hi/2.wav",
+      "seconds": 7.175
+    },
+    {
+      "text": "Isi problem ka solution hai, EduBuddy.",
+      "file": "vo/story-hi/3.wav",
+      "seconds": 3.475
+    },
+    {
+      "text": "Login karte hi poora institute ek screen pe. Kitne students, kitni fees baaki, aur naye admissions.",
+      "file": "vo/story-hi/4.wav",
+      "seconds": 7.4
+    },
+    {
+      "text": "Attendance? Absent pe tap karo, aur ek click mein parents ko WhatsApp chala jaata hai.",
+      "file": "vo/story-hi/5.wav",
+      "seconds": 6.1
+    },
+    {
+      "text": "Fees aayi? Record karo, receipt turant ready. Kisne diya, kisne nahi, sab saamne.",
+      "file": "vo/story-hi/6.wav",
+      "seconds": 5.775
+    },
+    {
+      "text": "Kisi bhi student ki detail chahiye? Bas naam search karo.",
+      "file": "vo/story-hi/7.wav",
+      "seconds": 4.45
+    },
+    {
+      "text": "Har inquiry save hoti hai, follow-up date ke saath. Koi admission haath se nahi jaayega.",
+      "file": "vo/story-hi/8.wav",
+      "seconds": 6.25
+    },
+    {
+      "text": "Aur sab kuch cloud pe safe. Register kho sakta hai, aapka data nahi.",
+      "file": "vo/story-hi/9.wav",
+      "seconds": 5.2
+    },
+    {
+      "text": "EduBuddy. Register chhodo, institute chalao. Aaj hi free demo book karein.",
+      "file": "vo/story-hi/10.wav",
+      "seconds": 5.375
+    }
+  ]
+}

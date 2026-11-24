@@ -22,12 +22,25 @@ import { Picker } from '../components/ui';
 import { studentsFromPdf } from '../services/studentPdf';
 import { batchOptions, studentBatches, timingsOverlap, describeTime, describeDays, inBatch, studentBatchDetails } from '../services/teachers';
 import { StudentBatches } from '../components/StudentBatches';
+import { useT } from '../i18n';
 
 const field = 'w-full h-11 px-3 text-base bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
 
 // A student sits in one class and may join several of its batches (one per subject or time).
 // With lockBatches (teachers), only existing batches the teacher takes can be ticked, and the class stays fixed when editing.
-export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false }) {
+/** A small "Hindi medium" tag beside a Hindi-medium student or batch. */
+export function MediumTag() {
+  const { t } = useT();
+  return <span className="ml-1.5 inline-flex items-center rounded-md bg-amber-50 px-1.5 py-0.5 align-middle text-[10.5px] font-semibold text-amber-800 ring-1 ring-amber-200" lang="hi">{t('Hindi medium')}</span>;
+}
+
+export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false, parentAccess = false }) {
+  const { t } = useT();
+  // Teachers cannot see or change a saved phone number; they can only give one for a new student.
+  const hidePhone = lockBatches && !!initial;
+  // A new parent app PIN (6 digits). Blank keeps the PIN the parent already has.
+  const [pin, setPin] = useState('');
+  const [pinError, setPinError] = useState('');
   const startClass = initial?.className || classes[0]?.name || '';
   const firstBatches = (name) => {
     const item = classes.find((c) => c.name === name);
@@ -40,6 +53,8 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
     phone: initial?.phone || '',
     fee: initial?.fee ?? '',
     feeDate: initial?.feeDate || '',
+    // Teaching medium: 'en' English or 'hi' Hindi. A new student takes the medium of the batch they join.
+    medium: initial?.medium || '',
   });
 
   const chosen = classes.find((item) => item.name === form.className);
@@ -52,6 +67,9 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
   const subjects = shown.map((b) => timingOf(b).subject).filter(Boolean);
   const repeatedSubject = subjects.find((sub, i) => subjects.indexOf(sub) !== i);
   const needsBatch = lockBatches && sections.length > 0 && shown.length === 0;
+  // The medium of the first ticked batch, used when the medium is not chosen by hand.
+  const mediumOfBatches = shown.map((b) => timingOf(b).medium).find(Boolean) || '';
+  const medium = form.medium || mediumOfBatches || 'en';
 
   const toggle = (sec) => setForm((current) => ({
     ...current,
@@ -62,16 +80,22 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
     event.preventDefault();
     if (!form.name.trim() || needsBatch) return;
     if (lockBatches && !chosen) return;
+    if (pin && !/^\d{6}$/.test(pin)) { setPinError(t('The PIN must be 6 digits.')); return; }
+    if (pin && form.phone.replace(/\D/g, '').length < 10) { setPinError(t('Add the 10-digit parent phone first. The parent signs in with it.')); return; }
+    setPinError('');
     onSave({
       name: form.name.trim(),
       className: form.className.trim(),
       batches: form.batches,
-      phone: form.phone.trim(),
-      fee: Number(form.fee) || 0,
-      feeDate: form.feeDate,
+      ...(hidePhone ? {} : { phone: form.phone.trim() }),
+      // Teachers do not handle fees, so their form leaves them out.
+      ...(lockBatches ? {} : { fee: Number(form.fee) || 0, feeDate: form.feeDate }),
+      medium: form.medium || mediumOfBatches || 'en',
+      ...(parentAccess && pin ? { parentPin: pin, hasParentPin: true } : {}),
     });
+    setPin('');
     if (!initial) {
-      setForm({ name: '', className: form.className, batches: firstBatches(form.className), phone: '', fee: form.fee, feeDate: '' });
+      setForm({ name: '', className: form.className, batches: firstBatches(form.className), phone: '', fee: form.fee, feeDate: '', medium: form.medium });
     }
   };
 
@@ -80,7 +104,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
   return (
     <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
       <label className="block sm:col-span-2">
-        <span className="mb-1 block text-xs font-semibold text-neutral-700">Student name *</span>
+        <span className="mb-1 block text-xs font-semibold text-neutral-700">{t('Student name *')}</span>
         <input
           className={field}
           placeholder="Kartik Sharma"
@@ -93,7 +117,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
       </label>
 
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-semibold text-neutral-700">Class{lockBatches ? ' *' : ''}</span>
+        <span className="mb-1.5 block text-xs font-semibold text-neutral-700">{t('Class')}{lockBatches ? ' *' : ''}</span>
         {classLocked ? (
           <p className={`${field} flex items-center bg-neutral-50 text-neutral-700`}>{form.className}</p>
         ) : classes.length > 0 ? (
@@ -117,7 +141,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
       {chosen && (
         <div className="sm:col-span-2">
           <span className="mb-1.5 block text-xs font-semibold text-neutral-700">
-            Batches{lockBatches ? ' *' : ''} <span className="font-normal text-neutral-400">· tick every batch this student attends</span>
+            {t('Batches')}{lockBatches ? ' *' : ''} <span className="font-normal text-neutral-400">· {t('tick every batch this student attends')}</span>
           </span>
           {sections.length === 0 ? (
             <p className="text-sm text-neutral-500">{chosen.name} has no batches yet.{!lockBatches && ' Create them on the Batches page.'}</p>
@@ -148,44 +172,89 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
           )}
           {clashWith && shown.some((b) => clashWith(b)) && <p className="mt-1.5 text-xs text-rose-600">Two ticked batches meet at the same time.</p>}
           {repeatedSubject && <p className="mt-1.5 text-xs text-amber-700">{repeatedSubject} is ticked twice. Usually a student needs only one batch per subject.</p>}
-          {needsBatch && <p className="mt-1.5 text-xs text-rose-600">Tick at least one batch.</p>}
+          {needsBatch && <p className="mt-1.5 text-xs text-rose-600">{t('Tick at least one batch.')}</p>}
         </div>
       )}
 
-      <label className="block">
-        <span className="mb-1 block text-xs font-medium text-neutral-600">Parent WhatsApp</span>
-        <input
-          className={field}
-          placeholder="10-digit mobile number"
-          value={form.phone}
-          onChange={set('phone')}
-          aria-label="Parent WhatsApp"
-          inputMode="tel"
-        />
-      </label>
+      {!hidePhone && (
+        <label className="block">
+          <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Parent phone')}</span>
+          <input
+            className={field}
+            placeholder={t('10-digit mobile number')}
+            value={form.phone}
+            onChange={set('phone')}
+            aria-label={t('Parent phone')}
+            inputMode="tel"
+          />
+        </label>
+      )}
 
-      <label className="block">
-        <span className="mb-1 block text-xs font-medium text-neutral-600">Total fee (₹)</span>
-        <input
-          className={field}
-          placeholder="12000"
-          value={form.fee}
-          onChange={set('fee')}
-          aria-label="Total fee"
-          inputMode="numeric"
-        />
-      </label>
+      {!lockBatches && (
+        <label className="block">
+          <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Total fee (₹)')}</span>
+          <input
+            className={field}
+            placeholder="12000"
+            value={form.fee}
+            onChange={set('fee')}
+            aria-label="Total fee"
+            inputMode="numeric"
+          />
+        </label>
+      )}
 
-      <label className="block sm:col-span-2">
-        <span className="mb-1 block text-xs font-medium text-neutral-600">Fee due date</span>
-        <input
-          type="date"
-          className={field}
-          value={form.feeDate}
-          onChange={set('feeDate')}
-          aria-label="Fee due date"
-        />
-      </label>
+      <div className="sm:col-span-2">
+        <span className="mb-1.5 block text-xs font-medium text-neutral-600">{t('Medium')}</span>
+        <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t('Medium')}>
+          {[['en', 'English medium'], ['hi', 'Hindi medium']].map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              role="radio"
+              aria-checked={medium === id}
+              onClick={() => setForm((current) => ({ ...current, medium: id }))}
+              className={`h-11 rounded-xl text-sm font-medium ring-1 transition-colors ${medium === id ? 'ring-2 ring-[#005a9c] bg-[#eef6fc] text-neutral-900' : 'ring-neutral-200 text-neutral-600 hover:bg-neutral-50'}`}
+            >
+              {t(label)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {!lockBatches && (
+        <label className="block sm:col-span-2">
+          <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Fee due date')}</span>
+          <input
+            type="date"
+            className={field}
+            value={form.feeDate}
+            onChange={set('feeDate')}
+            aria-label="Fee due date"
+          />
+        </label>
+      )}
+
+      {parentAccess && (
+        <label className="block sm:col-span-2">
+          <span className="mb-1 block text-xs font-medium text-neutral-600">
+            {t('Parent app PIN')}{' '}
+            <span className="font-normal text-neutral-400">
+              · {initial?.hasParentPin ? t('a PIN is set. Type a new one to change it.') : t('6 digits. The parent signs in with their phone and this PIN.')}
+            </span>
+          </span>
+          <input
+            className={field}
+            value={pin}
+            onChange={(e) => { setPinError(''); setPin(e.target.value.replace(/\D/g, '').slice(0, 6)); }}
+            placeholder={initial?.hasParentPin ? '••••••' : '482913'}
+            inputMode="numeric"
+            autoComplete="off"
+            aria-label={t('Parent app PIN')}
+          />
+          {pinError && <span className="mt-1 block text-xs text-rose-600" role="alert">{pinError}</span>}
+        </label>
+      )}
 
       <div className="sm:col-span-2 flex gap-2 justify-end pt-2 border-t border-neutral-100">
         {onCancel && (
@@ -194,14 +263,14 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
             onClick={onCancel}
             className="h-10 px-4 rounded-xl text-sm font-medium text-neutral-600 hover:bg-neutral-100 transition-colors"
           >
-            Cancel
+            {t('Cancel')}
           </button>
         )}
         <button
           type="submit"
           className="h-10 px-4 rounded-xl bg-[#005a9c] hover:bg-[#1b365d] text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm transition-colors"
         >
-          {initial ? 'Save changes' : (<><UserPlus className="w-4 h-4" /> Add student</>)}
+          {initial ? t('Save changes') : (<><UserPlus className="w-4 h-4" /> {t('Add student')}</>)}
         </button>
       </div>
     </form>
@@ -307,7 +376,7 @@ export function PdfImport({ onAdd, onClose, batches = null }) {
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium text-neutral-900 truncate">{student.name}</span>
                     <span className="block text-xs text-neutral-500 truncate">
-                      {[student.className && `Class ${student.className}`, student.section && `Batch ${student.section}`, student.fee ? formatMoney(student.fee) : ''].filter(Boolean).join(' · ') || 'Class not found'}
+                      {[student.className && `Class ${student.className}`, student.section && `Batch ${student.section}`, !batches && student.fee ? formatMoney(student.fee) : ''].filter(Boolean).join(' · ') || 'Class not found'}
                     </span>
                   </span>
                 </label>
@@ -425,7 +494,7 @@ export default function Students() {
   };
 
   const remove = (student) => {
-    if (confirm(`Delete ${student.name}? Their attendance and fee records will be removed too.`)) {
+    if (confirm(`Delete ${student.name}? Their ${room.isTeacher ? 'attendance records' : 'attendance and fee records'} will be removed too.`)) {
       room.deleteStudent(student.id);
     }
   };
@@ -444,7 +513,7 @@ export default function Students() {
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-brand-600 mb-1">Institute</p>
             <h1 className="text-2xl sm:text-[1.7rem] font-extrabold tracking-tight text-neutral-900">Students</h1>
             <p className="mt-1 text-sm text-neutral-500 hidden sm:block">
-              Every student in one place: contact, batch, fee and attendance. {room.students.length} {room.students.length === 1 ? 'student enrolled' : 'students enrolled'}.
+              Every student in one place: {room.isTeacher ? 'batch and attendance' : 'contact, batch, fee and attendance'}. {room.students.length} {room.students.length === 1 ? 'student enrolled' : 'students enrolled'}.
             </p>
             {room.backend === 'cloud' && room.syncState === 'saving' && <p className="mt-1 text-xs font-medium text-neutral-500">Saving to the database…</p>}
             {room.backend === 'cloud' && room.syncState === 'error' && (
@@ -482,12 +551,12 @@ export default function Students() {
           const rates = room.students.map((s) => rateOf(s.id).pct).filter((v) => v != null);
           const avg = rates.length ? Math.round(rates.reduce((a, b) => a + b, 0) / rates.length) : null;
           const low = rates.filter((v) => v < 75).length;
-          const noPhone = room.students.filter((s) => !s.phone).length;
+          const noPhone = room.students.filter((s) => !s.hasPhone).length;
           const tiles = [
             ['Enrolled', room.students.length, `${room.classes.length} classes`, 'text-neutral-900'],
             ['Average attendance', avg != null ? `${avg}%` : '—', 'all time', avg != null && avg < 75 ? 'text-neutral-900' : 'text-neutral-900'],
             ['Below 75% attendance', low, low ? 'need attention' : 'none', low ? 'text-neutral-900' : 'text-neutral-900'],
-            ['Missing phone number', noPhone, noPhone ? 'add for quick calls' : 'all added', noPhone ? 'text-neutral-900' : 'text-neutral-900'],
+            ['Missing phone number', noPhone, noPhone ? (room.isTeacher ? 'your admin can add these' : 'add for quick calls') : 'all added', noPhone ? 'text-neutral-900' : 'text-neutral-900'],
           ];
           return (
             <div className="mb-5 hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -523,6 +592,7 @@ export default function Students() {
               onCancel={() => setShowAddForm(false)}
               classes={room.classes}
               lockBatches={room.isTeacher}
+              parentAccess={!room.isTeacher}
             />
           </section>
         )}
@@ -576,7 +646,7 @@ export default function Students() {
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search by name, class, batch, subject or phone…"
+                  placeholder={room.isTeacher ? 'Search by name, class, batch or subject…' : 'Search by name, class, batch, subject or phone…'}
                   aria-label="Search students"
                   className={`${field} pl-9`}
                 />
@@ -673,7 +743,7 @@ export default function Students() {
                       {student.name.trim().charAt(0).toUpperCase() || '?'}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-neutral-900 truncate">{student.name}</p>
+                      <p className="font-semibold text-neutral-900 truncate">{student.name}{student.medium === 'hi' && <MediumTag />}</p>
                       <p className="text-xs text-neutral-500 truncate">
                         {[student.className, student.phone, student.fee ? formatMoney(student.fee) : null].filter(Boolean).join(' · ') || 'No class yet'}
                       </p>
@@ -696,8 +766,8 @@ export default function Students() {
                       <th className="py-3 px-4">Student</th>
                       <th className="py-3 px-3">Class</th>
                       <th className="py-3 px-3">Batches · Subject</th>
-                      <th className="py-3 px-3">Contact</th>
-                      <th className="py-3 px-3">Total Fee</th>
+                      {!room.isTeacher && <th className="py-3 px-3">Contact</th>}
+                      {!room.isTeacher && <th className="py-3 px-3">Total Fee</th>}
                       <th className="py-3 px-3">Attendance</th>
                       <th className="py-3 px-4 text-right">Actions</th>
                     </tr>
@@ -705,7 +775,7 @@ export default function Students() {
                   <tbody className="divide-y divide-neutral-100">
                     {paginatedStudents.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="py-12 text-center text-sm text-neutral-500">
+                        <td colSpan={room.isTeacher ? 5 : 7} className="py-12 text-center text-sm text-neutral-500">
                           No matches.
                         </td>
                       </tr>
@@ -724,6 +794,7 @@ export default function Students() {
                                 </span>
                                 <span className="font-semibold text-neutral-900">
                                   {student.name}
+                                  {student.medium === 'hi' && <MediumTag />}
                                 </span>
                               </div>
                             </td>
@@ -738,8 +809,8 @@ export default function Students() {
                               <StudentBatches student={student} classes={room.classes} />
                             </td>
 
-                            {/* Contact & WhatsApp */}
-                            <td className="py-3.5 px-3 whitespace-nowrap">
+                            {/* Contact & WhatsApp (not shown to teachers) */}
+                            {!room.isTeacher && <td className="py-3.5 px-3 whitespace-nowrap">
                               {student.phone ? (
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-xs font-mono text-neutral-700">{student.phone}</span>
@@ -764,25 +835,27 @@ export default function Students() {
                               ) : (
                                 <span className="text-neutral-400 text-xs italic">No number</span>
                               )}
-                            </td>
+                            </td>}
 
-                            {/* Total Fee & Due Date */}
-                            <td className="py-3.5 px-3 whitespace-nowrap">
-                              {student.fee ? (
-                                <div>
-                                  <span className="font-semibold text-neutral-900">
-                                    {formatMoney(student.fee)}
-                                  </span>
-                                  {student.feeDate && (
-                                    <span className="block text-[11px] text-neutral-400">
-                                      Due {formatDate(student.feeDate)}
+                            {/* Total Fee & Due Date (not shown to teachers) */}
+                            {!room.isTeacher && (
+                              <td className="py-3.5 px-3 whitespace-nowrap">
+                                {student.fee ? (
+                                  <div>
+                                    <span className="font-semibold text-neutral-900">
+                                      {formatMoney(student.fee)}
                                     </span>
-                                  )}
-                                </div>
-                              ) : (
-                                <span className="text-neutral-400 text-xs">Not set</span>
-                              )}
-                            </td>
+                                    {student.feeDate && (
+                                      <span className="block text-[11px] text-neutral-400">
+                                        Due {formatDate(student.feeDate)}
+                                      </span>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <span className="text-neutral-400 text-xs">Not set</span>
+                                )}
+                              </td>
+                            )}
 
                             {/* Attendance Rate */}
                             <td className="py-3.5 px-3 whitespace-nowrap">
@@ -939,6 +1012,7 @@ export default function Students() {
                 initial={editingStudent}
                 classes={room.classes}
                 lockBatches={room.isTeacher}
+                parentAccess={!room.isTeacher}
                 onSave={(patch) => {
                   room.updateStudent(editingStudent.id, patch);
                   setEditingStudent(null);

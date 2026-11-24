@@ -1,0 +1,41 @@
+{
+  "voice": "af_heart",
+  "speed": 1.12,
+  "scenes": [
+    {
+      "text": "That was EduBuddy's AI, calling every parent with pending fees.",
+      "file": "vo/s3/0.wav",
+      "seconds": 4.225,
+      "start": 0.251,
+      "end": 3.894
+    },
+    {
+      "text": "You don't make the calls. You just read the report.",
+      "file": "vo/s3/1.wav",
+      "seconds": 2.975,
+      "start": 0.257,
+      "end": 2.632
+    },
+    {
+      "text": "Payments save with one tap, or straight from a photo of the receipt.",
+      "file": "vo/s3/2.wav",
+      "seconds": 3.9,
+      "start": 0.242,
+      "end": 3.536
+    },
+    {
+      "text": "Fees, attendance reports, enquiries, and PYQ PDFs, all in one place.",
+      "file": "vo/s3/3.wav",
+      "seconds": 5.2,
+      "start": 0.299,
+      "end": 4.877
+    },
+    {
+      "text": "Let AI chase fees. You teach. Book your free demo.",
+      "file": "vo/s3/4.wav",
+      "seconds": 3.65,
+      "start": 0.266,
+      "end": 3.273
+    }
+  ]
+}

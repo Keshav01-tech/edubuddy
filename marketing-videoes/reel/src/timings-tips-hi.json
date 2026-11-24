@@ -1,0 +1,41 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.25,
+  "scenes": [
+    {
+      "text": "Coaching chalate ho? Teen kaam ki tips.",
+      "file": "vo/tips-hi/0.wav",
+      "seconds": 2.95,
+      "start": 0.376,
+      "end": 2.659
+    },
+    {
+      "text": "Ek. Absent bachchon ke parents ko, ek saath message.",
+      "file": "vo/tips-hi/1.wav",
+      "seconds": 3.825,
+      "start": 0.389,
+      "end": 3.462
+    },
+    {
+      "text": "Do. Fees lete hi receipt wahin bana do.",
+      "file": "vo/tips-hi/2.wav",
+      "seconds": 3.1,
+      "start": 0.42,
+      "end": 2.776
+    },
+    {
+      "text": "Teen. Har inquiry ke saath follow-up date likho.",
+      "file": "vo/tips-hi/3.wav",
+      "seconds": 3.45,
+      "start": 0.388,
+      "end": 3.111
+    },
+    {
+      "text": "Kaam aasaan, padhai pe dhyan.",
+      "file": "vo/tips-hi/4.wav",
+      "seconds": 2.55,
+      "start": 0.372,
+      "end": 2.205
+    }
+  ]
+}

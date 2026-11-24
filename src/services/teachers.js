@@ -50,11 +50,39 @@ export function describeTime(timing) {
 
 export const batchKey = (className, section) => `${className}||${section || ''}`;
 
+/** True for the same class written differently, such as "Class 10" and "10th". */
+export function sameClass(a, b) {
+  const number = (text) => String(text || '').match(/\d+/)?.[0];
+  return String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase() || (!!number(a) && number(a) === number(b));
+}
+
 /** True when the student sits in this batch. '' means a class that has no batches. */
 export function inBatch(student, className, section) {
   if (!student || student.className !== className) return false;
   const list = studentBatches(student);
   return section ? list.includes(section) : list.length === 0;
+}
+
+/**
+ * The batch options a paper for this class can be marked in. Batches of a class with no number
+ * (such as "Foundation") cannot be matched to a syllabus class, so they stay available.
+ */
+export function batchesForPaper(options, paperClass) {
+  const classOf = (option) => String(option.value).split('||')[0];
+  const matching = options.filter((option) => sameClass(classOf(option), paperClass));
+  return matching.length ? matching : options.filter((option) => !/\d/.test(classOf(option)));
+}
+
+/**
+ * The linked class, subject and batch filters on the attendance page. Attendance is marked for one batch,
+ * so `active` is the chosen batch, or the only one left after filtering, and otherwise null.
+ */
+export function narrowBatches(groups, classFilter, subjectFilter, batchId) {
+  const inClass = groups.filter((g) => classFilter === 'all' || g.className === classFilter);
+  const subjects = [...new Set(inClass.map((g) => g.subject).filter(Boolean))].sort();
+  const inSubject = inClass.filter((g) => subjectFilter === 'all' || g.subject === subjectFilter);
+  const active = inSubject.find((g) => g.id === batchId) || (inSubject.length === 1 ? inSubject[0] : null);
+  return { inClass, subjects, inSubject, active };
 }
 
 /** Each of a student's batches with its subject and time. */

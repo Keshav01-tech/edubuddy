@@ -1,0 +1,8 @@
+# Kinetic ad 2 "The exact number" (fee visibility)
+[q] How much fee is pending / in your institute / *right now?* || How much fee is pending in your institute, right now?
+[q] Not roughly. / *Exactly.* || Not roughly. Exactly.
+[pain] It's in a register. / A receipt book. / *Your memory.* || It's in a register. A receipt book. Your memory.
+[pain] And every month / it stays unpaid, / it *eats your profit.* || And every month it stays unpaid, it eats your profit.
+[solve] *EduBuddy* shows every rupee. / Paid. Pending. *Overdue.* || EduBuddy shows every rupee. Paid. Pending. Overdue.
+[solve] Receipts in *one tap.* / Records from *a photo.* || Receipts in one tap. Records from a photo.
+[cta] Know your numbers. / *Grow your institute.* || Know your numbers. Grow your institute. Book a free demo.

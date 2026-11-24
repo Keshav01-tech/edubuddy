@@ -187,7 +187,18 @@ const hostedAuth = async () => {
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
-const respond = async (key, instructions, prompt, count, temperature, visual) => {
+const respond = async (key, instructions, prompt, count, temperature, visual, schema = null) => questionsFromResponse(
+  await requestModel(key, {
+    instructions,
+    input: prompt,
+    temperature,
+    maxTokens: Math.min(32000, 1200 + count * (visual ? 800 : 400)),
+    name: schema ? 'exam_paper_hindi' : 'exam_paper',
+    schema: schema || paperSchema(count, visual),
+  }),
+);
+
+async function requestModel(key, { instructions, input, temperature, maxTokens, name, schema }) {
   const hosted = !key;
   const headers = {
     'Content-Type': 'application/json',
@@ -201,17 +212,10 @@ const respond = async (key, instructions, prompt, count, temperature, visual) =>
       store: false,
       reasoning: { effort: 'none' },
       temperature,
-      max_output_tokens: Math.min(32000, 1200 + count * (visual ? 800 : 400)),
+      max_output_tokens: maxTokens,
       instructions,
-      input: prompt,
-      text: {
-        format: {
-          type: 'json_schema',
-          name: 'exam_paper',
-          strict: true,
-          schema: paperSchema(count, visual),
-        },
-      },
+      input,
+      text: { format: { type: 'json_schema', name, strict: true, schema } },
     }),
   }).catch(() => {
     throw new Error('Could not reach OpenAI. Check your internet connection and the API key in Settings.');
@@ -225,8 +229,8 @@ const respond = async (key, instructions, prompt, count, temperature, visual) =>
     }
     throw new Error(data.error?.message || `OpenAI request failed (${res.status}).`);
   }
-  return questionsFromResponse(data);
-};
+  return data;
+}
 
 // Evenly spaced windows keep coverage of the whole chapter when it has to be shortened.
 const excerpt = (text, max) => {
@@ -367,6 +371,68 @@ const tooSimilar = (next, prior) => {
  * `blueprint` is [{ type, marksEach, count }].
  * `chapters` is the selected chapter list. Chapters that match a textbook PDF are sent to the model as source text.
  */
+/* ───────── Hindi medium: the English paper translated into Hindi ─────────
+ * Each question keeps its English text and gains `hi`: { question, options, correctAnswer, explanation } in Hindi.
+ * Maths (LaTeX between dollar signs), numbers, units and chemical formulas stay exactly as they are.
+ */
+const HINDI_BATCH = 12;
+const hindiSchema = (count) => ({
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    questions: {
+      type: 'array',
+      minItems: count,
+      maxItems: count,
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          question: { type: 'string' },
+          options: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
+          correctAnswer: { type: 'string' },
+          explanation: { type: 'string' },
+        },
+        required: ['question', 'options', 'correctAnswer', 'explanation'],
+      },
+    },
+  },
+  required: ['questions'],
+});
+
+const HINDI_INSTRUCTIONS = `You translate CBSE and state-board examination questions from English into Hindi for Hindi-medium students.
+- Write clear, standard textbook Hindi in Devanagari, the way NCERT Hindi-medium books word it. Use the usual Hindi-medium term for each subject word (for example प्रकाश संश्लेषण, विभवांतर, समीकरण); where students also know the English term, you may add it once in brackets.
+- Keep everything between dollar signs ($...$ and $$...$$) exactly as it is, character for character. Keep numbers, units (cm, kg, m/s), chemical formulas, variable names and option letters unchanged.
+- Translate every field: the question, each of the four options, correctAnswer and explanation. An empty string stays an empty string.
+- For a multiple-choice question, correctAnswer must be exactly the same Hindi text as the option it matches.
+- Keep the same number of questions in the same order. Do not add, drop, merge or answer anything.`;
+
+/** Adds a Hindi version (`hi`) to every question. Throws if the translation cannot be made. */
+export const translatePaperToHindi = async (questions) => {
+  const { key } = getOpenAIConfig();
+  if (!key && !import.meta.env.PROD) throw new Error('OpenAI API key is not configured. Please add it in Settings.');
+  const out = [];
+  for (let start = 0; start < questions.length; start += HINDI_BATCH) {
+    const batch = questions.slice(start, start + HINDI_BATCH);
+    const input = batch.map((q, i) => ({
+      n: i + 1,
+      type: q.type,
+      question: q.question || '',
+      options: Array.isArray(q.options) && q.options.length === 4 ? q.options : ['', '', '', ''],
+      correctAnswer: q.correctAnswer || '',
+      explanation: q.explanation || '',
+    }));
+    const prompt = `Translate these ${batch.length} questions into Hindi. Return exactly ${batch.length} items, in the same order.\n\n${JSON.stringify(input, null, 1)}`;
+    const translated = await respond(key, HINDI_INSTRUCTIONS, prompt, batch.length * 2, 0.2, false, hindiSchema(batch.length));
+    if (translated.length < batch.length) throw new Error('The Hindi translation came back short. Try again.');
+    batch.forEach((q, i) => {
+      const t = translated[i] || {};
+      out.push({ ...q, hi: { question: t.question || '', options: t.options || [], correctAnswer: t.correctAnswer || '', explanation: t.explanation || '' } });
+    });
+  }
+  return out;
+};
+
 export const generateTest = async (className, subject, chapter, {
   blueprint,
   chapters,
@@ -578,4 +644,92 @@ ${notation}${redoLine}${blockedLines ? `\nAlready asked. Do not reuse or rephras
   const first = await writePaper(prior, prior.length ? 1 : 0.8);
   if (!tooSimilar(first, prior)) return first;
   return writePaper([...prior, ...first.map((item) => item.question)], 1.15);
+};
+
+/* ───────── practice quizzes and study notes for a batch ───────── */
+
+/** One-mark MCQs from the chosen chapters, in Hindi for a Hindi-medium batch. */
+export const generateQuizQuestions = async ({ className, subject, chapters, count, language = 'en', avoid = [] }) => {
+  const questions = await generateTest(className, subject, chapters[0], {
+    blueprint: [{ type: 'mcq', marksEach: 1, count }],
+    chapters,
+    avoid,
+  });
+  return language === 'hi' ? translatePaperToHindi(questions) : questions;
+};
+
+const NOTES_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    title: { type: 'string' },
+    overview: { type: 'string' },
+    sections: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        properties: { heading: { type: 'string' }, points: { type: 'array', items: { type: 'string' } } },
+        required: ['heading', 'points'],
+      },
+    },
+    keyTerms: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        properties: { term: { type: 'string' }, meaning: { type: 'string' } },
+        required: ['term', 'meaning'],
+      },
+    },
+    formulas: { type: 'array', items: { type: 'string' } },
+    remember: { type: 'array', items: { type: 'string' } },
+  },
+  required: ['title', 'overview', 'sections', 'keyTerms', 'formulas', 'remember'],
+};
+
+const notesFromResponse = (data) => {
+  const messages = (data.output || []).filter((item) => item.type === 'message' && item.phase !== 'commentary');
+  for (const raw of [...messages.map(messageText), data.output_text]) {
+    try {
+      const parsed = JSON.parse(String(raw || ''));
+      if (Array.isArray(parsed?.sections)) return parsed;
+    } catch {
+      // Try the next message.
+    }
+  }
+  if (data.status === 'incomplete') throw new Error('The notes were cut off. Choose fewer chapters and try again.');
+  throw new Error('Could not read the AI notes. Please try again.');
+};
+
+/** Revision notes for the chosen chapters, written from the textbook text when it is available. */
+export const generateStudyNotes = async ({ className, subject, chapters, language = 'en' }) => {
+  const { key } = getOpenAIConfig();
+  if (!key && !import.meta.env.PROD) throw new Error('OpenAI API key is not configured. Please add it in Settings.');
+  const sources = await loadSources(className, subject, chapters);
+  const source = sourceBlock(chapters, sources);
+  const input = `Write revision notes for students.
+
+Class: ${className}
+Subject: ${subject}
+Chapters:
+${chapters.map((name) => `- ${name}`).join('\n')}
+
+Rules:
+- Write in ${language === 'hi' ? 'clear textbook Hindi in Devanagari, using the usual Hindi-medium subject terms' : 'simple, clear English'}.
+- Give one section for each main topic, with short points a student can revise from.
+- Stay inside the listed chapters. ${source ? 'Use only facts from the textbook text below.' : 'Keep to standard NCERT facts for this class.'}
+- Do not invent statistics, dates, page numbers, quotations, or experiment results.
+- Write every mathematical expression and formula in LaTeX between dollar signs, such as $v = u + at$.
+- Leave formulas as an empty list if the chapter has none.
+${source ? `\nTextbook text:\n\n${source}\n` : ''}`;
+  const data = await requestModel(key, {
+    instructions: 'You are an experienced CBSE teacher who writes accurate, well-organised revision notes.',
+    input,
+    temperature: 0.4,
+    maxTokens: Math.min(16000, 3500 + chapters.length * 2500),
+    name: 'study_notes',
+    schema: NOTES_SCHEMA,
+  });
+  return notesFromResponse(data);
 };

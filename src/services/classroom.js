@@ -34,6 +34,8 @@ const EMPTY = {
   leads: [],
   teachers: [],
   receptionists: [],
+  // Test marks: { id, className, section, subject, title, date, maxMarks, scores: { studentId: number } }.
+  tests: [],
 };
 
 const newId = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
@@ -61,7 +63,7 @@ export function resetClassroomStores() {
   stores.clear();
 }
 
-const LISTS = ['classes', 'teachers', 'receptionists', 'students', 'payments', 'leads'];
+const LISTS = ['classes', 'teachers', 'receptionists', 'students', 'payments', 'leads', 'tests'];
 const INSTITUTE_FIELDS = ['institute', 'school', 'nextReceipt'];
 const pickInstitute = (data) => Object.fromEntries(INSTITUTE_FIELDS.map((f) => [f, data[f]]));
 
@@ -106,6 +108,7 @@ const fromServer = (res) => ({
   students: res.students || [],
   payments: res.payments || [],
   leads: res.leads || [],
+  tests: res.tests || [],
   attendance: res.attendance || {},
   batchAttendance: res.batchAttendance || {},
   institute: { ...EMPTY_INSTITUTE, ...(res.institute || {}) },
@@ -132,6 +135,44 @@ function createStore(signedIn) {
   let timer = null;
   let sending = false;
   let disposed = false;
+
+  // New parent PINs waiting for the server, by student id. They never stay on the student record,
+  // so a later edit of that student cannot send an old PIN again.
+  const newPins = new Map();
+
+  const applyChange = (prev, change) => {
+    const next = { ...prev, ...change(prev) };
+    if (!next.students?.some((s) => s.parentPin)) return next;
+    return {
+      ...next,
+      students: next.students.map((s) => {
+        if (!s.parentPin) return s;
+        const { parentPin, ...rest } = s;
+        newPins.set(s.id, parentPin);
+        return rest;
+      }),
+    };
+  };
+
+  // Adds waiting PINs to an outgoing save, and notes which ones it carries.
+  const withPins = (changes) => {
+    const sentPins = new Map();
+    const outgoing = changes.map((c) => (c.collection !== 'students' ? c : {
+      ...c,
+      upserts: c.upserts.map((doc) => {
+        const parentPin = newPins.get(doc.id);
+        if (!parentPin) return doc;
+        sentPins.set(doc.id, parentPin);
+        return { ...doc, parentPin };
+      }),
+    }));
+    return { outgoing, sentPins };
+  };
+
+  // Forget only the PINs the server accepted; one typed while the save was running still goes out.
+  const forgetPins = (sentPins) => sentPins.forEach((pin, id) => {
+    if (newPins.get(id) === pin) newPins.delete(id);
+  });
 
   const queue = ({ changes, institute }, { keepNewer = false } = {}) => {
     changes.forEach(({ collection, upserts, deletes }) => {
@@ -164,10 +205,13 @@ function createStore(signedIn) {
     const changes = [...pending.entries()]
       .map(([collection, { up, del }]) => ({ collection, upserts: [...up.values()], deletes: [...del] }))
       .filter((c) => c.upserts.length || c.deletes.length);
-    const body = { changes, ...(pendingInstitute ? { institute: pendingInstitute } : {}) };
+    const { outgoing, sentPins } = withPins(changes);
+    const body = { changes: outgoing, ...(pendingInstitute ? { institute: pendingInstitute } : {}) };
     pending = new Map();
     pendingInstitute = null;
-    callDb('sync', body, { keepalive: true, token }).catch(() => queue({ changes, institute: body.institute || null }, { keepNewer: true }));
+    callDb('sync', body, { keepalive: true, token })
+      .then(() => forgetPins(sentPins))
+      .catch(() => queue({ changes, institute: body.institute || null }, { keepNewer: true }));
   };
   const onVisibility = () => { if (document.visibilityState === 'hidden') flushOnLeave(); };
   if (signedIn && typeof window !== 'undefined') {
@@ -186,8 +230,10 @@ function createStore(signedIn) {
     pendingInstitute = null;
     sending = true;
     setStatus({ sync: 'saving' });
+    const { outgoing, sentPins } = withPins(changes);
     try {
-      await callDb('sync', { changes, ...(institute ? { institute } : {}) }, { token: getToken() || token });
+      await callDb('sync', { changes: outgoing, ...(institute ? { institute } : {}) }, { token: getToken() || token });
+      forgetPins(sentPins);
       sending = false;
       if (pending.size || pendingInstitute) schedule(0);
       else setStatus({ sync: 'saved', error: '' });
@@ -205,7 +251,7 @@ function createStore(signedIn) {
 
   const update = (change) => {
     const prev = data;
-    data = { ...prev, ...change(prev) };
+    data = applyChange(prev, change);
     if (!signedIn) {
       // Signed out: there is nowhere to save to.
     } else if (status.loading) {
@@ -221,9 +267,11 @@ function createStore(signedIn) {
   const loadNow = () => callDb('load', {}, { token }).then((res) => {
       if (disposed) return;
       data = fromServer(res);
+      // Early changes run again below and note their PINs under the final student ids.
+      newPins.clear();
       early.forEach((change) => {
         const prev = data;
-        data = { ...prev, ...change(prev) };
+        data = applyChange(prev, change);
         queue(diff(prev, data));
       });
       if (early.length) schedule(0);
@@ -271,7 +319,8 @@ export function useClassroom() {
   const userId = user?.instituteId || user?.id;
   const isTeacher = user?.role === 'teacher';
   const isReceptionist = user?.role === 'receptionist';
-  const store = storeFor(user && user.role !== 'superadmin' ? userId : '', user?.role);
+  // The super admin and parents have no institute store (parents read their own children through parent.load).
+  const store = storeFor(user && user.role !== 'superadmin' && user.role !== 'parent' ? userId : '', user?.role);
   const snap = useSyncExternalStore(store.subscribe, store.get);
   const { data } = snap;
   const update = store.update;
@@ -283,7 +332,9 @@ export function useClassroom() {
   // Every student carries a `batches` list; `section` mirrors the first one for older screens.
   const allStudents = data.students.map((s) => {
     const batches = studentBatches(s);
-    return { ...s, batches, section: batches[0] || '' };
+    // A number a teacher typed for a new student is saved, but not shown back to them.
+    const { phone, fee: _fee, feeDate: _feeDate, ...teacherView } = s;
+    return { ...(isTeacher ? teacherView : s), hasPhone: !!(phone || s.hasPhone), batches, section: batches[0] || '' };
   }).sort((a, b) =>
     (a.className || '').localeCompare(b.className || '', undefined, { numeric: true })
     || (a.section || '').localeCompare(b.section || '', undefined, { numeric: true })
@@ -361,7 +412,7 @@ export function useClassroom() {
     attendance: visibleAttendance,
     batchAttendance: visibleBatchAttendance,
     legacyAttendance,
-    payments: isTeacher ? data.payments.filter((p) => visibleIds.has(p.studentId)) : data.payments,
+    payments: isTeacher ? [] : data.payments,
     school: institute.name || data.school || '',
     institute,
     classes: visibleClasses,
@@ -426,7 +477,7 @@ export function useClassroom() {
      * one subject by one teacher, at one time, in one room.
      * `original` is { className, section } when editing an existing batch.
      */
-    saveBatch: adminOnly(({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', original = null }) => {
+    saveBatch: adminOnly(({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', medium = 'en', original = null }) => {
       const cls = String(className || '').trim();
       const sec = String(section || '').trim();
       if (!cls) return;
@@ -463,7 +514,7 @@ export function useClassroom() {
           }
         }
         if (sec && !sections.includes(sec)) sections.push(sec);
-        timings[sec] = { days, start, end, subject: String(subject).trim(), room: String(room).trim() };
+        timings[sec] = { days, start, end, subject: String(subject).trim(), room: String(room).trim(), medium: medium === 'hi' ? 'hi' : 'en' };
         classes = classes.map((c) => (c.id === item.id ? { ...item, sections, timings } : c));
 
         // The chosen teacher takes this batch; any other teacher stops taking it.
@@ -566,12 +617,12 @@ export function useClassroom() {
       return { attendance: { ...d.attendance, [date]: current } };
     }),
 
-    addPayment: (payment) => {
+    addPayment: isTeacher ? () => null : (payment) => {
       const saved = { ...payment, id: newId(), receiptNo: `R-${String(data.nextReceipt).padStart(4, '0')}` };
       update((d) => ({ payments: [saved, ...d.payments], nextReceipt: d.nextReceipt + 1 }));
       return saved;
     },
-    deletePayment: isReceptionist ? () => {} : (id) => update((d) => ({ payments: d.payments.filter((p) => p.id !== id) })),
+    deletePayment: isReceptionist || isTeacher ? () => {} : (id) => update((d) => ({ payments: d.payments.filter((p) => p.id !== id) })),
     setSchool: (school) => update((d) => ({
       school,
       institute: { ...(d.institute || EMPTY_INSTITUTE), name: school },
@@ -595,5 +646,22 @@ export function useClassroom() {
       leads: (d.leads || []).map((lead) => (lead.id === id ? { ...lead, ...patch } : lead)),
     })),
     deleteLead: (id) => update((d) => ({ leads: (d.leads || []).filter((lead) => lead.id !== id) })),
+
+    // Test marks, one record per test of a batch. A teacher sees and marks only their own batches.
+    tests: [...(data.tests || [])]
+      .filter((t) => !isTeacher || canSee(t.className, t.section || ''))
+      .sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || '')),
+    /** Creates a test (no id) or saves an existing one; returns its id. The front desk does not enter marks. */
+    saveTest: isReceptionist ? () => null : (test) => {
+      if (isTeacher && !canSee(test.className, test.section || '')) return null;
+      const id = test.id || newId();
+      update((d) => {
+        const list = d.tests || [];
+        const saved = { ...test, id, createdAt: test.createdAt || new Date().toISOString() };
+        return { tests: list.some((t) => t.id === id) ? list.map((t) => (t.id === id ? saved : t)) : [saved, ...list] };
+      });
+      return id;
+    },
+    deleteTest: isReceptionist ? () => {} : (id) => update((d) => ({ tests: (d.tests || []).filter((t) => t.id !== id) })),
   };
 }

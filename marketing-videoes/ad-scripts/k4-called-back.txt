@@ -1,0 +1,9 @@
+# Kinetic ad 4 "They called back" (enquiries and growth)
+[q] How many admission enquiries / did you get *last month?* || How many admission enquiries did you get last month?
+[q] How many did you / *follow up?* || How many did you follow up?
+[pain] Every enquiry you forget / joins the institute / *down the road.* || Every enquiry you forget joins the institute down the road.
+[pain] Not because they teach *better.* || Not because they teach better.
+[pain] Because they / *called back.* || Because they called back.
+[solve] *EduBuddy* tells you / who to call, / and *when.* || EduBuddy tells you who to call, and when.
+[solve] Every enquiry. / Every *follow-up.* || Every enquiry. Every follow-up.
+[cta] Fill your *batches.* || Fill your batches. Book a free demo.

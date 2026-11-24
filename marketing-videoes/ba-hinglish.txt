@@ -1,0 +1,11 @@
+# Before/After 30s video. Line order: intro, then before/after pairs (attendance, fees, inquiries, records), outro.
+EduBuddy se pehle, aur EduBuddy ke baad. || एडू बडी से पहले, और एडू बडी के बाद।
+Pehle attendance register mein, parents ko ek ek call. || पहले अटेंडेंस रजिस्टर में, पेरेंट्स को एक एक कॉल।
+Ab? Do tap, aur parents ko WhatsApp. || अब? दो टैप, और पेरेंट्स को व्हाट्सएप।
+Pehle fees register mein. Kisne diya? Yaad nahi. || पहले फ़ीस रजिस्टर में। किसने दिया? याद नहीं।
+Ab record karo, receipt turant ready. || अब रिकॉर्ड करो, रिसीट तुरंत रेडी।
+Pehle inquiry diary mein, follow-up bhool gaye. || पहले इंक्वायरी डायरी में, फ़ॉलो-अप भूल गए।
+Ab har inquiry save, follow-up date ke saath. || अब हर इंक्वायरी सेव, फ़ॉलो-अप डेट के साथ।
+Pehle register kho gaya, to sab kuch gaya. || पहले रजिस्टर खो गया, तो सब कुछ गया।
+Ab sab kuch ek screen pe, cloud mein safe. || अब सब कुछ एक स्क्रीन पे, क्लाउड में सेफ़।
+EduBuddy. Free demo book karein. || एडू बडी। फ़्री डेमो बुक करें।

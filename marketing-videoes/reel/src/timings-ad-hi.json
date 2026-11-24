@@ -1,0 +1,48 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.2,
+  "scenes": [
+    {
+      "text": "Coaching institute chalate ho?",
+      "file": "vo/ad-hi/0.wav",
+      "seconds": 2.6,
+      "start": 0.39,
+      "end": 2.273
+    },
+    {
+      "text": "Attendance, bas do tap mein.",
+      "file": "vo/ad-hi/1.wav",
+      "seconds": 2.4,
+      "start": 0.384,
+      "end": 2.106
+    },
+    {
+      "text": "Fees record karo, receipt turant.",
+      "file": "vo/ad-hi/2.wav",
+      "seconds": 2.875,
+      "start": 0.422,
+      "end": 2.534
+    },
+    {
+      "text": "Har inquiry ka follow-up, time pe.",
+      "file": "vo/ad-hi/3.wav",
+      "seconds": 2.8,
+      "start": 0.383,
+      "end": 2.482
+    },
+    {
+      "text": "Poora institute, ek screen pe.",
+      "file": "vo/ad-hi/4.wav",
+      "seconds": 2.8,
+      "start": 0.407,
+      "end": 2.482
+    },
+    {
+      "text": "EduBuddy. Aaj hi free demo book karein.",
+      "file": "vo/ad-hi/5.wav",
+      "seconds": 3.0,
+      "start": 0.406,
+      "end": 2.68
+    }
+  ]
+}

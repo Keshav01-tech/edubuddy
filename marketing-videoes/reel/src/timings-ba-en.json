@@ -1,0 +1,76 @@
+{
+  "voice": "af_heart",
+  "speed": 1.15,
+  "scenes": [
+    {
+      "text": "Before EduBuddy, and after.",
+      "file": "vo/ba-en/0.wav",
+      "seconds": 2.15,
+      "start": 0.249,
+      "end": 1.797
+    },
+    {
+      "text": "Before: attendance in a register, and calling every parent.",
+      "file": "vo/ba-en/1.wav",
+      "seconds": 3.8,
+      "start": 0.254,
+      "end": 3.462
+    },
+    {
+      "text": "After: two taps, and parents get a WhatsApp.",
+      "file": "vo/ba-en/2.wav",
+      "seconds": 2.825,
+      "start": 0.256,
+      "end": 2.487
+    },
+    {
+      "text": "Before: fees in a register. Who paid? Nobody remembers.",
+      "file": "vo/ba-en/3.wav",
+      "seconds": 3.7,
+      "start": 0.253,
+      "end": 3.369
+    },
+    {
+      "text": "After: record it, and the receipt is ready.",
+      "file": "vo/ba-en/4.wav",
+      "seconds": 2.925,
+      "start": 0.248,
+      "end": 2.548
+    },
+    {
+      "text": "Before: inquiries in a diary, follow-ups forgotten.",
+      "file": "vo/ba-en/5.wav",
+      "seconds": 3.2,
+      "start": 0.254,
+      "end": 2.754
+    },
+    {
+      "text": "After: every inquiry saved, with a follow-up date.",
+      "file": "vo/ba-en/6.wav",
+      "seconds": 3.325,
+      "start": 0.248,
+      "end": 2.995
+    },
+    {
+      "text": "Before: lose the register, lose everything.",
+      "file": "vo/ba-en/7.wav",
+      "seconds": 2.85,
+      "start": 0.254,
+      "end": 2.502
+    },
+    {
+      "text": "After: everything on one screen, safe in the cloud.",
+      "file": "vo/ba-en/8.wav",
+      "seconds": 3.275,
+      "start": 0.251,
+      "end": 2.895
+    },
+    {
+      "text": "EduBuddy. Book a free demo today.",
+      "file": "vo/ba-en/9.wav",
+      "seconds": 2.45,
+      "start": 0.242,
+      "end": 2.096
+    }
+  ]
+}

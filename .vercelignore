@@ -5,3 +5,6 @@ dist
 .env.*
 src/data/NCERT Books
 demo-video
+
+.claude
+.taste-skill

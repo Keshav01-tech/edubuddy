@@ -68,6 +68,8 @@ export const AuthProvider = ({ children }) => {
   const signInAsTeacher = (email, password) => signInAs('teacher', email, password);
   const signInAsReceptionist = (email, password) => signInAs('receptionist', email, password);
   const signInAsSuperAdmin = (loginId, password) => signInAs('superadmin', loginId, password);
+  // Parents sign in with their child's phone number and the 6-digit PIN the institute gave them.
+  const signInAsParent = (phone, pin) => signInAs('parent', phone, pin);
 
   const signOut = async () => {
     resetClassroomStores(); // sends anything still waiting before the token goes
@@ -77,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isDemoMode: false, backend, signIn, signInAsTeacher, signInAsReceptionist, signInAsSuperAdmin, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isDemoMode: false, backend, signIn, signInAsTeacher, signInAsReceptionist, signInAsSuperAdmin, signInAsParent, signOut }}>
       {children}
     </AuthContext.Provider>
   );

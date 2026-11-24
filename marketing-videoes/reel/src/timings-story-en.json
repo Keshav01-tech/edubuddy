@@ -1,0 +1,61 @@
+{
+  "voice": "af_heart",
+  "speed": 1.1,
+  "scenes": [
+    {
+      "text": "Every coaching institute has the same story. A register for attendance, another for fees, and a diary for admissions.",
+      "file": "vo/story-en/0.wav",
+      "seconds": 7.5
+    },
+    {
+      "text": "And then one day... the register is gone.",
+      "file": "vo/story-en/1.wav",
+      "seconds": 2.9
+    },
+    {
+      "text": "Who paid the fees? Who didn't? Who was absent, and for how many days? Nobody knows. Just stress and headaches.",
+      "file": "vo/story-en/2.wav",
+      "seconds": 6.35
+    },
+    {
+      "text": "That's exactly the problem EduBuddy solves.",
+      "file": "vo/story-en/3.wav",
+      "seconds": 3.075
+    },
+    {
+      "text": "Sign in, and your whole institute is on one screen. Students, pending fees, and new admissions.",
+      "file": "vo/story-en/4.wav",
+      "seconds": 5.925
+    },
+    {
+      "text": "Attendance? Tap who's absent, and parents get a WhatsApp message in one click.",
+      "file": "vo/story-en/5.wav",
+      "seconds": 4.8
+    },
+    {
+      "text": "Fee received? Record it, and the receipt is ready instantly. You always see who has paid and who hasn't.",
+      "file": "vo/story-en/6.wav",
+      "seconds": 6.35
+    },
+    {
+      "text": "Need any student's details? Just search the name.",
+      "file": "vo/story-en/7.wav",
+      "seconds": 2.975
+    },
+    {
+      "text": "Every inquiry is saved with a follow-up date. No admission slips away.",
+      "file": "vo/story-en/8.wav",
+      "seconds": 4.625
+    },
+    {
+      "text": "And everything is safe in the cloud. A register can get lost. Your data can't.",
+      "file": "vo/story-en/9.wav",
+      "seconds": 5.0
+    },
+    {
+      "text": "EduBuddy. Drop the register, run your institute. Book a free demo today.",
+      "file": "vo/story-en/10.wav",
+      "seconds": 4.725
+    }
+  ]
+}

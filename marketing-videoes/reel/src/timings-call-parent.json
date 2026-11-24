@@ -1,0 +1,13 @@
+{
+  "voice": "am_michael",
+  "speed": 1.0,
+  "scenes": [
+    {
+      "text": "Oh, yes. I'll pay by Friday.",
+      "file": "vo/call-parent/0.wav",
+      "seconds": 2.675,
+      "start": 0.39,
+      "end": 2.141
+    }
+  ]
+}

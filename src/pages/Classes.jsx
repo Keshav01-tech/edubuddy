@@ -8,6 +8,8 @@ import { AppHeader } from '../components/AppHeader';
 import { Picker, Initials } from '../components/ui';
 import { useClassroom } from '../services/classroom';
 import { teachesBatch, describeDays, describeTime, WEEK_DAYS, inBatch } from '../services/teachers';
+import { useT } from '../i18n';
+import { MediumTag } from './Students';
 
 const field = 'h-11 w-full px-3 text-base sm:text-sm bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
 const NEW_CLASS = '__new__';
@@ -86,6 +88,9 @@ function BatchForm({ room, rows, initial, onClose }) {
   const [days, setDays] = useState(initial?.timing?.days || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
   const [start, setStart] = useState(initial?.timing?.start || '');
   const [end, setEnd] = useState(initial?.timing?.end || '');
+  // Teaching medium of the batch: English or Hindi. New students of the batch take it.
+  const [medium, setMedium] = useState(initial?.timing?.medium || 'en');
+  const { t } = useT();
 
   const className = classChoice === NEW_CLASS ? newClass.trim() : classChoice;
   const existing = room.classes.find((c) => c.name.toLowerCase() === className.toLowerCase());
@@ -121,6 +126,7 @@ function BatchForm({ room, rows, initial, onClose }) {
       days,
       start,
       end,
+      medium,
       original: editing ? { className: initial.className, section: initial.section } : null,
     });
     onClose();
@@ -213,6 +219,24 @@ function BatchForm({ room, rows, initial, onClose }) {
           {badTime && <p className="-mt-2 text-sm text-rose-600">The end time must be after the start time.</p>}
 
           <div>
+            <span className="mb-1.5 block text-xs font-semibold text-neutral-600">{t('Medium')}</span>
+            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t('Medium')}>
+              {[['en', 'English medium'], ['hi', 'Hindi medium']].map(([id, text]) => (
+                <button
+                  key={id}
+                  type="button"
+                  role="radio"
+                  aria-checked={medium === id}
+                  onClick={() => setMedium(id)}
+                  className={`h-10 rounded-xl text-sm font-medium ring-1 transition-colors ${medium === id ? 'ring-2 ring-[#005a9c] bg-[#eef6fc] text-neutral-900' : 'ring-neutral-200 text-neutral-600 hover:bg-neutral-50'}`}
+                >
+                  {t(text)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
             <span className="mb-1.5 block text-xs font-semibold text-neutral-600">Days</span>
             <div className="flex flex-wrap gap-1.5">
               {WEEK_DAYS.map((day) => (
@@ -268,7 +292,7 @@ function ClassTag({ row, color }) {
       </span>
       <span className="min-w-0 leading-tight">
         <span className="block font-semibold text-neutral-900 truncate">{row.className}</span>
-        <span className="block text-xs text-neutral-500 truncate">{batchLabel(row.section)}</span>
+        <span className="block text-xs text-neutral-500 truncate">{batchLabel(row.section)}{row.timing?.medium === 'hi' && <MediumTag />}</span>
       </span>
     </span>
   );

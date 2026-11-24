@@ -1,0 +1,20 @@
+{
+  "voice": "af_bella",
+  "speed": 1.12,
+  "scenes": [
+    {
+      "text": "Hi! KMC Classes here. Devansh's fee of thirty-two thousand six hundred is due this week.",
+      "file": "vo/call-ai/0.wav",
+      "seconds": 6.25,
+      "start": 0.367,
+      "end": 5.805
+    },
+    {
+      "text": "Thank you! I've noted Friday.",
+      "file": "vo/call-ai/1.wav",
+      "seconds": 2.425,
+      "start": 0.372,
+      "end": 1.952
+    }
+  ]
+}

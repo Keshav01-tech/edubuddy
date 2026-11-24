@@ -1,0 +1,76 @@
+{
+  "voice": "hf_alpha",
+  "speed": 1.25,
+  "scenes": [
+    {
+      "text": "EduBuddy se pehle, aur EduBuddy ke baad.",
+      "file": "vo/ba-hi/0.wav",
+      "seconds": 3.3,
+      "start": 0.389,
+      "end": 2.948
+    },
+    {
+      "text": "Pehle attendance register mein, parents ko ek ek call.",
+      "file": "vo/ba-hi/1.wav",
+      "seconds": 3.975,
+      "start": 0.38,
+      "end": 3.609
+    },
+    {
+      "text": "Ab? Do tap, aur parents ko WhatsApp.",
+      "file": "vo/ba-hi/2.wav",
+      "seconds": 2.875,
+      "start": 0.382,
+      "end": 2.581
+    },
+    {
+      "text": "Pehle fees register mein. Kisne diya? Yaad nahi.",
+      "file": "vo/ba-hi/3.wav",
+      "seconds": 3.55,
+      "start": 0.381,
+      "end": 3.201
+    },
+    {
+      "text": "Ab record karo, receipt turant ready.",
+      "file": "vo/ba-hi/4.wav",
+      "seconds": 2.9,
+      "start": 0.387,
+      "end": 2.581
+    },
+    {
+      "text": "Pehle inquiry diary mein, follow-up bhool gaye.",
+      "file": "vo/ba-hi/5.wav",
+      "seconds": 3.475,
+      "start": 0.38,
+      "end": 3.108
+    },
+    {
+      "text": "Ab har inquiry save, follow-up date ke saath.",
+      "file": "vo/ba-hi/6.wav",
+      "seconds": 3.4,
+      "start": 0.388,
+      "end": 3.079
+    },
+    {
+      "text": "Pehle register kho gaya, to sab kuch gaya.",
+      "file": "vo/ba-hi/7.wav",
+      "seconds": 3.125,
+      "start": 0.376,
+      "end": 2.805
+    },
+    {
+      "text": "Ab sab kuch ek screen pe, cloud mein safe.",
+      "file": "vo/ba-hi/8.wav",
+      "seconds": 3.225,
+      "start": 0.388,
+      "end": 2.908
+    },
+    {
+      "text": "EduBuddy. Free demo book karein.",
+      "file": "vo/ba-hi/9.wav",
+      "seconds": 2.5,
+      "start": 0.384,
+      "end": 2.181
+    }
+  ]
+}

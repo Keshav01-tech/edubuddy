@@ -5,6 +5,8 @@
 //   TWILIO_INVITE_CONTENT_SID invite  ({{1}} name, {{2}} institute)
 
 import { readToken, bearer } from './_lib/auth.js';
+import { getDb } from './_lib/db.js';
+import { teachesStudent } from '../src/services/batchRules.js';
 
 // One click never sends more than this many messages.
 export const MAX_MESSAGES = 40;
@@ -113,6 +115,28 @@ export function allowedToSend(req) {
   return !!session && ['admin', 'teacher'].includes(session.role);
 }
 
+/**
+ * The name and saved number of each chosen student the signed-in user may alert, or null if the account is gone.
+ * Numbers are read here so they never pass through a teacher's browser.
+ */
+export async function absenceRecipients(db, session, ids) {
+  let instituteId = session.instituteId;
+  let teacher = null;
+  if (session.role === 'admin') {
+    const admin = await db.collection('admins').findOne({ _id: session.adminId });
+    if (!admin?.active) return null;
+    instituteId = `admin-${admin._id}`;
+  } else {
+    teacher = await db.collection('teachers').findOne({ _id: `${instituteId}:${session.teacherId}` });
+    if (!teacher) return null;
+  }
+  const keys = [...new Set(ids.map(String))].slice(0, MAX_MESSAGES).map((id) => `${instituteId}:${id}`);
+  const students = await db.collection('students').find({ _id: { $in: keys } }).toArray();
+  return students
+    .filter((s) => !teacher || teachesStudent(teacher, s))
+    .map((s) => ({ name: s.name, phone: s.phone }));
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -141,11 +165,31 @@ export default async function handler(req, res) {
     res.status(result.error ? 400 : 200).json(result);
     return;
   }
-  const students = Array.isArray(body.students) ? body.students.slice(0, MAX_MESSAGES) : [];
-  if (!students.length) {
+  const ids = Array.isArray(body.studentIds) ? body.studentIds : [];
+  if (!ids.length) {
     res.status(400).json({ error: 'No students to notify.' });
     return;
   }
+  const session = readToken(bearer(req));
+  let students;
+  try {
+    students = await absenceRecipients(await getDb(), session, ids);
+  } catch {
+    res.status(500).json({ error: 'Could not read the student list. Try again.' });
+    return;
+  }
+  if (!students) {
+    res.status(401).json({ error: 'Please sign in again.' });
+    return;
+  }
+  if (!students.length) {
+    res.status(403).json({ error: 'You can only notify parents of your own students.' });
+    return;
+  }
   const result = await sendAbsences(students, body.date, process.env, body.subject);
+  // Twilio's error text can quote the number, so a teacher gets a plain message instead.
+  if (session.role === 'teacher' && result.failed) {
+    result.failed = result.failed.map(({ name }) => ({ name, error: 'Could not send this message.' }));
+  }
   res.status(result.error ? 400 : 200).json(result);
 }

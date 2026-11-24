@@ -5,7 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
 import { useClassroom, todayISO } from '../services/classroom';
 import { getToken } from '../services/cloud';
-import { inBatch, batchKey, describeTime, describeDays, studentBatchDetails } from '../services/teachers';
+import { Picker } from '../components/ui';
+import { inBatch, batchKey, describeTime, describeDays, studentBatchDetails, narrowBatches } from '../services/teachers';
 
 export { StudentForm, PdfImport } from './Students';
 
@@ -38,6 +39,9 @@ export default function Attendance() {
 
   const today = todayISO();
   const [date, setDate] = useState(today);
+  // Three linked filters, as on the Students page: class, then subject, then batch.
+  const [classFilter, setClassFilter] = useState('all');
+  const [subjectFilter, setSubjectFilter] = useState('all');
   const [selectedGroup, setSelectedGroup] = useState('');
   const [notice, setNotice] = useState(null);
   const [sending, setSending] = useState(false);
@@ -54,13 +58,17 @@ export default function Attendance() {
         id: batchKey(item.name, section),
         className: item.name,
         section,
+        subject: timing.subject || '',
         timing,
         // Short enough for the picker on a phone, e.g. "10A · Science · 9:30 AM".
         label: [`${item.name.replace(/^Class\s*/i, '')}${section}`, timing.subject, describeTime({ start: timing.start })].filter(Boolean).join(' · '),
       };
     });
   }).sort((a, b) => (a.timing.start || '99').localeCompare(b.timing.start || '99') || a.label.localeCompare(b.label));
-  const activeGroup = groups.find((g) => g.id === selectedGroup) || groups[0] || { id: '', className: '', section: '', timing: {} };
+  const { subjects, inClass, inSubject, active } = narrowBatches(groups, classFilter, subjectFilter, selectedGroup);
+  // Nothing is shown or marked until one batch is chosen, so passing through the filters records no attendance.
+  const activeGroup = active || { id: '', className: '', section: '', timing: {} };
+  const countIn = (list) => room.students.filter((s) => list.some((g) => inBatch(s, g.className, g.section))).length;
 
   // This batch's marks for the day. Days marked before batch-wise attendance fall back to the old single mark.
   const batchMarks = room.batchAttendance?.[date]?.[activeGroup.id];
@@ -74,25 +82,32 @@ export default function Attendance() {
   const absent = students.filter((s) => marks[s.id] === 'A');
   const present = students.filter((s) => marks[s.id] === 'P');
 
-  // Today everyone starts Present; tap a name to mark that student Absent.
-  const unmarkedKey = students.filter((s) => !marks[s.id]).map((s) => s.id).join(',');
+  // For a teacher taking the class, everyone starts Present today; tap a name to mark that student Absent.
+  // An admin may only be looking, so opening the page never marks anyone for them.
+  const unmarked = students.filter((s) => !marks[s.id]);
+  const unmarkedKey = unmarked.map((s) => s.id).join(',');
   useEffect(() => {
-    if (!isToday || !unmarkedKey) return;
+    if (!room.isTeacher || !isToday || !unmarkedKey) return;
     room.markBatch(date, activeGroup.className, activeGroup.section, unmarkedKey.split(','), 'P');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isToday, date, unmarkedKey, activeGroup.id]);
+  }, [room.isTeacher, isToday, date, unmarkedKey, activeGroup.id]);
 
-  const toggle = (student) => {
+  const setMark = (student, status) => {
     // Copy any older day-level marks into this batch first, so the rest of the roll is kept.
     const others = students.filter((s) => s.id !== student.id && marks[s.id]);
     if (!batchMarks) others.forEach((s) => room.markBatch(date, activeGroup.className, activeGroup.section, [s.id], marks[s.id]));
-    room.markBatch(date, activeGroup.className, activeGroup.section, [student.id], marks[student.id] === 'A' ? 'P' : 'A');
+    room.markBatch(date, activeGroup.className, activeGroup.section, [student.id], status);
+  };
+  const toggle = (student) => setMark(student, marks[student.id] === 'A' ? 'P' : 'A');
+  const markRestPresent = () => {
+    if (!batchMarks) students.filter((s) => marks[s.id]).forEach((s) => room.markBatch(date, activeGroup.className, activeGroup.section, [s.id], marks[s.id]));
+    room.markBatch(date, activeGroup.className, activeGroup.section, unmarked.map((s) => s.id), 'P');
   };
 
   const goTo = (next) => { setDate(next); setNotice(null); };
 
   const notifyParents = async () => {
-    const withPhone = absent.filter((s) => (s.phone || '').replace(/\D/g, '').length >= 10);
+    const withPhone = absent.filter((s) => s.hasPhone);
     if (!withPhone.length) {
       setNotice('No absent student has a phone number.');
       return;
@@ -103,7 +118,7 @@ export default function Attendance() {
       const response = await fetch('/api/whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
-        body: JSON.stringify({ date, subject: activeGroup.timing.subject || '', students: withPhone.map((s) => ({ name: s.name, phone: s.phone })) }),
+        body: JSON.stringify({ date, subject: activeGroup.timing.subject || '', studentIds: withPhone.map((s) => s.id) }),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || result.configured === false) {
@@ -149,12 +164,13 @@ export default function Attendance() {
     return total ? Math.round((here / total) * 100) : null;
   };
   const absentIn = (g) => room.students.filter((s) => inBatch(s, g.className, g.section) && markOn(date, g.id, s.id) === 'A').length;
-  const shortName = (g) => `${g.className.replace(/^Class\s*/i, '')}${g.section}`;
   const term = query.trim().toLowerCase();
   const shown = term ? students.filter((s) => s.name.toLowerCase().includes(term)) : students;
   const allPresent = () => room.markBatch(date, activeGroup.className, activeGroup.section, students.map((s) => s.id), 'P');
-  const setStatus = (student, status) => { if (marks[student.id] !== status) toggle(student); };
+  const setStatus = (student, status) => { if (marks[student.id] !== status) setMark(student, status); };
   const pickBatch = (id) => { setSelectedGroup(id); setNotice(null); setQuery(''); };
+  const pickClass = (value) => { setClassFilter(value); setSubjectFilter('all'); pickBatch(''); };
+  const pickSubject = (value) => { setSubjectFilter(value); pickBatch(''); };
 
   const notifyButton = (full) => (
     <button
@@ -198,39 +214,89 @@ export default function Attendance() {
           </div>
         ) : (
           <>
-            {/* Batch tabs. On a phone they wrap under each other instead of sliding sideways. */}
-            <div role="tablist" aria-label="Batches" className="mb-4 flex flex-wrap gap-2">
-              {groups.map((g) => {
-                const on = g.id === activeGroup.id;
-                const count = room.students.filter((s) => inBatch(s, g.className, g.section)).length;
-                const away = absentIn(g);
-                return (
-                  <button key={g.id} type="button" role="tab" aria-selected={on} onClick={() => pickBatch(g.id)}
-                    className={`min-w-0 max-w-full sm:min-w-36 lg:min-w-44 text-left rounded-2xl px-3.5 py-2.5 transition-colors ${on ? 'bg-[#005a9c] text-white shadow-sm' : 'bg-white text-neutral-900 shadow-card hover:bg-neutral-50'}`}>
-                    <span className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-bold truncate">
-                        {shortName(g)}
-                        {g.timing.subject && <span className={`font-medium ${on ? 'text-white/85' : 'text-neutral-600'}`}> · {g.timing.subject}</span>}
-                      </span>
-                      <span className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${on ? 'bg-white/20' : 'bg-neutral-100 text-neutral-600'}`}>{count}</span>
-                    </span>
-                    <span className={`mt-0.5 flex items-center justify-between gap-2 text-xs ${on ? 'text-white/75' : 'text-neutral-500'}`}>
-                      <span>{[describeTime(g.timing), g.timing.room].filter(Boolean).join(' · ') || 'No time set'}</span>
-                      {away > 0 && <span className={`hidden lg:inline font-semibold ${on ? 'text-white' : 'text-rose-600'}`}>{away} absent</span>}
-                    </span>
-                  </button>
-                );
-              })}
+            {/* Class, subject and batch filters, laid out like the Students page. */}
+            <div className="mb-4 bg-white rounded-3xl shadow-card p-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+              <div>
+                <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">1 · Class</span>
+                <Picker
+                  label="Filter by class"
+                  countLabel="students"
+                  value={classFilter}
+                  onChange={pickClass}
+                  options={[
+                    { value: 'all', label: 'All classes', count: room.students.length },
+                    ...room.classes.map((item) => ({
+                      value: item.name,
+                      label: item.name,
+                      count: room.students.filter((s) => s.className === item.name).length,
+                    })),
+                  ]}
+                />
+              </div>
+              <div>
+                <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">2 · Subject</span>
+                <Picker
+                  label="Filter by subject"
+                  countLabel="students"
+                  value={subjectFilter}
+                  onChange={pickSubject}
+                  options={[
+                    { value: 'all', label: 'All subjects', count: countIn(inClass) },
+                    ...subjects.map((subject) => ({
+                      value: subject,
+                      label: subject,
+                      count: countIn(inClass.filter((g) => g.subject === subject)),
+                    })),
+                  ]}
+                />
+              </div>
+              <div>
+                <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-500">3 · Batch</span>
+                <Picker
+                  label="Choose batch"
+                  placeholder="Choose batch"
+                  countLabel="students"
+                  value={activeGroup.id}
+                  onChange={pickBatch}
+                  options={inSubject.map((g) => {
+                    const away = absentIn(g);
+                    return {
+                      value: g.id,
+                      label: [
+                        classFilter === 'all' && g.className,
+                        g.section ? `Batch ${g.section}` : 'Whole class',
+                        subjectFilter === 'all' && g.subject,
+                        describeTime({ start: g.timing.start }),
+                        away > 0 && `${away} absent`,
+                      ].filter(Boolean).join(' · '),
+                      count: countIn([g]),
+                    };
+                  })}
+                />
+              </div>
             </div>
 
+            {!active ? (
+              <div className="bg-white rounded-3xl p-10 text-center shadow-card">
+                <Users className="w-10 h-10 mx-auto text-neutral-300" />
+                <p className="mt-3 text-sm text-neutral-500">{groups.length ? 'Choose a batch to take attendance.' : 'No batches yet.'}</p>
+              </div>
+            ) : (
+            <>
             {/* ───────── Phone: tap grid (unchanged) ───────── */}
             <div className="lg:hidden">
               <p className="mb-3 text-sm text-neutral-600">
                 <strong className="font-semibold text-neutral-900">{present.length}</strong> present
                 {' · '}
                 <strong className={`font-semibold ${absent.length ? 'text-rose-600' : 'text-neutral-900'}`}>{absent.length}</strong> absent
+                {unmarked.length > 0 && <> · <strong className="font-semibold text-neutral-900">{unmarked.length}</strong> not marked</>}
                 <span className="text-neutral-400"> · tap a name to mark absent</span>
               </p>
+              {unmarked.length > 0 && (
+                <button type="button" onClick={markRestPresent} className="mb-3 h-10 px-4 rounded-xl bg-white shadow-card text-sm font-semibold text-neutral-800 inline-flex items-center gap-1.5">
+                  <CheckCheck className="w-4 h-4" /> Mark remaining present
+                </button>
+              )}
               {students.length === 0 ? (
                 <p className="py-12 text-center text-sm text-neutral-500">No students in this batch.</p>
               ) : (
@@ -289,7 +355,7 @@ export default function Attendance() {
                   <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search student" aria-label="Search student"
                     className="w-full h-9 pl-9 pr-3 text-sm bg-white rounded-lg ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400" />
                 </div>
-                <p className="text-xs text-neutral-500">Everyone starts present. Switch a student to Absent.</p>
+                <p className="text-xs text-neutral-500">{room.isTeacher ? 'Everyone starts present. Switch a student to Absent.' : `${unmarked.length} not marked. Nothing changes until you mark it.`}</p>
                 <button type="button" onClick={allPresent} disabled={!absent.length && present.length === students.length}
                   className="ml-auto h-9 px-3 rounded-lg text-sm font-medium text-neutral-700 hover:bg-white hover:shadow-sm inline-flex items-center gap-1.5 disabled:opacity-40">
                   <CheckCheck className="w-4 h-4" /> Mark all present
@@ -326,7 +392,7 @@ export default function Attendance() {
                               <div className="min-w-0">
                                 <p className="font-medium text-neutral-900 truncate">{student.name}</p>
                                 <p className="text-xs text-neutral-500 truncate">
-                                  {others.length ? `Also ${others.map((b) => [b.section, b.subject].filter(Boolean).join(' · ')).join(', ')}` : student.phone || 'No parent number'}
+                                  {others.length ? `Also ${others.map((b) => [b.section, b.subject].filter(Boolean).join(' · ')).join(', ')}` : !student.hasPhone ? 'No parent number' : room.isTeacher ? 'Parent number saved' : student.phone}
                                 </p>
                               </div>
                             </div>
@@ -366,6 +432,8 @@ export default function Attendance() {
                 </table>
               )}
             </section>
+            </>
+            )}
           </>
         )}
       </main>

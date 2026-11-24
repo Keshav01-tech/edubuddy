@@ -1,0 +1,76 @@
+{
+  "voice": "af_heart",
+  "speed": 1.15,
+  "scenes": [
+    {
+      "text": "Manual work, or EduBuddy? See the difference.",
+      "file": "vo/mv-en/0.wav",
+      "seconds": 2.975,
+      "start": 0.259,
+      "end": 2.668
+    },
+    {
+      "text": "Before: calling every absent student's home, one by one.",
+      "file": "vo/mv-en/1.wav",
+      "seconds": 3.75,
+      "start": 0.254,
+      "end": 3.38
+    },
+    {
+      "text": "After: two taps, and parents get a WhatsApp.",
+      "file": "vo/mv-en/2.wav",
+      "seconds": 2.825,
+      "start": 0.256,
+      "end": 2.487
+    },
+    {
+      "text": "Before: totals on a calculator, and receipts by hand.",
+      "file": "vo/mv-en/3.wav",
+      "seconds": 3.75,
+      "start": 0.254,
+      "end": 3.368
+    },
+    {
+      "text": "After: record it, and the receipt is ready.",
+      "file": "vo/mv-en/4.wav",
+      "seconds": 2.925,
+      "start": 0.248,
+      "end": 2.548
+    },
+    {
+      "text": "Before: a whole day on the phone, chasing pending fees.",
+      "file": "vo/mv-en/5.wav",
+      "seconds": 3.525,
+      "start": 0.235,
+      "end": 3.209
+    },
+    {
+      "text": "After: an AI agent calls every parent with pending fees, and reports back.",
+      "file": "vo/mv-en/6.wav",
+      "seconds": 5.0,
+      "start": 0.257,
+      "end": 4.656
+    },
+    {
+      "text": "Before: inquiries on paper, follow-ups forgotten.",
+      "file": "vo/mv-en/7.wav",
+      "seconds": 3.1,
+      "start": 0.253,
+      "end": 2.699
+    },
+    {
+      "text": "After: every inquiry saved, with a follow-up date.",
+      "file": "vo/mv-en/8.wav",
+      "seconds": 3.325,
+      "start": 0.248,
+      "end": 2.995
+    },
+    {
+      "text": "EduBuddy. Less manual work, more growth. Book a free demo.",
+      "file": "vo/mv-en/9.wav",
+      "seconds": 3.8,
+      "start": 0.242,
+      "end": 3.431
+    }
+  ]
+}
