@@ -3,6 +3,7 @@
 // Optional approved WhatsApp templates:
 //   TWILIO_CONTENT_SID        absence ({{1}} name, {{2}} date)
 //   TWILIO_INVITE_CONTENT_SID invite  ({{1}} name, {{2}} institute)
+//   TWILIO_MESSAGE_CONTENT_SID message ({{1}} student name, {{2}} message, {{3}} institute)
 
 import { readToken, bearer } from './_lib/auth.js';
 import { getDb } from './_lib/db.js';
@@ -40,8 +41,29 @@ export function inviteText(name, institute) {
   return `Hi ${name}, thank you for your inquiry. ${institute || 'We'} would love to invite you for a visit to see our classes. Reply to this message to pick a time.`;
 }
 
-export function explainTwilioError(message) {
+// Longest message a teacher or admin may type.
+export const MAX_TEXT = 1000;
+
+/** A typed message kept to plain text with tidy line breaks. */
+export function cleanText(value) {
+  return String(value || '').replace(/\r\n?/g, '\n').replace(/[ \t]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, MAX_TEXT);
+}
+
+export function messageText(name, text, institute) {
+  return `Dear parent of ${name},\n\n${text}${institute ? `\n\n- ${institute}` : ''}`;
+}
+
+export function explainTwilioError(message, code) {
   const text = String(message || '');
+  if (code === 63007 || /could not find a channel/i.test(text)) {
+    return 'The From number is not a WhatsApp sender on Twilio. Set TWILIO_WHATSAPP_FROM to your approved WhatsApp sender, or to the Twilio sandbox number.';
+  }
+  if (code === 63016 || /outside the allowed window/i.test(text)) {
+    return "WhatsApp allows free text only within 24 hours of the parent's last reply. Add an approved template (TWILIO_MESSAGE_CONTENT_SID) to message at any time.";
+  }
+  if (code === 63015 || /sandbox/i.test(text)) {
+    return 'This parent has not joined the Twilio WhatsApp sandbox. They must first send the join code to the sandbox number.';
+  }
   if (/verified recipient|trial phone number is assigned/i.test(text)) {
     return 'This parent number is not a verified Twilio trial recipient. In Twilio, open Messaging → Try out SMS, add this phone, and enter the code Twilio sends to it. Then use the From number shown on that page.';
   }
@@ -82,7 +104,7 @@ async function sendEach(list, config, buildParams, missingPhone) {
       });
       const payload = await upstream.json().catch(() => ({}));
       if (upstream.ok) sent.push(name);
-      else failed.push({ name, error: explainTwilioError(payload.message) });
+      else failed.push({ name, error: explainTwilioError(payload.message, payload.code) });
     } catch {
       failed.push({ name, error: 'Could not reach Twilio.' });
     }
@@ -107,6 +129,19 @@ export async function sendInvites(list, institute, env = process.env) {
   return sendEach(list, config, (name) => (env.TWILIO_INVITE_CONTENT_SID
     ? { ContentSid: env.TWILIO_INVITE_CONTENT_SID, ContentVariables: JSON.stringify({ 1: name, 2: place || 'our institute' }) }
     : { Body: inviteText(name, place) }), 'Add a valid WhatsApp number.');
+}
+
+/** A typed message to the parents of the chosen students. */
+export async function sendMessages(list, text, institute, env = process.env) {
+  const body = cleanText(text);
+  if (!body) return { ok: false, error: 'Type a message first.' };
+  const config = twilioConfig(env);
+  if (!config) return { ok: false, configured: false };
+  const place = cleanName(institute);
+  return sendEach(list, config, (name) => (env.TWILIO_MESSAGE_CONTENT_SID
+    // Template values may not hold line breaks.
+    ? { ContentSid: env.TWILIO_MESSAGE_CONTENT_SID, ContentVariables: JSON.stringify({ 1: name, 2: body.replace(/\s*\n+\s*/g, ' '), 3: place || 'your institute' }) }
+    : { Body: messageText(name, body, place) }), 'Add a valid parent WhatsApp number.');
 }
 
 /** Only signed-in admins and teachers may send messages from the institute's Twilio number. */
@@ -165,6 +200,11 @@ export default async function handler(req, res) {
     res.status(result.error ? 400 : 200).json(result);
     return;
   }
+  const message = body.kind === 'message';
+  if (message && !cleanText(body.text)) {
+    res.status(400).json({ error: 'Type a message first.' });
+    return;
+  }
   const ids = Array.isArray(body.studentIds) ? body.studentIds : [];
   if (!ids.length) {
     res.status(400).json({ error: 'No students to notify.' });
@@ -186,7 +226,9 @@ export default async function handler(req, res) {
     res.status(403).json({ error: 'You can only notify parents of your own students.' });
     return;
   }
-  const result = await sendAbsences(students, body.date, process.env, body.subject);
+  const result = message
+    ? await sendMessages(students, body.text, body.institute)
+    : await sendAbsences(students, body.date, process.env, body.subject);
   // Twilio's error text can quote the number, so a teacher gets a plain message instead.
   if (session.role === 'teacher' && result.failed) {
     result.failed = result.failed.map(({ name }) => ({ name, error: 'Could not send this message.' }));

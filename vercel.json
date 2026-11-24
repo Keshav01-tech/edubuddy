@@ -1,9 +1,25 @@
 {
   "redirects": [
-    { "source": "/contact", "destination": "/#sign-up", "permanent": false }
+    {
+      "source": "/contact",
+      "destination": "/#sign-up",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/home.html" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/",
+      "destination": "/home.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/calls",
+      "schedule": "0 6 * * *"
+    }
   ]
 }

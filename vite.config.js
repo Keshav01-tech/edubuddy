@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import { sendAbsences, sendInvites, allowedToSend, MAX_MESSAGES } from './api/whatsapp.js'
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -11,32 +10,27 @@ function readBody(req) {
   })
 }
 
-// Local stand-in for the Vercel /api/whatsapp route. Twilio keys stay in .env.
-function whatsAppDev(env) {
+// Local stand-in for the Vercel /api/whatsapp and /api/calls routes: runs the real handler with a small req/res shim.
+function apiDev() {
+  const routes = { '/api/whatsapp': '/api/whatsapp.js', '/api/calls': '/api/calls.js' }
   return {
-    name: 'whatsapp-dev',
+    name: 'api-dev',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        if (req.url !== '/api/whatsapp' || req.method !== 'POST') return next()
-        if (!allowedToSend(req)) {
-          res.statusCode = 401
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ error: 'Please sign in again.' }))
-          return
-        }
+        const file = routes[(req.url || '').split('?')[0]]
+        if (!file) return next()
+        const raw = req.method === 'POST' ? await readBody(req) : ''
+        const type = String(req.headers['content-type'] || '')
         try {
-          const body = JSON.parse((await readBody(req)) || '{}')
-          const result = body.kind === 'invite'
-            ? await sendInvites((body.leads || []).slice(0, MAX_MESSAGES), body.institute, env)
-            : await sendAbsences((body.students || []).slice(0, MAX_MESSAGES), body.date, env, body.subject)
-          res.statusCode = result.error ? 400 : 200
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify(result))
+          req.body = type.includes('urlencoded') ? Object.fromEntries(new URLSearchParams(raw)) : JSON.parse(raw || '{}')
         } catch {
-          res.statusCode = 400
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ error: 'The request was not valid JSON.' }))
+          req.body = raw
         }
+        res.status = (code) => { res.statusCode = code; return res }
+        res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)) }
+        res.send = (data) => res.end(data)
+        const { default: handler } = await server.ssrLoadModule(file)
+        await handler(req, res)
       })
     },
   }
@@ -84,10 +78,12 @@ export default defineConfig(({ mode }) => {
   if (env.MONGODB_URI) process.env.MONGODB_URI = env.MONGODB_URI
   if (env.MONGODB_DB) process.env.MONGODB_DB = env.MONGODB_DB
   if (env.AUTH_SECRET) process.env.AUTH_SECRET = env.AUTH_SECRET
+  // Twilio keys for WhatsApp messages and fee calls, read by the api/ handlers.
+  Object.keys(env).filter((k) => k.startsWith('TWILIO_') || k === 'PUBLIC_BASE_URL').forEach((k) => { process.env[k] = env[k] })
   // Receipt photos are read on the server with this key.
   if (env.OPENAI_API_KEY || env.VITE_OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY || env.VITE_OPENAI_API_KEY
   return {
-    plugins: [react(), whatsAppDev(env), mongoDev()],
+    plugins: [react(), apiDev(), mongoDev()],
     build: {
       rolldownOptions: {
         output: {

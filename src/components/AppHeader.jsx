@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   Settings, LogOut, FileText, CalendarCheck, Wallet, Inbox, Menu, X, Users, GraduationCap, LayoutDashboard,
   Building2, Sparkles, Plus, ChevronDown, FolderOpen, CalendarDays, ArrowRight, UserCog, Presentation, ScanLine, ConciergeBell,
-  ClipboardList, BookOpen, ListChecks,
+  ClipboardList, BookOpen, ListChecks, MessageCircle, PhoneCall,
 } from 'lucide-react';
 import { useClassroom, todayISO } from '../services/classroom';
 import { useAuth } from '../context/AuthContext';
@@ -19,6 +19,8 @@ const PAGE_TITLES = {
   '/classes': ['Classes & batches', 'Institute'],
   '/attendance': ['Attendance', 'Institute'],
   '/fees': ['Fees', 'Institute'],
+  '/fee-calls': ['AI fee calls', 'Institute'],
+  '/messages': ['WhatsApp parents', 'Institute'],
   '/leads': ['Leads & inquiries', 'Institute'],
   '/teachers': ['Teachers & staff', 'Institute'],
   '/scan-receipt': ['Scan receipt', 'Front desk'],
@@ -54,6 +56,7 @@ function navGroups(b) {
       items: [
         { to: '/scan-receipt', label: 'Scan receipt', icon: ScanLine, badge: 'AI' },
         { to: '/fees', label: 'Fees', icon: Wallet, count: b.owing || null, countTone: 'danger', countTitle: 'students with fees due' },
+        { to: '/fee-calls', label: 'AI fee calls', icon: PhoneCall, badge: 'AI' },
         { to: '/students', label: 'Students', icon: Users, count: b.room.students.length || null, countTone: 'muted' },
         { to: '/leads', label: 'Leads', icon: Inbox, count: b.due || null, countTone: 'warn', countTitle: 'follow-ups due' },
       ],
@@ -68,9 +71,11 @@ function navGroups(b) {
         { to: '/students', label: 'Students', icon: Users, count: b.room.students.length || null, countTone: 'muted' },
         { to: '/classes', label: teacher ? 'My batches' : 'Batches', icon: GraduationCap },
         { to: '/attendance', label: 'Attendance', icon: CalendarCheck, count: b.room.students.length && b.unmarked ? b.unmarked : null, countTone: 'warn', countTitle: 'students not marked today' },
+        { to: '/messages', label: 'WhatsApp parents', icon: MessageCircle },
         ...(teacher ? [] : [
           { to: '/fees', label: 'Fees', icon: Wallet, count: b.owing || null, countTone: 'danger', countTitle: 'students with fees due' },
           { to: '/scan-receipt', label: 'Scan receipt', icon: ScanLine, badge: 'AI' },
+          { to: '/fee-calls', label: 'AI fee calls', icon: PhoneCall, badge: 'AI' },
         ]),
         { to: '/leads', label: 'Leads', icon: Inbox, count: b.due || null, countTone: 'warn', countTitle: 'follow-ups due' },
         ...(teacher ? [] : [{ to: '/teachers', label: 'Teachers', icon: UserCog, count: b.room.teachers.length || null, countTone: 'muted' }]),
