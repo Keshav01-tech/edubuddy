@@ -90,6 +90,8 @@ function BatchForm({ room, rows, initial, onClose }) {
   const [end, setEnd] = useState(initial?.timing?.end || '');
   // Teaching medium of the batch: English or Hindi. New students of the batch take it.
   const [medium, setMedium] = useState(initial?.timing?.medium || 'en');
+  // Monthly fee of the batch in rupees. Each student's total adds up the batches they join.
+  const [fee, setFee] = useState(initial?.timing?.fee ? String(initial.timing.fee) : '');
   const { t } = useT();
 
   const className = classChoice === NEW_CLASS ? newClass.trim() : classChoice;
@@ -127,6 +129,7 @@ function BatchForm({ room, rows, initial, onClose }) {
       start,
       end,
       medium,
+      fee: Number(fee) || 0,
       original: editing ? { className: initial.className, section: initial.section } : null,
     });
     onClose();
@@ -218,6 +221,12 @@ function BatchForm({ room, rows, initial, onClose }) {
           </div>
           {badTime && <p className="-mt-2 text-sm text-rose-600">The end time must be after the start time.</p>}
 
+          <label className="block">
+            <span className={label}>Monthly fee (₹)</span>
+            <input className={field} value={fee} onChange={(e) => setFee(e.target.value.replace(/\D/g, '').slice(0, 7))} inputMode="numeric" placeholder="1500" aria-label="Monthly fee" />
+            <span className="mt-1 block text-xs text-neutral-500">Students in more than one batch pay the total of their batches. You or the batch teacher can lower it for one student.</span>
+          </label>
+
           <div>
             <span className="mb-1.5 block text-xs font-semibold text-neutral-600">{t('Medium')}</span>
             <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t('Medium')}>
@@ -292,7 +301,11 @@ function ClassTag({ row, color }) {
       </span>
       <span className="min-w-0 leading-tight">
         <span className="block font-semibold text-neutral-900 truncate">{row.className}</span>
-        <span className="block text-xs text-neutral-500 truncate">{batchLabel(row.section)}{row.timing?.medium === 'hi' && <MediumTag />}</span>
+        <span className="block text-xs text-neutral-500 truncate">
+          {batchLabel(row.section)}
+          {row.timing?.fee > 0 && <> · ₹{Number(row.timing.fee).toLocaleString('en-IN')}/month</>}
+          {row.timing?.medium === 'hi' && <MediumTag />}
+        </span>
       </span>
     </span>
   );

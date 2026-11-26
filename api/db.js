@@ -18,7 +18,7 @@
 import { getDb, isConfigured } from './_lib/db.js';
 import { hashPassword, verifyPassword, sha256, signToken, readToken, bearer } from './_lib/auth.js';
 import { SUPER_ADMIN } from '../src/services/admins.js';
-import { teachesBatch, teachesStudent, studentBatches } from '../src/services/batchRules.js';
+import { teachesBatch, teachesStudent, studentBatches, batchFee, monthlyFee, cleanBatchFees } from '../src/services/batchRules.js';
 
 const clean = (value) => String(value || '').trim().toLowerCase();
 const today = () => new Date().toISOString().slice(0, 10);
@@ -306,8 +306,10 @@ async function load(db, session) {
     // Teachers never receive a student's fee or phone number, only whether a number is saved.
     students: visibleStudents.map((s) => {
       if (session.role !== 'teacher') return { ...strip(s), hasParentPin: !!s.parentPinHash };
-      const { phone, phoneKey: _phoneKey, fee: _fee, feeDate: _feeDate, ...rest } = strip(s);
-      return { ...rest, hasPhone: !!phone };
+      const { phone, phoneKey: _phoneKey, fee: _fee, feeDate: _feeDate, batchFees, ...rest } = strip(s);
+      // A teacher sees the student's own fee only for the batches they teach.
+      const mine = Object.fromEntries(Object.entries(batchFees || {}).filter(([section]) => teachesBatch(session.teacher, s.className, section)));
+      return { ...rest, batchFees: mine, hasPhone: !!phone };
     }),
     payments: visiblePayments.map(strip),
     leads: visibleLeads.map(strip),
@@ -385,6 +387,9 @@ async function sync(db, session, body) {
   const teacher = session.role === 'teacher';
   const reception = session.role === 'receptionist';
   let written = 0;
+  // The institute's batches, read once when a teacher's save needs their fees.
+  let classList = null;
+  const classesNow = async () => (classList ||= await db.collection('classes').find({ instituteId }).toArray());
 
   if (body.institute) {
     if (teacher) {
@@ -432,6 +437,28 @@ async function sync(db, session, body) {
         if (teacher) {
           delete set.fee;
           delete set.feeDate;
+          // A teacher may lower the fee of their own batches for this student (never above the batch fee);
+          // amounts for other teachers' batches stay as they were. The total is worked out here.
+          const classes = await classesNow();
+          const className = existing?.className || doc.className;
+          const before = existing?.batchFees || {};
+          // A save without fee amounts leaves every amount as it was.
+          const merged = doc.batchFees === undefined
+            ? { ...before }
+            : Object.fromEntries(Object.entries(before).filter(([section]) => !teachesBatch(session.teacher, className, section)));
+          for (const [section, value] of Object.entries(doc.batchFees || {})) {
+            if (!teachesBatch(session.teacher, className, section)) continue;
+            const listed = batchFee(classes, className, section);
+            const amount = Math.round(Number(value));
+            if (!listed || !Number.isFinite(amount)) continue;
+            if (amount < 0 || amount > listed) throw new HttpError(400, `The fee for batch ${section || className} must be between ₹0 and ₹${listed}.`);
+            merged[section] = amount;
+          }
+          set.batchFees = cleanBatchFees({ ...existing, ...doc, batchFees: merged });
+          const fee = monthlyFee({ ...existing, ...set }, classes);
+          if (fee.priced) set.fee = fee.total;
+        } else if (doc.batchFees !== undefined) {
+          set.batchFees = cleanBatchFees(doc);
         }
         // A teacher can give a number when adding a student, but cannot change a saved one.
         if (teacher && existing) {

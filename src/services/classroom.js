@@ -2,6 +2,7 @@ import { useSyncExternalStore } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { teachesBatch, teachesStudent, studentBatches, batchKey } from './teachers';
 import { callDb, getToken } from './cloud';
+import { monthlyFee, cleanBatchFees } from './batchRules';
 
 // An institute's students, batches, attendance, fees and leads. Always loaded from and saved to
 // MongoDB through api/db.js; nothing is kept in the browser.
@@ -328,6 +329,14 @@ export function useClassroom() {
   // The signed-in teacher's own record. Teachers see only the classes assigned to it.
   const teacher = isTeacher ? (data.teachers || []).find((t) => t.id === user.teacherId) || { id: user.teacherId, assignments: [] } : null;
   const canSee = (className, section) => !isTeacher || teachesBatch(teacher, className, section);
+  // A student's monthly fee follows their batches' fees once any batch has one. A teacher's screen
+  // never holds fees, so the server works out the total for their saves.
+  const priced = (student, classes) => {
+    const batchFees = cleanBatchFees(student);
+    if (isTeacher) return { ...student, batchFees };
+    const fee = monthlyFee({ ...student, batchFees }, classes);
+    return fee.priced ? { ...student, batchFees, fee: fee.total } : { ...student, batchFees };
+  };
 
   // Every student carries a `batches` list; `section` mirrors the first one for older screens.
   const allStudents = data.students.map((s) => {
@@ -477,7 +486,7 @@ export function useClassroom() {
      * one subject by one teacher, at one time, in one room.
      * `original` is { className, section } when editing an existing batch.
      */
-    saveBatch: adminOnly(({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', medium = 'en', original = null }) => {
+    saveBatch: adminOnly(({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', medium = 'en', fee = 0, original = null }) => {
       const cls = String(className || '').trim();
       const sec = String(section || '').trim();
       if (!cls) return;
@@ -504,7 +513,9 @@ export function useClassroom() {
             const list = studentBatches(st);
             if (original.section ? !list.includes(original.section) : list.length) return st;
             const batches = original.section ? list.map((b) => (b === original.section ? sec : b)) : [sec];
-            return { ...st, batches, section: batches[0] };
+            // A student's own fee for the batch moves with its new name.
+            const { [original.section]: own, ...batchFees } = st.batchFees || {};
+            return { ...st, batches, section: batches[0], batchFees: own === undefined ? batchFees : { ...batchFees, [sec]: own } };
           });
           if (original.section) {
             teachers = teachers.map((t) => ({
@@ -514,8 +525,11 @@ export function useClassroom() {
           }
         }
         if (sec && !sections.includes(sec)) sections.push(sec);
-        timings[sec] = { days, start, end, subject: String(subject).trim(), room: String(room).trim(), medium: medium === 'hi' ? 'hi' : 'en' };
+        const monthly = Math.max(0, Math.round(Number(fee)) || 0);
+        timings[sec] = { days, start, end, subject: String(subject).trim(), room: String(room).trim(), medium: medium === 'hi' ? 'hi' : 'en', fee: monthly };
         classes = classes.map((c) => (c.id === item.id ? { ...item, sections, timings } : c));
+        // A new batch fee changes the monthly total of everyone in the class.
+        students = students.map((st) => (st.className === name ? priced(st, classes) : st));
 
         // The chosen teacher takes this batch; any other teacher stops taking it.
         const wanted = new Set(teacherId ? [teacherId] : []);
@@ -543,7 +557,7 @@ export function useClassroom() {
       const batches = cleanBatches(student.className, batchesFrom(student));
       if (!teacherMayPlace(student.className, batches)) return false;
       update((d) => ({
-        students: [...d.students, { ...student, batches, section: batches[0] || '', id: newId(), createdAt: student.createdAt || todayISO() }],
+        students: [...d.students, priced({ ...student, batches, section: batches[0] || '', id: newId(), createdAt: student.createdAt || todayISO() }, d.classes)],
       }));
       return true;
     },
@@ -564,7 +578,7 @@ export function useClassroom() {
         Object.assign(next, { className, batches, section: batches[0] || '' });
       }
       update((d) => ({
-        students: d.students.map((s) => (s.id === id ? { ...s, ...next } : s)),
+        students: d.students.map((s) => (s.id === id ? priced({ ...s, ...next }, d.classes) : s)),
       }));
       return true;
     },

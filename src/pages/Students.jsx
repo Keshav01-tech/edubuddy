@@ -20,8 +20,9 @@ import { AppHeader } from '../components/AppHeader';
 import { useClassroom, formatMoney, formatDate } from '../services/classroom';
 import { Picker } from '../components/ui';
 import { studentsFromPdf } from '../services/studentPdf';
-import { batchOptions, studentBatches, timingsOverlap, describeTime, describeDays, inBatch, studentBatchDetails } from '../services/teachers';
+import { teachesBatch, batchOptions, studentBatches, timingsOverlap, describeTime, describeDays, inBatch, studentBatchDetails } from '../services/teachers';
 import { StudentBatches } from '../components/StudentBatches';
+import { monthlyFee } from '../services/batchRules';
 import { useT } from '../i18n';
 
 const field = 'w-full h-11 px-3 text-base bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
@@ -34,7 +35,8 @@ export function MediumTag() {
   return <span className="ml-1.5 inline-flex items-center rounded-md bg-amber-50 px-1.5 py-0.5 align-middle text-[10.5px] font-semibold text-amber-800 ring-1 ring-amber-200" lang="hi">{t('Hindi medium')}</span>;
 }
 
-export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false }) {
+// `ownsBatch(section, className)` says which batches' fees this user may change for a student (a teacher: only their own).
+export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false, ownsBatch = () => true }) {
   const { t } = useT();
   // Teachers cannot see or change a saved phone number; they can only give one for a new student.
   const hidePhone = lockBatches && !!initial;
@@ -53,6 +55,9 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
     // Teaching medium: 'en' English or 'hi' Hindi. A new student takes the medium of the batch they join.
     medium: initial?.medium || '',
   });
+  // This student's own monthly amount per batch, as typed. Blank means the batch fee.
+  const [batchFees, setBatchFees] = useState(() => Object.fromEntries(Object.entries(initial?.batchFees || {}).map(([k, v]) => [k, String(v)])));
+  const [feeError, setFeeError] = useState('');
 
   const chosen = classes.find((item) => item.name === form.className);
   const sections = chosen?.sections || [];
@@ -68,6 +73,12 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
   const mediumOfBatches = shown.map((b) => timingOf(b).medium).find(Boolean) || '';
   const medium = form.medium || mediumOfBatches || 'en';
 
+  // Monthly fee from the ticked batches, with this student's own amounts.
+  const typedFees = Object.fromEntries(Object.entries(batchFees).filter(([, v]) => v !== '').map(([k, v]) => [k, Number(v)]));
+  const fees = monthlyFee({ className: form.className, batches: shown, batchFees: typedFees }, classes);
+  const feeLines = fees.lines.filter((l) => l.listed > 0 && ownsBatch(l.section, form.className));
+  const setBatchFee = (sec, value) => { setFeeError(''); setBatchFees((current) => ({ ...current, [sec]: value.replace(/\D/g, '').slice(0, 7) })); };
+
   const toggle = (sec) => setForm((current) => ({
     ...current,
     batches: current.batches.includes(sec) ? current.batches.filter((b) => b !== sec) : [...current.batches, sec],
@@ -77,17 +88,23 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
     event.preventDefault();
     if (!form.name.trim() || needsBatch) return;
     if (lockBatches && !chosen) return;
+    const tooHigh = lockBatches && feeLines.find((l) => typedFees[l.section] > l.listed);
+    if (tooHigh) { setFeeError(`The fee for Batch ${tooHigh.section} cannot be more than ₹${tooHigh.listed.toLocaleString('en-IN')}.`); return; }
+    // Only amounts for batches this user handles are sent; the rest stay as saved.
+    const ownFees = Object.fromEntries(Object.entries(typedFees).filter(([sec]) => shown.includes(sec) && ownsBatch(sec, form.className)));
     onSave({
       name: form.name.trim(),
       className: form.className.trim(),
       batches: form.batches,
       ...(hidePhone ? {} : { phone: form.phone.trim() }),
       // Teachers do not handle fees, so their form leaves them out.
-      ...(lockBatches ? {} : { fee: Number(form.fee) || 0, feeDate: form.feeDate }),
+      ...(lockBatches ? {} : { fee: fees.priced ? fees.total : Number(form.fee) || 0, feeDate: form.feeDate }),
+      batchFees: lockBatches ? ownFees : typedFees,
       medium: form.medium || mediumOfBatches || 'en',
     });
     if (!initial) {
       setForm({ name: '', className: form.className, batches: firstBatches(form.className), phone: '', fee: form.fee, feeDate: '', medium: form.medium });
+      setBatchFees({});
     }
   };
 
@@ -168,6 +185,49 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
         </div>
       )}
 
+      {feeLines.length > 0 && (
+        <div className="sm:col-span-2 rounded-2xl bg-neutral-50 p-3.5">
+          <span className="block text-xs font-semibold text-neutral-700">
+            {t('Monthly fee by batch')} <span className="font-normal text-neutral-500">· {t('type a lower amount if this student gets a discount')}</span>
+          </span>
+          <ul className="mt-2 space-y-2">
+            {feeLines.map((l) => {
+              const tm = timingOf(l.section);
+              const off = l.listed - l.fee;
+              return (
+                <li key={l.section} className="flex items-center gap-3">
+                  <span className="min-w-0 flex-1 leading-tight">
+                    <span className="block truncate text-sm font-medium text-neutral-900">Batch {l.section}{tm.subject ? ` · ${tm.subject}` : ''}</span>
+                    <span className="block text-xs text-neutral-500">
+                      {t('Batch fee')} ₹{l.listed.toLocaleString('en-IN')}
+                      {off > 0 && <span className="font-semibold text-[#17784a]"> · ₹{off.toLocaleString('en-IN')} {t('off')}</span>}
+                    </span>
+                  </span>
+                  <span className="relative w-32 shrink-0">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400">₹</span>
+                    <input
+                      className={`${field} pl-7`}
+                      value={batchFees[l.section] ?? ''}
+                      onChange={(e) => setBatchFee(l.section, e.target.value)}
+                      placeholder={String(l.listed)}
+                      inputMode="numeric"
+                      aria-label={`Fee for Batch ${l.section}`}
+                    />
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          {!lockBatches && fees.lines.length > 1 && (
+            <p className="mt-2.5 flex justify-between border-t border-neutral-200 pt-2 text-sm">
+              <span className="text-neutral-600">{t('Total per month')}</span>
+              <strong className="font-semibold text-neutral-900">₹{fees.total.toLocaleString('en-IN')}</strong>
+            </p>
+          )}
+          {feeError && <p className="mt-1.5 text-xs text-rose-600" role="alert">{feeError}</p>}
+        </div>
+      )}
+
       {!hidePhone && (
         <label className="block">
           <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Parent phone')}</span>
@@ -182,7 +242,14 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
         </label>
       )}
 
-      {!lockBatches && (
+      {!lockBatches && fees.priced && (
+        <div className="block">
+          <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Monthly fee (₹)')}</span>
+          <p className={`${field} flex items-center bg-neutral-50 font-semibold text-neutral-900`}>₹{fees.total.toLocaleString('en-IN')}</p>
+        </div>
+      )}
+
+      {!lockBatches && !fees.priced && (
         <label className="block">
           <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Total fee (₹)')}</span>
           <input
@@ -392,6 +459,8 @@ export default function Students() {
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const room = useClassroom();
+  // Teachers change a student's fee only for the batches they teach.
+  const ownsBatch = (section, className) => !room.isTeacher || teachesBatch(room.teacher, className, section);
 
   const [query, setQuery] = useState('');
   // Three linked filters: class, then subject, then batch. Each narrows the next one's choices.
@@ -563,6 +632,7 @@ export default function Students() {
               onCancel={() => setShowAddForm(false)}
               classes={room.classes}
               lockBatches={room.isTeacher}
+              ownsBatch={ownsBatch}
             />
           </section>
         )}
@@ -982,6 +1052,7 @@ export default function Students() {
                 initial={editingStudent}
                 classes={room.classes}
                 lockBatches={room.isTeacher}
+                ownsBatch={ownsBatch}
                 onSave={(patch) => {
                   room.updateStudent(editingStudent.id, patch);
                   setEditingStudent(null);
