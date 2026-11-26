@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EduBuddy: AI fee and enquiry calls for coaching institutes</title>
-<meta name="description" content="EduBuddy’s AI agent calls parents about pending fees and follows up admission enquiries for coaching institutes and tuition centres in India.">
+<!-- phones see this page; a screen 640px or wider gets the desktop page, keeping the ad's ?utm and #part -->
+<script>if (window.matchMedia && matchMedia('(min-width: 640px)').matches) { window.__away = 1; document.documentElement.style.visibility = 'hidden'; location.replace('/home-desktop.html' + location.search + location.hash); }</script>
+<title>EduBuddy: software for coaching institutes in India</title>
+<meta name="description" content="EduBuddy runs your coaching institute from one app: students, attendance, fees and receipts, NCERT test papers and a parent app. Free for 14 days.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="EduBuddy: AI fee and enquiry calls for coaching institutes">
-<meta property="og:description" content="An AI agent that calls parents about pending fees and calls new enquiries until they join. Free for 14 days.">
+<meta property="og:title" content="EduBuddy: software for coaching institutes in India">
+<meta property="og:description" content="Students, attendance, fees, test papers and a parent app in one place. Free for 14 days, no card needed.">
 <meta property="og:image" content="/share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -40,12 +42,7 @@
 }
 </style>
 <link rel="stylesheet" href="kit/ui/base.css">
-<link rel="stylesheet" href="kit/ui/window/fragment.css">
 <link rel="stylesheet" href="kit/ui/checklist/fragment.css">
-<link rel="stylesheet" href="kit/ui/notify/fragment.css">
-<link rel="stylesheet" href="kit/ui/stat/fragment.css">
-<link rel="stylesheet" href="kit/ui/doc/fragment.css">
-<link rel="stylesheet" href="kit/ui/chat/fragment.css">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="kit/backgrounds/backgrounds.js"></script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -63,179 +60,193 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '677875594676625');
-fbq('track', 'PageView');
+if (!window.__away) { fbq('init', '677875594676625'); fbq('track', 'PageView'); }
 </script>
 <!-- End Meta Pixel Code -->
 
-<!-- page CSS: only what sits inside a visual and the kit lacks, and one --p-h per card group -->
+<!-- page CSS: only what sits inside a visual and the kit lacks -->
 <style>
-  /* the client's logo beside the name */
   .nav__logo svg, .footer .nav__logo svg { width: 28px; height: 28px; flex: none; border-radius: 7px; }
   .nav__logo { display: inline-flex; align-items: center; gap: 10px; }
-
-  /* hero collage pieces: EduBuddy's own screens, drawn in the collage's container units */
-  .ly-collage { container-type: size; }
-  .ly-collage .ly-piece { background: #fff; color: var(--ink); border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); overflow: hidden;
-    padding: 3cqw 3.4cqw; display: grid; align-content: start; gap: 1.4cqw; font: 400 max(13px, 2.3cqw)/1.35 var(--font-text); }
-  .pc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 2cqw; }
-  .pc-head b { font-weight: 500; font-size: max(13px, 2.3cqw); }
-  .pc-head span, .pc-meta { color: var(--muted); }
-  .pc-row { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; padding-top: 1.4cqw; border-top: 1px solid color-mix(in oklab, var(--ink) 9%, transparent); }
-  .pc-tag { font-size: max(13px, 1.8cqw); padding: .3cqw 1.2cqw; border-radius: 1cqw; background: #e8f5ec; color: #16653a; font-weight: 500; }
-  .pc-tag.is-a { background: #fde8ea; color: #a3243a; }
-  .pc-tag.is-w { background: #fff2dc; color: #8a4b05; }
-  .pc-btn { margin-top: .6cqw; text-align: center; border-radius: 1.2cqw; padding: 1.4cqw; background: var(--action); color: var(--action-ink); font-weight: 500; }
-  .pc-wa { background: #e7f6ec !important; }
-  .pc-wa p { margin: 0; }
-  .pc-wa .pc-meta { font-size: max(13px, 1.7cqw); }
-  .pc-big { font: 500 max(20px, 4.4cqw)/1.1 var(--font-display); letter-spacing: -0.03em; }
-  .pc-paper { background: #fffdf7 !important; }
-  .pc-line { margin: 0; display: grid; gap: .4cqw; }
-  .pc-line span { color: var(--muted); font-size: max(13px, 1.8cqw); }
-  .pc-line.is-them { justify-self: end; text-align: right; }
-  .pc-paper ol { margin: 0; padding-left: 1.2em; display: grid; gap: 1.4cqw; }
-
-  @media (max-width: 639px) {
-    .ly-collage__set.is-on > .ly-piece:first-child { left: 0 !important; width: 100% !important; height: 58% !important; }
-    .ly-collage__set.is-on > .ly-piece:nth-child(2), .ly-collage__set.is-on > .ly-piece:nth-child(3) { display: none; }
-    .ly-collage__set.is-on > .ly-piece:nth-child(4) { left: 0 !important; width: 100% !important; top: 64% !important; height: 36% !important; }
-    .pc-say { max-width: 92%; }
-  }
-  /* hero--centred: one light window on a lit ground; the exchange stands in its top 260px */
-  .hero__window { background: radial-gradient(90% 70% at 50% 0%, #dbe6ff 0%, #eef3ff 55%, #ffffff 100%); }
-  .d-win { background: #fff; color: var(--ink); border-radius: 14px; overflow: hidden; font: 400 15px/1.45 var(--font-text); border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); box-shadow: 0 24px 60px -30px rgb(11 27 54 / .45); }
-  .d-win__bar { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); font-size: 14px; color: var(--muted); }
-  .d-win__bar b { color: var(--ink); font-weight: 500; } .d-win__bar .sp { flex: 1; }
-  .d-win__dot { width: 9px; height: 9px; border-radius: 50%; background: #1f9d55; box-shadow: 0 0 0 4px #dff3e7; }
-  .d-win__body { display: grid; grid-template-columns: 270px 1fr; min-height: 420px; }
-  .inbox { border-right: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); padding: 10px; display: grid; align-content: start; gap: 2px; }
-  .inbox .q { height: 34px; margin-bottom: 6px; display: flex; align-items: center; padding: 0 8px; color: var(--muted); font-size: 13px; }
-  .inbox .t { display: grid; grid-template-columns: 30px 1fr auto; gap: 1px 10px; padding: 9px 8px; border-radius: 9px; font-size: 14px; }
-  .inbox .t.is-on { background: #f3f6fc; }
-  .inbox .t i { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 500 13px/1 var(--font-text); font-style: normal; color: var(--ink); }
-  .inbox .t b { font-weight: 500; } .inbox .t time { color: var(--muted); font-size: 13px; }
-  .inbox .t span { grid-column: 2 / -1; color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .convo { display: grid; min-width: 0; align-content: start; }
-  .d-chat { display: grid; gap: 10px; align-content: start; padding: 18px; }
-  .d-msg { max-width: 80%; padding: 10px 14px; border-radius: 16px; background: #f3f6fc; }
-  .d-msg small { display: block; font-size: 13px; color: var(--muted); }
-  .d-msg--me { justify-self: end; background: #e8f5ec; border-bottom-right-radius: 6px; }
-  .d-msg--bot { border-bottom-left-radius: 6px; }
-  .d-tool { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #16653a; font-weight: 500; }
-  .d-tool::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: #1f9d55 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.3 2.3 4.7-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
-  .acts { display: flex; flex-wrap: wrap; gap: 8px; } .acts span { min-height: 32px; padding: 4px 12px; border-radius: 99px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; background: var(--ink); color: #fff; }
-  .acts span + span { background: #f3f6fc; color: var(--ink); }
-  @media (max-width: 639px) { .d-win__body { grid-template-columns: 1fr; min-height: 0; } .inbox { display: none; } .d-win__bar .sp ~ span { display: none; } .d-chat { padding: 14px; } .d-msg { max-width: 92%; } }
-  /* problems and steps: the panels hold one card each, one height per group */
   .hero--centred .hero__lead { color: var(--ink); }
-  #problems .panel { --p-h: 300px; } #steps .panel { --p-h: 360px; }
-  @media (min-width: 640px) and (max-width: 1023px) { #problems .panel { --p-h: 380px; } }
-  @media (min-width: 640px) and (max-width: 1279px) { #steps { --h: 2 } }
-  @media (max-width: 639px) { #steps article:not(:nth-child(2)) .panel { display: none; } }
-  @media (max-width: 639px) { #problems .panel { --p-h: 250px; } #steps .panel { --p-h: 200px; } }
-  #problems .ly-piece, #steps .ly-piece { position: absolute; inset: 14% 20px -1px 20px; background: #fff; border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); border-radius: 12px 12px 0 0;
-    padding: 18px; display: grid; gap: 8px; align-content: start; font: 400 15px/1.4 var(--font-text); }
-  #problems .pc-tag, #steps .pc-tag { border-radius: 6px; padding: 2px 8px; font-size: 13px; }
-  #problems .pc-row, #steps .pc-row { padding-top: 8px; gap: 12px; }
-  #steps .pc-line span { font-size: 13px; }
-  /* app frame (sections-library.md, app-frame: the whole recipe) */
-  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
-  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
-  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
-  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
-  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
-  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
-  @media (max-width: 1023px) {
-    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
-    .app > .app__pane--list { max-height: 252px; }
-    .app > .app__pane--list::after { display: none; }
-    .app .ui-win__side { display: none; }
-    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
-    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
-  }
+  .hero-note { margin: var(--s-3) 0 0; color: var(--muted); font-size: 15px; }
+
+  /* hero: an auto-playing carousel of five features.
+     Desktop and tablet: a white window, tabs on top, the slide's words left and its screen right.
+     Phone (639px and under): the same screens inside a whole phone, the icons above it. */
+  .hero__window { background: radial-gradient(90% 70% at 50% 0%, #dbe6ff 0%, #eef3ff 55%, #ffffff 100%); }
+  .car { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto 240px; background: #fff; color: var(--ink); border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); font: 400 15px/1.45 var(--font-text); }
+  .car__tabs { grid-column: 1 / -1; display: flex; align-items: center; gap: 4px; padding: 6px 8px; border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); }
+  .car__tab { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: none; color: var(--muted); font: 500 14px/1 var(--font-text); cursor: pointer; white-space: nowrap; transition: background-color .2s, color .2s; }
+  .car__tab:hover { background: #f3f6fc; color: var(--ink); }
+  .car__tab[aria-pressed="true"] { background: #eef3ff; color: #2457d6; }
+  .car__tab svg, .car__pause svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .car__tab i { position: absolute; left: 12px; right: 12px; bottom: 4px; height: 2px; border-radius: 2px; background: #2457d6; transform: scaleX(0); transform-origin: left; }
+  .car.is-playing .car__tab[aria-pressed="true"] i { animation: car-fill var(--car-ms, 5000ms) linear both; }
+  .car.is-held .car__tab[aria-pressed="true"] i { animation-play-state: paused; }
+  @keyframes car-fill { to { transform: scaleX(1); } }
+  .car__pause { margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 10px; background: none; color: var(--muted); cursor: pointer; }
+  .car__pause:hover { background: #f3f6fc; color: var(--ink); }
+  .car__pause .i-play { display: none; } .car:not(.is-playing) .car__pause .i-play { display: block; } .car:not(.is-playing) .car__pause .i-pause { display: none; }
+
+  /* the words (left) */
+  .car__txt { grid-column: 1; grid-row: 2; position: relative; }
+  .stxt { position: absolute; inset: 22px 16px auto 24px; opacity: 0; visibility: hidden; transform: translateX(16px); transition: opacity .4s ease, transform .4s ease, visibility 0s .4s; }
+  .stxt.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .4s ease, transform .4s ease, visibility 0s; }
+  .stxt__chip { display: inline-block; margin-bottom: 10px; font-size: 13px; font-weight: 500; padding: 2px 8px; border-radius: 6px; background: #eef3ff; color: #2457d6; }
+  .stxt__t { margin: 0; font: 500 22px/1.2 var(--font-display); letter-spacing: -0.02em; }
+  .stxt__p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+  /* the screen (right): a card on desktop, a whole phone on a phone */
+  .phone { grid-column: 2; grid-row: 2; position: relative; margin: 22px 24px 0 0; border: 1px solid color-mix(in oklab, var(--ink) 9%, transparent); border-bottom: 0; border-radius: 12px 12px 0 0; overflow: hidden; }
+  .phone__screen { position: relative; height: 100%; overflow: hidden; background: #fff; color: var(--ink); font: 400 14px/1.4 var(--font-text); }
+  .phone__status { display: none; }
+  .phone__body { position: absolute; inset: 0; }
+  .scr { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr; align-content: start; opacity: 0; visibility: hidden; transform: translateX(20px); transition: opacity .4s ease, transform .4s ease, visibility 0s .4s; }
+  .scr.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .4s ease, transform .4s ease, visibility 0s; }
+  .scr__bar { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); font-weight: 500; font-size: 14px; }
+  .scr__bar small { margin-left: auto; color: var(--muted); font-weight: 400; font-size: 12px; }
+  .scr__in { display: grid; align-content: start; gap: 6px; padding: 10px 14px; }
+  .scr__cta { display: none; }
+  .srow { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid color-mix(in oklab, var(--ink) 7%, transparent); }
+  .srow small { color: var(--muted); font-size: 12px; margin-left: 6px; }
+  .tag { font-size: 12px; padding: 2px 7px; border-radius: 6px; background: #e8f5ec; color: #16653a; font-weight: 500; white-space: nowrap; }
+  .tag.is-w { background: #fff2dc; color: #8a4b05; }
+  .total { display: none; justify-content: space-between; align-items: baseline; padding: 8px 12px; border-radius: 10px; background: #fde8ea; color: #a3243a; }
+  .total b { font: 500 18px/1 var(--font-display); }
+
+  /* steps inside a screen play each time it comes in */
+  .scr.is-on [data-in] { animation: car-in .45s ease both; animation-delay: calc(var(--d, 0) * 1ms); }
+  @keyframes car-in { from { opacity: 0; transform: translateY(8px); } }
+  .flip { display: inline-grid; } .flip > * { grid-area: 1 / 1; }
+  .flip > :not(.is-w) { opacity: 0; }
+  .scr.is-on .flip > .is-w { animation: car-out .3s ease 1900ms both; }
+  .scr.is-on .flip > :not(.is-w) { opacity: 1; animation: car-in .4s ease 2100ms both; }
+  @keyframes car-out { to { opacity: 0; transform: scale(.9); } }
+  .pa { display: inline-flex; gap: 6px; } .pa b { width: 30px; height: 24px; display: grid; place-items: center; border-radius: 6px; font: 500 13px/1 var(--font-text); background: #f3f6fc; color: var(--muted); }
+  .scr.is-on .pa b.on { animation: car-mark .3s ease both; animation-delay: calc(var(--d, 0) * 1ms); }
+  .pa b.on.p { --c: #1f9d55; } .pa b.on.a { --c: #d0344d; }
+  @keyframes car-mark { to { background: var(--c); color: #fff; } }
+
+  /* WhatsApp screen */
+  .scr--wa { background: #efeae2; }
+  .scr--wa .scr__bar { background: #008069; color: #fff; border: 0; }
+  .scr--wa .scr__bar small { color: rgb(255 255 255 / .8); }
+  .wa-av { width: 26px; height: 26px; border-radius: 50%; background: #dfe5e7; color: #54656f; display: grid; place-items: center; font-size: 11px; }
+  .bub { max-width: 86%; padding: 6px 10px 4px; border-radius: 10px; background: #fff; font-size: 13px; line-height: 1.35; }
+  .bub small { display: block; text-align: right; font-size: 11px; color: #667781; }
+  .bub--me { justify-self: end; background: #d9fdd3; }
+  .tick { color: #53bdeb; }
+
+  /* AI call screen */
+  .scr--call { background: linear-gradient(#10264d, #0b1b36); color: #fff; grid-template-rows: auto; }
+  .call { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; padding: 10px 14px 4px; }
+  .call__av { grid-row: span 2; position: relative; width: 40px; height: 40px; border-radius: 50%; background: #2457d6; display: grid; place-items: center; font: 600 13px/1 var(--font-text); }
+  .call__av::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid #6f9bff; opacity: 0; }
+  .scr.is-on .call__av::after { animation: car-ring 1.4s ease-out infinite; }
+  @keyframes car-ring { 0% { opacity: .7; transform: scale(.9); } 100% { opacity: 0; transform: scale(1.5); } }
+  .call b { font-weight: 500; font-size: 15px; } .call small { color: #a9b6cc; font-size: 12px; }
+  .say { margin: 0 14px; padding: 6px 10px; border-radius: 10px; background: rgb(255 255 255 / .1); font-size: 13px; }
+  .say span { display: block; color: #a9b6cc; font-size: 11px; }
+  .say.is-them { justify-self: end; background: rgb(31 157 85 / .3); }
+  .scr--call .scr__in { padding: 0; gap: 5px; }
+  @media (min-width: 640px) { .call { padding-top: 8px; } .call small { display: none; } .call__av { width: 32px; height: 32px; } }
+  .saved { justify-self: start; margin-left: 14px; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 99px; background: #1f9d55; color: #fff; }
+
+  /* test paper screen */
+  .gen { height: 6px; border-radius: 6px; background: #eef3ff; overflow: hidden; }
+  .gen i { display: block; height: 100%; background: #2457d6; transform: scaleX(0); transform-origin: left; }
+  .scr.is-on .gen i { animation: car-fill 1.2s ease .3s both; }
+  .q { margin: 0; font-size: 13px; } .q b { font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; } .chips span { font-size: 12px; padding: 2px 7px; border-radius: 6px; background: #f3f6fc; }
+
+  @media (max-width: 1023px) { .car { grid-template-columns: 1fr 1fr; } .car__tab .lbl { display: none; } .car__tab[aria-pressed="true"] .lbl { display: inline; } }
+
+  /* ---- phone view: the whole phone, the hero grows to hold it ---- */
   @media (max-width: 639px) {
-    .app.ui { grid-template-rows: minmax(0, 1fr); }
-    .app > .app__pane--list { display: none; }
-    .app > .app__pane + .app__pane { border-top: 0; }
+    main > .hero.hero--centred { height: auto; min-height: 100svh; }
+    .hero--centred > .wrap, .hero--centred > .wrap > .hero-text { height: auto; }
+    .hero--centred .hero__window { flex: none; min-height: 0; overflow: visible; -webkit-mask-image: none; mask-image: none; padding: 20px 12px 28px; }
+    .hero--centred .hero__window > .ly-piece.car { position: static; transform: none; width: auto; }
+    .hero-note { display: none; }
+    .car { display: grid; grid-template-columns: 1fr; grid-template-rows: auto; gap: 12px; justify-items: center; background: none; border: 0; border-radius: 0; overflow: visible; }
+    .car__tabs { display: flex; gap: 2px; padding: 0; border: 0; }
+    .car__tab { padding: 0 11px; color: var(--ink); } .car__tab .lbl, .car__tab[aria-pressed="true"] .lbl { display: none; }
+    .car__tab:hover { background: rgb(255 255 255 / .6); }
+    .car__tab[aria-pressed="true"] { background: #fff; }
+    .car__tab i { left: 10px; right: 10px; }
+    .car__pause { margin-left: 0; }
+    .car__txt { display: none; }
+    .phone { grid-column: 1; grid-row: auto; margin: 0; width: 270px; height: 540px; padding: 10px; border: 0; border-radius: 46px; background: #0b1b36; overflow: visible; }
+    .phone__screen { border-radius: 36px; }
+    .phone__screen::after { content: ""; position: absolute; z-index: 3; left: 50%; bottom: 8px; width: 110px; height: 4px; border-radius: 4px; background: #0b1b36; opacity: .8; transform: translateX(-50%); }
+    .phone__screen:has(.scr--call.is-on)::after { background: #fff; }
+    .phone__status { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; height: 34px; padding: 0 24px; font: 600 12px/1 var(--font-text); }
+    .phone__status::after { content: ""; position: absolute; left: 50%; top: 8px; width: 84px; height: 22px; border-radius: 12px; background: #0b1b36; transform: translateX(-50%); }
+    .phone__status .bars { letter-spacing: 1px; }
+    .phone__screen:has(.scr--call.is-on) .phone__status, .phone__screen:has(.scr--wa.is-on) .phone__status { color: #fff; }
+    .scr { padding-top: 34px; }
+    .scr__bar { height: 44px; padding: 0 16px; font-size: 15px; }
+    .scr--wa .scr__bar { margin-top: -34px; padding-top: 34px; height: 78px; }
+    .scr__in { gap: 8px; padding: 12px 14px; }
+    .srow { padding: 8px 0; } .srow small { display: block; margin: 0; }
+    .total { display: flex; padding: 10px 12px; border-radius: 12px; } .total b { font-size: 20px; }
+    .bub { font-size: 14px; }
+    .saved { justify-self: center; margin: 0; }
+    .scr__cta { position: absolute; left: 14px; right: 14px; bottom: 26px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: #2457d6; color: #fff; font-weight: 500; font-size: 14px; }
+    .scr__cta.is-end { left: 50%; right: auto; width: 56px; height: 56px; border-radius: 50%; background: #d0344d; transform: translateX(-50%); }
+    .scr__cta.is-end svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(135deg); }
+    .scr--wa .scr__cta { left: 10px; right: 10px; justify-items: start; padding: 0 16px; background: #fff; color: #8696a0; font-weight: 400; border-radius: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scr, .scr.is-on, .stxt, .stxt.is-on { transition: none; transform: none; }
+    .scr.is-on *, .scr.is-on *::after { animation: none !important; }
+    .flip > .is-w { display: none; } .flip > :not(.is-w) { opacity: 1; }
+    .pa b.on.p { background: #1f9d55; color: #fff; } .pa b.on.a { background: #d0344d; color: #fff; }
+    .gen i { transform: none; }
   }
 
-  .pc-attpane { padding: 18px 24px; display: grid; align-content: start; font: 400 15px/1.4 var(--font-text); }
-  .pc-attpane .pc-tag, .pc-attpane .pc-meta { font-size: 13px; }
-  .pc-attpane .pc-tag { padding: 2px 8px; border-radius: 6px; justify-self: start; }
-  .pc-attpane__head { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; }
-  .pc-attpane__head b { font-weight: 500; }
-  .pc-attpane__head span { color: var(--muted); font-size: 14px; }
-  .pc-attpane__sum { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 10px 0 14px; color: var(--muted); font-size: 14px; border-bottom: 1px solid var(--u-line, #e6e9ef); }
-  .pc-attpane__sum b { color: var(--ink); font-weight: 500; }
-  .pc-say { margin: 14px 0 0; max-width: 78%; padding: 10px 14px; border-radius: 12px; background: #f3f6fc; }
-  .pc-say span { display: block; font-size: 13px; color: var(--muted); }
-  .pc-say.is-them { justify-self: end; background: #e7f6ec; }
-  .pc-callcard { width: 640px; }
-  @media (max-width: 639px) { .pc-callcard { width: 420px; } }
-  .pc-attpane__row { display: grid; grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--u-line, #e6e9ef); }
-  /* parents 2x2: one panel height for the group */
-  @media (min-width: 1024px) { #features .frame--split { aspect-ratio: 1 / 1; } }
-  #results .panel { --p-h: 300px; }
-  @media (max-width: 639px) { #results .panel { --p-h: 200px; } }
-  #results .ly-piece { position: absolute; inset: 22% 24px -1px 24px; align-content: start; border-bottom: 0; border-radius: 12px 12px 0 0; background: #fff; border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-    padding: 20px; display: grid; gap: 10px; font: 400 15px/1.4 var(--font-text); container-type: inline-size; }
-  #results .ly-piece.pc-wa { background: #e7f6ec; }
-  #results .pc-reply { justify-self: start; background: #fff; border-radius: 8px; padding: 8px 12px; }
-  #results .pc-tag, #results .pc-btn { border-radius: 6px; padding: 2px 8px; font-size: 13px; }
-  #results .pc-row { padding-top: 8px; gap: 12px; }
-  #results .pc-big { font-size: 28px; }
+  /* features: nine plain tiles, an icon, a title and one line each */
+  .feat { gap: var(--s-2); }
+  .feat__icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: #eef3ff; color: #2457d6; margin-bottom: var(--s-2); }
+  .feat__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .feat__icon.is-g { background: #e8f5ec; color: #16653a; } .feat__icon.is-o { background: #fff2dc; color: #8a4b05; }
+  @media (max-width: 639px) { .feat { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; row-gap: 4px; padding: 16px; } .feat__icon { grid-row: span 2; margin: 0; } }
 
-  #features [role="tabpanel"] { margin-top: var(--s-6); }
-  /* the parent panel (sections-library.md, chapter: one wide frame, four names under it) */
+  /* the parent app (sections-library.md, chapter: one wide frame, four names under it) */
   .parents-frame { margin-top: var(--s-7); height: 380px; }
   .parents-names { margin-top: var(--s-7); }
   .parents-names .parents-name { font-weight: 500; margin: 0 0 4px; }
   .parents-names p { margin: 0; } .parents-names p + p { color: var(--muted); }
   .pc-parent { padding: 20px 24px; font: 400 15px/1.4 var(--font-text); display: grid; gap: 16px; align-content: start; }
-  .pc-parent .pc-head { display: flex; justify-content: space-between; padding-bottom: 8px; }
-  .pc-parent .pc-head b { font-weight: 500; }
-  .pc-parent .pc-head span, .pc-parent .pc-meta { color: var(--muted); font-size: 14px; }
-  .pc-parent .pc-row { display: flex; justify-content: space-between; padding: 10px 0 0; margin-top: 10px; border-top: 1px solid var(--u-line, #e6e9ef); }
-  .pc-parent .pc-big { font: 500 32px/1.1 var(--font-display); letter-spacing: -0.03em; }
-  .pc-parent .pc-btn { margin-top: 8px; border-radius: 8px; padding: 10px; text-align: center; background: var(--action); color: var(--action-ink); font-weight: 500; }
+  .pc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 8px; }
+  .pc-head b { font-weight: 500; } .pc-head span, .pc-meta { color: var(--muted); font-size: 14px; }
+  .pc-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0 0; margin-top: 10px; border-top: 1px solid var(--u-line, #e6e9ef); }
+  .pc-big { font: 500 32px/1.1 var(--font-display); letter-spacing: -0.03em; }
   .pc-parent__bar { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--u-line, #e6e9ef); }
   .pc-parent__bar b { font-weight: 500; } .pc-parent__bar span { color: var(--muted); font-size: 14px; }
-  .pc-parent__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pc-parent__cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
   .pc-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 4px 0 6px; }
-  .pc-days i { font: 400 13px/30px var(--font-mono); text-align: center; border-radius: 6px; background: #e8f5ec; color: #16653a; }
+  .pc-days i { font: 400 13px/28px var(--font-mono); text-align: center; border-radius: 6px; background: #e8f5ec; color: #16653a; }
   .pc-days i.is-a { background: #fde8ea; color: #a3243a; }
   .pc-due { display: grid; gap: 4px; padding: 12px 14px; border-radius: 10px; background: #f3f6fc; }
-  @media (max-width: 1023px) { .parents-frame { height: 460px; } }
+  @media (max-width: 1023px) { .parents-frame { height: 460px; } .pc-parent__cols { grid-template-columns: 1fr 1fr; } .pc-parent__cols > :nth-child(3) { display: none; } }
   @media (max-width: 639px) { .parents-frame { height: 440px; } .parents-names { display: none; } .pc-parent { padding: 16px; } .pc-parent__bar { flex-direction: column; gap: 2px; } .pc-parent__cols { grid-template-columns: 1fr; gap: 20px; } .pc-days { display: none; } }
-  /* comparison table: rows of the 12-column grid, each closed by a hairline */
-  .pc-register { width: 560px; background: #fffdf5; padding: 20px 22px; display: grid; gap: 0; font: 400 15px/1.3 var(--font-text); }
-  .pc-register__head { display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 2px solid #c9b88f; }
-  .pc-register__row { display: grid; grid-template-columns: 1fr repeat(4, 28px); align-items: center; padding: 9px 0; border-bottom: 1px solid #e5dcc4; }
-  .pc-register__row i { font: 400 16px/1 var(--font-mono); text-align: center; color: #3b4a63; }
-  .pc-register__row i.is-a { color: #a3243a; }
-  .ctable [role="row"] { padding-block: var(--s-4); border-bottom: 1px solid var(--line); align-items: start; }
-  .ctable [role="row"]:first-child { padding-top: 0; }
-  .ctable [role="columnheader"] { font-weight: 500; }
-  .ctable .is-old { color: var(--muted); }
-  @media (max-width: 639px) { .ctable [role="row"] { row-gap: var(--s-1); } .ctable [role="row"]:first-child { display: none; } .ctable [data-label]::before { content: attr(data-label) ": "; color: var(--muted); } }
 
+  /* sign-up: the steps on the left, a white form card on the right */
   .trial-frame { margin-top: var(--s-6); --p-h: 300px; height: var(--p-h); }
   @media (max-width: 639px) { .trial-frame { --p-h: 240px; } }
-  /* the close word, hand-set per breakpoint (sections-library.md, close-word) */
   .close__word { font-size: min(296px, (100vw - 2 * var(--gut)) / 4.5); line-height: 1; padding-top: .04em; }
-  /* form: the one checkbox group */
-  .form > .field:has(textarea) { grid-column: 1 / -1; }
-  /* the free-trial form: a white card with a header, soft fields, one full-width button */
-  #sign-up .form-panel { background: #fff; border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); box-shadow: 0 28px 70px -36px rgb(11 27 54 / .45); padding: 32px; }
+  .form-panel { background: var(--g-alt, var(--surface)); padding: var(--s-7); border-radius: var(--r-lg); }
+  #sign-up .form-panel { background: #fff; border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent); padding: 32px; }
   .form-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid color-mix(in oklab, var(--ink) 8%, transparent); }
   .form-head__title { margin: 0; font: 500 24px/1.2 var(--font-display); letter-spacing: -0.02em; }
   .form-head__sub { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
   .opt { color: var(--muted); font-weight: 400; font-size: 13px; }
-  #sign-up .field label, .ms-label { font-size: 14px; font-weight: 500; }
-  #sign-up .field :is(input:not([type="checkbox"]), select, textarea), .ms summary { width: 100%; min-height: 50px; padding: 0 14px; border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent); border-radius: 10px; background-color: #f7f9fc; font: 400 16px/1.4 var(--font-text); color: var(--ink); transition: border-color .15s, box-shadow .15s, background-color .15s; }
-  #sign-up .field textarea { padding: 12px 14px; min-height: 96px; resize: vertical; }
-  #sign-up .field :is(input:not([type="checkbox"]), select, textarea):focus, .ms[open] summary { outline: none; background-color: #fff; border-color: var(--action); box-shadow: 0 0 0 4px rgb(36 87 214 / .14); }
+  #sign-up .form { grid-template-columns: 1fr; }
+  #sign-up .field label { font-size: 14px; font-weight: 500; }
+  #sign-up .field :is(input:not([type="checkbox"]), select) { width: 100%; min-height: 50px; padding: 0 14px; border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent); border-radius: 10px; background-color: #f7f9fc; font: 400 16px/1.4 var(--font-text); color: var(--ink); transition: border-color .15s, box-shadow .15s, background-color .15s; }
+  #sign-up .field :is(input:not([type="checkbox"]), select):focus { outline: none; background-color: #fff; border-color: var(--action); box-shadow: 0 0 0 4px rgb(36 87 214 / .14); }
   #sign-up .field ::placeholder { color: #9aa4b5; }
   #sign-up .field select { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%230b1b36' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -244,45 +255,31 @@ fbq('track', 'PageView');
   .phone-wrap__cc { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 16px; pointer-events: none; }
   #sign-up .field .phone-wrap input:not([type="checkbox"]) { padding-left: 52px; }
   #sign-up .form .btn-row { grid-column: 1 / -1; }
-  #sign-up .form .btn-row .btn { width: 100%; height: 54px; font-size: 17px; border-radius: 12px; }
+  #sign-up .form .btn-row .btn { width: 100%; }
   .form-trust { grid-column: 1 / -1; margin: 0; text-align: center; color: var(--muted); font-size: 14px; }
   #sign-up .form__status { grid-column: 1 / -1; text-align: center; }
-  @media (max-width: 639px) { #sign-up .form-panel { padding: 22px 18px; } .form-head__title { font-size: 21px; } }
-  /* "Interested in": a dropdown that takes several choices */
-  .ms-label { display: block; margin-bottom: var(--s-2); font-size: 14px; font-weight: 500; }
-  .ms { position: relative; }
-  .ms summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; }
-  .ms:not(:has(input:checked)) summary span { color: #9aa4b5; }
-  .ms summary::-webkit-details-marker { display: none; }
-  .ms summary::after { content: ""; width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); flex: none; }
-  .ms[open] summary { border-color: var(--action); }
-  .ms summary span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ms__list { position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 4px); display: grid; padding: 6px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-sm); box-shadow: 0 16px 40px -20px rgb(11 27 54 / .4); }
-  .ms__list label { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 8px; border-radius: 6px; font-weight: 400; cursor: pointer; }
-  .ms__list label:hover { background: var(--surface); }
-  .ms__list input { width: 18px; height: 18px; margin: 0; accent-color: var(--action); }
-  .form-panel { background: var(--g-alt, var(--surface)); padding: var(--s-7); border-radius: var(--r-lg); }
-  @media (max-width: 639px) { .form-panel { padding: var(--s-5); } }
-  /* no shadows anywhere on the page (the focus outline on fields stays) */
-  :is(.ly-piece, .ui, .ui-panel, .d-win, .form-panel, .ms__list, .frame, .panel, .card, .btn, .pill, .hero__window, .nav) { box-shadow: none !important; }
-  .ly-collage .ly-piece, #sign-up .form-panel { box-shadow: none !important; }
+  @media (max-width: 639px) { #sign-up .form-panel { padding: 22px 18px; } .form-head__title { font-size: 21px; } .form-panel { padding: var(--s-5); } }
+  /* phones read a simpler line: .t-d on wider screens, .t-m on phones (display:none hides the other from screen readers too) */
+  .t-m { display: none; }
+  @media (max-width: 639px) { .t-d { display: none; } .t-m { display: inline; } }
+  /* no shadows anywhere on the page (the focus ring on fields stays) */
+  :is(.ui, .ui-panel, .d-win, .form-panel, .frame, .panel, .card, .btn, .pill, .hero__window, .nav) { box-shadow: none !important; }
 </style>
 </head>
 <body>
 <!-- type: software
-     deal: hero centred (re-dealt 17 Nov: the triptych did not fit a two-problem pitch for owners on phones), nav nav-centre, close close-word, footer footer-columns, rhythm surface-pairs, buttons solid, mark the client's logo, grounds none
-     palette: the client's own colours from the EduBuddy logo (navy ink #0b1b36, blue action #2457d6), start.mjs brand; type host (geist, dealt first, failed hero-lines at 1440)
+     deal: hero centred, nav nav-centre, close close-word, footer footer-columns, rhythm surface-pairs, buttons solid, mark the client's logo, grounds none
+     palette: the client's own colours from the EduBuddy logo (navy ink #0b1b36, blue action #2457d6); type host
      moments: line-carries-colour on #parents (the .ground-surface band)
-     brief (17 Nov): lead with the AI calling agent (pending fees, enquiries to admissions), phone first -->
+     brief (26 Nov): simple page for visitors from Meta ads, Indian institute owners; show the whole software in plain words; the free trial form one tap away -->
 
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Skip to content</a>
     <a class="nav__logo" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#1b2b4d"/><circle cx="31" cy="32" r="15" fill="none" stroke="#fff" stroke-width="7"/><rect x="13.5" y="28.5" width="36" height="7" fill="#fff"/><rect x="31" y="35.5" width="23" height="23" fill="#1b2b4d"/><circle cx="41" cy="41" r="4" fill="#4d90e4"/></svg>EduBuddy</a>
     <nav class="nav__links" aria-label="Main">
-      <div class="nav__item"><a class="nav__link" href="#problems">Problems</a></div>
-      <div class="nav__item"><a class="nav__link" href="#steps">Steps</a></div>
-      <div class="nav__item"><a class="nav__link" href="#parents">Parents</a></div>
+      <div class="nav__item"><a class="nav__link" href="#features">Features</a></div>
+      <div class="nav__item"><a class="nav__link" href="#parents">Parent app</a></div>
       <div class="nav__item"><a class="nav__link" href="#faq">Questions</a></div>
     </nav>
     <div class="nav__actions">
@@ -299,114 +296,146 @@ fbq('track', 'PageView');
   <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
-        <a class="pill" href="#steps"><span>Free for 14 days</span><span class="muted">See the 3 steps</span></a>
-        <h1 id="hero-h">We call parents for your coaching</h1>
-        <p class="hero__lead">Parents pay fees late. Enquiries never join. EduBuddy’s AI calls each one for you, in Hindi or English.</p>
-        <div class="btn-row"><a class="btn btn--primary" href="#sign-up">Start free trial</a></div>
+        <a class="pill" href="#sign-up"><span><span class="t-d">Free for 14 days</span><span class="t-m">14 days free</span></span><span class="muted">No card needed</span></a>
+        <h1 id="hero-h"><span class="t-d">Software to run your coaching institute</span><span class="t-m">One app for your coaching classes</span></h1>
+        <p class="hero__lead"><span class="t-d">Students, attendance, fees, test papers and a parent app in one place. Use it on your phone or computer, in Hindi or English.</span><span class="t-m">Students, attendance, fees and tests in one app. Works on mobile. Hindi and English.</span></p>
+        <div class="btn-row"><a class="btn btn--primary" href="#sign-up">Start free trial</a><a class="btn btn--secondary" href="#features"><span class="t-d">See all features</span><span class="t-m">See features</span></a></div>
+        <p class="hero-note">We set it up for you on a phone call.</p>
       </div>
-      <div class="hero__window" role="img" aria-label="EduBuddy's AI calling Mrs. Sharma about her son's pending fee of 4,500 rupees; she says she will pay on Friday and the promise is saved">
-        <div class="ly-piece d-win" aria-hidden="true">
-          <div class="d-win__bar"><span class="d-win__dot"></span><span><b>AI call · Mrs. Sharma</b></span><span class="sp"></span><span>Aarav, Class 10 · fee ₹4,500 due</span></div>
-          <div class="d-win__body">
-            <div class="inbox">
-              <div class="q">Today’s calls</div>
-              <div class="t is-on"><i style="background:#c9d9ff">SS</i><b>Mrs. Sharma</b><time>6:12</time><span>Fee ₹4,500 · will pay Friday</span></div>
-              <div class="t"><i style="background:#cfeedd">RS</i><b>Rohan’s father</b><time>6:20</time><span>Enquiry · demo class Saturday</span></div>
-              <div class="t"><i style="background:#ffe2c2">MR</i><b>Mr. Rao</b><time>6:30</time><span>Fee ₹3,000 · calling now</span></div>
-            </div>
-            <div class="convo">
-              <div class="d-chat" data-ly-steps="900">
-                <div class="d-msg d-msg--bot"><small>AI agent</small>Namaste. Aarav’s November fee of ₹4,500 is due. Can you pay it this week?</div>
-                <div class="d-msg d-msg--me" data-step><small>Mrs. Sharma</small>Yes, I will pay on Friday.</div>
-                <div class="d-tool" data-step>Saved: will pay on Friday</div>
-                <div class="acts" data-step><span>Remind her on Friday</span><span>Pay button sent to her parent panel</span></div>
+      <div class="hero__window">
+        <div class="ly-piece car is-playing" id="car" role="region" aria-roledescription="carousel" aria-label="What EduBuddy does">
+          <div class="car__tabs" role="group" aria-label="Choose a feature">
+            <button class="car__tab" type="button" aria-label="Fees" aria-controls="cs-1" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="14" rx="3"/><path d="M2.5 10h19M7 15h4"/></svg><span class="lbl">Fees</span><i></i></button>
+            <button class="car__tab" type="button" aria-label="Attendance" aria-controls="cs-2" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8.5 15l2.3 2.3 4.7-4.6"/></svg><span class="lbl">Attendance</span><i></i></button>
+            <button class="car__tab" type="button" aria-label="WhatsApp alerts" aria-controls="cs-3" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 19z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.6"/></svg><span class="lbl">WhatsApp alerts</span><i></i></button>
+            <button class="car__tab" type="button" aria-label="AI calls" aria-controls="cs-4" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><span class="lbl">AI calls</span><i></i></button>
+            <button class="car__tab" type="button" aria-label="Test papers" aria-controls="cs-5" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></svg><span class="lbl">Test papers</span><i></i></button>
+            <button class="car__pause" type="button" aria-label="Pause the slides" aria-pressed="false"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg></button>
+          </div>
+
+          <div class="phone" aria-hidden="true">
+            <div class="phone__screen">
+              <div class="phone__status"><span>6:10</span><span class="bars">▂▄▆ 92%</span></div>
+              <div class="phone__body">
+
+                <div class="scr is-on" data-slide="0" id="cs-1">
+                  <div class="scr__bar">Fees pending<small>November</small></div>
+                  <div class="scr__in">
+                    <div class="total" data-in><span>Total pending</span><b>₹12,500</b></div>
+                    <div class="srow" data-in style="--d:150"><span>Aarav<small>Class 10</small></span><span class="flip"><span class="tag is-w">₹4,500 pending</span><span class="tag">Paid ✓</span></span></div>
+                    <div class="srow" data-in style="--d:300"><span>Meera<small>Class 9</small></span><span class="tag is-w">₹3,000 pending</span></div>
+                    <div class="srow" data-in style="--d:450"><span>Kabir<small>Class 12</small></span><span class="tag is-w">₹5,000 pending</span></div>
+                    <div class="srow" data-in style="--d:600"><span>Riya<small>Class 8</small></span><span class="tag">Paid ✓</span></div>
+                  </div>
+                  <div class="scr__cta" data-in style="--d:900">Send reminder on WhatsApp</div>
+                </div>
+
+                <div class="scr" data-slide="1" id="cs-2">
+                  <div class="scr__bar">Attendance<small>Class 10 · Today</small></div>
+                  <div class="scr__in">
+                    <div class="srow" data-in style="--d:100"><span>Aarav Verma</span><span class="pa"><b class="on p" style="--d:500">P</b><b>A</b></span></div>
+                    <div class="srow" data-in style="--d:200"><span>Meera Rao</span><span class="pa"><b>P</b><b class="on a" style="--d:900">A</b></span></div>
+                    <div class="srow" data-in style="--d:300"><span>Kabir Jain</span><span class="pa"><b class="on p" style="--d:1300">P</b><b>A</b></span></div>
+                    <div class="srow" data-in style="--d:400"><span>Riya Singh</span><span class="pa"><b class="on p" style="--d:1700">P</b><b>A</b></span></div>
+                    <div class="srow" data-in style="--d:500"><span>Dev Patel</span><span class="pa"><b class="on p" style="--d:2100">P</b><b>A</b></span></div>
+                  </div>
+                  <div class="scr__cta" data-in style="--d:2500">Save · 4 present, 1 absent</div>
+                </div>
+
+                <div class="scr scr--wa" data-slide="2" id="cs-3">
+                  <div class="scr__bar"><span class="wa-av">MR</span>Meera’s parents<small>WhatsApp</small></div>
+                  <div class="scr__in">
+                    <div class="bub" data-in style="--d:400">Namaste. Meera was absent in class today, 26 Nov.<small>6:10 pm <span class="tick">✓✓</span></small></div>
+                    <div class="bub" data-in style="--d:1200">Her November fee of ₹3,000 is pending.<small>6:10 pm <span class="tick">✓✓</span></small></div>
+                    <div class="bub bub--me" data-in style="--d:2200">Ok, thank you. Will pay tomorrow.<small>6:14 pm</small></div>
+                  </div>
+                  <div class="scr__cta">Message</div>
+                </div>
+
+                <div class="scr scr--call" data-slide="3" id="cs-4">
+                  <div class="scr__in">
+                    <div class="call" data-in><span class="call__av">AI</span><b>Calling Mr. Rao</b><small>Fee reminder · 00:24</small></div>
+                    <p class="say" data-in style="--d:700"><span>AI</span>Namaste. Meera’s fee of ₹3,000 is pending. When can you pay?</p>
+                    <p class="say is-them" data-in style="--d:1700"><span>Mr. Rao</span>I will pay on Friday.</p>
+                    <span class="saved" data-in style="--d:2500">Saved: will pay on Friday</span>
+                  </div>
+                  <div class="scr__cta is-end"><svg viewBox="0 0 24 24"><path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg></div>
+                </div>
+
+                <div class="scr" data-slide="4" id="cs-5">
+                  <div class="scr__bar">Test paper<small>AI</small></div>
+                  <div class="scr__in">
+                    <div class="chips" data-in><span>Class 10</span><span>Science</span><span>Chapter 1, 2</span></div>
+                    <div class="gen" data-in><i></i></div>
+                    <p class="q" data-in style="--d:1600"><b>Q1.</b> What is a balanced chemical equation? (2 marks)</p>
+                    <p class="q" data-in style="--d:2000"><b>Q2.</b> Write two uses of baking soda. (2 marks)</p>
+                    <p class="q" data-in style="--d:2400"><b>Q3.</b> Why do we store chips in nitrogen packets? (3 marks)</p>
+                  </div>
+                  <div class="scr__cta" data-in style="--d:2800">Download PDF</div>
+                </div>
+
               </div>
             </div>
+          </div>
+
+          <div class="car__txt">
+            <div class="stxt is-on" data-slide="0"><span class="stxt__chip">Fees</span><p class="stxt__t">Fees management</p><p class="stxt__p">See who has not paid. Print the receipt in one tap.</p></div>
+            <div class="stxt" data-slide="1"><span class="stxt__chip">Attendance</span><p class="stxt__t">Attendance in one tap</p><p class="stxt__p">Teachers mark present or absent on mobile.</p></div>
+            <div class="stxt" data-slide="2"><span class="stxt__chip">WhatsApp</span><p class="stxt__t">WhatsApp alert to parents</p><p class="stxt__p">Parents get a message when their child is absent or a fee is pending.</p></div>
+            <div class="stxt" data-slide="3"><span class="stxt__chip">AI</span><p class="stxt__t">AI calls parents for pending fees</p><p class="stxt__p">The AI calls in Hindi or English and asks when they will pay.</p></div>
+            <div class="stxt" data-slide="4"><span class="stxt__chip">AI</span><p class="stxt__t">Test paper generator</p><p class="stxt__p">Pick the class and chapter. Get an NCERT test paper ready to print.</p></div>
           </div>
         </div>
       </div>
     </div></div>
   </section>
 
-  <section class="section" id="problems" aria-labelledby="problems-h">
+  <section class="section" id="features" aria-labelledby="features-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="problems-h">Two problems at every coaching institute</h2>
-        <p>EduBuddy’s AI agent takes both off your phone.</p>
+        <h2 id="features-h"><span class="t-d">Everything your institute needs, in one app</span><span class="t-m">What you get in the app</span></h2>
+        <p><span class="t-d">No registers, no Excel sheets. Your staff learn it in one day.</span><span class="t-m">No more registers or Excel.</span></p>
       </div>
       <div class="grid">
-        <article class="card card--row card--open span-6">
-          <h3>The agent collects late fees from parents</h3>
-          <p>No more calling parents again and again. The agent calls each one politely and notes the day they will pay.</p>
-          <div class="panel">
-            <div class="ly-piece">
-              <div class="pc-head"><b>Pending fees · November</b><span>Class 10</span></div>
-              <div class="pc-row"><span>Mrs. Sharma · ₹4,500</span><span class="pc-tag is-w">Will pay Friday</span></div>
-              <div class="pc-row"><span>Mr. Rao · ₹3,000</span><span class="pc-tag is-w">Will pay 20 Nov</span></div>
-              <div class="pc-row"><span>Mrs. Jain · ₹4,500</span><span class="pc-tag">Paid</span></div>
-              <div class="pc-row"><span>Mr. Meena · ₹3,000</span><span class="pc-tag">Paid</span></div>
-            </div>
-          </div>
+        <article class="card feat span-3">
+          <span class="feat__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/></svg></span>
+          <h3>Students and batches</h3>
+          <p><span class="t-d">Add students, make batches and set each batch’s monthly fee once.</span><span class="t-m">Add students. Make batches. Set the fee.</span></p>
         </article>
-        <article class="card card--row card--open span-6">
-          <h3>The agent calls back every enquiry</h3>
-          <p>No more forgetting to call back. The agent calls every new enquiry the same day and books a demo class.</p>
-          <div class="panel">
-            <div class="ly-piece">
-              <div class="pc-head"><b>New enquiries · this week</b><span>All classes</span></div>
-              <div class="pc-row"><span>Rohan · Class 9 maths</span><span class="pc-tag is-w">Demo Saturday</span></div>
-              <div class="pc-row"><span>Ishita · Class 11 science</span><span class="pc-tag is-w">Call back Monday</span></div>
-              <div class="pc-row"><span>Kabir · Class 10</span><span class="pc-tag">Joined</span></div>
-              <div class="pc-row"><span>Neel · Class 12 physics</span><span class="pc-tag">Joined</span></div>
-            </div>
-          </div>
+        <article class="card feat span-3">
+          <span class="feat__icon is-g"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 15l2.3 2.3 4.7-4.6"/></svg></span>
+          <h3><span class="t-d">Attendance in one tap</span><span class="t-m">Attendance on mobile</span></h3>
+          <p><span class="t-d">Teachers mark the class on their phone. Parents of absent students get a WhatsApp message.</span><span class="t-m">Mark present or absent. Parents get a WhatsApp message.</span></p>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="steps" aria-labelledby="steps-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="steps-h">The calling agent in 3 steps</h2>
-      </div>
-      <div class="grid">
-        <article class="card card--row card--open span-4">
-          <span class="step-num">1</span>
-          <h3>Add the parents to call</h3>
-          <p>Parents with pending fees and new enquiries come from your EduBuddy lists.</p>
-          <div class="panel">
-            <div class="ly-piece">
-              <div class="pc-head"><b>To call today</b><span>6 to 8 pm</span></div>
-              <div class="pc-row"><span>Parents with pending fees</span><span>18</span></div>
-              <div class="pc-row"><span>New enquiries</span><span>14</span></div>
-            </div>
-          </div>
+        <article class="card feat span-3">
+          <span class="feat__icon is-o"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="14" rx="3"/><path d="M2.5 10h19M7 15h4"/></svg></span>
+          <h3>Fees and receipts</h3>
+          <p><span class="t-d">Monthly fees are added on their own. See who has not paid and print a receipt.</span><span class="t-m">See who has not paid. Print the fee receipt.</span></p>
         </article>
-        <article class="card card--row card--open span-4">
-          <span class="step-num">2</span>
-          <h3>The agent calls each parent</h3>
-          <p>Politely, in Hindi or English, only in the hours you choose.</p>
-          <div class="panel">
-            <div class="ly-piece">
-              <div class="pc-head"><b>AI call · Mr. Rao</b><span class="pc-tag">On a call</span></div>
-              <p class="pc-line"><span>AI agent</span>Meera’s fee of ₹3,000 is due.</p>
-              <p class="pc-line is-them"><span>Mr. Rao</span>I will pay on the 20th.</p>
-            </div>
-          </div>
+        <article class="card feat span-3">
+          <span class="feat__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H5a2 2 0 0 0-2 2v2M17 3h2a2 2 0 0 1 2 2v2M7 21H5a2 2 0 0 1-2-2v-2M17 21h2a2 2 0 0 0 2-2v-2M7 12h10"/></svg></span>
+          <h3>Scan paper receipts</h3>
+          <p><span class="t-d">Take a photo of a paper fee receipt. The AI reads it and saves the payment.</span><span class="t-m">Click a photo of a paper receipt. The app saves the fee.</span></p>
         </article>
-        <article class="card card--row card--open span-4">
-          <span class="step-num">3</span>
-          <h3>You read a report on the calls</h3>
-          <p>Every evening: who will pay, who booked a demo, who joined.</p>
-          <div class="panel">
-            <div class="ly-piece">
-              <div class="pc-head"><b>Today’s report</b><span>8 pm</span></div>
-              <div class="pc-row"><span>Promised to pay</span><span>11</span></div>
-              <div class="pc-row"><span>Demo classes booked</span><span>4</span></div>
-              <div class="pc-row"><span>Joined</span><span>2</span></div>
-            </div>
-          </div>
+        <article class="card feat span-3">
+          <span class="feat__icon is-g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></svg></span>
+          <h3><span class="t-d">Test papers from NCERT</span><span class="t-m">NCERT test papers</span></h3>
+          <p><span class="t-d">Pick the class, 6 to 12, and the chapters. The AI makes the paper in English, Hindi or both.</span><span class="t-m">Make test papers for Class 6 to 12. Hindi or English.</span></p>
+        </article>
+        <article class="card feat span-3">
+          <span class="feat__icon is-o"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13.5v16H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h13.5"/><path d="M9 8h6M9 12h4"/></svg></span>
+          <h3><span class="t-d">Marks, notes and quizzes</span><span class="t-m">Marks and notes</span></h3>
+          <p><span class="t-d">Enter test marks, share notes and give practice quizzes to a batch.</span><span class="t-m">Add test marks. Send notes to students.</span></p>
+        </article>
+        <article class="card feat span-3">
+          <span class="feat__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 12H16l-2 3h-4l-2-3H2.5"/><path d="M5.5 5.1 2.5 12v6a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2v-6l-3-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></svg></span>
+          <h3><span class="t-d">Enquiry register</span><span class="t-m">New enquiries</span></h3>
+          <p><span class="t-d">Save every walk-in and phone enquiry. Get a reminder on the day to call back.</span><span class="t-m">Save every new enquiry. The app tells you when to call back.</span></p>
+        </article>
+        <article class="card feat span-3">
+          <span class="feat__icon is-o"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span>
+          <h3><span class="t-d">Logins for your staff</span><span class="t-m">Login for each teacher</span></h3>
+          <p><span class="t-d">Teachers and the front desk get their own login and see only their own work.</span><span class="t-m">Each teacher gets their own login.</span></p>
         </article>
       </div>
     </div>
@@ -415,30 +444,35 @@ fbq('track', 'PageView');
   <section class="section ground-surface" id="parents" aria-labelledby="parents-h" data-moment="line-carries-colour" data-moment-opts='{"from": "base"}'>
     <div class="wrap">
       <div class="grid grid--top">
-        <div class="span-5 section-head"><h2 id="parents-h">Parent panel for coaching institutes</h2></div>
-        <p class="span-6 start-7">Parents open it on their phone. They see their child’s attendance and fees, and pay by UPI from there.</p>
+        <div class="span-5 section-head"><h2 id="parents-h"><span class="t-d">An app for the parents of your students</span><span class="t-m">App for parents</span></h2></div>
+        <p class="span-6 start-7"><span class="t-d">Parents stop calling to ask about fees and attendance. They open EduBuddy on their phone and see it all for their own child.</span><span class="t-m">Parents see attendance, fees and marks on mobile. They do not need to call you.</span></p>
       </div>
       <div class="frame frame--hero parents-frame">
         <div class="stage stage--fade-b">
-          <div class="at-rise to-edge" style="--w:880px;--ay:48px;--ay-sm:24px">
-            <div class="ui ui-panel pc-parent" role="img" aria-label="The EduBuddy parent panel for Aarav Verma, Class 10: November attendance of 20 of 22 classes on the left, the November fee of 4,500 rupees with a Pay by UPI button and past receipts on the right">
-              <div class="pc-parent__bar"><b>Aarav Verma</b><span>Class 10 · Batch A · Parent panel</span></div>
+          <div class="at-rise to-edge" style="--w:960px;--ay:48px;--ay-sm:24px">
+            <div class="ui ui-panel pc-parent" role="img" aria-label="The EduBuddy parent app for Aarav Verma, Class 10: November attendance of 20 of 22 classes, the November fee of 4,500 rupees due with past receipts, and his last two test marks">
+              <div class="pc-parent__bar"><b>Aarav Verma</b><span>Class 10 · Batch A · Parent app</span></div>
               <div class="pc-parent__cols">
                 <div>
                   <div class="pc-head"><b>Attendance · November</b><span>20 of 22</span></div>
                   <div class="pc-days" aria-hidden="true">
                     <i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i class="is-a">10</i>
                     <i>11</i><i>12</i><i>13</i><i>14</i><i>15</i><i>17</i><i>18</i>
-                    <i>19</i><i>20</i><i class="is-a">21</i><i>22</i><i>24</i><i>25</i><i>26</i><i>27</i>
+                    <i>19</i><i>20</i><i class="is-a">21</i><i>22</i><i>24</i><i>25</i><i>26</i>
                   </div>
                   <div class="pc-row"><span>Present</span><span>91%</span></div>
-                  <div class="pc-row"><span>Last absent</span><span>Fri 21 Nov</span></div>
                 </div>
                 <div>
                   <div class="pc-head"><b>Fees</b><span>2026–27</span></div>
-                  <div class="pc-due"><span class="pc-meta">Due now · November</span><span class="pc-big">₹4,500</span><div class="pc-btn">Pay by UPI</div></div>
+                  <div class="pc-due"><span class="pc-meta">Due now · November</span><span class="pc-big">₹4,500</span></div>
                   <div class="pc-row"><span>October · ₹4,500</span><span class="pc-meta">Paid · R-0131</span></div>
                   <div class="pc-row"><span>September · ₹4,500</span><span class="pc-meta">Paid · R-0102</span></div>
+                </div>
+                <div>
+                  <div class="pc-head"><b>Test marks</b><span>Maths</span></div>
+                  <div class="pc-row"><span>Chapter 3 test</span><span>42 / 50</span></div>
+                  <div class="pc-row"><span>Chapter 2 test</span><span>38 / 50</span></div>
+                  <div class="pc-row"><span>Practice quiz</span><span>9 / 10</span></div>
                 </div>
               </div>
             </div>
@@ -446,10 +480,10 @@ fbq('track', 'PageView');
         </div>
       </div>
       <div class="grid parents-names">
+        <div class="span-3"><p class="parents-name">Sign in with a phone number</p><p>No password to remember.</p></div>
         <div class="span-3"><p class="parents-name">Attendance by day</p><p>Every class, present or absent.</p></div>
         <div class="span-3"><p class="parents-name">Fees and receipts</p><p>What is due, what is paid.</p></div>
-        <div class="span-3"><p class="parents-name">Pay by UPI</p><p>GPay, PhonePe or Paytm, to your bank.</p></div>
-        <div class="span-3"><p class="parents-name">Absent notes</p><p>A note the day a class is missed.</p></div>
+        <div class="span-3"><p class="parents-name">Marks and notes</p><p>Test marks, quizzes and notes.</p></div>
       </div>
     </div>
   </section>
@@ -458,25 +492,26 @@ fbq('track', 'PageView');
     <div class="wrap">
       <div class="grid grid--top">
         <div class="span-5 section-head">
-          <h2 id="faq-h">Questions from institute owners</h2>
-          <p>Simple answers before you start the free trial.</p>
+          <h2 id="faq-h"><span class="t-d">Questions from institute owners</span><span class="t-m">Questions about EduBuddy</span></h2>
+          <p><span class="t-d">Short answers before you start the free trial.</span><span class="t-m">Short and simple answers.</span></p>
         </div>
         <div class="faq span-6 start-7">
-          <div class="faq__item"><h3>Who does the AI agent call?</h3><p>Only parents with a pending fee, and new enquiries you add. Nobody else.</p></div>
-          <div class="faq__item"><h3>Can I choose who the AI agent calls?</h3><p>Yes. You pick the batches and the calling hours. Nobody is called without your approval.</p></div>
-          <div class="faq__item"><h3>Can parents see attendance in the coaching app?</h3><p>Yes. In the parent panel they see their child’s attendance, fees and receipts on their phone.</p></div>
-          <div class="faq__item"><h3>Is the trial free for institutes?</h3><p>Yes. Everything is free for 14 days, and you do not need a card.</p></div>
+          <div class="faq__item"><h3><span class="t-d">Is the 14-day trial free?</span><span class="t-m">Is the trial free?</span></h3><p><span class="t-d">Yes. Every feature is free for 14 days, and you do not need a card.</span><span class="t-m">Yes. 14 days free. No card needed.</span></p></div>
+          <div class="faq__item"><h3><span class="t-d">Does EduBuddy work on a phone?</span><span class="t-m">Does it work on mobile?</span></h3><p><span class="t-d">Yes. You do not need a computer. You can add EduBuddy to your home screen like an app.</span><span class="t-m">Yes. No computer needed.</span></p></div>
+          <div class="faq__item"><h3><span class="t-d">Who sets up EduBuddy for me?</span><span class="t-m">Who will set it up?</span></h3><p><span class="t-d">We will. After you send the form, we call you and add your batches and students with you.</span><span class="t-m">We will. We call you and add your students.</span></p></div>
+          <div class="faq__item"><h3><span class="t-d">Can teachers use EduBuddy in Hindi?</span><span class="t-m">Is it in Hindi?</span></h3><p><span class="t-d">Yes. Every screen works in Hindi and in English.</span><span class="t-m">Yes. Hindi and English, both.</span></p></div>
+          <div class="faq__item"><h3><span class="t-d">Do parents need to install the EduBuddy app?</span><span class="t-m">Do parents need to download an app?</span></h3><p><span class="t-d">No. Parents open a link on their phone and sign in with their phone number.</span><span class="t-m">No. They open a link and login with their mobile number.</span></p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="sign-up" aria-labelledby="sign-up-h" style="--hm: 2">
+  <section class="section" id="sign-up" aria-labelledby="sign-up-h">
     <div class="wrap">
       <div class="grid grid--top">
         <div class="span-5 section-head">
-          <h2 id="sign-up-h">Sign up your coaching institute</h2>
-          <p>Every feature, the AI agent included, free for 14 days. Send your name and phone number; we call you, add your batches and pending fees, and the 14 days start from there.</p>
+          <h2 id="sign-up-h"><span class="t-d">Free trial for your coaching institute</span><span class="t-m">Start free trial</span></h2>
+          <p><span class="t-d">Send your name and phone number. We call you, set up your institute with you, and your 14 days start from there.</span><span class="t-m">Give your name and mobile number. We will call you and set up everything.</span></p>
           <div class="frame trial-frame">
             <div class="stage stage--fade-b">
               <div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:40px;--ay-sm:24px">
@@ -484,10 +519,10 @@ fbq('track', 'PageView');
                   <div class="ui-checks__head"><div class="ui-title">Your free trial</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>1 of 4</div></div>
                   <div class="ui-checks__bar"><i data-checks-bar style="--k:0.25"></i></div>
                   <ul class="ui-checks__list">
-                    <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Send this form</span></li>
-                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">A call from the EduBuddy team</span></li>
-                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Your batches and pending fees added</span></li>
-                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">The AI agent’s first calls</span></li>
+                    <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Fill this form</span></li>
+                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">We call you</span></li>
+                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">We add your students</span></li>
+                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">You start using the app</span></li>
                   </ul>
                 </div>
               </div>
@@ -496,45 +531,30 @@ fbq('track', 'PageView');
         </div>
         <div class="span-6 start-7 form-panel">
           <div class="form-head">
-            <p class="form-head__title">Start your free trial</p>
-            <p class="form-head__sub">Takes 30 seconds · No card needed</p>
+            <p class="form-head__title">Send your details</p>
+            <p class="form-head__sub"><span class="t-d">Takes 30 seconds · No card needed</span><span class="t-m">30 seconds · No card needed</span></p>
           </div>
           <form class="form" id="trial-form" action="https://api.web3forms.com/submit" method="post" data-endpoint="https://api.web3forms.com/submit"
-                data-sent="Your free trial request is in. We will call you to set it up." novalidate>
+                data-sent="Done. Your free trial request is sent. We will call you soon." novalidate>
             <input type="hidden" name="access_key" value="98474fca-20d3-4e56-b11c-b5544b1b584c">
             <input type="hidden" name="subject" value="New free trial request from the EduBuddy website">
             <input type="hidden" name="from_name" value="EduBuddy website">
             <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="field"><label for="f-name">Your name</label>
               <input id="f-name" name="name" type="text" autocomplete="name" placeholder="e.g. Rajesh Sharma" required aria-describedby="f-name-err">
-              <p class="field__error" id="f-name-err" hidden>Write your name.</p></div>
-            <div class="field"><label for="f-phone">Phone number</label>
+              <p class="field__error" id="f-name-err" hidden>Please write your name.</p></div>
+            <div class="field"><label for="f-phone">Mobile number</label>
               <span class="phone-wrap"><span class="phone-wrap__cc" aria-hidden="true">+91</span><input id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="98765 43210" required pattern="(\+?91[ \-]?)?[6-9][0-9]{4}[ \-]?[0-9]{5}" aria-describedby="f-phone-err"></span>
-              <p class="field__error" id="f-phone-err" hidden>Write a 10-digit mobile number, like 98765 43210.</p></div>
-            <div class="field"><label for="f-students">Students <span class="opt">(optional)</span></label>
+              <p class="field__error" id="f-phone-err" hidden>Please write a 10-digit mobile number.</p></div>
+            <div class="field"><label for="f-students">Number of students <span class="opt">(optional)</span></label>
               <select id="f-students" name="students" aria-describedby="f-students-err">
-                <option value="">Choose a number</option>
+                <option value="">Choose</option>
                 <option>Under 50</option><option>50 to 200</option><option>200 to 500</option><option>More than 500</option>
               </select>
               <p class="field__error" id="f-students-err" hidden>Choose how many students you teach.</p></div>
-            <div class="field"><span class="ms-label" id="f-interest-label">Interested in <span class="opt">(optional)</span></span>
-              <details class="ms" id="f-interest">
-                <summary aria-labelledby="f-interest-label f-interest-text"><span id="f-interest-text">Choose one or more</span></summary>
-                <div class="ms__list" role="group" aria-labelledby="f-interest-label">
-                  <label><input type="checkbox" value="AI fee calls">AI fee calls</label>
-                  <label><input type="checkbox" value="AI enquiry calls">AI enquiry calls</label>
-                  <label><input type="checkbox" value="Fees by UPI">Fees by UPI</label>
-                  <label><input type="checkbox" value="Attendance">Attendance</label>
-                  <label><input type="checkbox" value="Test papers">Test papers</label>
-                </div>
-              </details>
-              <input type="hidden" name="interested_in" id="f-interest-value"></div>
-            <div class="field"><label for="f-problem">Your problem <span class="opt">(optional)</span></label>
-              <textarea id="f-problem" name="problem" rows="3" placeholder="e.g. Parents pay fees late and we keep calling them" aria-describedby="f-problem-err"></textarea>
-              <p class="field__error" id="f-problem-err" hidden>Write what is hard for you today.</p></div>
             <div class="btn-row"><button class="btn btn--primary" type="submit">Start free trial</button></div>
             <p class="form__status" role="status" data-form-status></p>
-            <p class="form-trust">Free for 14 days · We call you back, Monday to Saturday</p>
+            <p class="form-trust">We call Monday to Saturday</p>
           </form>
         </div>
       </div>
@@ -546,7 +566,7 @@ fbq('track', 'PageView');
   <div class="wrap">
     <div class="closing__cta close--word">
       <div class="section-head--split">
-        <div><h2 id="close-h">Try the AI calling agent for 14 days</h2><p class="t-lead">Free, with no card. We set it up with your batches and pending fees.</p></div>
+        <div><h2 id="close-h"><span class="t-d">Run your whole institute from one app</span><span class="t-m">One app for your whole coaching</span></h2><p class="t-lead"><span class="t-d">Free for 14 days, with no card. We set it up with you on a call.</span><span class="t-m">14 days free. No card needed. We set it up for you.</span></p></div>
         <a class="btn btn--primary" href="#sign-up">Start free trial<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
       </div>
       <p class="close__word" aria-hidden="true">EduBuddy</p>
@@ -555,12 +575,12 @@ fbq('track', 'PageView');
       <div class="grid">
         <div class="span-4 stack-4">
           <a class="nav__logo" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#1b2b4d"/><circle cx="31" cy="32" r="15" fill="none" stroke="#fff" stroke-width="7"/><rect x="13.5" y="28.5" width="36" height="7" fill="#fff"/><rect x="31" y="35.5" width="23" height="23" fill="#1b2b4d"/><circle cx="41" cy="41" r="4" fill="#4d90e4"/></svg>EduBuddy</a>
-          <p class="footer__lede">AI fee and enquiry calls for coaching institutes.</p>
+          <p class="footer__lede">Software for coaching institutes and tuition centres in India.</p>
         </div>
-        <div class="span-2 footer__col"><h3>Calls</h3><ul><li><a href="#problems">Problems</a></li><li><a href="#steps">Steps</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Parents</h3><ul><li><a href="#parents">Parents</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Questions</h3><ul><li><a href="#faq">Questions</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Account</h3><ul><li><a href="/login">Log in</a></li><li><a href="#contact">Contact</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Product</h3><ul><li><a href="#features">Features</a></li><li><a href="#parents">Parent app</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Help</h3><ul><li><a href="#faq">Questions</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Trial</h3><ul><li><a href="#sign-up">Free trial form</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Account</h3><ul><li><a href="/login">Log in</a></li></ul></div>
       </div>
       <div class="footer__legal">
         <span>&copy; 2026 EduBuddy</span>
@@ -580,21 +600,70 @@ fbq('track', 'PageView');
 <script type="module" src="kit/motion/motion.js"></script>
 <script type="module" src="kit/layout/layout.js"></script>
 <script>
-  // "Interested in": keep the picked options in one form field and show them in the closed box.
+  // Hero carousel: a new slide every 5 seconds; it holds while the pointer or focus is on it,
+  // stops for good on the pause button or a tab click, and never plays under reduced motion.
   (function () {
-    var box = document.getElementById('f-interest'), out = document.getElementById('f-interest-value'), text = document.getElementById('f-interest-text');
-    if (!box) return;
-    var update = function () {
-      var picked = [].slice.call(box.querySelectorAll('input:checked')).map(function (i) { return i.value; });
-      out.value = picked.join(', ');
-      text.textContent = picked.length ? picked.join(', ') : 'Choose one or more';
-    };
-    box.addEventListener('change', update);
-    // close the list on a tap outside it
-    document.addEventListener('click', function (e) { if (box.open && !box.contains(e.target)) box.open = false; });
-    // after a send the form resets: clear the box's text too
-    box.closest('form').addEventListener('reset', function () { setTimeout(update, 0); });
+    var car = document.getElementById('car');
+    if (!car) return;
+    var tabs = [].slice.call(car.querySelectorAll('.car__tab'));
+    var parts = [].slice.call(car.querySelectorAll('[data-slide]'));
+    var slides = tabs;
+    var pause = car.querySelector('.car__pause');
+    var MS = 5000, i = 0, timer = null, held = false;
+    car.style.setProperty('--car-ms', MS + 'ms');
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(n, focus) {
+      i = (n + slides.length) % slides.length;
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute('aria-pressed', on ? 'true' : 'false');
+        // restart the progress line
+        var bar = t.querySelector('i'); if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+      });
+      parts.forEach(function (el) { el.classList.toggle('is-on', +el.getAttribute('data-slide') === i); });
+      if (focus) tabs[i].focus();
+      schedule();
+    }
+    function playing() { return car.classList.contains('is-playing'); }
+    function schedule() {
+      clearTimeout(timer);
+      if (playing() && !held) timer = setTimeout(function () { show(i + 1); }, MS);
+    }
+    function setPlaying(on) {
+      car.classList.toggle('is-playing', on);
+      pause.setAttribute('aria-pressed', on ? 'false' : 'true');
+      pause.setAttribute('aria-label', on ? 'Pause the slides' : 'Play the slides');
+      schedule();
+    }
+    function hold(on) { held = on; car.classList.toggle('is-held', on); if (on) clearTimeout(timer); else show(i); }
+
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { show(k); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); show(i + 1, true); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1, true); }
+      });
+    });
+    pause.addEventListener('click', function () { setPlaying(!playing()); });
+    car.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hold(true); });
+    car.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hold(false); });
+    car.addEventListener('focusin', function () { hold(true); });
+    car.addEventListener('focusout', function (e) { if (!car.contains(e.relatedTarget)) hold(false); });
+    // swipe on phones
+    var x0 = null;
+    car.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+    });
+    // no time spent off screen
+    document.addEventListener('visibilitychange', function () { if (document.hidden) clearTimeout(timer); else schedule(); });
+
+    setPlaying(!still);
   })();
+
   // Meta Pixel: count a lead once the free trial form has really been sent (system.js shows data-sent only then).
   (function () {
     var form = document.getElementById('trial-form');

@@ -32,7 +32,7 @@
       ]
     },
     {
-      "source": "/(index.html|home.html)?",
+      "source": "/(index.html|home.html|home-desktop.html)?",
       "headers": [
         {
           "key": "Cache-Control",
