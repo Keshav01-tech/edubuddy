@@ -9,6 +9,7 @@ import { Picker, Initials } from '../components/ui';
 import { useClassroom } from '../services/classroom';
 import { teachesBatch, describeDays, describeTime, WEEK_DAYS, inBatch } from '../services/teachers';
 import { useT } from '../i18n';
+import { InstallBanner } from '../components/InstallApp';
 import { MediumTag } from './Students';
 
 const field = 'h-11 w-full px-3 text-base sm:text-sm bg-white rounded-xl ring-1 ring-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-400 placeholder:text-neutral-400';
@@ -440,6 +441,7 @@ export default function Classes() {
       <AppHeader nav onSignOut={async () => { await signOut(); navigate('/login'); }} />
 
       <main className="mx-auto max-w-[1760px] px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-14">
+        {teacherView && <div className="mb-4"><InstallBanner appName="EduBuddy Teacher" /></div>}
         <div className="mb-5 flex items-center justify-between gap-3">
           <div className="min-w-0">
             <h1 className="text-2xl font-medium tracking-tight text-neutral-900">{teacherView ? 'My batches' : 'Batches'}</h1>

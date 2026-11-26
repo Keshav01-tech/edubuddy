@@ -5,6 +5,7 @@ import { StudyProvider } from './context/StudyContext';
 import { I18nProvider } from './i18n';
 import { homeFor } from './services/roles';
 import { Spinner } from './components/Spinner';
+import { useRoleManifest } from './services/pwa';
 
 // The home page loads right away. Every other page is downloaded only when it is
 // opened, so a visitor on a phone gets the landing page much faster.
@@ -118,11 +119,19 @@ function PixelPageViews() {
   return null;
 }
 
+// The admin, a teacher or a parent installs their own app; the front desk uses the admin app.
+function RoleApp() {
+  const { user } = useAuth();
+  useRoleManifest(user?.role === 'receptionist' ? 'admin' : user?.role);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <PixelPageViews />
       <AuthProvider>
+        <RoleApp />
         <I18nProvider>
         <StudyProvider>
           <Suspense fallback={<PageLoading />}>

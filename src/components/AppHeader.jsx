@@ -10,6 +10,7 @@ import { useAuth } from '../context/AuthContext';
 import { describeAssignments } from '../services/teachers';
 import { LogoMark } from './Logo';
 import { useT, LanguageSwitch } from '../i18n';
+import { InstallNavItem } from './InstallApp';
 
 const ICON_BUTTON = 'h-10 w-10 grid place-items-center rounded-xl text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400';
 
@@ -211,6 +212,7 @@ function SideNav({ onSignOut, onNavigate }) {
               {({ isActive }) => (<><Building2 className={iconClass(isActive)} />{t('Institute profile')}</>)}
             </NavLink>
           )}
+          <InstallNavItem className={itemClass(false)} />
           <NavLink to="/settings" onClick={onNavigate} className={({ isActive }) => itemClass(isActive)}>
             {({ isActive }) => (<><Settings className={iconClass(isActive)} />{t('Settings')}</>)}
           </NavLink>

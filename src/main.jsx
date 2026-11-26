@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { registerServiceWorker } from './services/pwa'
 
 // A page opened before a new deploy asks for old page files that are gone. Reload once to get the new version.
 const RELOAD_KEY = 'edubuddy-reloaded'
@@ -17,6 +18,8 @@ window.addEventListener('vite:preloadError', (event) => {
 })
 // The app started, so a later stale file may trigger one more reload.
 setTimeout(() => { try { sessionStorage.removeItem(RELOAD_KEY) } catch { /* ignore */ } }, 10000)
+
+registerServiceWorker()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -10,6 +10,7 @@ import { NoteContent } from '../components/NoteContent';
 import { LogoMark } from '../components/Logo';
 import { Spinner } from '../components/Spinner';
 import { useT, LanguageSwitch } from '../i18n';
+import { InstallBanner } from '../components/InstallApp';
 
 /*
  * The parent panel. A parent signs in with their phone number and the PIN the institute gave them,
@@ -287,6 +288,7 @@ export default function ParentPanel() {
       </header>
 
       <main className="mx-auto max-w-3xl space-y-4 px-4 pt-5 pb-14">
+        <InstallBanner appName="EduBuddy Parent" />
         {data === null && !error ? (
           <div className="grid place-items-center py-24"><Spinner size="lg" /></div>
         ) : error ? (
