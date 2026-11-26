@@ -37,6 +37,19 @@
     src="https://www.facebook.com/tr?id=677875594676625&ev=PageView&noscript=1"
     /></noscript>
     <div id="root"></div>
+    <script>
+      // After a new deploy, a cached page may ask for script files that no longer exist.
+      // Reload once to fetch the current version instead of showing a blank page.
+      window.addEventListener('error', function (e) {
+        var el = e.target;
+        if (!el || (el.tagName !== 'SCRIPT' && el.tagName !== 'LINK')) return;
+        try {
+          if (sessionStorage.getItem('edubuddy-reloaded')) return;
+          sessionStorage.setItem('edubuddy-reloaded', '1');
+        } catch (err) { return; }
+        location.reload();
+      }, true);
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
