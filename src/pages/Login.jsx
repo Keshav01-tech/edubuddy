@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, GraduationCap, ArrowRight, Settings, AlertTriangle, Presentation, ShieldCheck, ConciergeBell, HeartHandshake, Phone } from 'lucide-react';
+import { Mail, Lock, GraduationCap, ArrowRight, AlertTriangle, Presentation, ShieldCheck, ConciergeBell, HeartHandshake, Phone } from 'lucide-react';
 import { Button } from '../components/Button';
 import { Alert } from '../components/Alert';
 import { SetupModal } from '../components/SetupModal';
@@ -93,14 +93,6 @@ export default function Login() {
       </section>
 
       <section className="relative min-h-screen bg-white/70 backdrop-blur-xl lg:border-l border-white flex items-center justify-center px-5 py-10">
-        <button
-          type="button"
-          onClick={() => setSettingsOpen(true)}
-          className="absolute top-4 right-4 p-2 rounded-lg text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
-          aria-label={t('Settings')}
-        >
-          <Settings className="w-4 h-4" />
-        </button>
         <LanguageSwitch className="absolute top-4 left-4" />
 
         <div className="w-full max-w-sm">
