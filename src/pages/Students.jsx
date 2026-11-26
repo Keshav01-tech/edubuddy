@@ -185,6 +185,14 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
         </div>
       )}
 
+      {shown.length > 0 && !fees.lines.some((l) => l.listed > 0) && (
+        <p className="sm:col-span-2 rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-900">
+          {t(lockBatches
+            ? 'No monthly fee is set for this batch yet. Ask the admin to add it on the Batches page; then you can give this student a discount here.'
+            : 'No monthly fee is set for this batch yet. Add it on the Batches page (edit the batch → Monthly fee) and the student’s fee adds up by itself.')}
+        </p>
+      )}
+
       {feeLines.length > 0 && (
         <div className="sm:col-span-2 rounded-2xl bg-neutral-50 p-3.5">
           <span className="block text-xs font-semibold text-neutral-700">
