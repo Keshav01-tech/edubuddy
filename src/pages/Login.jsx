@@ -40,10 +40,12 @@ export default function Login() {
   const switchRole = (next) => {
     setRole(next);
     setError('');
+    setPassword('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isParentLogin && email.replace(/\D/g, '').slice(-10).length !== 10) { setError(t('Enter the 10-digit mobile number.')); return; }
     setError('');
     setLoading(true);
 
@@ -161,22 +163,22 @@ export default function Login() {
               </div>
             </label>
 
+            {!isParentLogin && (
             <label className="block">
-              <span className="block text-xs font-medium text-neutral-500 mb-1.5">{t(isParentLogin ? 'PIN' : 'Password')}</span>
+              <span className="block text-xs font-medium text-neutral-500 mb-1.5">{t('Password')}</span>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-4 w-4 h-4 text-neutral-400" />
                 <input
                   type="password"
                   required
-                  inputMode={isParentLogin ? 'numeric' : undefined}
-                  maxLength={isParentLogin ? 6 : undefined}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder={isParentLogin ? '6-digit PIN' : '••••••••'}
+                  placeholder="••••••••"
                   className={fieldClass}
                 />
               </div>
             </label>
+            )}
 
             <Button type="submit" variant="primary" className="w-full h-11 mt-2" disabled={loading}>
               {loading ? t('Please wait…') : t('Sign in')}
@@ -189,7 +191,7 @@ export default function Login() {
               The database is not reachable, so nobody can sign in right now. Check MONGODB_URI on the server and try again.
             </p>
           )}
-          {!isSuperLogin && <p className="mt-6 text-sm text-neutral-500">{t(isParentLogin ? 'No PIN? Ask the institute to give you one.' : usesEmail ? 'No account? Ask your institute admin to add you.' : 'No account? Ask your super admin to create one.')}</p>}
+          {!isSuperLogin && <p className="mt-6 text-sm text-neutral-500">{t(isParentLogin ? 'Use the mobile number you gave the institute.' : usesEmail ? 'No account? Ask your institute admin to add you.' : 'No account? Ask your super admin to create one.')}</p>}
 
           <button
             type="button"

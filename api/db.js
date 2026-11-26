@@ -74,9 +74,9 @@ function parentUser(phone, instituteId, children) {
   };
 }
 
-// A parent's children: every student of the institute saved with this phone number and given a parent PIN.
+// A parent's children: every student of the institute saved with this phone number.
 const childrenOf = (db, instituteId, phone) =>
-  db.collection('students').find({ instituteId, phoneKey: phone, parentPinHash: { $exists: true } }).toArray();
+  db.collection('students').find({ instituteId, phoneKey: phone }).toArray();
 
 /** The signed-in user from the request, re-checked against the database. */
 async function sessionOf(req, db) {
@@ -100,7 +100,7 @@ async function sessionOf(req, db) {
   }
   if (token.role === 'parent') {
     const children = await childrenOf(db, token.instituteId, token.phone);
-    if (!children.length) throw new HttpError(401, 'This parent login was removed. Ask the institute for a new PIN.');
+    if (!children.length) throw new HttpError(401, 'This number is no longer registered with the institute.');
     return { role: 'parent', instituteId: token.instituteId, phone: token.phone, children, user: parentUser(token.phone, token.instituteId, children) };
   }
   throw new HttpError(401, 'Please sign in again.');
@@ -173,10 +173,10 @@ async function checkLogin(db, role, id, password) {
   if (role === 'parent') {
     const phone = phoneKey(id);
     if (phone.length !== 10) throw new HttpError(401, 'Enter the 10-digit phone number the institute has for your child.');
-    const matches = await db.collection('students').find({ phoneKey: phone, parentPinHash: { $exists: true } }).toArray();
-    if (!matches.length) throw new HttpError(401, 'No student with this phone number has a parent PIN yet. Ask the institute.');
-    const child = matches.find((s) => verifyPassword(password, s.parentPinHash));
-    if (!child) throw new HttpError(401, 'Wrong PIN.');
+    const matches = await db.collection('students').find({ phoneKey: phone }).toArray();
+    if (!matches.length) throw new HttpError(401, 'This number is not registered with any institute. Ask the institute to add it.');
+    // A number saved at more than one institute opens the most recently joined one.
+    const child = matches.sort((a, b) => String(b.joinedAt || b.createdAt || '').localeCompare(String(a.joinedAt || a.createdAt || '')))[0];
     const children = matches.filter((s) => s.instituteId === child.instituteId);
     return { token: signToken({ role: 'parent', phone, instituteId: child.instituteId }), user: parentUser(phone, child.instituteId, children) };
   }

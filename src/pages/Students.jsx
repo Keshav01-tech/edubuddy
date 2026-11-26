@@ -34,13 +34,10 @@ export function MediumTag() {
   return <span className="ml-1.5 inline-flex items-center rounded-md bg-amber-50 px-1.5 py-0.5 align-middle text-[10.5px] font-semibold text-amber-800 ring-1 ring-amber-200" lang="hi">{t('Hindi medium')}</span>;
 }
 
-export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false, parentAccess = false }) {
+export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatches = false }) {
   const { t } = useT();
   // Teachers cannot see or change a saved phone number; they can only give one for a new student.
   const hidePhone = lockBatches && !!initial;
-  // A new parent app PIN (6 digits). Blank keeps the PIN the parent already has.
-  const [pin, setPin] = useState('');
-  const [pinError, setPinError] = useState('');
   const startClass = initial?.className || classes[0]?.name || '';
   const firstBatches = (name) => {
     const item = classes.find((c) => c.name === name);
@@ -80,9 +77,6 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
     event.preventDefault();
     if (!form.name.trim() || needsBatch) return;
     if (lockBatches && !chosen) return;
-    if (pin && !/^\d{6}$/.test(pin)) { setPinError(t('The PIN must be 6 digits.')); return; }
-    if (pin && form.phone.replace(/\D/g, '').length < 10) { setPinError(t('Add the 10-digit parent phone first. The parent signs in with it.')); return; }
-    setPinError('');
     onSave({
       name: form.name.trim(),
       className: form.className.trim(),
@@ -91,9 +85,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
       // Teachers do not handle fees, so their form leaves them out.
       ...(lockBatches ? {} : { fee: Number(form.fee) || 0, feeDate: form.feeDate }),
       medium: form.medium || mediumOfBatches || 'en',
-      ...(parentAccess && pin ? { parentPin: pin, hasParentPin: true } : {}),
     });
-    setPin('');
     if (!initial) {
       setForm({ name: '', className: form.className, batches: firstBatches(form.className), phone: '', fee: form.fee, feeDate: '', medium: form.medium });
     }
@@ -232,27 +224,6 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
             onChange={set('feeDate')}
             aria-label="Fee due date"
           />
-        </label>
-      )}
-
-      {parentAccess && (
-        <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs font-medium text-neutral-600">
-            {t('Parent app PIN')}{' '}
-            <span className="font-normal text-neutral-400">
-              · {initial?.hasParentPin ? t('a PIN is set. Type a new one to change it.') : t('6 digits. The parent signs in with their phone and this PIN.')}
-            </span>
-          </span>
-          <input
-            className={field}
-            value={pin}
-            onChange={(e) => { setPinError(''); setPin(e.target.value.replace(/\D/g, '').slice(0, 6)); }}
-            placeholder={initial?.hasParentPin ? '••••••' : '482913'}
-            inputMode="numeric"
-            autoComplete="off"
-            aria-label={t('Parent app PIN')}
-          />
-          {pinError && <span className="mt-1 block text-xs text-rose-600" role="alert">{pinError}</span>}
         </label>
       )}
 
@@ -592,7 +563,6 @@ export default function Students() {
               onCancel={() => setShowAddForm(false)}
               classes={room.classes}
               lockBatches={room.isTeacher}
-              parentAccess={!room.isTeacher}
             />
           </section>
         )}
@@ -1012,7 +982,6 @@ export default function Students() {
                 initial={editingStudent}
                 classes={room.classes}
                 lockBatches={room.isTeacher}
-                parentAccess={!room.isTeacher}
                 onSave={(patch) => {
                   room.updateStudent(editingStudent.id, patch);
                   setEditingStudent(null);

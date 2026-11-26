@@ -68,8 +68,8 @@ export const AuthProvider = ({ children }) => {
   const signInAsTeacher = (email, password) => signInAs('teacher', email, password);
   const signInAsReceptionist = (email, password) => signInAs('receptionist', email, password);
   const signInAsSuperAdmin = (loginId, password) => signInAs('superadmin', loginId, password);
-  // Parents sign in with their child's phone number and the 6-digit PIN the institute gave them.
-  const signInAsParent = (phone, pin) => signInAs('parent', phone, pin);
+  // Parents sign in with just the phone number the institute saved for their child.
+  const signInAsParent = (phone) => signInAs('parent', phone, '');
 
   const signOut = async () => {
     resetClassroomStores(); // sends anything still waiting before the token goes
