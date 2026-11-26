@@ -47,6 +47,43 @@ export function monthlyFee(student, classes) {
   return { lines, total: lines.reduce((sum, l) => sum + l.fee, 0), priced };
 }
 
+/* ───────── monthly dues ───────── */
+// A student on batch fees is billed every month: `fee` holds the monthly amount and `feeFrom` ("YYYY-MM") the first
+// month billed. Each month adds one month's fee on its 1st; it falls due on the day of `feeDate` (default the 10th).
+
+const DEFAULT_DUE_DAY = 10;
+const pad = (n) => String(n).padStart(2, '0');
+
+/** Months billed from `from` ("YYYY-MM" or a date) up to and including today's month; at least 1. */
+export function monthsBilled(from, today) {
+  const [fy, fm] = String(from || today).slice(0, 7).split('-').map(Number);
+  const [ty, tm] = String(today).slice(0, 7).split('-').map(Number);
+  if (!fy || !fm) return 1;
+  return Math.max(1, (ty - fy) * 12 + (tm - fm) + 1);
+}
+
+/**
+ * What a student has been charged so far and when the oldest unpaid month falls due.
+ * Students with one fixed fee (not monthly) are returned as they are.
+ */
+export function feeStatus(student, paid, today) {
+  const monthly = Number(student?.fee) || 0;
+  if (student?.billing !== 'monthly' || !monthly) return { fee: monthly, feeDate: student?.feeDate || '', monthly: 0, months: 0 };
+  const from = String(student.feeFrom || student.createdAt || today).slice(0, 7);
+  const months = monthsBilled(from, today);
+  const charged = monthly * months;
+  const day = Math.min(28, Number(String(student.feeDate || '').slice(8, 10)) || DEFAULT_DUE_DAY);
+  // The first month not fully paid; its due day is the date shown (none when everything is paid).
+  const paidMonths = Math.floor((Number(paid) || 0) / monthly);
+  let feeDate = '';
+  if (paidMonths < months) {
+    const [y, m] = from.split('-').map(Number);
+    const at = new Date(Date.UTC(y, m - 1 + paidMonths, 1));
+    feeDate = `${at.getUTCFullYear()}-${pad(at.getUTCMonth() + 1)}-${pad(day)}`;
+  }
+  return { fee: charged, feeDate, monthly, months };
+}
+
 /** Keeps only valid amounts for batches the student is in. */
 export function cleanBatchFees(student) {
   const sections = new Set(studentBatches(student).length ? studentBatches(student) : ['']);

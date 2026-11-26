@@ -283,7 +283,7 @@ export function StudentForm({ initial, onSave, onCancel, classes = [], lockBatch
 
       {!lockBatches && (
         <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs font-medium text-neutral-600">{t('Fee due date')}</span>
+          <span className="mb-1 block text-xs font-medium text-neutral-600">{t(fees.priced ? 'Fee due date (same day every month)' : 'Fee due date')}</span>
           <input
             type="date"
             className={field}

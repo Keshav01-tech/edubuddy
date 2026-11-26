@@ -291,6 +291,8 @@ const hi = {
   "Batch fee": "बैच फीस",
   "off": "छूट",
   "Total per month": "हर महीने कुल",
+  "month": "महीना",
+  "Fee due date (same day every month)": "फीस की तारीख (हर महीने इसी दिन)",
   "No PIN? Ask the institute to give you one.": "पिन नहीं है? संस्थान से पिन माँगें।",
   "Present": "उपस्थित",
   "Absent": "अनुपस्थित",

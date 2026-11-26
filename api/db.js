@@ -18,7 +18,7 @@
 import { getDb, isConfigured } from './_lib/db.js';
 import { hashPassword, verifyPassword, sha256, signToken, readToken, bearer } from './_lib/auth.js';
 import { SUPER_ADMIN } from '../src/services/admins.js';
-import { teachesBatch, teachesStudent, studentBatches, batchFee, monthlyFee, cleanBatchFees } from '../src/services/batchRules.js';
+import { teachesBatch, teachesStudent, studentBatches, batchFee, monthlyFee, cleanBatchFees, feeStatus } from '../src/services/batchRules.js';
 
 const clean = (value) => String(value || '').trim().toLowerCase();
 const today = () => new Date().toISOString().slice(0, 10);
@@ -456,7 +456,11 @@ async function sync(db, session, body) {
           }
           set.batchFees = cleanBatchFees({ ...existing, ...doc, batchFees: merged });
           const fee = monthlyFee({ ...existing, ...set }, classes);
-          if (fee.priced) set.fee = fee.total;
+          if (fee.priced) {
+            set.fee = fee.total;
+            set.billing = 'monthly';
+            set.feeFrom = existing?.feeFrom || today().slice(0, 7);
+          }
         } else if (doc.batchFees !== undefined) {
           set.batchFees = cleanBatchFees(doc);
         }
@@ -677,7 +681,10 @@ async function parentLoad(db, session) {
 
     return {
       id: child.id, name: child.name, className: child.className, batches: studentBatches(child),
-      fee: Number(child.fee) || 0, feeDate: child.feeDate || '',
+      // A monthly student's fee is what has been charged so far.
+      ...(({ fee, feeDate, monthly, months }) => ({ fee, feeDate, monthlyFee: monthly, monthsBilled: months }))(
+        feeStatus(child, payments.filter((p) => p.studentId === child.id).reduce((sum, p) => sum + (Number(p.amount) || 0), 0), today()),
+      ),
       attendance: days, tests: marks,
       // Questions only: the correct answers stay on the server until the quiz is submitted.
       quizzes: quizzes.filter((q) => reaches(child, q.className, q.section)).map((q) => {

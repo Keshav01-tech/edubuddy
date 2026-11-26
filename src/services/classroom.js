@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { teachesBatch, teachesStudent, studentBatches, batchKey } from './teachers';
 import { callDb, getToken } from './cloud';
-import { monthlyFee, cleanBatchFees } from './batchRules';
+import { monthlyFee, cleanBatchFees, feeStatus } from './batchRules';
 
 // An institute's students, batches, attendance, fees and leads. Always loaded from and saved to
 // MongoDB through api/db.js; nothing is kept in the browser.
@@ -335,11 +335,21 @@ export function useClassroom() {
     const batchFees = cleanBatchFees(student);
     if (isTeacher) return { ...student, batchFees };
     const fee = monthlyFee({ ...student, batchFees }, classes);
-    return fee.priced ? { ...student, batchFees, fee: fee.total } : { ...student, batchFees };
+    // Batch fees are monthly: billing starts the month the student first has one.
+    return fee.priced
+      ? { ...student, batchFees, fee: fee.total, billing: 'monthly', feeFrom: student.feeFrom || todayISO().slice(0, 7) }
+      : { ...student, batchFees, ...(student.billing === 'monthly' ? { billing: 'fixed' } : {}) };
   };
 
   // Every student carries a `batches` list; `section` mirrors the first one for older screens.
-  const allStudents = data.students.map((s) => {
+  // Paid so far by each student, for monthly dues.
+  const paidById = new Map();
+  (data.payments || []).forEach((p) => paidById.set(p.studentId, (paidById.get(p.studentId) || 0) + (Number(p.amount) || 0)));
+  const today = todayISO();
+  const allStudents = data.students.map((raw) => {
+    // A monthly student shows what has been charged so far as `fee`, and the oldest unpaid month's due date.
+    const due = isTeacher ? null : feeStatus(raw, paidById.get(raw.id), today);
+    const s = due?.monthly ? { ...raw, fee: due.fee, feeDate: due.feeDate, monthlyFee: due.monthly, monthsBilled: due.months } : raw;
     const batches = studentBatches(s);
     // A number a teacher typed for a new student is saved, but not shown back to them.
     const { phone, fee: _fee, feeDate: _feeDate, ...teacherView } = s;

@@ -165,7 +165,11 @@ function Fees({ child }) {
   return (
     <>
       <div className="mb-4 grid grid-cols-3 gap-2">
-        <div className="rounded-2xl bg-neutral-50 p-3"><p className="text-xs text-neutral-500">{t('Total fee')}</p><p className="text-base font-semibold tabular-nums">{formatMoney(child.fee)}</p></div>
+        <div className="rounded-2xl bg-neutral-50 p-3">
+          <p className="text-xs text-neutral-500">{t('Total fee')}</p>
+          <p className="text-base font-semibold tabular-nums">{formatMoney(child.fee)}</p>
+          {child.monthlyFee > 0 && <p className="text-[11px] text-neutral-500 tabular-nums">{formatMoney(child.monthlyFee)}/{t('month')} × {child.monthsBilled}</p>}
+        </div>
         <div className="rounded-2xl bg-neutral-50 p-3"><p className="text-xs text-neutral-500">{t('Paid')}</p><p className="text-base font-semibold tabular-nums text-[#17784a]">{formatMoney(paid)}</p></div>
         <div className={`rounded-2xl p-3 ${overdue ? 'bg-rose-50' : 'bg-neutral-50'}`}>
           <p className="text-xs text-neutral-500">{t('Balance')}</p>

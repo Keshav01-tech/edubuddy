@@ -110,7 +110,9 @@ function ReceiptView({ payment, student, institute, school, paidTotal, classes =
         </div>
         {student?.fee > 0 && (
           <p className="mt-2 text-xs text-neutral-500 text-right">
-            Total fee {formatMoney(student.fee)} · Paid so far {formatMoney(paidTotal)} · Balance {formatMoney(due)}
+            {student.monthlyFee > 0
+              ? <>Monthly fee {formatMoney(student.monthlyFee)} × {student.monthsBilled} = {formatMoney(student.fee)}</>
+              : <>Total fee {formatMoney(student.fee)}</>} · Paid so far {formatMoney(paidTotal)} · Balance {formatMoney(due)}
           </p>
         )}
         <div className="mt-8 flex justify-end">
@@ -400,7 +402,10 @@ export default function Fees() {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="px-3 py-3 text-sm text-right tabular-nums text-neutral-700">{student.fee ? formatMoney(student.fee) : '—'}</td>
+                                <td className="px-3 py-3 text-sm text-right tabular-nums text-neutral-700">
+                                  {student.fee ? formatMoney(student.fee) : '—'}
+                                  {student.monthlyFee > 0 && <span className="block text-[11px] text-neutral-400">{formatMoney(student.monthlyFee)}/month · {student.monthsBilled} {student.monthsBilled === 1 ? 'month' : 'months'}</span>}
+                                </td>
                                 <td className="px-3 py-3">
                                   {student.fee ? (
                                     <>
@@ -478,6 +483,7 @@ export default function Fees() {
                                 </span>
                                 <span className="block text-xs text-neutral-500 truncate">
                                   {describeStudentBatches(student, room.classes) || 'No class'}
+                                  {student.monthlyFee > 0 && <> · {formatMoney(student.monthlyFee)}/month</>}
                                   {due > 0 && student.feeDate ? <span className={lateNow ? 'font-semibold text-neutral-700' : ''}> · {lateNow ? 'Late since' : 'Due'} {formatDate(student.feeDate)}</span> : ''}
                                 </span>
                               </button>
