@@ -10,9 +10,9 @@ function readBody(req) {
   })
 }
 
-// Local stand-in for the Vercel /api/whatsapp and /api/calls routes: runs the real handler with a small req/res shim.
+// Local stand-in for the Vercel /api/whatsapp route: runs the real handler with a small req/res shim.
 function apiDev() {
-  const routes = { '/api/whatsapp': '/api/whatsapp.js', '/api/calls': '/api/calls.js' }
+  const routes = { '/api/whatsapp': '/api/whatsapp.js' }
   return {
     name: 'api-dev',
     configureServer(server) {
@@ -78,7 +78,7 @@ export default defineConfig(({ mode }) => {
   if (env.MONGODB_URI) process.env.MONGODB_URI = env.MONGODB_URI
   if (env.MONGODB_DB) process.env.MONGODB_DB = env.MONGODB_DB
   if (env.AUTH_SECRET) process.env.AUTH_SECRET = env.AUTH_SECRET
-  // Twilio keys for WhatsApp messages and fee calls, read by the api/ handlers.
+  // Twilio keys for WhatsApp absence alerts, read by api/whatsapp.js.
   Object.keys(env).filter((k) => k.startsWith('TWILIO_') || k === 'PUBLIC_BASE_URL').forEach((k) => { process.env[k] = env[k] })
   // Receipt photos are read on the server with this key.
   if (env.OPENAI_API_KEY || env.VITE_OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY || env.VITE_OPENAI_API_KEY

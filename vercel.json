@@ -21,12 +21,6 @@
       "destination": "/index.html"
     }
   ],
-  "crons": [
-    {
-      "path": "/api/calls",
-      "schedule": "0 6 * * *"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -30,15 +30,13 @@ const ScanReceipt = lazy(() => import('./pages/ScanReceipt'));
 const Marks = lazy(() => import('./pages/Marks'));
 const Notes = lazy(() => import('./pages/Notes'));
 const Quizzes = lazy(() => import('./pages/Quizzes'));
-const Messages = lazy(() => import('./pages/Messages'));
-const FeeCalls = lazy(() => import('./pages/FeeCalls'));
 const ParentPanel = lazy(() => import('./pages/ParentPanel'));
 
 // The marketing home page is a static page (public/home.html, built with the kit in public/kit) so phones load it
 // without the app's JavaScript. Vercel serves it at "/"; a link inside the app to "/" loads it the same way.
 function StaticHome() {
   useEffect(() => {
-    window.location.replace(import.meta.env.DEV ? '/home.html' : '/');
+    window.location.replace('/home.html');
   }, []);
   return null;
 }
@@ -146,11 +144,9 @@ export default function App() {
             <Route path="/quizzes" element={<StaffRoute><Quizzes /></StaffRoute>} />
             <Route path="/parent" element={<ParentRoute><ParentPanel /></ParentRoute>} />
             <Route path="/scan-receipt" element={<ReceiptRoute><ScanReceipt /></ReceiptRoute>} />
-            <Route path="/messages" element={<StaffRoute><Messages /></StaffRoute>} />
             <Route path="/attendance" element={<StaffRoute><Attendance /></StaffRoute>} />
             <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
             <Route path="/classes" element={<StaffRoute><Classes /></StaffRoute>} />
-            <Route path="/fee-calls" element={<ReceiptRoute><FeeCalls /></ReceiptRoute>} />
             <Route path="/fees" element={<ReceiptRoute><Fees /></ReceiptRoute>} />
             <Route path="/teachers" element={<AdminRoute><Teachers /></AdminRoute>} />
             <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
