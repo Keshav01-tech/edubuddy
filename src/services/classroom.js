@@ -496,10 +496,15 @@ export function useClassroom() {
      * one subject by one teacher, at one time, in one room.
      * `original` is { className, section } when editing an existing batch.
      */
-    saveBatch: adminOnly(({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', medium = 'en', fee = 0, original = null }) => {
+    // A teacher may create batches for themselves and edit their own (not rename them or change who teaches them).
+    saveBatch: isReceptionist ? () => {} : ({ className, section, days = [], start = '', end = '', subject = '', room = '', teacherId = '', medium = 'en', fee = 0, original = null }) => {
       const cls = String(className || '').trim();
       const sec = String(section || '').trim();
       if (!cls) return;
+      if (isTeacher) {
+        if (original && (original.className !== cls || original.section !== sec)) return;
+        if (original && !teachesBatch(teacher, original.className, original.section)) return;
+      }
       update((d) => {
         let classes = [...(d.classes || [])];
         let students = d.students;
@@ -538,7 +543,14 @@ export function useClassroom() {
         const monthly = Math.max(0, Math.round(Number(fee)) || 0);
         timings[sec] = { days, start, end, subject: String(subject).trim(), room: String(room).trim(), medium: medium === 'hi' ? 'hi' : 'en', fee: monthly };
         classes = classes.map((c) => (c.id === item.id ? { ...item, sections, timings } : c));
-        // A new batch fee changes the monthly total of everyone in the class.
+        // A new batch fee changes the monthly total of everyone in the class (for a teacher, the server does this).
+        if (isTeacher) {
+          const me = teachers.find((t) => t.id === teacher.id);
+          if (me && !teachesBatch(me, name, sec)) {
+            teachers = teachers.map((t) => (t.id === me.id ? { ...t, assignments: [...(t.assignments || []), { className: name, section: sec }] } : t));
+          }
+          return { classes, teachers };
+        }
         students = students.map((st) => (st.className === name ? priced(st, classes) : st));
 
         // The chosen teacher takes this batch; any other teacher stops taking it.
@@ -560,7 +572,7 @@ export function useClassroom() {
         });
         return { classes, students, teachers };
       });
-    }),
+    },
 
     // Returns false when a teacher picks a batch they cannot use.
     addStudent: (student) => {

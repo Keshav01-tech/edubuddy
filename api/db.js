@@ -375,6 +375,37 @@ async function checkTeacherWrite(db, session, collection, doc, existing) {
     doc.scores = { ...scores, ...hidden };
     return;
   }
+  if (collection === 'classes') {
+    // A teacher may add new batches and edit the batches they teach (time, room, subject, fee).
+    // Every other batch of the class must stay exactly as it was, and no batch may be removed.
+    const before = existing || { name: doc.name, sections: [], timings: {} };
+    if (existing && doc.name !== existing.name) throw new HttpError(403, 'Only the admin can rename a class.');
+    const sections = Array.isArray(doc.sections) ? doc.sections : [];
+    const same = (a, b) => JSON.stringify(a || {}) === JSON.stringify(b || {});
+    for (const section of before.sections || []) {
+      if (!sections.includes(section)) throw new HttpError(403, 'Only the admin can remove a batch.');
+      if (!teachesBatch(me, before.name, section) && !same(doc.timings?.[section], before.timings?.[section])) {
+        throw new HttpError(403, 'You can only change your own batches.');
+      }
+    }
+    // Batches this save creates; the teacher may add themselves to these.
+    sections.filter((s) => !(before.sections || []).includes(s)).forEach((s) => session.newBatches.add(`${doc.name}||${s}`));
+    return;
+  }
+  if (collection === 'teachers') {
+    // A teacher's own record changes only by adding the batches they just created.
+    if (!existing || doc.id !== me.id) throw new HttpError(403, 'Only the institute admin can change this.');
+    const had = existing.assignments || [];
+    const key = (a) => `${a.className}||${a.section || ''}`;
+    const added = (doc.assignments || []).filter((a) => !had.some((h) => key(h) === key(a)));
+    if (added.some((a) => !session.newBatches.has(key(a)))) throw new HttpError(403, 'Only the admin can assign you to an existing batch.');
+    const kept = had.filter((h) => (doc.assignments || []).some((a) => key(a) === key(h)));
+    if (kept.length !== had.length) throw new HttpError(403, 'Only the admin can take you off a batch.');
+    const { _id, instituteId: _i, passwordHash: _p, ...rest } = existing;
+    Object.keys(doc).forEach((k) => delete doc[k]);
+    Object.assign(doc, rest, { assignments: [...had, ...added.map((a) => ({ className: a.className, section: a.section || '' }))] });
+    return;
+  }
   throw new HttpError(403, 'Only the institute admin can change this.');
 }
 
@@ -390,6 +421,9 @@ async function sync(db, session, body) {
   // The institute's batches, read once when a teacher's save needs their fees.
   let classList = null;
   const classesNow = async () => (classList ||= await db.collection('classes').find({ instituteId }).toArray());
+  // Batches a teacher creates in this save, and classes whose batch fees may have changed.
+  session.newBatches = new Set();
+  const repriced = new Set();
 
   if (body.institute) {
     if (teacher) {
@@ -429,8 +463,10 @@ async function sync(db, session, body) {
       const set = { ...doc, instituteId, updatedAt: new Date() };
       if (WITH_PASSWORD.includes(name)) {
         set.email = clean(doc.email);
-        if (password) set.passwordHash = hashPassword(password);
+        // Only the admin sets passwords.
+        if (password && !teacher) set.passwordHash = hashPassword(password);
       }
+      if (name === 'classes') repriced.add(doc.name);
       if (name === 'students') {
         // The parent signs in with this phone number and the PIN; only the admin and the front desk set the PIN.
         // Fees are set by the admin and the front desk; a teacher's save leaves them as they are.
@@ -482,6 +518,7 @@ async function sync(db, session, body) {
     for (const id of (change.deletes || []).slice(0, 2000)) {
       const _key = docId(instituteId, id);
       if (teacher) {
+        if (name === 'classes' || name === 'teachers') throw new HttpError(403, 'Only the admin can delete batches or teachers.');
         const existing = await col.findOne({ _id: _key });
         if (!existing) continue;
         await checkTeacherWrite(db, session, name, existing, existing);
@@ -493,6 +530,19 @@ async function sync(db, session, body) {
       await col.bulkWrite(ops, { ordered: false });
       written += ops.length;
     }
+  }
+  // A changed batch fee changes the monthly fee of every student on batch fees in that class.
+  if (repriced.size) {
+    classList = null;
+    const classes = await classesNow();
+    const students = await db.collection('students').find({ instituteId, className: { $in: [...repriced] } }).toArray();
+    const ops = [];
+    for (const st of students) {
+      const fee = monthlyFee(st, classes);
+      if (!fee.priced || (st.billing === 'monthly' && st.fee === fee.total)) continue;
+      ops.push({ updateOne: { filter: { _id: st._id }, update: { $set: { fee: fee.total, billing: 'monthly', feeFrom: st.feeFrom || today().slice(0, 7) } } } });
+    }
+    if (ops.length) await db.collection('students').bulkWrite(ops, { ordered: false });
   }
   return { ok: true, written };
 }

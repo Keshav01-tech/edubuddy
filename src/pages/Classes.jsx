@@ -79,10 +79,12 @@ const Missing = ({ children }) => <span className="text-sm font-medium text-ambe
 
 function BatchForm({ room, rows, initial, onClose }) {
   const editing = !!initial;
+  // A teacher creates batches for themselves and edits their own; they cannot rename, reassign or delete one.
+  const asTeacher = room.isTeacher;
   const [classChoice, setClassChoice] = useState(initial?.className || room.classes[0]?.name || NEW_CLASS);
   const [newClass, setNewClass] = useState('');
   const [section, setSection] = useState(initial?.section || '');
-  const [teacherId, setTeacherId] = useState(initial?.teachers?.[0]?.id || '');
+  const [teacherId, setTeacherId] = useState(asTeacher ? room.teacher?.id || '' : initial?.teachers?.[0]?.id || '');
   const [subject, setSubject] = useState(initial?.subject || '');
   const [roomName, setRoomName] = useState(initial?.room || '');
   const [days, setDays] = useState(initial?.timing?.days || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
@@ -180,7 +182,9 @@ function BatchForm({ room, rows, initial, onClose }) {
             </div>
             <label className="block">
               <span className={label}>Batch name</span>
-              <input className={field} value={section} onChange={(e) => setSection(e.target.value)} placeholder="A Morning" required />
+              {editing && asTeacher
+                ? <p className={`${field} flex items-center bg-neutral-50 text-neutral-700`}>{initial.section}</p>
+                : <input className={field} value={section} onChange={(e) => setSection(e.target.value)} placeholder="A Morning" required />}
             </label>
           </div>
           {!editing && classChoice === NEW_CLASS && (
@@ -191,7 +195,9 @@ function BatchForm({ room, rows, initial, onClose }) {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <span className={label}>Teacher</span>
-              {room.teachers.length === 0 ? (
+              {asTeacher ? (
+                <p className={`${field} flex items-center bg-neutral-50 text-neutral-700`}>You</p>
+              ) : room.teachers.length === 0 ? (
                 <p className="text-sm text-neutral-500 pt-2"><Link to="/teachers" className="font-semibold text-[#005a9c] hover:underline">Add a teacher</Link> first.</p>
               ) : (
                 <Picker
@@ -268,7 +274,7 @@ function BatchForm({ room, rows, initial, onClose }) {
         </div>
 
         <div className="mt-6 flex items-center gap-2">
-          {editing && (
+          {editing && !asTeacher && (
             <button type="button" onClick={remove} className="h-11 px-4 rounded-xl text-sm font-medium text-rose-700 hover:bg-rose-50 inline-flex items-center gap-1.5">
               <Trash2 className="w-4 h-4" /> Delete
             </button>
@@ -438,20 +444,20 @@ export default function Classes() {
           <div className="min-w-0">
             <h1 className="text-2xl font-medium tracking-tight text-neutral-900">{teacherView ? 'My batches' : 'Batches'}</h1>
             <p className="mt-0.5 text-sm text-neutral-500">
-              {teacherView ? 'Your batches, by time. Add students to any of them.' : 'Who teaches what, when and where. One batch = one teacher, one subject, one time.'}
+              {teacherView ? 'Your batches, by time. Create a batch, set its monthly fee and add students.' : 'Who teaches what, when and where. One batch = one teacher, one subject, one time.'}
             </p>
           </div>
-          {!teacherView && (
+          <div className="flex shrink-0 gap-2">
+            {teacherView && allRows.length > 0 && (
+              <Link to="/students" className="h-11 px-4 rounded-xl bg-white ring-1 ring-neutral-200 text-neutral-800 text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-neutral-50">
+                <UserPlus className="w-4 h-4" /> Add student
+              </Link>
+            )}
             <button type="button" onClick={() => setForm('new')}
-              className="h-11 px-4 shrink-0 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d] shadow-sm">
+              className="h-11 px-4 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d] shadow-sm">
               <Plus className="w-4 h-4" /> New batch
             </button>
-          )}
-          {teacherView && allRows.length > 0 && (
-            <Link to="/students" className="h-11 px-4 shrink-0 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d] shadow-sm">
-              <UserPlus className="w-4 h-4" /> Add student
-            </Link>
-          )}
+          </div>
         </div>
 
         {allRows.length === 0 && (
@@ -459,8 +465,11 @@ export default function Classes() {
             <span className="mx-auto h-16 w-16 rounded-full grid place-items-center bg-[#f1f1f1] text-[#005a9c]"><GraduationCap className="w-7 h-7" /></span>
             {teacherView ? (
               <>
-                <h2 className="mt-4 text-lg font-medium text-neutral-900">No batches assigned to you yet</h2>
-                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">Only your institute admin can create batches. Ask them to give you one.</p>
+                <h2 className="mt-4 text-lg font-medium text-neutral-900">No batches yet</h2>
+                <p className="mt-1.5 text-sm text-neutral-500 max-w-md mx-auto">Create your first batch with its time and monthly fee, or ask your admin to give you one.</p>
+                <button type="button" onClick={() => setForm('new')} className="mt-5 h-11 px-5 rounded-xl bg-[#005a9c] text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:bg-[#1b365d]">
+                  <Plus className="w-4 h-4" /> Create a batch
+                </button>
               </>
             ) : (
               <>
@@ -520,7 +529,7 @@ export default function Classes() {
                       <th className="px-3 py-2.5">Teacher</th>
                       <th className="px-3 py-2.5">Room</th>
                       <th className="px-3 py-2.5 text-right">Students</th>
-                      {!teacherView && <th className="pr-4 py-2.5 w-12"><span className="sr-only">Edit</span></th>}
+                      <th className="pr-4 py-2.5 w-12"><span className="sr-only">Edit</span></th>
                     </tr>
                   </thead>
                   {slots.map((slot) => (
@@ -558,7 +567,7 @@ export default function Classes() {
                           <td className="px-3 py-3 text-sm text-right tabular-nums">
                             <span className="font-semibold text-neutral-900">{row.students.length}</span>
                           </td>
-                          {!teacherView && (
+                          {(
                             <td className="pr-4 py-2 text-right">
                               <button type="button" onClick={() => setForm(row)} aria-label={`Edit ${row.className} ${batchLabel(row.section)}`}
                                 className="h-9 w-9 inline-grid place-items-center rounded-lg text-neutral-400 opacity-60 group-hover:opacity-100 hover:bg-white hover:text-neutral-900 hover:shadow-sm transition">
@@ -584,7 +593,7 @@ export default function Classes() {
                           <li key={row.key} className="px-4 py-3">
                             <div className="flex items-center justify-between gap-2">
                               <ClassTag row={row} color={colorFor(row.className)} />
-                              {!teacherView && (
+                              {(
                                 <button type="button" onClick={() => setForm(row)} aria-label={`Edit ${row.className} ${batchLabel(row.section)}`}
                                   className="h-9 w-9 shrink-0 -mr-2 grid place-items-center rounded-lg text-neutral-500 hover:bg-neutral-100"><Pencil className="w-4 h-4" /></button>
                               )}
@@ -621,9 +630,9 @@ export default function Classes() {
                 <section className="bg-white rounded-3xl shadow-card p-5">
                   <div className="mb-3 flex items-baseline justify-between gap-2">
                     <h2 className="text-base font-semibold text-neutral-900 inline-flex items-center gap-2"><DoorOpen className="w-4 h-4 text-[#005a9c]" /> Room plan</h2>
-                    <span className="text-xs text-neutral-400">{teacherView ? 'tap a batch' : 'click a batch to edit'}</span>
+                    <span className="text-xs text-neutral-400">click a batch to edit</span>
                   </div>
-                  <RoomSchedule rows={rows} colorFor={colorFor} onOpen={teacherView ? null : setForm} />
+                  <RoomSchedule rows={rows} colorFor={colorFor} onOpen={setForm} />
                 </section>
 
                 {!teacherView && (
